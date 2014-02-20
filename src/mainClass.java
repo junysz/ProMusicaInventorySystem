@@ -4,6 +4,10 @@ import View.*;
 //import Model.*;
 //import Controller.*;
 
+/*Test comment
+ * can You see this
+ */
+
 
 public class mainClass {
 	public static void main(String[] args) {
