@@ -1,6 +1,8 @@
 import java.awt.EventQueue;
 
-import View.MainFrame;
+import View.*;
+import Model.*;
+import Controller.*;
 
 
 public class mainClass {
