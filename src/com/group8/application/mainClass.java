@@ -1,15 +1,15 @@
+package com.group8.application;
 import java.awt.EventQueue;
 
-import View.*;
-//import Model.*;
-//import Controller.*;
+import com.group8.view.*;
+
 
 /*Test comment
  * can You see this
  */
-
+//////
 /*
- * Test Number 2 ofcourse i can!
+ * Saturday update 22.03.14
  */
 
 
