@@ -13,6 +13,7 @@ import javax.swing.border.TitledBorder;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 
 
@@ -20,7 +21,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	private JTextField enterUsernameTF, enterPasswordTF1, enterPasswordTF2, editUsernameTF;
 	private JPanel MaintainAccountPanel, newAccountPanel, editAccountPanel, MaintainCategoriesPanel, MaintainItemPanel;
 	private JLabel lblUserName, lblPassword, lblConfirmPassword, lblSelectType, errorLabel1,errorLabel2, lblSelectAccount, lblUsername, lblSelectType_1, lblStatus;
-	private JComboBox selectAccountTypeComboBox, selectAccountComboBox, selectAccountTypeEditComboBox;
+	private JComboBox<String> selectAccountTypeComboBox, selectAccountComboBox, selectAccountTypeEditComboBox;
 	private JRadioButton rdbtnEnableAccount, rdbtnDisableAccount;
 	private JButton btnCreateAccount, btnConfirmChanges;
 	private JPanel createItemPanel;
@@ -88,6 +89,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	private JComboBox changeSubCatComboBox;
 
 	private CategoryListener categoryListenr;
+	private AccountListner accountListener;
 
 	//all components
 	void init(){
@@ -196,7 +198,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 
 		createCategoryPanel = new JPanel();
 		MaintainCategoriesPanel.add(createCategoryPanel);
-		createCategoryPanel.setLayout(new MigLayout("", "[][][][grow]", "[][][]"));
+		createCategoryPanel.setLayout(new MigLayout("", "[][][][grow]", "[][][][][][]"));
 
 		createCategoryPanel.setBorder(new TitledBorder("Create New Category"));
 
@@ -210,10 +212,10 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		errorLabel3 = new JLabel("");
 		errorLabel3.setForeground(Color.RED);
 		createCategoryPanel.add(errorLabel3, "cell 3 1,alignx right");
-
-		btnCreateCategory = new JButton("Create Category");
-
-		createCategoryPanel.add(btnCreateCategory, "cell 3 2");
+		
+				btnCreateCategory = new JButton("Create Category");
+				
+						createCategoryPanel.add(btnCreateCategory, "cell 3 5");
 
 		createSubCatPanel = new JPanel();
 		MaintainCategoriesPanel.add(createSubCatPanel);
@@ -433,49 +435,108 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	public MaintainPanel() {
 
 		init();
+		addAccountTypeToComboBox();   
 
 		//*********HERE PLACE FOR ADDING LISTENERS***********//		
 		//I am getting category name and passing it to the controller as a CategoryFormEvent which is passed as 
 		//a parameter to the CategoryListener Interface
+		
+		btnCreateAccount.addActionListener(this);
 		btnCreateCategory.addActionListener(this);
-		
-		setSelectCategoryToEditcomboBox();
-		
+		btnConfirmChanges.addActionListener(this);
+		btnCreateSubcategory.addActionListener(this);
+		btnConfirmChanges_2.addActionListener(this);
+		btnConfirmChanges_3.addActionListener(this);
+		btnCreate.addActionListener(this);
+		btnConfirmChanges_1.addActionListener(this);
+		btnRemoveItem.addActionListener(this);
 	}
 
 
 
 	// Event detected on the create category button 
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e) 
+	{
 
-		System.out.println("Create category button has been clicked");
-		System.out.println("I have to invoke categoryAddedPerformed which takes in name for category");
-
-		if(categoryListenr !=null){
-			categoryListenr.categoryAddedPerformed(new CategoryFormEvent(enterCategoryNameTF.getText()));
+		if(e.getSource().equals(btnCreateAccount))
+		{
+			System.out.println("Create New Account button clicked\n");
+			if(accountListener!=null){
+				int getIndexFromCombobox=selectAccountTypeComboBox.getSelectedIndex();
+				String accountType=null;
+					if(getIndexFromCombobox == 0){
+						accountType="manager";
+					}
+					else{
+						accountType="user";
+					}
+				accountListener.accountAddedPerformed(new AccountFormEvent(enterUsernameTF.getText(), enterPasswordTF1.getText(), enterPasswordTF2.getText(),accountType));
+			}
 		}
-		
+		else if(e.getSource().equals(btnConfirmChanges))		
+		{
+			System.out.println("Edit existing Account  button clicked");
+		}
+		else if(e.getSource().equals(btnCreateCategory))
+		{
+			System.out.println("Create new category button clicked");
+			System.out.println("I have to invoke categoryAddedPerformed which takes in category name");
+
+			if(categoryListenr !=null){
+				categoryListenr.categoryAddedPerformed(new CategoryFormEvent(enterCategoryNameTF.getText()));
+			}
+		}
+		else if(e.getSource().equals(btnCreateSubcategory))
+		{
+			System.out.println("Create new Sub-category button clicked");
+		}
+		else if(e.getSource().equals(btnConfirmChanges_2))
+		{
+			System.out.println("Edit Category button clicked");
+		}
+		else if(e.getSource().equals(btnConfirmChanges_3))
+		{
+			System.out.println("Edit Sub-Category button clicked");
+		}
+		else if (e.getSource().equals(btnCreate))
+		{
+			System.out.println("Create New Item button clicked");
+		}
+		else if(e.getSource().equals(btnConfirmChanges_1))
+		{
+			System.out.println("Edit Item button clicked");
+		}
+		else if(e.getSource().equals(btnRemoveItem))
+		{
+			System.out.println("Remove Item button clicked");		
+		}
 	}
-
-
-	//sets listener passed from TestingMainPanel form Mian_Test
+	
+	//adds two strings to account panel to the combo-box
+	public void addAccountTypeToComboBox(){
+		selectAccountTypeComboBox.addItem("Manager");
+		selectAccountTypeComboBox.addItem("User");
+	}
+		
+		
+	//sets listener passed from TestingMainPanel from Mian_Test
 	public void setCategoryListenr(CategoryListener categoryListenr) {
 		 System.out.println("I will accept any object that implemnts CategoryListener Class: MaintainPanel");
 		this.categoryListenr = categoryListenr;
 	}
-
-
+	
+	
 	
 
-	public void setSelectCategoryToEditcomboBox() 
-	{
-			selectCategoryToEditcomboBox.addItem("jejejej");
+
+	public void setAccountListener(AccountListner accountListener) {
+		 System.out.println("I will accept any object that implemnts AccountListener Class: MaintainPanel");
+		 
+		 this.accountListener= accountListener;
+		
+	}
 	
-	}
-
-
-	public JComboBox getSelectCategoryToEditcomboBox() {
-		return selectCategoryToEditcomboBox;
-	}
+	
+	
 
 }
