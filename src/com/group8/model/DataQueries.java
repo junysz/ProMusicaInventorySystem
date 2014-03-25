@@ -105,18 +105,18 @@ public class DataQueries {
 		try {
 			
 		 	
-             String query = "Select * from Item where itemID=?";
+             String query = "Select * from Item where itemID=?";  //create a new query 
              pstmt = con.prepareStatement(query);
 			 pstmt.setInt(1,itemID);
              ResultSet rs =  pstmt.executeQuery(query);
              while (rs.next()) 
 			 {
             	
-             int price = rs.getInt("price");
+             double price = rs.getDouble("itemPrice");
              
-             String model = rs.getString("model");
-             String brand = rs.getString("brand");
-             item=new Item(model,brand,0,(double)price);
+             String model = rs.getString("itemModel");
+             String brand = rs.getString("itemBrand");
+             item=new Item(model,brand,0,price);
              }      
 			
 		   	rs.close(); //close result set
