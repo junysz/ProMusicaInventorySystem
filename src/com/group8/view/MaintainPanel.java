@@ -90,6 +90,8 @@ public class MaintainPanel extends JPanel implements ActionListener {
 
 	private CategoryListener categoryListenr;
 	private AccountListner accountListener;
+	private JTextField editAccountPasswordTF;
+	private JLabel lblPassword_1;
 
 	//all components
 	void init(){
@@ -146,7 +148,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 
 		editAccountPanel = new JPanel();
 		MaintainAccountPanel.add(editAccountPanel);
-		editAccountPanel.setLayout(new MigLayout("", "[][][][120.00][grow]", "[][][][][][][]"));
+		editAccountPanel.setLayout(new MigLayout("", "[][][][120.00,grow][grow]", "[][][][][][][][][][]"));
 		//SET A TITLE BORDER FOR THE PANEL
 		editAccountPanel.setBorder(new TitledBorder("Edit Existing Account"));
 
@@ -169,28 +171,35 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		selectAccountTypeEditComboBox = new JComboBox();
 		editAccountPanel.add(selectAccountTypeEditComboBox, "cell 3 3 2 1,growx");
 
-		lblStatus = new JLabel("Status");
-		editAccountPanel.add(lblStatus, "cell 1 4");
-
-		rdbtnEnableAccount = new JRadioButton("Enabled");
-		editAccountPanel.add(rdbtnEnableAccount, "cell 3 4");
-
-		rdbtnDisableAccount = new JRadioButton("Disabled");
-		editAccountPanel.add(rdbtnDisableAccount, "cell 4 4");
-
 		//Create a Button Group for the Account status radio buttons
 		ButtonGroup statusGroup = new ButtonGroup();
-		statusGroup.add(rdbtnEnableAccount);
-		statusGroup.add(rdbtnDisableAccount);
+		
+		lblPassword_1 = new JLabel("Password");
+		editAccountPanel.add(lblPassword_1, "cell 1 4");
+		
+		editAccountPasswordTF = new JTextField();
+		editAccountPanel.add(editAccountPasswordTF, "cell 3 4 2 1,growx");
+		editAccountPasswordTF.setColumns(10);
 
 		errorLabel2 = new JLabel("");
 		errorLabel2.setForeground(Color.RED);
 		editAccountPanel.add(errorLabel2, "cell 3 5 2 1");
 		errorLabel2.setVisible(false);
-
-
-		btnConfirmChanges = new JButton("Confirm Changes");
-		editAccountPanel.add(btnConfirmChanges, "cell 3 6");
+						
+								lblStatus = new JLabel("Status");
+								editAccountPanel.add(lblStatus, "cell 1 6");
+						
+								rdbtnEnableAccount = new JRadioButton("Enabled");
+								editAccountPanel.add(rdbtnEnableAccount, "cell 3 6");
+								statusGroup.add(rdbtnEnableAccount);
+				
+						rdbtnDisableAccount = new JRadioButton("Disabled");
+						editAccountPanel.add(rdbtnDisableAccount, "cell 4 6");
+						statusGroup.add(rdbtnDisableAccount);
+						
+						
+								btnConfirmChanges = new JButton("Confirm Changes");
+								editAccountPanel.add(btnConfirmChanges, "cell 3 8");
 
 		MaintainCategoriesPanel = new JPanel();
 		tabbedPane.addTab("Maintain Categories", null, MaintainCategoriesPanel, null);
