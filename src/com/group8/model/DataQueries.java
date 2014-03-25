@@ -99,6 +99,8 @@ public class DataQueries {
 			return null;
 		}  
 	}
+		
+		
 		public Item getItemAttributes(Integer itemID)
 			{
 			Item item=null;
@@ -126,6 +128,38 @@ public class DataQueries {
 			catch (Exception io) {
 			return null;
 		}  
+			}
+		
+		
+		public Account getAccount(Integer userID)
+		{
+	Account account=null;
+	try {
+		
+	 	
+         String query = "Select * from Account where userID=?";  //create a new query 
+         pstmt = con.prepareStatement(query);
+		 pstmt.setInt(1,userID);
+         ResultSet rs =  pstmt.executeQuery(query);
+         while (rs.next()) 
+		 {
+        	
+         String username = rs.getString("username");         
+         String password = rs.getString("password");
+         String type = rs.getString("accountType");
+         account=new Account(type,username,password);
+         }      
+		
+	   	rs.close(); //close result set
+		pstmt.close(); //close prepared statement
+		return account;
+ 		}
+		catch (Exception io) {
+		return null;
+	}  
+		}
+		
+		
 		
 	}
-}
+
