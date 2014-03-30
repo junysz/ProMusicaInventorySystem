@@ -15,6 +15,7 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 import java.awt.Color;
 
+@SuppressWarnings("serial")
 public class ReservationPanel extends JPanel {
 	private JTextField searchKeywordTF;
 	private JTextField textField;
