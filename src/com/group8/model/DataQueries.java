@@ -119,10 +119,10 @@ public class DataQueries {
              String model = rs.getString("itemModel");
              int level    = rs.getInt("stockLevel");
              int level2   = rs.getInt("availableStockLevel");
-             int subCatID = rs.getInt("subCatID");
              boolean flag=rs.getBoolean("itemFlag");
              
-             item=new Item(brand,model,level,price,level2,subCatID,flag);
+             item=new Item(brand,model,level,price,level2);
+             item.setFlag(flag);
              item.setItemID(itemID);
              }      
 			
@@ -138,8 +138,8 @@ public class DataQueries {
 		
 		public Account getAccount(Integer userID)
 		{
-	Account account=null;
-	try {
+	    Account account=null;
+	     try {
 		
 	 	
          String query = "Select * from Account where userID=?";  //create a new query 
@@ -152,10 +152,11 @@ public class DataQueries {
          String username = rs.getString("username");         
          String password = rs.getString("password");
          String type = rs.getString("accountType");
-         boolean flag2=rs.getBoolean("accountFlag");         
+         boolean flag2=rs.getBoolean("accountFlag"); 
+         
          account=new Account(type,username,password);
          account.setUserID(userID);
-         account.setAccountFlag(flag2);
+         account.setFlag(flag2);
                 
          }      
 		
