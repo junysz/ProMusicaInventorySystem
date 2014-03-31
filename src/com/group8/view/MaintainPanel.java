@@ -90,7 +90,6 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	private JButton btnConfirmChanges_3;
 	private JLabel lblNewLabel_1;
 	private JComboBox changeSubCatComboBox;
-
 	private CategoryListener categoryListenr;
 	private AccountListner accountListener;
 	private JTextField editAccountPasswordTF;
