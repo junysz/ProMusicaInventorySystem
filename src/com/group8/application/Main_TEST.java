@@ -15,6 +15,7 @@ public class Main_TEST {
 		
 	
 		//Testing_Data_Base_Class theModel= new Testing_Data_Base_Class();
+
 				Testing_MaintainPanel theView= new Testing_MaintainPanel();
 				theView.setSize(900, 600);
 				theView.setVisible(true);
@@ -32,7 +33,7 @@ public class Main_TEST {
 				theView.setCategoryListener(theController);
 				theView.setAccountListener(theController);
 				
-		
+
 
 	}
 
