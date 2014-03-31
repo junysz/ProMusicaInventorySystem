@@ -6,8 +6,11 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
 import javax.swing.JTabbedPane;
+
 import net.miginfocom.swing.MigLayout;
+
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
 import java.awt.Color;
@@ -99,6 +102,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		setLayout(new BorderLayout(0, 0));
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+	    tabbedPane.setBorder(new EmptyBorder(10, 10, 10, 10));
 		add(tabbedPane, BorderLayout.CENTER);
 
 		MaintainAccountPanel = new JPanel();

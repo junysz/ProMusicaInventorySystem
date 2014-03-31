@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.ResultSet;
+import com.mysql.jdbc.Statement;
 
 
 public class Testing_Data_Base_Class {
@@ -16,7 +17,8 @@ public class Testing_Data_Base_Class {
 	private ArrayList<Category> categoryList;
 
 
-	public Testing_Data_Base_Class(){
+	public Testing_Data_Base_Class()
+	{
 		categoryList = new ArrayList<>();
 	}
 

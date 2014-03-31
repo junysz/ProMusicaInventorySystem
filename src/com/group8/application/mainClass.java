@@ -21,8 +21,8 @@ public class mainClass {
 				try {
 					//Testing_Data_Base_Class theModel= new Testing_Data_Base_Class();
 					Testing_MaintainPanel theView= new Testing_MaintainPanel();
-					theView.setSize(900, 600);
-					theView.setVisible(true);
+				//	theView.setSize(900, 600);
+				//	theView.setVisible(true);
 					
 					
 					
