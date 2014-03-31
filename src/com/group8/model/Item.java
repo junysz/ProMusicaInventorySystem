@@ -38,12 +38,15 @@ public class Item {
 		setStockLevel(s);
 	}
 	//Constructor that accepts the Item Brand, Item Model, Stock Level, and Retail Price as arguments
-	public Item(String b, String m, int s, double c)
+	public Item(String b, String m, int s, double c,int a,int x,boolean f)
 	{
 		setBrand(b);
 		setModel(m);
 		setStockLevel(s);
 		setPrice(c);
+		setAvailabelStockLevel(a);
+		setSubcatID(x);
+		setItemFlag(f);
 	}
 	//Set and Get Methods for Item Attributes
 	//setItemID will set the itemID of the item

@@ -114,11 +114,16 @@ public class DataQueries {
              while (rs.next()) 
 			 {
             	
-             double price = rs.getDouble("itemPrice");
-             
-             String model = rs.getString("itemModel");
+             double price = rs.getDouble("itemPrice");                    
              String brand = rs.getString("itemBrand");
-             item=new Item(model,brand,0,price);
+             String model = rs.getString("itemModel");
+             int level    = rs.getInt("stockLevel");
+             int level2   = rs.getInt("availableStockLevel");
+             int subCatID = rs.getInt("subCatID");
+             boolean flag=rs.getBoolean("itemFlag");
+             
+             item=new Item(brand,model,level,price,level2,subCatID,flag);
+             item.setItemID(itemID);
              }      
 			
 		   	rs.close(); //close result set
@@ -148,6 +153,12 @@ public class DataQueries {
          String password = rs.getString("password");
          String type = rs.getString("accountType");
          account=new Account(type,username,password);
+         boolean flag2=rs.getBoolean("accountFlag");
+         
+         account=new Account(type,username,password);
+         account.setUserID(userID);
+         account.setAccountFlag(flag);
+                
          }      
 		
 	   	rs.close(); //close result set
