@@ -1,11 +1,12 @@
 package com.group8.view;
 
-import java.awt.BorderLayout;
-
-
+	
+ 	import java.awt.BorderLayout;
+ 	
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 
 
 
@@ -14,6 +15,7 @@ public class Testing_MaintainPanel extends JFrame {
 
 	private JPanel contentPane;
 	private MaintainPanel maintainPanel;
+	private ReservationPanel reservationPanel;
 
 	public Testing_MaintainPanel() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -24,7 +26,11 @@ public class Testing_MaintainPanel extends JFrame {
 		setContentPane(contentPane);
 
 		maintainPanel= new MaintainPanel( );
-		contentPane.add(maintainPanel);
+		reservationPanel= new ReservationPanel();
+		
+		
+		contentPane.add(reservationPanel);
+		
 
 	}
 
@@ -41,3 +47,10 @@ public class Testing_MaintainPanel extends JFrame {
 
 
 }
+
+ 	
+ 	
+ 	
+ 	
+ 	
+

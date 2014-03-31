@@ -1,6 +1,7 @@
 package com.group8.view;
 
 import javax.swing.JPanel;
+
 import java.awt.BorderLayout;
 import javax.swing.JTabbedPane;
 import net.miginfocom.swing.MigLayout;
@@ -12,39 +13,80 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.TableModelListener;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+
+import com.group8.controller.Controller;
+import com.group8.model.Item;
+
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
 public class ReservationPanel extends JPanel {
+	//TESTING
+	List<Item>db=new ArrayList<>();
+	Controller cont;
+	
 	private JTextField searchKeywordTF;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTable table;
 	private JTextField docketNoTF;
 	private JTextField brandModelTF;
 	private JTextField currentDepositTF;
 	private JTextField totalPriceTF;
 	private JTextField updateDepositTF;
 
+	JTabbedPane tabbedPane;
+	JPanel findReservationPanel;
+	
+	private ItemTableModel itemTableModel;
+	private JTable tableItemsRevervation;
+	
+	
+	/*
+	 * JPanel makeNewReservation components 
+	 */
+	private JPanel makeNewReservationPanel;
+	private JLabel lblNewLabel;
+	private JLabel lblSelectCategory;
+	private JComboBox selectCategoryCBox;
+	private JComboBox slecetSubcategoryCBox;
+	private JLabel lblSlecetSubcategory;
+	private JLabel lblSearch;
+	private JButton btnFindItems;
+	private JScrollPane scrollPaneReservTable;
+	
+	private JPanel southPanelReservation;
+	private JLabel lblEnterDocketNo;
+	private JTextField enterDocketNoTF;
+	private JLabel lblDeposit;
+	private JTextField depositTF;
+	private JLabel euroLabel;
+	private JButton btnReserveItem;
+	private JLabel makeNewErrorLabel;
+	
+	
 	
 	public ReservationPanel() {
+		
 		setLayout(new BorderLayout(0, 0));
 		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		add(tabbedPane, BorderLayout.CENTER);
 		
-		JPanel FindReservationPanel = new JPanel();
-		tabbedPane.addTab("Find", null, FindReservationPanel, null);
-		FindReservationPanel.setLayout(new MigLayout("", "[][grow][][grow][grow][grow][grow]", "[][grow][grow]"));
+		findReservationPanel = new JPanel();
+		tabbedPane.addTab("Find", null, findReservationPanel, null);
+		findReservationPanel.setLayout(new MigLayout("", "[][grow][][grow][grow][grow][grow]", "[][grow][grow]"));
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBorder(new TitledBorder("Docket Numbers"));
 		
-		FindReservationPanel.add(scrollPane, "cell 1 1 1 2,grow");
+		findReservationPanel.add(scrollPane, "cell 1 1 1 2,grow");
 		
 		JPanel reservationDetailsPanel = new JPanel();
-		FindReservationPanel.add(reservationDetailsPanel, "cell 3 1 3 1,grow");
+		findReservationPanel.add(reservationDetailsPanel, "cell 3 1 3 1,grow");
 		reservationDetailsPanel.setLayout(new MigLayout("", "[][][][grow][grow][][][grow]", "[][][][][][][][][][][]"));
 		
 		reservationDetailsPanel.setBorder(new TitledBorder("Reservation Details"));
@@ -108,84 +150,99 @@ public class ReservationPanel extends JPanel {
 		JButton btnEndReservation = new JButton("End Reservation");
 		reservationDetailsPanel.add(btnEndReservation, "cell 3 8");
 		
-		JPanel MakeNewReservationPanel = new JPanel();
-		tabbedPane.addTab("Make New", null, MakeNewReservationPanel, null);
-		MakeNewReservationPanel.setLayout(new MigLayout("", "[][106.00][grow][grow][][][grow][grow][][][grow][][grow]", "[][][][][530.00,grow][530.00][530.00][530.00][530.00][530.00][530.00][45.00][530.00,grow][]"));
 		
-		JLabel lblNewLabel = new JLabel("Find One Item to Reserve");
-		MakeNewReservationPanel.add(lblNewLabel, "cell 1 0 2 1");
 		
-		JLabel lblSelectCategory = new JLabel("Select Category");
-		MakeNewReservationPanel.add(lblSelectCategory, "cell 1 2,alignx left");
 		
-		JComboBox comboBox = new JComboBox();
-		MakeNewReservationPanel.add(comboBox, "cell 2 2 2 1,growx");
 		
-		JLabel lblSlecetSubcategory = new JLabel("Select Sub-Category");
-		MakeNewReservationPanel.add(lblSlecetSubcategory, "cell 5 2");
 		
-		JComboBox comboBox_1 = new JComboBox();
-		MakeNewReservationPanel.add(comboBox_1, "cell 6 2 2 1,growx");
 		
-		JLabel lblSearch = new JLabel("Search by Keyword ");
-		MakeNewReservationPanel.add(lblSearch, "cell 9 2");
+		/*
+		 * makeReservationPanel STUFF
+		 */
+		makeNewReservationPanel = new JPanel();
+		tabbedPane.addTab("Make New", null, makeNewReservationPanel, null);
+		makeNewReservationPanel.setLayout(new MigLayout("", "[106.00,grow][grow][][grow][][grow][]", "[][][530.00,grow][530.00]"));
 		
+		lblNewLabel = new JLabel("Find One Item to Reserve");
+		lblSelectCategory = new JLabel("Select Category");
+		
+		selectCategoryCBox = new JComboBox();
+		slecetSubcategoryCBox = new JComboBox();
+		lblSearch = new JLabel("Search by Keyword ");
+		lblSlecetSubcategory = new JLabel("Select Sub-Category");
 		searchKeywordTF = new JTextField();
-		MakeNewReservationPanel.add(searchKeywordTF, "cell 10 2,growx");
+		btnFindItems = new JButton("Find Items");
+		btnFindItems.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				ItemTableModel model = (ItemTableModel) tableItemsRevervation.getModel();
+				
+				
+				//db.add(new Item(1, 88.0, "xx", "xxxx", 22, 22));
+				//db.add(new Item(2, 88.0, "xx", "xxxx", 22, 22));
+				//db.add(new Item(3, 88.0, "xx", "xxxx", 22, 22));
+				setItemData();
+				//model.setValueAt(db, 0, 0);
+				model.fireTableDataChanged();
+			}
+		});
 		searchKeywordTF.setColumns(10);
+				
+		scrollPaneReservTable = new JScrollPane();
+		//instantiate ItemTableModel
+		itemTableModel= new ItemTableModel(db);
+		tableItemsRevervation = new JTable();
+		tableItemsRevervation.setModel(itemTableModel);
+		scrollPaneReservTable.setViewportView(tableItemsRevervation);
 		
-		JButton btnFindItems = new JButton("Find Items");
-		MakeNewReservationPanel.add(btnFindItems, "cell 12 2");
+		makeNewReservationPanel.add(lblNewLabel, "cell 0 0 2 1");
+		makeNewReservationPanel.add(lblSelectCategory, "cell 0 1,alignx left");	
+		makeNewReservationPanel.add(selectCategoryCBox, "cell 1 1,growx");
+		makeNewReservationPanel.add(lblSlecetSubcategory, "cell 2 1");
+		makeNewReservationPanel.add(slecetSubcategoryCBox, "cell 3 1,growx");
+		makeNewReservationPanel.add(lblSearch, "cell 4 1");
+		makeNewReservationPanel.add(searchKeywordTF, "cell 5 1,growx");
+		makeNewReservationPanel.add(btnFindItems, "cell 6 1");
+		makeNewReservationPanel.add(scrollPaneReservTable, "cell 0 2 6 1,grow");
+		/*
+		 * SOUTH PANEL
+		 */
+		southPanelReservation = new JPanel();
+		southPanelReservation.setLayout(new MigLayout("", "[][grow][grow][grow][][grow][grow]", "[][][]"));
+		makeNewReservationPanel.add(southPanelReservation, "cell 0 3 6 1,grow");
 		
-		//scrolPane
-		JScrollPane scrollPaneReservationPanel = new JScrollPane();
-		MakeNewReservationPanel.add(scrollPaneReservationPanel, "cell 1 4 10 6,grow");
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		table = new JTable();
-		scrollPaneReservationPanel.setViewportView(table);
-		
-		JPanel panel = new JPanel();
-		MakeNewReservationPanel.add(panel, "cell 1 10 10 3,grow");
-		panel.setLayout(new MigLayout("", "[][grow][grow][grow][][grow][grow]", "[][][]"));
-		
-		JLabel lblEnterDocketNo = new JLabel("Enter Docket No.");
-		panel.add(lblEnterDocketNo, "cell 0 1,alignx left");
-		
-		textField = new JTextField();
-		panel.add(textField, "cell 1 1,growx");
-		textField.setColumns(10);
-		
-		JLabel lblDeposti = new JLabel("Deposit");
-		panel.add(lblDeposti, "cell 2 1,alignx trailing");
-		
-		textField_1 = new JTextField();
-		panel.add(textField_1, "cell 3 1,growx");
-		textField_1.setColumns(10);
-		
-		JLabel label = new JLabel("\u20AC");
-		label.setForeground(Color.GRAY);
-		panel.add(label, "cell 4 1");
-		
-		JButton btnReserveItem = new JButton("Reserve Item");
-		panel.add(btnReserveItem, "cell 6 1");
-		
-		JLabel makeNewErrorLabel = new JLabel("");
+		lblEnterDocketNo = new JLabel("Enter Docket No.");
+		enterDocketNoTF = new JTextField();
+		enterDocketNoTF.setColumns(10);
+		lblDeposit = new JLabel("Deposit");
+		depositTF = new JTextField();					
+		depositTF.setColumns(10);
+		euroLabel = new JLabel("\u20AC");
+		euroLabel.setForeground(Color.GRAY);
+		btnReserveItem = new JButton("Reserve Item");	
+		makeNewErrorLabel = new JLabel("");
 		makeNewErrorLabel.setForeground(Color.RED);
-		panel.add(makeNewErrorLabel, "cell 0 2");
+		
+		
+		southPanelReservation.add(lblEnterDocketNo, "cell 0 1,alignx left");
+		southPanelReservation.add(enterDocketNoTF, "cell 1 1,growx");
+		southPanelReservation.add(lblDeposit, "cell 2 1,alignx trailing");
+		southPanelReservation.add(depositTF, "cell 3 1,growx");
+		southPanelReservation.add(euroLabel, "cell 4 1");
+		southPanelReservation.add(btnReserveItem, "cell 6 1");
+		southPanelReservation.add(makeNewErrorLabel, "cell 0 2");
+		
 
+		
 	}
+	
+	public void setItemData(){
+		cont= new Controller(null);
+		itemTableModel.setItemData(cont.getMeSomeItems());
+	}
+	
+	
+	
 
 }

@@ -14,16 +14,27 @@ package com.group8.model;
 public class Item {
 
 	//Attributes of an Item
-	private int itemID;
-	private double itemPrice;
-	private String itemBrand, itemModel;
+	private int id;
+	private double price;
+	private String brand, model;
 	private int stockLevel, availableStockLevel;
 	
-	//Blank Constructor
-	public Item()
+	
+	public Item(int id,double price,String brand,String model,int stockLevel, int availableStockLevel)
 	{
-		
+		setItemID(id);
+		setPrice(price);
+		setBrand(brand);
+		setModel(model);
+		setStockLevel(stockLevel);
+		setAvailableStockLevel(availableStockLevel);
 	}
+	
+	
+	
+	
+	
+	
 	//Constructor that accepts the Item Brand and Item Model as arguments
 	public Item(String b, String m)
 	{
@@ -50,25 +61,25 @@ public class Item {
 	//integer i is the ID to be set
 	public void setItemID(int i)
 	{
-		this.itemID = i;
+		this.id = i;
 	}
 	//setPrice will set the retail price for the item
 	//double p is the price to be set
 	public void setPrice(double p)
 	{
-		this.itemPrice = p;
+		this.price = p;
 	}
 	//setBrand will set the Brand name of the item
 	//String b is the name to be set
 	public void setBrand(String b)
 	{
-		this.itemBrand = b;
+		this.brand = b;
 	}
 	//setModel will set the Model name of the item
 	//String m is the name to be set
 	public void setModel(String m)
 	{
-		this.itemModel = m;
+		this.model = m;
 	}
 	//setStockLevel will set the number of copies in store
 	//integer s is the number of copies to be set
@@ -85,22 +96,22 @@ public class Item {
 	//returns the itemID
 	public int getItemID()
 	{
-		return itemID;
+		return id;
 	}
 	//returns the itemPrice
 	public double getPrice()
 	{
-		return itemPrice;
+		return price;
 	}
 	//return the itemBrand
 	public String getBrand()
 	{
-		return itemBrand;
+		return brand;
 	}
 	//returns the itemModel
 	public String getModel()
 	{
-		return itemModel;
+		return model;
 	}
 	//returns the stockLevel
 	public int getStockLevel()
