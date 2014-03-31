@@ -152,12 +152,10 @@ public class DataQueries {
          String username = rs.getString("username");         
          String password = rs.getString("password");
          String type = rs.getString("accountType");
-         account=new Account(type,username,password);
-         boolean flag2=rs.getBoolean("accountFlag");
-         
+         boolean flag2=rs.getBoolean("accountFlag");         
          account=new Account(type,username,password);
          account.setUserID(userID);
-         account.setAccountFlag(flag);
+         account.setAccountFlag(flag2);
                 
          }      
 		
