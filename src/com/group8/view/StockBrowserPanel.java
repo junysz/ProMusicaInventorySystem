@@ -12,6 +12,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.JTable;
 import java.awt.Font;
 
+@SuppressWarnings("serial")
 public class StockBrowserPanel extends JPanel {
 	private JTextField searchTF;
 	private JTable table;

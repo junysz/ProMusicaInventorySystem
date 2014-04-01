@@ -8,6 +8,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import com.group8.controller.Controller;
+
 
 
 
@@ -32,7 +34,8 @@ public class Testing_MaintainPanel extends JFrame {
 		
 		contentPane.add(reservationPanel);
 		
-
+		setSize(1300, 700);
+		setVisible(true);
 	}
 
 	//this will accept any object that implements CategoryListener 
@@ -52,6 +55,8 @@ public class Testing_MaintainPanel extends JFrame {
 	{	
 		return reservationPanel;	
 	}
+
+	
 
 }
 

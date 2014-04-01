@@ -3,10 +3,6 @@ package com.group8.view;
 
 
 import java.awt.CardLayout;
-import java.awt.ComponentOrientation;
-import java.awt.Dimension;
-import java.awt.Toolkit;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -17,11 +13,13 @@ import javax.swing.JOptionPane;
 
 
 
-public class MainFrame extends JFrame {
-	private static final long serialVersionUID = -7100419815175830650L;
+@SuppressWarnings("serial")
+public class MainFrame extends JFrame 
+{
+
 	private JPanel contentPane;
 	private LoginPanel loginPanel;
-	//private AddExistingItemPanel addExistingItemPanel;
+
 	private JMenuBar menuBar;
 	private JMenu mnFile;
 	private JMenu mnHelp;
@@ -41,15 +39,14 @@ public class MainFrame extends JFrame {
 	private JMenuItem mntmAddNewItem;
 
 
-	/**
-	 * Create the frame.
-	 */
+
 	public MainFrame() {
 		
 		loginPanel = new LoginPanel();
 		setDefaultCloseOperation(JOptionPane.CANCEL_OPTION);
 		setBounds(100, 100, 650, 460);
-		
+		setSize(1250, 700);
+		setVisible(true);
 		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
@@ -100,17 +97,21 @@ public class MainFrame extends JFrame {
 		setContentPane(contentPane);
 		
 		tabbedPane = new TabsPane();
-		stockBrowsingPanel = new StockBrowserPanel();
-		//addExistingItemPanel = new AddExistingItemPanel();
-		tabbedPane.add("Browse Stock", stockBrowsingPanel);
-		contentPane.add(loginPanel);
+		add(tabbedPane);
 		contentPane.add(tabbedPane);
-		//contentPane.add(addExistingItemPanel);
-		//addExistingItemPanel.setVisible(false);
 		tabbedPane.setVisible(false);
+		contentPane.add(loginPanel);
 		
 	
 	}
+	
+	public TabsPane getTabsPane()
+	{
+		return tabbedPane;
+	}
+	
+	
+	
 	public LoginPanel getLoginPanel()
 	{
 		return loginPanel;
@@ -119,10 +120,7 @@ public class MainFrame extends JFrame {
 	{
 		return stockBrowsingPanel;
 	}
-	public TabsPane getTabsPane()
-	{
-		return tabbedPane;
-	}
+	
 
 
 }

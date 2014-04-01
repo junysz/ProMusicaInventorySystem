@@ -26,10 +26,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
-public class ReservationPanel extends JPanel {
-	//TESTING
-	List<Item>db=new ArrayList<>();
-	Controller cont;
+public class ReservationPanel extends JPanel 
+{
+	List<Item>dbItem= new ArrayList<>();
 	
 	private JTextField searchKeywordTF;
 	private JTextField docketNoTF;
@@ -177,7 +176,7 @@ public class ReservationPanel extends JPanel {
 				
 		scrollPaneReservTable = new JScrollPane();
 		//instantiate ItemTableModel
-		itemTableModel= new ItemTableModel(db);
+		itemTableModel= new ItemTableModel();
 		tableItemsRevervation = new JTable();
 		tableItemsRevervation.setModel(itemTableModel);
 		scrollPaneReservTable.setViewportView(tableItemsRevervation);
@@ -231,13 +230,31 @@ public class ReservationPanel extends JPanel {
 		this.btnFindItems = btnFindItems;
 	}
 
-	public void setItemData(){
-		//cont= new Controller(null);
-		//itemTableModel.setItemData(cont.getMeSomeItems());
+	
+
+//model.fireTableDataChanged();
+
+/*
+ * I want to set Table Model
+ * This will come form Model
+ * Model doesn't know about view
+ * So the controller will set this. 
+ */
+	
+	public void setTableModel(List<Item>listFormController)
+	{
+		System.out.println("I want to set table model");
 		
-		itemTableModel.setItemData(db);
+		itemTableModel.setTableModel(listFormController);
+		tableItemsRevervation.setModel(itemTableModel);
+		itemTableModel.fireTableDataChanged();
+		
 	}
 	
+/*
+ * Provide the way to notify The Controller whenever button is clicked
+ * This will be handled by The Controller
+ */
 	public void addTableListener(ActionListener listenForFindButton)
 	{
 		btnFindItems.addActionListener(listenForFindButton);
@@ -245,39 +262,5 @@ public class ReservationPanel extends JPanel {
 	
 	
 	
-
-	public void printMe()
-	{
-		System.out.println("I am resevation Panel");
-	}
 	
-	public void setItemData(List<Item>listFormController){
-		db=listFormController;
-		System.out.println("I am resevation Panel");
-	}
-	
-	
-	
-	
-	public void addMe(TableModelListener tableModelListener){
-		
-	}
-	
-	
-	
-	
-		/*public void actionPerformed(ActionEvent e) {
-			
-			
-			ItemTableModel model = (ItemTableModel) tableItemsRevervation.getModel();
-			
-			
-			//db.add(new Item(1, 88.0, "xx", "xxxx", 22, 22));
-			//db.add(new Item(2, 88.0, "xx", "xxxx", 22, 22));
-			//db.add(new Item(3, 88.0, "xx", "xxxx", 22, 22));
-			setItemData();
-			//model.setValueAt(db, 0, 0);
-			model.fireTableDataChanged();
-		}
-	});*/
 }

@@ -1,4 +1,5 @@
 package com.group8.view;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
@@ -13,12 +14,12 @@ public class ItemTableModel extends AbstractTableModel {
 	private List<Item> db;
 	private String[] columnNames= {"Id","Brand","Model","Stock Level","Available Stock Level","Price",};
 	
-	public ItemTableModel(List<Item>db)
-	{
-		this.db=db;
+	public ItemTableModel()
+	{	
+		db=new ArrayList<>();
 	}
 	//method used by ItemTableModel in the ReservationPanel class
-	public void setItemData(List<Item>db){
+	public void setTableModel(List<Item>db){
 		this.db=db;
 	}
 	public int getRowCount() {
