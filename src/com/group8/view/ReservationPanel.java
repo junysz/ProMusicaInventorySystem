@@ -172,21 +172,7 @@ public class ReservationPanel extends JPanel {
 		lblSlecetSubcategory = new JLabel("Select Sub-Category");
 		searchKeywordTF = new JTextField();
 		btnFindItems = new JButton("Find Items");
-		btnFindItems.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				
-				ItemTableModel model = (ItemTableModel) tableItemsRevervation.getModel();
-				
-				
-				//db.add(new Item(1, 88.0, "xx", "xxxx", 22, 22));
-				//db.add(new Item(2, 88.0, "xx", "xxxx", 22, 22));
-				//db.add(new Item(3, 88.0, "xx", "xxxx", 22, 22));
-				setItemData();
-				//model.setValueAt(db, 0, 0);
-				model.fireTableDataChanged();
-			}
-		});
+		//btnFindItems.addTableActionEvetn(TableModelListener tableModelListener); 
 		searchKeywordTF.setColumns(10);
 				
 		scrollPaneReservTable = new JScrollPane();
@@ -237,12 +223,61 @@ public class ReservationPanel extends JPanel {
 		
 	}
 	
+	public JButton getBtnFindItems() {
+		return btnFindItems;
+	}
+
+	public void setBtnFindItems(JButton btnFindItems) {
+		this.btnFindItems = btnFindItems;
+	}
+
 	public void setItemData(){
-		cont= new Controller(null);
-		itemTableModel.setItemData(cont.getMeSomeItems());
+		//cont= new Controller(null);
+		//itemTableModel.setItemData(cont.getMeSomeItems());
+		
+		itemTableModel.setItemData(db);
+	}
+	
+	public void addTableListener(ActionListener listenForFindButton)
+	{
+		btnFindItems.addActionListener(listenForFindButton);
 	}
 	
 	
 	
 
+	public void printMe()
+	{
+		System.out.println("I am resevation Panel");
+	}
+	
+	public void setItemData(List<Item>listFormController){
+		db=listFormController;
+		System.out.println("I am resevation Panel");
+	}
+	
+	
+	
+	
+	public void addMe(TableModelListener tableModelListener){
+		
+	}
+	
+	
+	
+	
+		/*public void actionPerformed(ActionEvent e) {
+			
+			
+			ItemTableModel model = (ItemTableModel) tableItemsRevervation.getModel();
+			
+			
+			//db.add(new Item(1, 88.0, "xx", "xxxx", 22, 22));
+			//db.add(new Item(2, 88.0, "xx", "xxxx", 22, 22));
+			//db.add(new Item(3, 88.0, "xx", "xxxx", 22, 22));
+			setItemData();
+			//model.setValueAt(db, 0, 0);
+			model.fireTableDataChanged();
+		}
+	});*/
 }

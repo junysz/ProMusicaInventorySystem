@@ -46,6 +46,12 @@ public class Testing_MaintainPanel extends JFrame {
 		maintainPanel.setAccountListener(accountListener);
 	}
 
+	
+	
+	public ReservationPanel getReservationPanel()
+	{	
+		return reservationPanel;	
+	}
 
 }
 

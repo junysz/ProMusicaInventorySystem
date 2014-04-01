@@ -3,6 +3,8 @@ package com.group8.controller;
 
 
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,9 +16,10 @@ import com.group8.view.CategoryFormEvent;
 import com.group8.view.CategoryListener;
 import com.group8.view.Testing_MaintainPanel;
 
-public class Controller implements CategoryListener, AccountListner {
+public class Controller implements CategoryListener, AccountListner,ActionListener {
 	
 	List <Item> temItemList;
+	
 	
 	private Testing_MaintainPanel tMp;   //this is like MainFrame for now >>Testing
 	//private Category categoryTheModel;
@@ -26,9 +29,30 @@ public class Controller implements CategoryListener, AccountListner {
 	//private MaintainPanel maintainPanel;
 	
 	
-	public Controller(Testing_MaintainPanel tMp ){
+	public Controller(Testing_MaintainPanel tMp )
+	{
 		this.tMp=tMp;
+		
+		tMp = new Testing_MaintainPanel();
+		
+		tMp.getReservationPanel().addTableListener(new TableListener());
 	}
+	
+	
+	
+	
+	class TableListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+			tMp.getReservationPanel().setItemData(temItemList);
+			tMp.getReservationPanel().printMe();
+			System.out.println("Yes");
+		}
+		
+	}
+	
 
 	/*this is method implemented from CategoryListener Interface 
 	 *Category object is passed form view 
@@ -53,6 +77,14 @@ public class Controller implements CategoryListener, AccountListner {
 		System.out.println(accountFormEvent.getType());
 		System.out.println();
 	}
+	
+	/*
+	 * I am trying get data from Model and display it on the table model
+	 */
+	
+	
+	
+	
 	
 	
 	/*Temporary method 
@@ -79,6 +111,18 @@ public class Controller implements CategoryListener, AccountListner {
 		 temItemList.add(i7);
 	
 		 return temItemList;	
+	}
+
+
+
+
+
+
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		tMp.getReservationPanel().printMe();
+		
 	}	
 	
 }
