@@ -11,6 +11,7 @@ public class MainModel {
 			
 			someItems=new TemporaryDataBaseClass();
 			
+			
 		}
 		
 		
@@ -20,5 +21,8 @@ public class MainModel {
 		
 		public List<Item> getMeSomeItems(){
 			return someItems.getMeSomeItems();
+		}
+		public List<String>getMySomeCategories(){
+			return someItems.getMeSomeCategories();
 		}
 }

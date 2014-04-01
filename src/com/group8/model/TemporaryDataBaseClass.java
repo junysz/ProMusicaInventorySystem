@@ -29,6 +29,22 @@ public class TemporaryDataBaseClass {
 	
 		 return temItemList;	
 	}
+	
+	
+	
+	public List<String> getMeSomeCategories(){
+		String cat1= "Electric guitars"; String cat2= "Concert guitars"; 
+		String cat3= "Acoustic Guitars"; String cat4= "Guitar synths"; String cat5= "E"; String cat6= "F";
+		
+		List<String> cat= new ArrayList<>();
+		cat.add(cat6);
+		cat.add(cat5);
+		cat.add(cat4);
+		cat.add(cat3);
+		cat.add(cat2);
+		cat.add(cat1);
+		return cat;
+	}
 
 	
 }
