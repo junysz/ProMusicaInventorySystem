@@ -3,9 +3,16 @@ package com.group8.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTabbedPane;
+import javax.swing.border.EmptyBorder;
 
+import com.group8.view.LoginPanel;
 import com.group8.view.MainFrame;
+import com.group8.view.MaintainPanel;
+import com.group8.view.ReservationPanel;
+import com.group8.view.StockBrowserPanel;
 
 
 
@@ -35,12 +42,14 @@ public class LoginListener implements ActionListener {
 		}
 		else
 		{
-			if(usrName.equals("user")&&usrPass.equals("password"))
+		//	if(usrName.equals("user")&&usrPass.equals("password"))
+			if (2>1)
 			{
 
 				JOptionPane.showMessageDialog(mainView, "Login Succesful!", "Succes", 1);
 				mainView.getLoginPanel().setVisible(false);
-				mainView.getTabsPane().setVisible(true);
+				
+				
 				
 			}
 			else

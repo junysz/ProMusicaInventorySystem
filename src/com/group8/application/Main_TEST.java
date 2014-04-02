@@ -24,12 +24,13 @@ public class Main_TEST {
 		JTabbedPane contentPane=new JTabbedPane();
 	    contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
 		
-		JFrame f=new JFrame();
+	    JFrame f=new JFrame();
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	
-		 MaintainPanel maintainPanel = new MaintainPanel();
+						
+         MaintainPanel maintainPanel = new MaintainPanel();
 		 f.add(contentPane);
          contentPane.add("Maintain",maintainPanel);
+         
          
          StockBrowserPanel stockBrowserPanel = new StockBrowserPanel();
 		 contentPane.add("StockBrowserPanel",stockBrowserPanel);
@@ -39,8 +40,6 @@ public class Main_TEST {
 		 
 		 f.setSize(900, 600);
 		 f.setVisible(true);
-		
-		
 		
 		
 		
