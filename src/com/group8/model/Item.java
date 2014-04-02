@@ -18,8 +18,7 @@ public class Item {
 	private double price;
 	private String brand, model;
 	private int stockLevel, availableStockLevel;
-	
-	
+
 	public Item(int id,double price,String brand,String model,int stockLevel, int availableStockLevel)
 	{
 		setItemID(id);
