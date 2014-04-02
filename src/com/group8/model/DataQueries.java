@@ -18,14 +18,14 @@ public class DataQueries {
 	
 
 	//This method is getting a LIST  of  the NAMES of all the Categories
-	public ArrayList<String>  getCategoryNames(Integer categoryID)
+	public ArrayList<String>  getCategoryNames()
 	{
 		
        try {
 	 	
-     String query = "Select * from Category where categoryID=?";  //create a new query 
+     String query = "Select * from Category";  //create a new query 
      pstmt = con.prepareStatement(query);
-	 pstmt.setInt(1,categoryID);
+
      ResultSet rs =  pstmt.executeQuery(query);
      ArrayList<String> catNames = new ArrayList<String>();
      while (rs.next()) 
