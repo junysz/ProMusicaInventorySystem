@@ -23,15 +23,15 @@ public class DataQueries {
 		
        try {
 	 	
-     String query = "Select * from Category";  //create a new query 
+     String query = "Select * from Category";  //create a new query ,getting all fields
      pstmt = con.prepareStatement(query);
 
-     ResultSet rs =  pstmt.executeQuery(query);
-     ArrayList<String> catNames = new ArrayList<String>();
+     ResultSet rs =  pstmt.executeQuery(query); //create a new result set
+     ArrayList<String> catNames = new ArrayList<String>();  //declaring an array list of type String
      while (rs.next()) 
 	 {
-     String name = rs.getString("categoryName"); 
-     catNames.add(name);          
+     String name = rs.getString("categoryName");   //get name from result set for the category
+     catNames.add(name);                           //add name to the list     
      }      
 	
    	rs.close(); //close result set
@@ -91,31 +91,47 @@ public class DataQueries {
 			Item item;
 		try {
 			
-			ArrayList<Item> listItems = new ArrayList<Item>();
-			String query = "Select subCatID From SubCategory where subCatName = ? ";
-             pstmt = con.prepareStatement(query);
-			 pstmt.setString(1,subCatName);
-             ResultSet rs =  pstmt.executeQuery(query);
+			ArrayList<Item> listItems = new ArrayList<Item>(); // new arraylist of type Item
+			
+	    //create a new query based on subcategory Name
+	    	//query structure for requesting a subCategoryID from any subcategory name that is passed
+			String query = "Select SubCategoryID From SubCategory where subCatName = ? ";
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1,subCatName); //sets the SubcategoryName for the statement query
+			ResultSet rs = pstmt.executeQuery(); //executes query and puts the subcategory ID into rs
+			int subCatID = 0; //initialize the variable to hold the catID we get back from DB
+			while( rs.next()) { 
+				subCatID = rs.getInt("subCatID");	// sets the cat ID  
+			}
+			rs.close(); //close result set
+			pstmt.close(); //close prepared statement
+
+
+			//now we can run another query because we have the foreign key for Item table
+			String query2 = "Select * From Item where SubCatID = "+subCatID+" ";	    
+	     
+             pstmt = con.prepareStatement(query2);
+           	 ResultSet rs2 =  pstmt.executeQuery(query2);
              
-             while (rs.next()) 
+             while (rs2.next()) 
 			 {
-             int id       =rs.getInt("subCatID");	
-             double price = rs.getDouble("itemPrice");                    
-             String brand = rs.getString("itemBrand");
-             String model = rs.getString("itemModel");
-             int level    = rs.getInt("stockLevel");
-             int level2   = rs.getInt("availableStockLevel");
-             boolean flag=rs.getBoolean("itemFlag");
+             int id       =rs2.getInt("subCatID");	
+             double price = rs2.getDouble("itemPrice");                    
+             String brand = rs2.getString("itemBrand");
+             String model = rs2.getString("itemModel");   //get attributes for the item from result set 2
+             int level    = rs2.getInt("stockLevel");
+             int level2   = rs2.getInt("availableStockLevel");
+             boolean flag=rs2.getBoolean("itemFlag");
              
-             item=new Item(brand,model,level,price,level2);
-             item.setFlag(flag);
-             item.setItemID(id);
-             
-             listItems.add(item);
+             item=new Item(brand,model,level,price,level2);//creating a new object with some of the attributes
+             item.setFlag(flag);   //set flag for the item
+             item.setItemID(id);    //set itemID for the item
+              
+             listItems.add(item);   //add newly created object item to the list to be returned
              
              }      
 			
-		   	rs.close(); //close result set
+		   	rs2.close(); //close result set 2
 			pstmt.close(); //close prepared statement
 			return listItems;
      		}
@@ -130,8 +146,8 @@ public class DataQueries {
 					Item item;
 				try {
 					
-					ArrayList<Item> listItems = new ArrayList<Item>();
-					String query = "Select subCatID From SubCategory ";
+					ArrayList<Item> listItems = new ArrayList<Item>();  //create an array list of type Item
+					String query = "Select * From Item "; //create a query 
 		             pstmt = con.prepareStatement(query);
 					 ResultSet rs =  pstmt.executeQuery(query);
 		             
@@ -140,26 +156,24 @@ public class DataQueries {
 		             int id       =rs.getInt("subCatID");	
 		             double price = rs.getDouble("itemPrice");                    
 		             String brand = rs.getString("itemBrand");
-		             String model = rs.getString("itemModel");
+		             String model = rs.getString("itemModel"); //getting attributes from  the Item Table
 		             int level    = rs.getInt("stockLevel");
 		             int level2   = rs.getInt("availableStockLevel");
 		             boolean flag=rs.getBoolean("itemFlag");
 		             
-		             item=new Item(brand,model,level,price,level2);
+		             item=new Item(brand,model,level,price,level2); //create new object item
 		             item.setFlag(flag);
 		             item.setItemID(id);
 		             
 		             
-		            String str1=item.getModel();
+		            String str1=item.getModel();  // create 2 temporary string from model and brand
 		            String str2=item.getBrand();
 		            
+		            //Check if keyword is contained in any of model or brand
+		            //regardless of PUperCase or LowerCase
 		            if ( str1.toLowerCase().contains(keyword.toLowerCase()) || ( str2.toLowerCase().contains(keyword.toLowerCase())))
-		            listItems.add(item);
-		                     
-		            
-		             
+		            listItems.add(item);       
 		             }      
-					
 				   	rs.close(); //close result set
 					pstmt.close(); //close prepared statement
 					return listItems;
@@ -176,7 +190,7 @@ public class DataQueries {
 	    Account account;
 	     try {
 		
-	   	 ArrayList<Account> listAccounts = new ArrayList<Account>();
+	   	 ArrayList<Account> listAccounts = new ArrayList<Account>(); //create a new arraylist type account
          String query = "Select * from Account ";  //create a new query 
          pstmt = con.prepareStatement(query);
 		 ResultSet rs =  pstmt.executeQuery(query);
@@ -184,14 +198,14 @@ public class DataQueries {
 		 {
          Integer    id   = rs.getInt("accountID");	
          String username = rs.getString("username");         
-         String password = rs.getString("password");
+         String password = rs.getString("password");  //get attributes from Account table
          String type     = rs.getString("accountType");
          boolean flag   =rs.getBoolean("accountFlag"); 
          
-         account=new Account(type,username,password);
-         account.setUserID(id);
-         account.setFlag(flag);
-         listAccounts.add(account);
+         account=new Account(type,username,password);//create a new object account
+         account.setAccountID(id);
+         account.setFlag(flag);  //set attributes for account
+         listAccounts.add(account);  //add object to the list
                 
          }      
 		
