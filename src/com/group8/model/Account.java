@@ -17,8 +17,8 @@ public class Account {
 	
 	//Blank Constructor
 	public Account()
-	{
-		
+	{ 
+		setFlag(true);
 	}
 	//Constructor that accepts Type, User name, and Password as arguments
 	public Account(String t, String u, String p)
@@ -26,6 +26,7 @@ public class Account {
 		setType(t);
 		setUsername(u);
 		setPassword(p);
+		setFlag(true);
 	}
 	//Sets and Gets for Account Attributes
 	//setUserID will set the userID for the Account
@@ -77,5 +78,9 @@ public class Account {
 	public String getPassword()
 	{
 		return password;
+	}
+	public boolean getFlag()
+	{
+		return flag;
 	}
 }
