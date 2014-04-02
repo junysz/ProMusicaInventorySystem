@@ -18,13 +18,9 @@ public class DataInserts {
 		con = connection;
 	}
 	
-	//public access to this method for adding a new Category to the database
-	public void addNewCategory(Category c)
-	{
-		insertNewCategory(c);
-	}
-	//private method to handle the MySQL insert query for Inserting A New Category
-	private void insertNewCategory(Category c)
+	//protected method to handle the MySQL insert query for Inserting A New Category
+	//Accessed from MainModel class
+	protected void insertNewCategory(Category c)
 	{
 		try
 		{

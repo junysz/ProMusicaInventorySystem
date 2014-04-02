@@ -79,6 +79,7 @@ public class Account {
 	{
 		return password;
 	}
+	//returns flag
 	public boolean getFlag()
 	{
 		return flag;
