@@ -18,7 +18,13 @@ public class Item {
 	private double price;
 	private String brand, model;
 	private int stockLevel, availableStockLevel;
+<<<<<<< HEAD
 
+=======
+	private boolean flag;
+	
+	
+>>>>>>> origin/master
 	public Item(int id,double price,String brand,String model,int stockLevel, int availableStockLevel)
 	{
 		setItemID(id);
@@ -47,13 +53,15 @@ public class Item {
 		setModel(m);
 		setStockLevel(s);
 	}
-	//Constructor that accepts the Item Brand, Item Model, Stock Level, and Retail Price as arguments
-	public Item(String b, String m, int s, double c)
+	//Constructor that accepts the Item Brand, Item Model, Stock Level,Retail Price,Available stock level  as arguments
+	public Item(String b, String m, int s, double c,int a)
 	{
 		setBrand(b);
 		setModel(m);
 		setStockLevel(s);
 		setPrice(c);
+		setAvailableStockLevel(a);
+		
 	}
 	//Set and Get Methods for Item Attributes
 	//setItemID will set the itemID of the item
@@ -91,6 +99,11 @@ public class Item {
 	public void setAvailableStockLevel(int s)
 	{
 		this.availableStockLevel = s;
+	}
+	
+	public void setFlag(boolean f)
+	{
+		this.flag = f;
 	}
 	//returns the itemID
 	public int getItemID()

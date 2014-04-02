@@ -2,10 +2,15 @@ package com.group8.application;
 
 
 
+
 import java.awt.EventQueue;
 
 import com.group8.controller.Controller;
 import com.group8.model.MainModel;
+
+
+
+
 import com.group8.view.*;
 
 public class Main_TEST {
@@ -13,6 +18,7 @@ public class Main_TEST {
 	/**
 	 * @param args
 	 */
+
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -37,3 +43,6 @@ public class Main_TEST {
 				 */
 				//theView.setCategoryListener(theController);
 				//theView.setAccountListener(theController);
+
+	
+	
