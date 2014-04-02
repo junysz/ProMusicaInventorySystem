@@ -16,13 +16,13 @@ public class MainModel {
 		
 		
 		
-		
-		
-		
 		public List<Item> getMeSomeItems(){
 			return someItems.getMeSomeItems();
 		}
 		public List<String>getMySomeCategories(){
 			return someItems.getMeSomeCategories();
+		}
+		public List<String>getMeSomeSubCategories(){
+			return someItems.getMeSomeSubCategories();
 		}
 }

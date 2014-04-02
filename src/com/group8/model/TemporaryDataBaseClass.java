@@ -45,6 +45,21 @@ public class TemporaryDataBaseClass {
 		cat.add(cat1);
 		return cat;
 	}
+	
+	
+	public List<String> getMeSomeSubCategories(){
+		String cat1= "Electric1"; String cat2= "Electric3"; 
+		String cat3= "Electric2"; String cat4= "Electric4"; String cat5= "Electric2"; String cat6= "Electric2";
+		
+		List<String> cat= new ArrayList<>();
+		cat.add(cat6);
+		cat.add(cat5);
+		cat.add(cat4);
+		cat.add(cat3);
+		cat.add(cat2);
+		cat.add(cat1);
+		return cat;
+	}
 
 	
 }

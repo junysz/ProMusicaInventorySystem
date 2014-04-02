@@ -7,7 +7,7 @@ import java.util.List;
 import javax.swing.ComboBoxModel;
 import javax.swing.event.ListDataListener;
 
-public class CategoryComboBoxModel  implements ComboBoxModel<String> {
+public class SubCatComboBoxModel  implements ComboBoxModel<String> {
 
 	
 	
@@ -15,7 +15,7 @@ public class CategoryComboBoxModel  implements ComboBoxModel<String> {
 	
 	Object selectedCategory;
 	
-	public CategoryComboBoxModel() {
+	public SubCatComboBoxModel() {
 		this.comboBoxList=new ArrayList<>();
 	}
 

@@ -1,6 +1,7 @@
 package com.group8.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -16,6 +17,7 @@ public class Controller implements CategoryListener, AccountListner {
 
 	private List <Item> temItemList;
 	private List<String> categories;
+	private List<String> test;
 	private MainFrame theView;  	
 	private MainModel theModel;											
 
@@ -27,11 +29,13 @@ public class Controller implements CategoryListener, AccountListner {
 
 		theView.getTabsPane().getReservationPanel().addTableListener(new PopulateTableListener());
 		theView.getTabsPane().getReservationPanel().addComboBoxCatListener(new ComboBoxListener());
+		theView.getTabsPane().getReservationPanel().addComboBoxSubCatListener(new ComboBoxSubCatListener());
 		//categoryComboBox populate form DB
 		populateCategoryReservPanel();
+
 	}
-	
-	
+
+
 	public void populateCategoryReservPanel(){
 		categories=theModel.getMySomeCategories();
 		theView.getTabsPane().getReservationPanel().setComboBoxCategoryModel(categories);
@@ -44,20 +48,48 @@ public class Controller implements CategoryListener, AccountListner {
 			theView.getTabsPane().getReservationPanel().setTableModel(temItemList);	
 		}	
 	}
-	
+
 	class ComboBoxListener implements ActionListener{
+		
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
+
 			String selectedCategory=theView.getTabsPane().getReservationPanel().getSelectCategoryCBox().getSelectedItem().toString();
-			System.out.println("ComboBox changed to: "+selectedCategory);
-			
-			//now populate all subcategories ....
-			
+			System.out.println("ComboBox Category changed to: "+selectedCategory);
+
+			//now populate all sub-categories ....
+			test=theModel.getMeSomeSubCategories();
+
+			theView.getTabsPane().getReservationPanel().setComboBoxSubCategoryModel(test);
 		}
-		
+
+
+
 	}
+	class ComboBoxSubCatListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+
+			try{
+			String subCat=	theView.getTabsPane().getReservationPanel().getSelectSubcategoryCBox().getSelectedItem().toString();
+				System.out.println("ComboBox Sub-category changed to: "+ subCat);
+				
+
+			}catch(Exception exception)
+			{
+				exception.printStackTrace();
+			System.out.println("No data in comboBox");
+			}
+
+
+
+			//get Items for sub-category and display in the table
+
+		}
+
+	}
+
 
 
 
