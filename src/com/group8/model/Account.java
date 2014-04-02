@@ -12,6 +12,7 @@ public class Account {
 
 	//Attributes of an Account
 	private int userID;
+	private boolean flag;
 	private String accountType, userName, password;
 	
 	//Blank Constructor
@@ -51,6 +52,12 @@ public class Account {
 	{
 		this.password = pass;
 	}
+	//setFlag will set the flag to the account
+	public void setFlag(boolean flag )
+	{
+		this.flag = flag;
+	}
+	
 	//returns userID
 	public int getUserID()
 	{

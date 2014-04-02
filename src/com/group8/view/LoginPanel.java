@@ -26,6 +26,9 @@ public class LoginPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public LoginPanel()	 {
+		
+		//set panel properties and add objects
+		
 		setLayout(new MigLayout("", "[200px][]", "[100px][][][]"));
 		setSize(309, 226);
 		
@@ -47,6 +50,9 @@ public class LoginPanel extends JPanel {
 		add(btnLogin, "cell 1 3,growx");
 
 	}
+	/*
+	*  Setters and Getters for login panel
+	*/
 	public JButton getLoginBtn()
 	{
 		return btnLogin;

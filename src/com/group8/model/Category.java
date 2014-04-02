@@ -1,5 +1,7 @@
 package com.group8.model;
 
+import java.util.ArrayList;
+
 
 
 /*The Concept of a Category is represented by this class.
@@ -12,17 +14,18 @@ public class Category {
 	
 	//Attributes of a Category
 	private int categoryID;
+	static int id=1;
 	private String categoryName;
+	private ArrayList<SubCategory> subCategory;
 	
-	//Blank Constructor
-	public Category()
-	{
-		
-	}
+	
 	//Constructor that accepts the category name as an argument
 	public Category(String n)
 	{
-		setCategoryName(n);		
+		setCategoryName(n);	
+		categoryID=id;
+		id++;
+		
 	}
 	//Set and Get methods for access to the attributes
 	//setCategoryID sets the system ID used for tracking categories 
@@ -46,6 +49,24 @@ public class Category {
 	public String getCategoryName()
 	{
 		return categoryName;
+	}
+	
+	
+	
+	
+	public ArrayList<SubCategory> getSubCategory() {
+		return subCategory;
+	}
+	public void setSubCategory(ArrayList<SubCategory> subCategory) {
+		this.subCategory = subCategory;
+	}
+	public void addSubcategory(SubCategory subCategory){
+		this.subCategory.add(subCategory);
+	}
+	public void print() {
+		System.out.println("Category ID is: "+getCategoryID());
+		System.out.println("Category Name is: "+getCategoryName());
+		
 	}
 
 }

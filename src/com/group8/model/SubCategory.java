@@ -13,11 +13,7 @@ public class SubCategory {
 	private int subCatID;
 	private String subCatName;
 	
-	//Blank Constructor
-	public SubCategory()
-	{
-		
-	}
+	
 	//Constructor that accepts the name as an argument
 	public SubCategory(String n)
 	{
