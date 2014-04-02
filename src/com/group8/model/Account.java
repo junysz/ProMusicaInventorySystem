@@ -11,9 +11,9 @@ package com.group8.model;
 public class Account {
 
 	//Attributes of an Account
-	private int userID;
+	private int accountID;
 	private boolean flag;
-	private String accountType, userName, password;
+	private String accountType, accountName, password;
 	
 	//Blank Constructor
 	public Account()
@@ -24,16 +24,16 @@ public class Account {
 	public Account(String t, String u, String p)
 	{
 		setType(t);
-		setUsername(u);
+		setAccountName(u);
 		setPassword(p);
 		setFlag(true);
 	}
 	//Sets and Gets for Account Attributes
 	//setUserID will set the userID for the Account
 	//integer u is the ID to be set
-	public void setUserID(int u)
+	public void setAccountID(int u)
 	{
-		this.userID = u;
+		this.accountID = u;
 	}
 	//setType will set the accountType of the Account
 	//integer t will be the type to be set
@@ -43,9 +43,9 @@ public class Account {
 	}
 	//setUsername will set the username of the Account
 	//String name is the username to be set
-	public void setUsername(String name)
+	public void setAccountName(String name)
 	{
-		this.userName = name;
+		this.accountName = name;
 	}
 	//setPassword will set the password of the account
 	//String pass is the password to be set
@@ -60,9 +60,9 @@ public class Account {
 	}
 	
 	//returns userID
-	public int getUserID()
+	public int getAccountID()
 	{
-		return userID;
+		return accountID;
 	}
 	//returns accountType
 	public String getType()
@@ -70,9 +70,9 @@ public class Account {
 		return accountType;
 	}
 	//returns userName
-	public String getUsername()
+	public String getAccountName()
 	{
-		return userName;
+		return accountName;
 	}
 	//returns password
 	public String getPassword()
