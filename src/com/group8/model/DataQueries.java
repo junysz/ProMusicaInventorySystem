@@ -197,8 +197,8 @@ public class DataQueries {
          while (rs.next()) 
 		 {
          Integer    id   = rs.getInt("accountID");	
-         String username = rs.getString("username");         
-         String password = rs.getString("password");  //get attributes from Account table
+         String username = rs.getString("accountName");         
+         String password = rs.getString("accountPassword");  //get attributes from Account table
          String type     = rs.getString("accountType");
          boolean flag   =rs.getBoolean("accountFlag"); 
          
