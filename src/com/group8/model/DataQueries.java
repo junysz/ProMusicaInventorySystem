@@ -7,42 +7,42 @@ public class DataQueries {
 
 	Connection con;
 	Statement statement;
-	PreparedStatement pstmt, pstmt2;
+	PreparedStatement pstmt;
 
 	public DataQueries(Connection connection)
 	{
 		con = connection;
 	}
 
-		
-	
+
+
 
 	//This method is getting a LIST  of  the NAMES of all the Categories
 	public ArrayList<String>  getCategoryNames()
 	{
-		
-       try {
-	 	
-     String query = "Select * from Category";  //create a new query ,getting all fields
-     pstmt = con.prepareStatement(query);
 
-     ResultSet rs =  pstmt.executeQuery(query); //create a new result set
-     ArrayList<String> catNames = new ArrayList<String>();  //declaring an array list of type String
-     while (rs.next()) 
-	 {
-     String name = rs.getString("categoryName");   //get name from result set for the category
-     catNames.add(name);                           //add name to the list     
-     }      
-	
-   	rs.close(); //close result set
-	pstmt.close(); //close prepared statement
-	return catNames;
+		try {
+
+			String query = "Select * from Category";  //create a new query ,getting all fields
+			pstmt = con.prepareStatement(query);
+
+			ResultSet rs =  pstmt.executeQuery(query); //create a new result set
+			ArrayList<String> catNames = new ArrayList<String>();  //declaring an array list of type String
+			while (rs.next()) 
+			{
+				String name = rs.getString("categoryName");   //get name from result set for the category
+				catNames.add(name);                           //add name to the list     
+			}      
+
+			rs.close(); //close result set
+			pstmt.close(); //close prepared statement
+			return catNames;
 		}
-	catch (Exception io) {
-	return null;
-     }  
+		catch (Exception io) {
+			return null;
+		}  
 	}
-	
+
 
 	//this method is responsible for returning an array LIST of NAMES sub-categories that are within a given Category name
 	public ArrayList<String> getSubCategories(String catName)
@@ -83,18 +83,18 @@ public class DataQueries {
 			return null;
 		}  
 	}
-		
-		
-		// Method to get Objects Items in a given subcategory 				
-		public ArrayList<Item>  getItemsInSubcategory(String subCatName)
-			{
-			Item item;
+
+
+	// Method to get Objects Items in a given subcategory 				
+	public ArrayList<Item>  getItemsInSubcategory(String subCatName)
+	{
+		Item item;
 		try {
-			
+
 			ArrayList<Item> listItems = new ArrayList<Item>(); // new arraylist of type Item
-			
-	    //create a new query based on subcategory Name
-	    	//query structure for requesting a subCategoryID from any subcategory name that is passed
+
+			//create a new query based on subcategory Name
+			//query structure for requesting a subCategoryID from any subcategory name that is passed
 			String query = "Select SubCategoryID From SubCategory where subCatName = ? ";
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1,subCatName); //sets the SubcategoryName for the statement query
@@ -109,117 +109,117 @@ public class DataQueries {
 
 			//now we can run another query because we have the foreign key for Item table
 			String query2 = "Select * From Item where SubCatID = "+subCatID+" ";	    
-	     
-             pstmt = con.prepareStatement(query2);
-           	 ResultSet rs2 =  pstmt.executeQuery(query2);
-             
-             while (rs2.next()) 
-			 {
-             int id       =rs2.getInt("subCatID");	
-             double price = rs2.getDouble("itemPrice");                    
-             String brand = rs2.getString("itemBrand");
-             String model = rs2.getString("itemModel");   //get attributes for the item from result set 2
-             int level    = rs2.getInt("stockLevel");
-             int level2   = rs2.getInt("availableStockLevel");
-             boolean flag=rs2.getBoolean("itemFlag");
-             
-             item=new Item(brand,model,level,price,level2);//creating a new object with some of the attributes
-             item.setFlag(flag);   //set flag for the item
-             item.setItemID(id);    //set itemID for the item
-              
-             listItems.add(item);   //add newly created object item to the list to be returned
-             
-             }      
-			
-		   	rs2.close(); //close result set 2
+
+			pstmt = con.prepareStatement(query2);
+			ResultSet rs2 =  pstmt.executeQuery(query2);
+
+			while (rs2.next()) 
+			{
+				int id       =rs2.getInt("subCatID");	
+				double price = rs2.getDouble("itemPrice");                    
+				String brand = rs2.getString("itemBrand");
+				String model = rs2.getString("itemModel");   //get attributes for the item from result set 2
+				int level    = rs2.getInt("stockLevel");
+				int level2   = rs2.getInt("availableStockLevel");
+				boolean flag=rs2.getBoolean("itemFlag");
+
+				item=new Item(brand,model,level,price,level2);//creating a new object with some of the attributes
+				item.setFlag(flag);   //set flag for the item
+				item.setItemID(id);    //set itemID for the item
+
+				listItems.add(item);   //add newly created object item to the list to be returned
+
+			}      
+
+			rs2.close(); //close result set 2
 			pstmt.close(); //close prepared statement
 			return listItems;
-     		}
-			catch (Exception io) {
+		}
+		catch (Exception io) {
 			return null;
 		}  
-			}
-		
-		// Method to get Objects Items by a keyword			
-				public ArrayList<Item>  getItemsByKeyword(String keyword)
-					{
-					Item item;
-				try {
-					
-					ArrayList<Item> listItems = new ArrayList<Item>();  //create an array list of type Item
-					String query = "Select * From Item "; //create a query 
-		             pstmt = con.prepareStatement(query);
-					 ResultSet rs =  pstmt.executeQuery(query);
-		             
-		             while (rs.next()) 
-					 {
-		             int id       =rs.getInt("subCatID");	
-		             double price = rs.getDouble("itemPrice");                    
-		             String brand = rs.getString("itemBrand");
-		             String model = rs.getString("itemModel"); //getting attributes from  the Item Table
-		             int level    = rs.getInt("stockLevel");
-		             int level2   = rs.getInt("availableStockLevel");
-		             boolean flag=rs.getBoolean("itemFlag");
-		             
-		             item=new Item(brand,model,level,price,level2); //create new object item
-		             item.setFlag(flag);
-		             item.setItemID(id);
-		             
-		             
-		            String str1=item.getModel();  // create 2 temporary string from model and brand
-		            String str2=item.getBrand();
-		            
-		            //Check if keyword is contained in any of model or brand
-		            //regardless of PUperCase or LowerCase
-		            if ( str1.toLowerCase().contains(keyword.toLowerCase()) || ( str2.toLowerCase().contains(keyword.toLowerCase())))
-		            listItems.add(item);       
-		             }      
-				   	rs.close(); //close result set
-					pstmt.close(); //close prepared statement
-					return listItems;
-		     		}
-					catch (Exception io) {
-					return null;
-				}  
-					}
-		
-		
-		//Method to get ALL objects  ACCOUNTS in the Database
-		public ArrayList<Account>  getAllAccounts()
-		{
-	    Account account;
-	     try {
-		
-	   	 ArrayList<Account> listAccounts = new ArrayList<Account>(); //create a new arraylist type account
-         String query = "Select * from Account ";  //create a new query 
-         pstmt = con.prepareStatement(query);
-		 ResultSet rs =  pstmt.executeQuery(query);
-         while (rs.next()) 
-		 {
-         Integer    id   = rs.getInt("accountID");	
-         String username = rs.getString("accountName");         
-         String password = rs.getString("accountPassword");  //get attributes from Account table
-         String type     = rs.getString("accountType");
-         boolean flag   =rs.getBoolean("accountFlag"); 
-         
-         account=new Account(type,username,password);//create a new object account
-         account.setAccountID(id);
-         account.setFlag(flag);  //set attributes for account
-         listAccounts.add(account);  //add object to the list
-                
-         }      
-		
-	   	rs.close(); //close result set
-		pstmt.close(); //close prepared statement
-		return listAccounts;
- 		}
-		catch (Exception io) {
-		return null;
-	}  
-		}
-		
-		
-		
 	}
+
+	// Method to get Objects Items by a keyword			
+	public ArrayList<Item>  getItemsByKeyword(String keyword)
+	{
+		Item item;
+		try {
+
+			ArrayList<Item> listItems = new ArrayList<Item>();  //create an array list of type Item
+			String query = "Select * From Item "; //create a query 
+			pstmt = con.prepareStatement(query);
+			ResultSet rs =  pstmt.executeQuery(query);
+
+			while (rs.next()) 
+			{
+				int id       =rs.getInt("subCatID");	
+				double price = rs.getDouble("itemPrice");                    
+				String brand = rs.getString("itemBrand");
+				String model = rs.getString("itemModel"); //getting attributes from  the Item Table
+				int level    = rs.getInt("stockLevel");
+				int level2   = rs.getInt("availableStockLevel");
+				boolean flag=rs.getBoolean("itemFlag");
+
+				item=new Item(brand,model,level,price,level2); //create new object item
+				item.setFlag(flag);
+				item.setItemID(id);
+
+
+				String str1=item.getModel();  // create 2 temporary string from model and brand
+				String str2=item.getBrand();
+
+				//Check if keyword is contained in any of model or brand
+				//regardless of PUperCase or LowerCase
+				if ( str1.toLowerCase().contains(keyword.toLowerCase()) || ( str2.toLowerCase().contains(keyword.toLowerCase())))
+					listItems.add(item);       
+			}      
+			rs.close(); //close result set
+			pstmt.close(); //close prepared statement
+			return listItems;
+		}
+		catch (Exception io) {
+			return null;
+		}  
+	}
+
+
+	//Method to get ALL objects  ACCOUNTS in the Database
+	public ArrayList<Account>  getAllAccounts()
+	{
+		Account account;
+		try {
+
+			ArrayList<Account> listAccounts = new ArrayList<Account>(); //create a new arraylist type account
+			String query = "Select * from Account ";  //create a new query 
+			pstmt = con.prepareStatement(query);
+			ResultSet rs =  pstmt.executeQuery(query);
+			while (rs.next()) 
+			{
+				Integer    id   = rs.getInt("accountID");	
+				String username = rs.getString("accountName");         
+				String password = rs.getString("accountPassword");  //get attributes from Account table
+				String type     = rs.getString("accountType");
+				boolean flag   =rs.getBoolean("accountFlag"); 
+
+				account=new Account(type,username,password);//create a new object account
+				account.setAccountID(id);
+				account.setFlag(flag);  //set attributes for account
+				listAccounts.add(account);  //add object to the list
+
+			}      
+
+			rs.close(); //close result set
+			pstmt.close(); //close prepared statement
+			return listAccounts;
+		}
+		catch (Exception io) {
+			return null;
+		}  
+	}
+
+
+
+}
 
 
