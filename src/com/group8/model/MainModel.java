@@ -3,7 +3,6 @@ package com.group8.model;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.DriverManager;
-import java.util.List;
 
 /*
  * This class is responsible for the entire model package. 
