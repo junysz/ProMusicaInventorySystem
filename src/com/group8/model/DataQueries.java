@@ -8,7 +8,6 @@ public class DataQueries {
 	Connection con;
 	Statement statement;
 	PreparedStatement pstmt, pstmt2;
-	
 
 	public DataQueries(Connection connection)
 	{
@@ -18,37 +17,8 @@ public class DataQueries {
 	//prepared statements for queries on the fly to fill combo boxes and menu's
 
 
-	//this method is getting the names of all the categories
-	public ArrayList<String> getCategoryNames(Integer categoryID)
-	{
-		
-       try {
-	 	
-     String query = "Select * from Category where categoryID=?";  //create a new query 
-     pstmt = con.prepareStatement(query);
-	 pstmt.setInt(1,categoryID);
-     ResultSet rs =  pstmt.executeQuery(query);
-     ArrayList<String> catNames = new ArrayList<String>();
-     while (rs.next()) 
-	 {
-    	
-     String name = rs.getString("categoryName"); 
-     catNames.add(name);    
-               
-     }      
-	
-   	rs.close(); //close result set
-	pstmt.close(); //close prepared statement
-	return catNames;
-		}
-	catch (Exception io) {
-	return null;
-}  
-	}
-	
-	
 	//this method is responsible for returning an array list of sub-categories that are within a given category name
-	public ArrayList<String> getSubCategoriesNames(String catName)
+	public ArrayList<String> getSubCategories(String catName)
 	{
 		try {
 			//query structure for requesting a CategoryID from any category name that is passed
@@ -130,7 +100,7 @@ public class DataQueries {
 		}  
 	}
 		
-		//this method is returning an object of type item based on he ID
+		
 		public Item getItemAttributes(Integer itemID)
 			{
 			Item item=null;
