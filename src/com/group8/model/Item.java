@@ -18,14 +18,14 @@ public class Item {
 	private double price;
 	private String brand, model;
 	private int stockLevel, availableStockLevel;
-<<<<<<< HEAD
-
-=======
 	private boolean flag;
 	
+	public Item()
+	{
+		
+	}
 	
->>>>>>> origin/master
-	public Item(int id,double price,String brand,String model,int stockLevel, int availableStockLevel)
+	public Item(int id,double price,String brand,String model,int stockLevel, int availableStockLevel, boolean flag)
 	{
 		setItemID(id);
 		setPrice(price);
@@ -33,13 +33,8 @@ public class Item {
 		setModel(model);
 		setStockLevel(stockLevel);
 		setAvailableStockLevel(availableStockLevel);
+		setFlag(flag);
 	}
-	
-	
-	
-	
-	
-	
 	//Constructor that accepts the Item Brand and Item Model as arguments
 	public Item(String b, String m)
 	{
@@ -134,5 +129,9 @@ public class Item {
 	public int getAvailableStockLevel()
 	{
 		return availableStockLevel;
+	}
+	public boolean getFlag()
+	{
+		return flag;
 	}
 }

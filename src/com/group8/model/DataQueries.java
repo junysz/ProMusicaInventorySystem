@@ -147,32 +147,25 @@ public class DataQueries {
 		try {
 
 			ArrayList<Item> listItems = new ArrayList<Item>();  //create an array list of type Item
-			String query = "Select * From Item "; //create a query 
+			//this query will return all from items where the brand or model contains the keyword
+			String query = "Select * From Item Where itemBrand like '%" + keyword +"%' or itemModel like '%" + keyword +"%' "; //create a query 
 			pstmt = con.prepareStatement(query);
 			ResultSet rs =  pstmt.executeQuery(query);
 
 			while (rs.next()) 
 			{
-				int id       =rs.getInt("subCatID");	
+				//getting attributes from  the Item Table 
+				int id       =rs.getInt("itemID");	
 				double price = rs.getDouble("itemPrice");                    
 				String brand = rs.getString("itemBrand");
-				String model = rs.getString("itemModel"); //getting attributes from  the Item Table
+				String model = rs.getString("itemModel"); 
 				int level    = rs.getInt("stockLevel");
 				int level2   = rs.getInt("availableStockLevel");
-				boolean flag=rs.getBoolean("itemFlag");
+				boolean flag=rs.getBoolean("flag");
 
-				item=new Item(brand,model,level,price,level2); //create new object item
-				item.setFlag(flag);
-				item.setItemID(id);
+				item=new Item(id,price,brand,model,level,level2, flag); //create new object item
 
-
-				String str1=item.getModel();  // create 2 temporary string from model and brand
-				String str2=item.getBrand();
-
-				//Check if keyword is contained in any of model or brand
-				//regardless of PUperCase or LowerCase
-				if ( str1.toLowerCase().contains(keyword.toLowerCase()) || ( str2.toLowerCase().contains(keyword.toLowerCase())))
-					listItems.add(item);       
+				listItems.add(item);       //add the item to a list
 			}      
 			rs.close(); //close result set
 			pstmt.close(); //close prepared statement
