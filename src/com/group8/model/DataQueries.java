@@ -224,14 +224,14 @@ public ArrayList<Sale>  getSalesByDate(Date date1,Date date2)
 
 			while (rs.next()) 
 			{
-				//getting attributes from  the Item Table 
+				//getting attributes from  the Sale Table 
 				int SaleID=rs.getInt("saleID");
 				Date saleDate  =rs.getDate("saleDate");	
 				double price = rs.getDouble("totalSalePrice");                    
 				int accountID =rs.getInt("accountID");
 			
-				sale=new Sale(SaleID,saleDate,price,accountID); //create new object item
-				listSales.add(sale);       //add the item to a list
+				sale=new Sale(SaleID,saleDate,price,accountID); //create new object sale
+				listSales.add(sale);       //add the Sale to a list
 			}      
 			rs.close(); //close result set
 			pstmt.close(); //close prepared statement
