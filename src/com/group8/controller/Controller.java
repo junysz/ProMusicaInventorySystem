@@ -6,8 +6,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 
-import com.group8.model.Item;
-import com.group8.model.MainModel;
+import com.group8.model.*;
 import com.group8.view.AccountFormEvent;
 import com.group8.view.AccountListner;
 import com.group8.view.CategoryFormEvent;
@@ -27,26 +26,42 @@ public class Controller implements CategoryListener, AccountListner {
 		this.theView=theView;
 		this.theModel=theModel;
 
+<<<<<<< HEAD
 		theView.getTabsPane().getReservationPanel().addTableListener(new PopulateTableListener());
 		theView.getTabsPane().getReservationPanel().addComboBoxCatListener(new ComboBoxListener());
 		theView.getTabsPane().getReservationPanel().addComboBoxSubCatListener(new ComboBoxSubCatListener());
+=======
+
+		//theView.getTabsPane().getReservationPanel().addTableListener(new PopulateTableListener());
+		//theView.getTabsPane().getReservationPanel().addComboBoxCatListener(new ComboBoxListener());
+>>>>>>> master
 		//categoryComboBox populate form DB
-		populateCategoryReservPanel();
+		//populateCategoryReservPanel();
 	}
+<<<<<<< HEAD
 
 
+=======
+	
+	/*
+>>>>>>> master
 	public void populateCategoryReservPanel(){
-		categories=theModel.getMySomeCategories();
+		categories=theModel.getMySomeCategories(); //i deleted this method from model, i can replace with proper one using query
 		theView.getTabsPane().getReservationPanel().setComboBoxCategoryModel(categories);
 	}
 
 
 	class PopulateTableListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			temItemList=theModel.getMeSomeItems();
+			temItemList=theModel.getMeSomeItems(); //i deleted this method from model, i can replace with proper one using query
 			theView.getTabsPane().getReservationPanel().setTableModel(temItemList);	
 		}	
 	}
+<<<<<<< HEAD
+=======
+	*/
+	
+>>>>>>> master
 	class ComboBoxListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -112,11 +127,13 @@ public class Controller implements CategoryListener, AccountListner {
 	 */
 	public void accountAddedPerformed(AccountFormEvent accountFormEvent) {
 
-		System.out.println(accountFormEvent.getUserName());
-		System.out.println(accountFormEvent.getPassword());
-		System.out.println(accountFormEvent.getConfirmPassword());
-		System.out.println(accountFormEvent.getType());
-		System.out.println();
+		Account a = new Account();
+		a.setAccountName(accountFormEvent.getUserName());
+		a.setPassword(accountFormEvent.getPassword());
+		a.setType(accountFormEvent.getType());
+		System.out.println(a.getAccountName() + a.getPassword() + a.getType());
+		
+		theModel.addNewAccount(a);
 	}
 
 

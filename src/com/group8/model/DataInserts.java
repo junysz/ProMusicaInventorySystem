@@ -18,145 +18,124 @@ public class DataInserts {
 		con = connection;
 	}
 	
-	//public access to this method for adding a new Category to the database
-	public void addNewCategory(Category c)
-	{
-		insertNewCategory(c);
-	}
-	//private method to handle the MySQL insert query for Inserting A New Category
-	private void insertNewCategory(Category c)
+	//protected method to handle the MySQL insert query for Inserting A New Category
+	//Accessed from MainModel class
+	protected void insertNewCategory(Category c)
 	{
 		try
 		{
 			statement = con.createStatement();
 			//Structure for inserting a new tuple in the Category table
-			String insert = "Insert into Category values (" + c.getCategoryID() + ", '" + c.getCategoryName() + "')";
+			String insert = "Insert into Category (categoryName) values ('" + c.getCategoryName() + "')";
 			int res = statement.executeUpdate(insert); //writes to Category table
 			con.commit();
 			statement.close();
 		}
 		catch(Exception e)
         {
+			System.out.println("Insert Category Failed"); //testing with console
             e.printStackTrace();
         }
 	}
-	public void addNewSubCategory(Category c, SubCategory s)
-	{
-		insertNewSubCat(c, s);
-	}
-	private void insertNewSubCat(Category c, SubCategory s)
+	protected void insertNewSubCat(Category c, SubCategory s)
 	{
 		try
 		{
 			statement = con.createStatement();
 			//Structure for inserting a new tuple in the SubCategory table
-			String insert = "Insert into SubCategory values (" + s.getSubCatID() + ", '" + s.getSubCatName() + "', " + c.getCategoryID() + ")";
+			String insert = "Insert into SubCategory (subCatName, catID ) values ('" + s.getSubCatName() + "', " + c.getCategoryID() + ")";
 			int res = statement.executeUpdate(insert); //writes to SubCategory table
 			con.commit();
 			statement.close();
 		}
 		catch(Exception e)
         {
+			System.out.println("Insert SubCategory Failed"); //testing with console
             e.printStackTrace();
         }
 	}
-	public void addNewItem(Item i, SubCategory s)
-	{
-		insertNewItem(i, s);
-	}
-	private void insertNewItem(Item i, SubCategory s)
+	protected void insertNewItem(Item i, SubCategory s)
 	{
 		try
 		{
 			statement = con.createStatement();
 			//Structure for inserting a new tuple in the Item table
-			String insert = "Insert into Item values (" + i.getItemID() + "," + i.getPrice() + ", '" + i.getBrand() + "','" + i.getModel() + "'," + i.getStockLevel() + "," + i.getAvailableStockLevel() + ", " + s.getSubCatID() + ")";
+			String insert = "Insert into Item (itemPrice, itemBrand, itemModel, stockLevel, availableStockLevel, subCatID, flag) values (" + i.getPrice() + ", '" + i.getBrand() + "','" + i.getModel() + "'," + i.getStockLevel() + "," + i.getAvailableStockLevel() + ", 1 )";
 			int res = statement.executeUpdate(insert); //writes to Item table
 			con.commit();
 			statement.close();
 		}
 		catch(Exception e)
         {
+			System.out.println("Insert Item failed");
             e.printStackTrace();
         }
 	}
-	public void addNewSale(Sale s, Account a)
-	{
-		insertNewSale(s, a);
-	}
-	private void insertNewSale(Sale s, Account a)
+	protected void insertNewSale(Sale s, Account a)
 	{
 		try
 		{
 			statement = con.createStatement();
 			//Structure for inserting a new tuple in Sale table
-			String insert = "Insert into Sale values (" + s.getSaleID() + ", '" + s.getDate() + "', " + s.getTotalPrice() + "," + s.getSaleID() + ")";
+			String insert = "Insert into Sale (saleDate, totalSalePrice, saleAccountID) values ( '" + s.getDate() + "', " + s.getTotalPrice() + "," + a.getAccountID() + ")";
 			int res = statement.executeUpdate(insert); //writes to Sale table
 			con.commit();
 			statement.close();
 		}
 		catch(Exception e)
         {
+			System.out.println("Insert Sale Failed");
             e.printStackTrace();
         }
 	}
-	public void addNewItemSold(Item i, Sale s, double itemSalePrice)
-	{
-		insertNewItemSold(i , s, itemSalePrice);
-	}
-	private void insertNewItemSold(Item i, Sale s, double itemSalePrice)
+	protected void insertNewItemSold(Item i, Sale s, double itemSalePrice)
 	{
 		try
 		{
 			statement = con.createStatement();
 			//Structure for inserting a new tuple in the Item Sold table
-			String insert = "Insert into ItemSold values (" + i.getItemID() + "," + s.getSaleID() + ", " + itemSalePrice + ")";
+			String insert = "Insert into ItemSold (itemSoldID, saleID, itemSalePrice) values (" + i.getItemID() + "," + s.getSaleID() + ", " + itemSalePrice + ")";
 			int res = statement.executeUpdate(insert); //writes to Item Sold table
 			con.commit();
 			statement.close();
 		}
 		catch(Exception e)
         {
+			System.out.println("Insert ItemSold Failed");
             e.printStackTrace();
         }
 	}
-	public void addNewAccount(Account a)
-	{
-		insertNewAccount(a);
-	}
-	private void insertNewAccount(Account a)
+	protected void insertNewAccount(Account a)
 	{
 		try
 		{
 			statement = con.createStatement();
 			//Structure for inserting a new tuple in the Account table
-			String insert = "Insert into Account values (" + a.getUserID() + ",'" + a.getUsername() + "','" + a.getPassword() + "','" + a.getType() + "')";
+			String insert = "Insert into Account (accountName, accountPassword, accountType, flag ) values ('" + a.getAccountName() + "','" + a.getPassword() + "','" + a.getType() + "', 1 )";
 			int res = statement.executeUpdate(insert); //writes to Item SOld table
 			con.commit();
 			statement.close();
 		}
 		catch(Exception e)
         {
+			System.out.println("Insert Account Failed");
             e.printStackTrace();
         }
 	}
-	public void addNewReservation(Reservation r, Account a, Item i)
-	{
-		insertNewReservation(r, a, i);
-	}
-	private void insertNewReservation(Reservation r, Account a, Item i)
+	protected void insertNewReservation(Reservation r, Account a, Item i)
 	{
 		try
 		{
 			statement = con.createStatement();
 			//Structure for inserting a new tuple in the Reservation table
-			String insert = "Insert into Reservation values (" + r.getResID() + "," + a.getUserID() + "," + r.getDocketNo() + ",'" + r.getStartDate() + "'," + r.getDeposit() + "," + i.getItemID() + ")";
+			String insert = "Insert into Reservation (docketNo, resDate, depositPlaced, accountID, itemID, flag) values (" + r.getDocketNo() + ",'" + r.getStartDate() + "'," + r.getDeposit() + "," + a.getAccountID() + "," + i.getItemID() + ", 1)";
 			int res = statement.executeUpdate(insert); //writes to Reservation table
 			con.commit();
 			statement.close();
 		}
 		catch(Exception e)
         {
+			System.out.println("Insert Reservation Failed");
             e.printStackTrace();
         }
 	}
