@@ -17,6 +17,7 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.util.List;
 
 
 
@@ -95,6 +96,9 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	private JTextField editAccountPasswordTF;
 	private JLabel lblPassword_1;
 
+	
+	private CategoryComboBoxModel categoryComboBoxModel;
+	
 	//all components
 	void init(){
 
@@ -262,7 +266,14 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		lblSelectCategory_1 = new JLabel("Select Category");
 		editCategoryPanel.add(lblSelectCategory_1, "cell 1 0");
 
-		selectCategoryToEditcomboBox = new JComboBox();
+		
+		
+		categoryComboBoxModel= new CategoryComboBoxModel();
+		
+		selectCategoryToEditcomboBox = new JComboBox<String>();
+		selectCategorycomboBox.setModel(categoryComboBoxModel);
+		
+		
 		editCategoryPanel.add(selectCategoryToEditcomboBox, "cell 3 0,growx");
 
 		lblEditName = new JLabel("Edit Name");
@@ -441,6 +452,9 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		btnRemoveItem = new JButton("Remove Item");
 		editItemPanel.add(btnRemoveItem, "cell 3 10,growx");
 
+		
+		
+		
 	}
 
 
@@ -462,6 +476,11 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		btnCreate.addActionListener(this);
 		btnConfirmChanges_1.addActionListener(this);
 		btnRemoveItem.addActionListener(this);
+		
+		
+		
+		
+		
 	}
 
 
@@ -524,31 +543,49 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		}
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	//adds two strings to account panel to the combo-box
 	public void addAccountTypeToComboBox(){
 		selectAccountTypeComboBox.addItem("Manager");
 		selectAccountTypeComboBox.addItem("User");
 	}
-		
-		
 	//sets listener passed from TestingMainPanel from Mian_Test
 	public void setCategoryListenr(CategoryListener categoryListenr) {
 		 System.out.println("I will accept any object that implemnts CategoryListener Class: MaintainPanel");
 		this.categoryListenr = categoryListenr;
 	}
-	
-	
-	
-
-
 	public void setAccountListener(AccountListner accountListener) {
 		 System.out.println("I will accept any object that implemnts AccountListener Class: MaintainPanel");
 		 
-		 this.accountListener= accountListener;
-		
+		 this.accountListener= accountListener;	
 	}
 	
 	
+	
+	
+	public void setComboBoxCategoryModel(List<String>comboBoxList){
+		categoryComboBoxModel.setComboBoxList(comboBoxList);
+	}
+	
+	//JoptionPanel to inform that create category field is empty
+	public void warnCategoryFieldEmpty(){
+		
+		JOptionPane.showMessageDialog(null,
+			    "Category field empty.",
+			    "Go away warning",
+			    JOptionPane.WARNING_MESSAGE);
+	}
 	
 
 }

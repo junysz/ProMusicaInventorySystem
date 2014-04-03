@@ -9,7 +9,7 @@ import javax.swing.event.ListDataListener;
 
 public class CategoryComboBoxModel  implements ComboBoxModel<String> {
 
-	
+	  
 	
 	List<String>comboBoxList;
 	

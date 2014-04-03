@@ -28,6 +28,9 @@ public class Main_TEST {
 				MainFrame theView= new MainFrame();
 				MainModel theModel= new MainModel();
 				Controller theController= new Controller(theView,theModel);		
+				//testing
+				theView.setCategoryListener(theController);
+				
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

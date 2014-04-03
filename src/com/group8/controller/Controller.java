@@ -1,8 +1,9 @@
 package com.group8.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JOptionPane;
 
 
 import com.group8.model.Item;
@@ -26,13 +27,11 @@ public class Controller implements CategoryListener, AccountListner {
 		this.theView=theView;
 		this.theModel=theModel;
 
-
 		theView.getTabsPane().getReservationPanel().addTableListener(new PopulateTableListener());
 		theView.getTabsPane().getReservationPanel().addComboBoxCatListener(new ComboBoxListener());
 		theView.getTabsPane().getReservationPanel().addComboBoxSubCatListener(new ComboBoxSubCatListener());
 		//categoryComboBox populate form DB
 		populateCategoryReservPanel();
-
 	}
 
 
@@ -48,10 +47,7 @@ public class Controller implements CategoryListener, AccountListner {
 			theView.getTabsPane().getReservationPanel().setTableModel(temItemList);	
 		}	
 	}
-
 	class ComboBoxListener implements ActionListener{
-		
-
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
@@ -60,7 +56,6 @@ public class Controller implements CategoryListener, AccountListner {
 
 			//now populate all sub-categories ....
 			test=theModel.getMeSomeSubCategories();
-
 			theView.getTabsPane().getReservationPanel().setComboBoxSubCategoryModel(test);
 		}
 
@@ -72,14 +67,14 @@ public class Controller implements CategoryListener, AccountListner {
 		public void actionPerformed(ActionEvent e) {
 
 			try{
-			String subCat=	theView.getTabsPane().getReservationPanel().getSelectSubcategoryCBox().getSelectedItem().toString();
+				String subCat=	theView.getTabsPane().getReservationPanel().getSelectSubcategoryCBox().getSelectedItem().toString();
 				System.out.println("ComboBox Sub-category changed to: "+ subCat);
-				
+
 
 			}catch(Exception exception)
 			{
 				exception.printStackTrace();
-			System.out.println("No data in comboBox");
+				System.out.println("No data in comboBox");
 			}
 
 
@@ -94,26 +89,22 @@ public class Controller implements CategoryListener, AccountListner {
 
 
 
-
-
-
-
-
-
-
-
-
-
 	/*this is method implemented from CategoryListener Interface 
 	 *Category object is passed form view 
 	 *??we can pass it to the model from here??
 	 */
 	public void categoryAddedPerformed(CategoryFormEvent catFormEvent) 
 	{	
-		System.out.println(catFormEvent.getName());
+		if(catFormEvent.getName().isEmpty()){
+			JOptionPane.showMessageDialog(
+					null, "Please enter new Category: ");
+		}
+		else{
+			System.out.println(catFormEvent.getName()+ "append new category to dataBase");
+			//update dataBase and other comboBoxes
+		}
 
-		//dbCategory.getCategoryList().add(new Category(catFormEvent.getName()));
-		//dbCategory.printCategory();		
+
 	}
 
 	/*

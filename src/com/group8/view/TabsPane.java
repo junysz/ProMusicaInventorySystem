@@ -33,5 +33,14 @@ public class TabsPane extends JTabbedPane {
 	{	
 		return reservationPanel;	
 	}
+	public MaintainPanel getMaintainPanel(){
+		return maintainPanel;
+	}
+
+
+	public void setCategoryListenr(CategoryListener categoryListenr) {
+		maintainPanel.setCategoryListenr(categoryListenr);
+		
+	}
 }
 
