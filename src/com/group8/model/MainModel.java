@@ -77,5 +77,6 @@ public class MainModel {
 	 * Now place all the methods needed for queries using the private queries object in this class.
 	 * All methods needed for on the fly queries
 	 */
+	
 }
 
