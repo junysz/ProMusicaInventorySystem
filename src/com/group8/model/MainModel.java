@@ -75,6 +75,12 @@ public class MainModel {
 		inserts.insertNewAccount(a);
 	}
 	
+	//update methods
+	
+	public void updateCategory(String name)
+	{
+		updates.updateCategory(name);
+	}
 	
 	//queries methods
 	
@@ -107,4 +113,5 @@ public class MainModel {
     
 	}
 }
+
 
