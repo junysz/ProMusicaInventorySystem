@@ -34,5 +34,20 @@ public class DataUpdates {
 			e.printStackTrace();
 		}
 	}
+	public void updateCategory(String name)
+	{
+		try
+		{
+			statement = con.createStatement();
+			//Structure for updating the category in the table
+			String update = "Update Category Set categoryName="+ name +" "; 
+			int res = statement.executeUpdate(update); //updates name for category
+			statement.close();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
 	
 }
