@@ -1,6 +1,7 @@
 package com.group8.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -25,31 +26,43 @@ public class Controller implements CategoryListener, AccountListner {
 	{
 		this.theView=theView;
 		this.theModel=theModel;
-
-<<<<<<< HEAD
+		/******Maintain Categories Panel**************/
+		//addCategoryToDataBase when btn clicked
+		theView.setCategoryListener(this);
+		
+		//theView.getTabsPane().getMaintainPanel().addselectCategorycomboBoxListener(new SelectCategorycomboBoxListener());
+		
+		//populate left side 
+		update();
+		/********************************************/
+		
+		
+		
+		
+		
 		theView.getTabsPane().getReservationPanel().addTableListener(new PopulateTableListener());
 		theView.getTabsPane().getReservationPanel().addComboBoxCatListener(new ComboBoxListener());
 		theView.getTabsPane().getReservationPanel().addComboBoxSubCatListener(new ComboBoxSubCatListener());
-=======
-
-		//theView.getTabsPane().getReservationPanel().addTableListener(new PopulateTableListener());
-		//theView.getTabsPane().getReservationPanel().addComboBoxCatListener(new ComboBoxListener());
->>>>>>> master
 		//categoryComboBox populate form DB
-		//populateCategoryReservPanel();
+		populateCategoryReservPanel();
+
 	}
-<<<<<<< HEAD
+
+	class MaintanLeftComboBoxCategory implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			update();
+			System.out.println("left clicked");
+		}
+		
+	}
 
 
-=======
-	
-	/*
->>>>>>> master
 	public void populateCategoryReservPanel(){
 		categories=theModel.getMySomeCategories(); //i deleted this method from model, i can replace with proper one using query
 		theView.getTabsPane().getReservationPanel().setComboBoxCategoryModel(categories);
 	}
-
 
 	class PopulateTableListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
@@ -57,12 +70,9 @@ public class Controller implements CategoryListener, AccountListner {
 			theView.getTabsPane().getReservationPanel().setTableModel(temItemList);	
 		}	
 	}
-<<<<<<< HEAD
-=======
-	*/
-	
->>>>>>> master
 	class ComboBoxListener implements ActionListener{
+		
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
@@ -71,6 +81,7 @@ public class Controller implements CategoryListener, AccountListner {
 
 			//now populate all sub-categories ....
 			test=theModel.getMeSomeSubCategories();
+
 			theView.getTabsPane().getReservationPanel().setComboBoxSubCategoryModel(test);
 		}
 
@@ -82,17 +93,17 @@ public class Controller implements CategoryListener, AccountListner {
 		public void actionPerformed(ActionEvent e) {
 
 			try{
-				String subCat=	theView.getTabsPane().getReservationPanel().getSelectSubcategoryCBox().getSelectedItem().toString();
+			String subCat=	theView.getTabsPane().getReservationPanel().getSelectSubcategoryCBox().getSelectedItem().toString();
 				System.out.println("ComboBox Sub-category changed to: "+ subCat);
-
+				
 
 			}catch(Exception exception)
 			{
 				exception.printStackTrace();
-				System.out.println("No data in comboBox");
+			System.out.println("No data in comboBox");
 			}
 
-
+			
 
 			//get Items for sub-category and display in the table
 
@@ -104,23 +115,44 @@ public class Controller implements CategoryListener, AccountListner {
 
 
 
+
+/***************************START COMBO-BOXES MAINTAIN_PANEL*****************************/
+
+
 	/*this is method implemented from CategoryListener Interface 
 	 *Category object is passed form view 
 	 *??we can pass it to the model from here??
 	 */
 	public void categoryAddedPerformed(CategoryFormEvent catFormEvent) 
 	{	
+		
 		if(catFormEvent.getName().isEmpty()){
-			JOptionPane.showMessageDialog(
-					null, "Please enter new Category: ");
+			theView.getTabsPane().getMaintainPanel().warnCategoryFieldEmpty();
 		}
 		else{
-			System.out.println(catFormEvent.getName()+ "append new category to dataBase");
+			System.out.println("I am adding new category to dataBase: "+catFormEvent.getName());
+		Category c = new Category(catFormEvent.getName());
+		theModel.addNewCategory(c);
 			//update dataBase and other comboBoxes
+		
+		//update MainTainPanel
+			update();
 		}
-
-
 	}
+
+	//MaintainPanel: populates all ComboBoxes:SelectCategory
+	public void update() {
+		
+		theView.getTabsPane().getMaintainPanel().setNewModel(theModel.getListOfCategories());	
+	}
+	
+	
+	//Get strings form comboboxes
+	
+	
+	
+	/***************************END COMBO-BOXES*****************************/
+
 
 	/*
 	 * Implementation of AccountListener passes account from view 
@@ -133,7 +165,7 @@ public class Controller implements CategoryListener, AccountListner {
 		a.setType(accountFormEvent.getType());
 		System.out.println(a.getAccountName() + a.getPassword() + a.getType());
 		
-		theModel.addNewAccount(a);
+		//theModel.addNewAccount(a);
 	}
 
 

@@ -27,10 +27,7 @@ public class Main_TEST {
 				//PUT MODEL IN THERE AS WELL AND PASS TO CONTROLLER CONSTRUCTOR
 				MainFrame theView= new MainFrame();
 				MainModel theModel= new MainModel();
-				Controller theController= new Controller(theView,theModel);		
-				//testing
-				theView.setCategoryListener(theController);
-				
+				Controller theController= new Controller(theView,theModel);			
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

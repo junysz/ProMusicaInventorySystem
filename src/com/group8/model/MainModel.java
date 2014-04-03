@@ -3,6 +3,8 @@ package com.group8.model;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.DriverManager;
+import java.util.ArrayList;
+import java.util.List;
 
 /*
  * This class is responsible for the entire model package. 
@@ -15,7 +17,7 @@ import java.sql.DriverManager;
  * Each of these instances use a reference to the same connection established here in the Constructor.
  */
 public class MainModel {
-
+	TemporaryDataBaseClass someItems = new TemporaryDataBaseClass();
 	private Connection mainConnection; //this holds the database connection when the class is created
 	private DataInserts inserts;
 	private DataQueries queries;
@@ -25,29 +27,25 @@ public class MainModel {
 	public MainModel()
 	{
 		try
-		{
+		{ 
+			
+			try {
+				Class.forName("com.mysql.jdbc.Driver");
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("Driver not found");
+			}
+			String conURL="jdbc:mysql://localhost:8889/testGroup8";
 			//establish the connection when the MainModel is created
-			mainConnection = DriverManager.getConnection("URL");
+			mainConnection = DriverManager.getConnection(conURL,"root","root");
 			
 			inserts = new DataInserts(mainConnection);
 			queries = new DataQueries(mainConnection);
 			updates = new DataUpdates(mainConnection);
 
 		}
-<<<<<<< HEAD
-		
-		
-		
-		public List<Item> getMeSomeItems(){
-			return someItems.getMeSomeItems();
-		}
-		public List<String>getMySomeCategories(){
-			return someItems.getMeSomeCategories();
-		}
-		public List<String>getMeSomeSubCategories(){
-			return someItems.getMeSomeSubCategories();
-		}
-=======
+
 		catch(SQLException e)
 		{
 			e.printStackTrace();
@@ -92,6 +90,26 @@ public class MainModel {
 	 * All methods needed for on the fly queries
 	 */
 	
->>>>>>> master
+	public ArrayList<String> getListOfCategories(){
+		
+		return queries.getCategoryNames();
+	}
+	
+
+	
+	
+	
+	public List<Item> getMeSomeItems(){
+		return someItems.getMeSomeItems();
+	}
+	public List<String>getMySomeCategories(){
+		return someItems.getMeSomeCategories();
+	}
+	public List<String>getMeSomeSubCategories(){
+		return someItems.getMeSomeSubCategories();
+	}
+
+	
+	
 }
 

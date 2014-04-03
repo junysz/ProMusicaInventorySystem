@@ -24,11 +24,12 @@ public class DataInserts {
 	{
 		try
 		{
+			
 			statement = con.createStatement();
 			//Structure for inserting a new tuple in the Category table
 			String insert = "Insert into Category (categoryName) values ('" + c.getCategoryName() + "')";
 			int res = statement.executeUpdate(insert); //writes to Category table
-			con.commit();
+			//con.commit();
 			statement.close();
 		}
 		catch(Exception e)
