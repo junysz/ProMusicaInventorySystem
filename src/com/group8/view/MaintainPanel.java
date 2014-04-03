@@ -630,6 +630,21 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	//sets listener passed from TestingMainPanel from Mian_Test
 
 
+	public JComboBox<String> getSelectCategorycomboBox() {
+		return selectCategorycomboBox;
+	}
+
+
+	public JComboBox<String> getSelectCategoryToEditcomboBox() {
+		return selectCategoryToEditcomboBox;
+	}
+
+
+	public JComboBox<String> getFindCategoryComboBox() {
+		return findCategoryComboBox;
+	}
+
+
 	public void setAccountListener(AccountListner accountListener) {
 		System.out.println("I will accept any object that implemnts AccountListener Class: MaintainPanel");	 
 		this.accountListener= accountListener;	
