@@ -35,37 +35,46 @@ public class DataUpdates {
 		}
 	}
 
-
-	public void updateCategory(String name,String newName)
-
-	{
-
+public void updateCategory(String name,String newName)
+	{ int ID=-1;
 		try
-
 		{
+		
+			
+			
+			String query1 = "Select * From Account Where accountName = "+name+" ";	    
 
+			PreparedStatement pstmt = con.prepareStatement(query1);
+			ResultSet rs1 =  pstmt.executeQuery(query1);
+
+			while (rs1.next()) 
+			{
+				ID   =rs1.getInt("categoryID");	
+
+			}      
+
+			rs1.close(); //close result set 1
+			pstmt.close(); //close prepared statemen
+			
+			
 			statement = con.createStatement();
-
 			//Structure for updating the category in the table
-			String update = "Update Category Set categoryName="+ newName +"Having status="+name+" "; 
-
-			int res = statement.executeUpdate(update); //updates name for category
-
+			String update = "Update Category Set categoryName="+ (newName) +" Where categoryID = "+ID+" ";
+			if (ID>-1) 
+			{
+		int    res = statement.executeUpdate(update); //updates name for category
 			statement.close();
-
-		}
-
+		   }
+		
+		   }
 		catch(Exception e)
-
 		{
-
 			e.printStackTrace();
-
 		}
-
 	}
 
 
 
 
-}
+	
+
