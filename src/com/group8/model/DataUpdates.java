@@ -47,7 +47,7 @@ public class DataUpdates {
 			statement = con.createStatement();
 
 			//Structure for updating the category in the table
-			String update = "Update Category Set categoryName="+ newName +"where status="+name+" "; 
+			String update = "Update Category Set categoryName="+ newName +"Having status="+name+" "; 
 
 			int res = statement.executeUpdate(update); //updates name for category
 
