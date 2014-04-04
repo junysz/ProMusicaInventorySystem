@@ -59,7 +59,7 @@ public class DataInserts {
 		{
 			statement = con.createStatement();
 			//Structure for inserting a new tuple in the Item table
-			String insert = "Insert into Item (itemPrice, itemBrand, itemModel, stockLevel, availableStockLevel, subCatID, flag) values (" + i.getPrice() + ", '" + i.getBrand() + "','" + i.getModel() + "'," + i.getStockLevel() + "," + i.getAvailableStockLevel() + ", 1 )";
+	String insert = "Insert into Item (itemPrice, itemBrand, itemModel, stockLevel, availableStockLevel,flag,subCatID) values (" + i.getPrice() + ", '" + i.getBrand() + "','" + i.getModel() + "'," + i.getStockLevel() + "," + i.getAvailableStockLevel() + ", 0+","+i.getSubCatID() )";
 			int res = statement.executeUpdate(insert); //writes to Item table
 			
 			statement.close();
@@ -127,7 +127,7 @@ public class DataInserts {
 		{
 			statement = con.createStatement();
 			//Structure for inserting a new tuple in the Reservation table
-			String insert = "Insert into Reservation (docketNo, resDate, depositPlaced, accountID, itemID, flag) values (" + r.getDocketNo() + ",'" + r.getStartDate() + "'," + r.getDeposit() + "," + a.getAccountID() + "," + i.getItemID() + ", 1)";
+			String insert = "Insert into Reservation (accountID,docketNo, reservationDate, depositPlaced,flag,itemID) values ("  + a.getAccountID()+ r.getDocketNo() + ",'" + r.getStartDate() + "'," + r.getDeposit() + "," + "," + i.getItemID() + ", 1)";
 			int res = statement.executeUpdate(insert); //writes to Reservation table
 	
 			statement.close();
