@@ -60,6 +60,8 @@ public void updateCategory(String name,String newName)
 		{
 			f.printStackTrace();
 		}
+		try
+		{
 			
 			statement = con.createStatement();
 			//Structure for updating the category in the table
