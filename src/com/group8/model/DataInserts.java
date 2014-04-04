@@ -28,7 +28,7 @@ public class DataInserts {
 			//Structure for inserting a new tuple in the Category table
 			String insert = "Insert into Category (categoryName) values ('" + c.getCategoryName() + "')";
 			int res = statement.executeUpdate(insert); //writes to Category table
-			con.commit();
+
 			statement.close();
 		}
 		catch(Exception e)
@@ -45,7 +45,7 @@ public class DataInserts {
 			//Structure for inserting a new tuple in the SubCategory table
 			String insert = "Insert into SubCategory (subCatName, catID ) values ('" + s.getSubCatName() + "', " + c.getCategoryID() + ")";
 			int res = statement.executeUpdate(insert); //writes to SubCategory table
-			con.commit();
+	
 			statement.close();
 		}
 		catch(Exception e)
@@ -62,7 +62,7 @@ public class DataInserts {
 			//Structure for inserting a new tuple in the Item table
 			String insert = "Insert into Item (itemPrice, itemBrand, itemModel, stockLevel, availableStockLevel, subCatID, flag) values (" + i.getPrice() + ", '" + i.getBrand() + "','" + i.getModel() + "'," + i.getStockLevel() + "," + i.getAvailableStockLevel() + ", 1 )";
 			int res = statement.executeUpdate(insert); //writes to Item table
-			con.commit();
+			
 			statement.close();
 		}
 		catch(Exception e)
