@@ -91,16 +91,11 @@ public class MainModel {
 
 	//update methods
 	
-<<<<<<< HEAD
 
-	public void updateCategory(String old, String newCat)
-	{
-		updates.updateCategory(old,newCat);
-=======
+
 	public void updateCategory(String name,String newName)
 	{
 		updates.updateCategory(name,newName);
->>>>>>> master
 	}
 	
 

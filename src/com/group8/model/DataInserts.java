@@ -29,11 +29,11 @@ public class DataInserts {
 			//Structure for inserting a new tuple in the Category table
 			String insert = "Insert into Category (categoryName) values ('" + c.getCategoryName() + "')";
 			int res = statement.executeUpdate(insert); //writes to Category table
-<<<<<<< HEAD
-			//con.commit();
-=======
 
->>>>>>> master
+			//con.commit();
+
+
+
 			statement.close();
 		}
 		catch(Exception e)

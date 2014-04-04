@@ -10,13 +10,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 
-public class ReportsPanel extends JPanel {
+public class ReportPanel extends JPanel {
 	private JTable table;
 
 	/**
 	 * Create the panel.
 	 */
-	public ReportsPanel() {
+	public ReportPanel() {
 		setLayout(new MigLayout("", "[][grow][][grow][][][][][][][][][][93.00][][42.00][111.00][][][][][][][][][][][][][][][][][][][][]", "[][][][49.00][][][][][][grow][]"));
 		
 		JLabel lblNewLabel = new JLabel("Start Date");
