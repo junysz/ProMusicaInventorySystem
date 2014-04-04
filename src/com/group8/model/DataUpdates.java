@@ -1,14 +1,18 @@
 package com.group8.model;
 
+
 import java.sql.Connection;
 import java.sql.Statement;
+
+import com.mysql.jdbc.PreparedStatement;
+import com.mysql.jdbc.ResultSet;
 
 
 public class DataUpdates {
 
 	Connection con;
-	Statement statement;
-	
+
+
 	public DataUpdates(Connection connection)
 	{
 		con = connection;
@@ -22,7 +26,7 @@ public class DataUpdates {
 	{
 		try
 		{
-			statement = con.createStatement();
+			Statement statement = con.createStatement();
 			//Structure for updating the stock level and available stock level of an item
 			String update = "Update Item Set stockLevel=" + (i.getStockLevel() +newItems) + ", availableStockLevel=" + (i.getAvailableStockLevel()+newItems) + " Where itemID=" + i.getItemID() + "";
 			int res = statement.executeUpdate(update); //updates stock level and available stock level on Item
@@ -34,21 +38,35 @@ public class DataUpdates {
 			e.printStackTrace();
 		}
 	}
+
 public void updateCategory(String name,String newName)
-	{
+	{ 
+	 
+		
 		try
 		{
-			statement = con.createStatement();
-			//Structure for updating the category in the table
-			String update = "Update Category Set categoryName="+ (newName) +" where categoryName="+name+"";
-			int res = statement.executeUpdate(update); //updates name for category
-			statement.close();
-		}
+			
+			java.sql.PreparedStatement preparedStatement = con.prepareStatement("UPDATE Category SET categoryName=? WHERE categoryName = ?");
+			
+			    preparedStatement.setString(1,newName);
+		
+			    preparedStatement.setString(2,name);			   		
+					
+			
+		int    res = preparedStatement.executeUpdate(); //updates name for category
+			preparedStatement.close();
+		  
+		
+		   }
 		catch(Exception e)
 		{
 			e.printStackTrace();
 		}
 	}
-	
-	
 }
+
+
+
+
+	
+
