@@ -77,9 +77,9 @@ public class MainModel {
 	
 	//update methods
 	
-	public void updateCategory(String name)
+	public void updateCategory(String name,String newName)
 	{
-		updates.updateCategory(name);
+		updates.updateCategory(name,newName);
 	}
 	
 	//queries methods
