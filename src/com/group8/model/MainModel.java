@@ -30,7 +30,7 @@ public class MainModel {
 	{
 		try
 		{ 
-			
+
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
 			} catch (ClassNotFoundException e) {
@@ -41,7 +41,7 @@ public class MainModel {
 			String conURL="jdbc:mysql://localhost:8889/mydb";
 			//establish the connection when the MainModel is created
 			mainConnection = DriverManager.getConnection(conURL,"root","root");
-			
+
 			inserts = new DataInserts(mainConnection);
 			queries = new DataQueries(mainConnection);
 			updates = new DataUpdates(mainConnection);
@@ -87,28 +87,28 @@ public class MainModel {
 	{
 		inserts.insertNewAccount(a);
 	}
-	
+
 
 	//update methods
-	
+
 
 
 	public void updateCategory(String name,String newName)
 	{
 		updates.updateCategory(name,newName);
 	}
-	
 
-	
+
+
 	public ArrayList<String> getListOfCategories(){
-		
+
 		return queries.getCategoryNames();
 	}
-	
 
-	
-	
-	
+
+
+
+
 	public List<Item> getMeSomeItems(){
 		return someItems.getMeSomeItems();
 	}
@@ -119,38 +119,38 @@ public class MainModel {
 		return someItems.getMeSomeSubCategories();
 	}
 
-	
-	
+
+
 
 	//queries methods
-	
+
 	public ArrayList<String>  getCategoryNames()
 	{
-	return queries.getCategoryNames();
+		return queries.getCategoryNames();
 	}
-	
+
 	public   ArrayList<String> getSubCategories(String catName)
 	{
-	return queries.getSubCategories(catName);
-		
+		return queries.getSubCategories(catName);
+
 	}
 	public ArrayList<Item>  getItemsInSubcategory(String subCatName)
 	{
-	  return queries.getItemsInSubcategory(subCatName);
+		return queries.getItemsInSubcategory(subCatName);
 	}
-	
+
 	public ArrayList<Item>  getItemsByKeyword(String keyword)
 	{ 
 		return queries.getItemsByKeyword(keyword);
 	}
 	public ArrayList<Account>  getAllAccounts()
 	{ return queries.getAllAccounts();
-	
+
 	}
 	//public ArrayList<Sale>  getSalesByDate(Date date1,Date date2)
 	//{
 	//return queries.getSalesByDate(date1, date2);
-    
+
 	//}
 
 }

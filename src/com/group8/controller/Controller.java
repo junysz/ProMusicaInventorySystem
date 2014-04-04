@@ -28,10 +28,10 @@ public class Controller implements CategoryListener, AccountListner {
 
 
 		/******Maintain Categories Panel**************/
-		
+
 		//Adds Category To DataBase when btn clicked
 		theView.setCategoryListener(this);
-		
+
 		//Adding Listeners: Combo-boxes
 		theView.getTabsPane().getMaintainPanel().addselectCategorycomboBoxListener(new SelectCategorycomboBoxListener());
 		theView.getTabsPane().getMaintainPanel().addselectCategoryToEditcomboBoxListener(new SelectCategoryToEditcomboBoxListener());
@@ -40,12 +40,12 @@ public class Controller implements CategoryListener, AccountListner {
 		theView.getTabsPane().getMaintainPanel().addbtnConfirmChanges_2Listener(new ConfirmChanges_2Listener());
 		//update all comboBoxes 
 		update();
-		
-		
-		
+
+
+
 		//BUTTONS
 		theView.getTabsPane().getMaintainPanel().addCreateSubCategoryBtn(new CreateSubCategoryBtn());
-		
+
 		/********************************************/
 
 
@@ -56,7 +56,7 @@ public class Controller implements CategoryListener, AccountListner {
 		populateCategoryReservPanel();
 	}
 
-	
+
 	public void populateCategoryReservPanel(){
 		try{
 			categories=theModel.getMySomeCategories(); //i deleted this method from model, i can replace with proper one using query
@@ -120,20 +120,20 @@ public class Controller implements CategoryListener, AccountListner {
 	/***************************************************************************************/
 	/***************************START COMBO-BOXES MAINTAIN_PANEL*****************************/
 	/***************************************************************************************/
-	
-	
-	
+
+
+
 	//Updates Category that has been edited by the user
 	class ConfirmChanges_2Listener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String categoryEdited=theView.getTabsPane().getMaintainPanel().getEditCategoryNameTF().getText();
-				String categoryOld=	theView.getTabsPane().getMaintainPanel().getSelectCategoryToEditcomboBox().getSelectedItem().toString();
- theModel.updateCategory(categoryOld,categoryEdited);
+			String categoryOld=	theView.getTabsPane().getMaintainPanel().getSelectCategoryToEditcomboBox().getSelectedItem().toString();
+			theModel.updateCategory(categoryOld,categoryEdited);
 		}
 	}
 
-	
+
 	//Gets string form bomboBox
 	class SelectCategorycomboBoxListener implements ActionListener{
 		@Override
@@ -146,41 +146,41 @@ public class Controller implements CategoryListener, AccountListner {
 		}
 	}
 	//BUTONS:
-		class CreateSubCategoryBtn implements ActionListener{
+	class CreateSubCategoryBtn implements ActionListener{
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String categoryForSub=null;
-				String subCatTF=null;
-				try{
-					categoryForSub=theView.getTabsPane().getMaintainPanel().getSelectCategorycomboBox().getSelectedItem().toString();
-					subCatTF= theView.getTabsPane().getMaintainPanel().getEnterSubCatNameTF();
-				}catch(Exception ex){
-					theView.getTabsPane().getMaintainPanel().warnCategoryNull();
-				}
-				if(subCatTF.isEmpty()){
-					theView.getTabsPane().getMaintainPanel().warnSubCategoryFieldEmpty();
-				}
-				else{
-					
-					Category c= new Category(categoryForSub);
-					SubCategory s=new SubCategory(subCatTF);
-					theModel.addNewSubCategory(c,s);
-					System.out.println("Test if works: CategoryName: "+ c.getCategoryName()+"\n SubCategoryName: "+s.getSubCatName());
-					
-				}
-				
-				
-				
-				
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String categoryForSub=null;
+			String subCatTF=null;
+			try{
+				categoryForSub=theView.getTabsPane().getMaintainPanel().getSelectCategorycomboBox().getSelectedItem().toString();
+				subCatTF= theView.getTabsPane().getMaintainPanel().getEnterSubCatNameTF();
+			}catch(Exception ex){
+				theView.getTabsPane().getMaintainPanel().warnCategoryNull();
 			}
-			
-			
+			if(subCatTF.isEmpty()){
+				theView.getTabsPane().getMaintainPanel().warnSubCategoryFieldEmpty();
+			}
+			else{
+
+				Category c= new Category(categoryForSub);
+				SubCategory s=new SubCategory(subCatTF);
+				theModel.addNewSubCategory(c,s);
+				System.out.println("Test if works: CategoryName: "+ c.getCategoryName()+"\n SubCategoryName: "+s.getSubCatName());
+
+			}
+
+
+
+
 		}
-	
-	
-	
-	
+
+
+	}
+
+
+
+
 	//Gets string form bomboBox
 	class SelectCategoryToEditcomboBoxListener implements ActionListener{
 
@@ -196,13 +196,13 @@ public class Controller implements CategoryListener, AccountListner {
 			ArrayList<String> cat= new ArrayList<>();
 			cat=theModel.getListOfCategories();
 			String getToTextField=null;
-				for(int i=0;i<cat.size();i++){
-					getToTextField=cat.get(i);
-						if(getToTextField.equalsIgnoreCase(comboBox2)){
-							break;
-						}
+			for(int i=0;i<cat.size();i++){
+				getToTextField=cat.get(i);
+				if(getToTextField.equalsIgnoreCase(comboBox2)){
+					break;
 				}
-				theView.getTabsPane().getMaintainPanel().setEditCategoryNameTF(getToTextField);
+			}
+			theView.getTabsPane().getMaintainPanel().setEditCategoryNameTF(getToTextField);
 		}
 	}
 	//Gets string form bomboBox
@@ -225,22 +225,22 @@ public class Controller implements CategoryListener, AccountListner {
 		String newCategoryName=catFormEvent.getName();
 		ArrayList<String>listCategories= new ArrayList<>();
 		listCategories=theModel.getListOfCategories();
-		
+
 		for(int i=0;i<listCategories.size();i++){
-			
+
 			String copmapareCat=listCategories.get(i);
 			if(copmapareCat.equalsIgnoreCase(newCategoryName)){
 				flagExist=true;
 				break;
 			}
-			
+
 		}
-		
-		
-		
+
+
+
 		if(newCategoryName.isEmpty()){
 			theView.getTabsPane().getMaintainPanel().warnCategoryFieldEmpty();
-			
+
 		}
 		else if(flagExist){
 			theView.getTabsPane().getMaintainPanel().warnCategoryExist();
@@ -263,10 +263,10 @@ public class Controller implements CategoryListener, AccountListner {
 	}
 	/**************************************END COMBO-BOXES**********************************/
 	/***************************************************************************************/
-	
-	
 
-	
+
+
+
 
 	/*
 	 * Implementation of AccountListener passes account from view 
