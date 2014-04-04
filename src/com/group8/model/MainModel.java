@@ -90,6 +90,12 @@ public class MainModel {
 	 * All methods needed for on the fly queries
 	 */
 	
+	public void updateCategory(String name)
+	{
+		updates.updateCategory(name);
+	}
+	
+	
 	public ArrayList<String> getListOfCategories(){
 		
 		return queries.getCategoryNames();

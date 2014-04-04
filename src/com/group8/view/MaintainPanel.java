@@ -279,6 +279,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		editCategoryPanel.add(lblEditName, "cell 1 1");
 
 		editCategoryNameTF = new JTextField();
+		
 		editCategoryPanel.add(editCategoryNameTF, "cell 3 1,growx");
 		editCategoryNameTF.setColumns(10);
 
@@ -457,6 +458,17 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	}
 
 
+	public JTextField getEditCategoryNameTF() {
+		return editCategoryNameTF;
+	}
+
+
+	public void setEditCategoryNameTF(String editCategoryNameTF) {
+		
+		this.editCategoryNameTF.setText(editCategoryNameTF);
+	}
+
+
 	public MaintainPanel() {
 
 		init();
@@ -470,7 +482,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		btnCreateCategory.addActionListener(this);
 		btnConfirmChanges.addActionListener(this);
 		btnCreateSubcategory.addActionListener(this);
-		btnConfirmChanges_2.addActionListener(this);
+		//btnConfirmChanges_2.addActionListener(this);
 		btnConfirmChanges_3.addActionListener(this);
 		btnCreate.addActionListener(this);
 		btnConfirmChanges_1.addActionListener(this);
@@ -599,6 +611,10 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		findCategoryComboBox.addActionListener(listen);
 	}
 
+	
+	public void addbtnConfirmChanges_2Listener(ActionListener listen){
+		btnConfirmChanges_2.addActionListener(listen);
+	}
 
 
 
