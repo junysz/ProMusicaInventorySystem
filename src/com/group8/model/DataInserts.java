@@ -29,7 +29,11 @@ public class DataInserts {
 			//Structure for inserting a new tuple in the Category table
 			String insert = "Insert into Category (categoryName) values ('" + c.getCategoryName() + "')";
 			int res = statement.executeUpdate(insert); //writes to Category table
+<<<<<<< HEAD
 			//con.commit();
+=======
+
+>>>>>>> master
 			statement.close();
 		}
 		catch(Exception e)
@@ -46,8 +50,7 @@ public class DataInserts {
 			//Structure for inserting a new tuple in the SubCategory table
 			String insert = "Insert into SubCategory (subCatName, categoryID ) values ('" + s.getSubCatName() + "', " + c.getCategoryID() + ")";
 			int res = statement.executeUpdate(insert); //writes to SubCategory table
-			con.commit();
-			statement.close();
+	         	statement.close();
 		}
 		catch(Exception e)
         {
@@ -63,7 +66,7 @@ public class DataInserts {
 			//Structure for inserting a new tuple in the Item table
 			String insert = "Insert into Item (itemPrice, itemBrand, itemModel, stockLevel, availableStockLevel, subCatID, flag) values (" + i.getPrice() + ", '" + i.getBrand() + "','" + i.getModel() + "'," + i.getStockLevel() + "," + i.getAvailableStockLevel() + ", 1 )";
 			int res = statement.executeUpdate(insert); //writes to Item table
-			con.commit();
+			
 			statement.close();
 		}
 		catch(Exception e)
@@ -80,7 +83,7 @@ public class DataInserts {
 			//Structure for inserting a new tuple in Sale table
 			String insert = "Insert into Sale (saleDate, totalSalePrice, saleAccountID) values ( '" + s.getDate() + "', " + s.getTotalPrice() + "," + a.getAccountID() + ")";
 			int res = statement.executeUpdate(insert); //writes to Sale table
-			con.commit();
+
 			statement.close();
 		}
 		catch(Exception e)
@@ -97,7 +100,7 @@ public class DataInserts {
 			//Structure for inserting a new tuple in the Item Sold table
 			String insert = "Insert into ItemSold (itemSoldID, saleID, itemSalePrice) values (" + i.getItemID() + "," + s.getSaleID() + ", " + itemSalePrice + ")";
 			int res = statement.executeUpdate(insert); //writes to Item Sold table
-			con.commit();
+	
 			statement.close();
 		}
 		catch(Exception e)
@@ -131,7 +134,7 @@ public class DataInserts {
 			//Structure for inserting a new tuple in the Reservation table
 			String insert = "Insert into Reservation (docketNo, resDate, depositPlaced, accountID, itemID, flag) values (" + r.getDocketNo() + ",'" + r.getStartDate() + "'," + r.getDeposit() + "," + a.getAccountID() + "," + i.getItemID() + ", 1)";
 			int res = statement.executeUpdate(insert); //writes to Reservation table
-			con.commit();
+	
 			statement.close();
 		}
 		catch(Exception e)
