@@ -55,7 +55,11 @@ public void updateCategory(String name,String newName)
 
 			rs1.close(); //close result set 1
 			pstmt.close(); //close prepared statemen
-			
+		}
+		catch(Exception f)
+		{
+			f.printStackTrace();
+		}
 			
 			statement = con.createStatement();
 			//Structure for updating the category in the table
