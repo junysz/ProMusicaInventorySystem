@@ -34,13 +34,13 @@ public class DataUpdates {
 			e.printStackTrace();
 		}
 	}
-	public void updateCategory(String name)
+public void updateCategory(String name,String newName)
 	{
 		try
 		{
 			statement = con.createStatement();
 			//Structure for updating the category in the table
-			String update = "Update Category Set categoryName="+ name +" "; 
+			String update = "Update Category Set categoryName="+ (newName) +" where categoryName=name";
 			int res = statement.executeUpdate(update); //updates name for category
 			statement.close();
 		}
@@ -49,5 +49,6 @@ public class DataUpdates {
 			e.printStackTrace();
 		}
 	}
+	
 	
 }
