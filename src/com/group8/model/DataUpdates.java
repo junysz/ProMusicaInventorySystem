@@ -3,6 +3,9 @@ package com.group8.model;
 import java.sql.Connection;
 import java.sql.Statement;
 
+import com.mysql.jdbc.PreparedStatement;
+import com.mysql.jdbc.ResultSet;
+
 
 public class DataUpdates {
 
@@ -39,7 +42,7 @@ public void updateCategory(String name,String newName)
 	{ int ID=-1;
 		try
 		{
-<<<<<<< HEAD
+
 			System.out.println("I am in the updateClass \nOldName: "+name+ "\nNewName: "+newName);
 			statement = con.createStatement();
 			//Structure for updating the category in the table
@@ -51,17 +54,16 @@ public void updateCategory(String name,String newName)
 		{
 			e.printStackTrace();
 		}
-	}
+	
 
-=======
 		
-			
+			try{
 			
 			String query1 = "Select * From Account Where accountName = "+name+" ";	    
->>>>>>> FETCH_HEAD
 
-			PreparedStatement pstmt = con.prepareStatement(query1);
-			ResultSet rs1 =  pstmt.executeQuery(query1);
+
+			PreparedStatement pstmt = (PreparedStatement) con.prepareStatement(query1);
+			ResultSet rs1 =  (ResultSet) pstmt.executeQuery(query1);
 
 			while (rs1.next()) 
 			{
@@ -88,6 +90,7 @@ public void updateCategory(String name,String newName)
 			e.printStackTrace();
 		}
 	}
+}
 
 
 
