@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.DriverManager;
 import java.util.ArrayList;
+
 import java.util.List;
+
 
 /*
  * This class is responsible for the entire model package. 
@@ -85,16 +87,17 @@ public class MainModel {
 	{
 		inserts.insertNewAccount(a);
 	}
-	/*
-	 * Now place all the methods needed for queries using the private queries object in this class.
-	 * All methods needed for on the fly queries
-	 */
 	
-	public void updateCategory(String name)
+
+	//update methods
+	
+
+	public void updateCategory(String old, String newCat)
 	{
-		updates.updateCategory(name);
+		updates.updateCategory(old,newCat);
 	}
 	
+
 	
 	public ArrayList<String> getListOfCategories(){
 		
@@ -117,5 +120,38 @@ public class MainModel {
 
 	
 	
+
+	//queries methods
+	
+	public ArrayList<String>  getCategoryNames()
+	{
+	return queries.getCategoryNames();
+	}
+	
+	public   ArrayList<String> getSubCategories(String catName)
+	{
+	return queries.getSubCategories(catName);
+		
+	}
+	public ArrayList<Item>  getItemsInSubcategory(String subCatName)
+	{
+	  return queries.getItemsInSubcategory(subCatName);
+	}
+	
+	public ArrayList<Item>  getItemsByKeyword(String keyword)
+	{ 
+		return queries.getItemsByKeyword(keyword);
+	}
+	public ArrayList<Account>  getAllAccounts()
+	{ return queries.getAllAccounts();
+	
+	}
+	//public ArrayList<Sale>  getSalesByDate(Date date1,Date date2)
+	//{
+	//return queries.getSalesByDate(date1, date2);
+    
+	//}
+
 }
+
 
