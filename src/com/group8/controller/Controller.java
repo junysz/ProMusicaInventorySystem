@@ -128,6 +128,8 @@ public class Controller implements CategoryListener, AccountListner {
 		public void actionPerformed(ActionEvent e) {
 			String categoryEdited=theView.getTabsPane().getMaintainPanel().getEditCategoryNameTF().getText();
 			String categoryOld=	theView.getTabsPane().getMaintainPanel().getSelectCategoryToEditcomboBox().getSelectedItem().toString();
+			System.out.println("Old Category Name: "+categoryOld+ "\nNew Category Name: "+categoryEdited);
+			
 			theModel.updateCategory(categoryOld,categoryEdited);
 		}
 	}

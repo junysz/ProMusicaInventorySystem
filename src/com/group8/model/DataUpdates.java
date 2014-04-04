@@ -3,6 +3,9 @@ package com.group8.model;
 import java.sql.Connection;
 import java.sql.Statement;
 
+import com.mysql.jdbc.PreparedStatement;
+import com.mysql.jdbc.ResultSet;
+
 
 public class DataUpdates {
 
@@ -34,55 +37,54 @@ public class DataUpdates {
 			e.printStackTrace();
 		}
 	}
-	public void updateCategory(String name,String newName)
-	{
+
+public void updateCategory(String name,String newName)
+	{ int ID=-1;
+
+		
+			try{
+			
+			String query1 = "Select * From Category Where categoryName = "+name+" ";	    
+
+
+			PreparedStatement pstmt = (PreparedStatement) con.prepareStatement(query1);
+			ResultSet rs1 =  (ResultSet) pstmt.executeQuery(query1);
+
+			while (rs1.next()) 
+			{
+				ID   =rs1.getInt("categoryID");	
+
+			}      
+
+			rs1.close(); //close result set 1
+			pstmt.close(); //close prepared statemen
+		}
+		catch(Exception f)
+		{
+			f.printStackTrace();
+		}
 		try
 		{
+			
 			statement = con.createStatement();
 			//Structure for updating the category in the table
-			String update = "Update Category Set categoryName="+ (newName) +" where categoryName="+name+"  ";
-			int res = statement.executeUpdate(update); //updates name for category
+			String update = "Update Category Set categoryName="+ (newName) +" Where categoryID = "+ID+" ";
+			if (ID>-1) 
+			{
+		int    res = statement.executeUpdate(update); //updates name for category
 			statement.close();
-		}
+		   }
+		
+		   }
 		catch(Exception e)
 		{
 			e.printStackTrace();
 		}
 	}
-
-
-
-
-	public void updateCategory(String name)
-
-	{
-
-		try
-
-		{
-
-			statement = con.createStatement();
-
-			//Structure for updating the category in the table
-			String update = "Update Category Set categoryName="+ name +" "; 
-
-			int res = statement.executeUpdate(update); //updates name for category
-
-			statement.close();
-
-		}
-
-		catch(Exception e)
-
-		{
-
-			e.printStackTrace();
-
-		}
-
-	}
-
-
-
-
 }
+
+
+
+
+	
+
