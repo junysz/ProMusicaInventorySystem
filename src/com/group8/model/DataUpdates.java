@@ -38,6 +38,7 @@ public class DataUpdates {
 	{
 		try
 		{
+			System.out.println("I am in the updateClass \nOldName: "+name+ "\nNewName: "+newName);
 			statement = con.createStatement();
 			//Structure for updating the category in the table
 			String update = "Update Category Set categoryName="+ (newName) +" where categoryName="+name+"  ";
