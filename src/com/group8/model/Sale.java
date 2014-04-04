@@ -1,5 +1,7 @@
 package com.group8.model;
 
+import java.sql.Date;
+
 
 /*The Concept of a Sale is represented by this class.
  * The saleID is for System use only
@@ -9,9 +11,10 @@ package com.group8.model;
 public class Sale {
 
 	//Attributes of a Sale
-	private int saleID;
-	private String saleDate;
+	private int saleID,ac;
+	private Date saleDate;
 	private double totalSalePrice;
+	
 	
 	//Blank Constructor
 	public Sale()
@@ -19,10 +22,12 @@ public class Sale {
 		
 	}
 	//Constructor that accepts the Date and Total as arguments
-	public Sale(String d, double t)
+	public Sale(int id,Date d, double t,int accountID)
 	{	
 		setDate(d);
 		setTotalPrice(t);
+		setSaleID(id);
+		setAccountID(ac);
 	}
 	//Sets and Gets for Sale Attributes
 	//setSaleID will set the system ID for each Sale
@@ -33,7 +38,7 @@ public class Sale {
 	}
 	//setDate will set the Date the Sale took place
 	//String d is the date to be set
-	public void setDate(String d)
+	public void setDate(Date d)
 	{
 		this.saleDate = d;
 	}
@@ -43,13 +48,22 @@ public class Sale {
 	{
 		this.totalSalePrice = p;
 	}
+	public void setAccountID(int p)
+	{
+		this.ac = p;
+	}
+	
+	public int getAccountID()
+	{
+		return ac;
+	}
 	//returns the saleID
 	public int getSaleID()
 	{
 		return saleID;
 	}
 	//returns the saleDate
-	public String getDate()
+	public Date getDate()
 	{
 		return saleDate;
 	}
