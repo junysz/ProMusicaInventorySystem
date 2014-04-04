@@ -127,7 +127,7 @@ public class DataInserts {
 		{
 			statement = con.createStatement();
 			//Structure for inserting a new tuple in the Reservation table
-			String insert = "Insert into Reservation (accountID,docketNo, reservationDate, depositPlaced,flag,itemID) values ("  + a.getAccountID()+ r.getDocketNo() + ",'" + r.getStartDate() + "'," + r.getDeposit() + "," + "," + i.getItemID() + ", 1)";
+			String insert = "Insert into Reservation (accountID,docketNo, reservationDate, depositPlaced,flag,itemID) values ("  + a.getAccountID()+  "','"+r.getDocketNo() + "','" + r.getStartDate() + "','" + r.getDeposit() + + "," + i.getItemID() + ", 1)";
 			int res = statement.executeUpdate(insert); //writes to Reservation table
 	
 			statement.close();
