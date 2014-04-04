@@ -79,7 +79,7 @@ public class DataInserts {
 			//Structure for inserting a new tuple in Sale table
 			String insert = "Insert into Sale (saleDate, totalSalePrice, saleAccountID) values ( '" + s.getDate() + "', " + s.getTotalPrice() + "," + a.getAccountID() + ")";
 			int res = statement.executeUpdate(insert); //writes to Sale table
-			con.commit();
+
 			statement.close();
 		}
 		catch(Exception e)
@@ -96,7 +96,7 @@ public class DataInserts {
 			//Structure for inserting a new tuple in the Item Sold table
 			String insert = "Insert into ItemSold (itemSoldID, saleID, itemSalePrice) values (" + i.getItemID() + "," + s.getSaleID() + ", " + itemSalePrice + ")";
 			int res = statement.executeUpdate(insert); //writes to Item Sold table
-			con.commit();
+	
 			statement.close();
 		}
 		catch(Exception e)
@@ -130,7 +130,7 @@ public class DataInserts {
 			//Structure for inserting a new tuple in the Reservation table
 			String insert = "Insert into Reservation (docketNo, resDate, depositPlaced, accountID, itemID, flag) values (" + r.getDocketNo() + ",'" + r.getStartDate() + "'," + r.getDeposit() + "," + a.getAccountID() + "," + i.getItemID() + ", 1)";
 			int res = statement.executeUpdate(insert); //writes to Reservation table
-			con.commit();
+	
 			statement.close();
 		}
 		catch(Exception e)
