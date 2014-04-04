@@ -36,7 +36,7 @@ public class MainModel {
 				e.printStackTrace();
 				System.out.println("Driver not found");
 			}
-			String conURL="jdbc:mysql://localhost:8889/testGroup8";
+			String conURL="jdbc:mysql://localhost:8889/mydb";
 			//establish the connection when the MainModel is created
 			mainConnection = DriverManager.getConnection(conURL,"root","root");
 			

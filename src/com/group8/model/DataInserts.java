@@ -44,7 +44,7 @@ public class DataInserts {
 		{
 			statement = con.createStatement();
 			//Structure for inserting a new tuple in the SubCategory table
-			String insert = "Insert into SubCategory (subCatName, catID ) values ('" + s.getSubCatName() + "', " + c.getCategoryID() + ")";
+			String insert = "Insert into SubCategory (subCatName, categoryID ) values ('" + s.getSubCatName() + "', " + c.getCategoryID() + ")";
 			int res = statement.executeUpdate(insert); //writes to SubCategory table
 			con.commit();
 			statement.close();

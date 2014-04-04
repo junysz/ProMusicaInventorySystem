@@ -1,5 +1,6 @@
 package com.group8.view;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import java.awt.BorderLayout;
@@ -12,6 +13,8 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
+
+import com.apple.jobjc.Coder.SELCoder;
 
 import java.awt.Color;
 import java.awt.event.ActionListener;
@@ -73,6 +76,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	private JComboBox<String> selectCategorycomboBox;
 	private JLabel lblEnterSubcategoryName;
 	private JTextField enterSubCatNameTF;
+	
 	private JLabel errorLabel4;
 	private JButton btnCreateSubcategory;
 	private JLabel lblSelectCategory_1;
@@ -536,23 +540,12 @@ public class MaintainPanel extends JPanel implements ActionListener {
 				categoryListenr.categoryAddedPerformed(new CategoryFormEvent(enterCategoryNameTF.getText()));
 			}
 		}
-		else if(e.getSource().equals(btnCreateCategory))
-		{
-
-		}
+		
 
 
 
 
 
-
-
-
-
-		else if(e.getSource().equals(btnCreateSubcategory))
-		{
-			System.out.println("Create new Sub-category button clicked");
-		}
 		else if(e.getSource().equals(btnConfirmChanges_2))
 		{
 			System.out.println("Edit Category button clicked");
@@ -582,6 +575,12 @@ public class MaintainPanel extends JPanel implements ActionListener {
 
 
 	/***************************START COMBO-BOXES*****************************/
+	//BUTTONS:
+	public void addCreateSubCategoryBtn(ActionListener listen){
+		btnCreateSubcategory.addActionListener(listen);
+	}
+	
+	
 	/*
 	 * Populates ALL Category combo-boxes 
 	 * Sets new model for 3 combo-boxes
@@ -590,6 +589,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	 */
 	public void setNewModel(List<String>comboBoxList){
 		categoryComboBoxModel= new CategoryComboBoxModel();
+		
 		categoryComboBoxModel.setComboBoxList(comboBoxList);
 
 		selectCategorycomboBox.setModel(categoryComboBoxModel);
@@ -631,6 +631,27 @@ public class MaintainPanel extends JPanel implements ActionListener {
 				"Go away warning",
 				JOptionPane.WARNING_MESSAGE);
 	}
+	public void warnCategoryExist() {
+		JOptionPane.showMessageDialog(null,
+				"Category Already Exist.",
+				"Go away warning",
+				JOptionPane.WARNING_MESSAGE);
+		
+	}
+	public void warnSubCategoryFieldEmpty(){
+		JOptionPane.showMessageDialog(null,
+				"Sub-Category field empty.",
+				"Go away warning",
+				JOptionPane.WARNING_MESSAGE);
+	}
+	public void warnCategoryNull(){
+		JOptionPane.showMessageDialog(null,
+				"Select Category field.",
+				"Go away warning",
+				JOptionPane.WARNING_MESSAGE);
+	}
+	
+
 	/***************************END COMBO-BOXES*****************************/
 
 
@@ -666,5 +687,22 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		this.accountListener= accountListener;	
 	}
 
+
+	public void clearCategoryTF() {
+		enterCategoryNameTF.setText("");
+		
+	}
+
+	public String getEnterSubCatNameTF() {
+		return enterSubCatNameTF.getText();
+	}
+
+
+	public void setEnterSubCatNameTF(JTextField enterSubCatNameTF) {
+		this.enterSubCatNameTF = enterSubCatNameTF;
+	}
+
+
+	
 
 }
