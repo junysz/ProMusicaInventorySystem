@@ -40,26 +40,11 @@ public class DataUpdates {
 
 public void updateCategory(String name,String newName)
 	{ int ID=-1;
-		try
-		{
-
-			System.out.println("I am in the updateClass \nOldName: "+name+ "\nNewName: "+newName);
-			statement = con.createStatement();
-			//Structure for updating the category in the table
-			String update = "Update Category Set categoryName="+ (newName) +" where categoryName="+name+"  ";
-			int res = statement.executeUpdate(update); //updates name for category
-			statement.close();
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-	
 
 		
 			try{
 			
-			String query1 = "Select * From Account Where accountName = "+name+" ";	    
+			String query1 = "Select * From Category Where categoryName = "+name+" ";	    
 
 
 			PreparedStatement pstmt = (PreparedStatement) con.prepareStatement(query1);
