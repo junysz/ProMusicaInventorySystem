@@ -135,6 +135,7 @@ public class Controller implements CategoryListener, AccountListner {
 			System.out.println("Old Category Name: "+categoryOld+ "\nNew Category Name: "+categoryEdited);
 			
 			theModel.updateCategory(categoryOld,categoryEdited);
+			update();
 		}
 	}
 
@@ -169,18 +170,15 @@ public class Controller implements CategoryListener, AccountListner {
 			else{
 
 				Category c= new Category(categoryForSub);
+				//get category Id from
+				//we have id
+				
+				
 				SubCategory s=new SubCategory(subCatTF);
 				theModel.addNewSubCategory(c,s);
 				System.out.println("Test if works: CategoryName: "+ c.getCategoryName()+"\n SubCategoryName: "+s.getSubCatName());
-
 			}
-
-
-
-
 		}
-
-
 	}
 
 
