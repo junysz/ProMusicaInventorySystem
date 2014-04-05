@@ -27,11 +27,11 @@ public class Controller implements CategoryListener, AccountListner {
 		//theView.getTabsPane().getReservationPanel().addTableListener(new PopulateTableListener());
 		//theView.getTabsPane().getReservationPanel().addComboBoxCatListener(new ComboBoxListener());
 		//categoryComboBox populate form DB
-		//populateCategoryReservPanel();
+		//populateCategoryBoxes();
 	}
 	
 	/*
-	public void populateCategoryReservPanel(){
+	public void populateCategoryBoxes(){
 		categories=theModel.getMySomeCategories(); //i deleted this method from model, i can replace with proper one using query
 		theView.getTabsPane().getReservationPanel().setComboBoxCategoryModel(categories);
 	}
