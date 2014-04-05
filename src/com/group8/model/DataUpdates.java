@@ -4,8 +4,8 @@ package com.group8.model;
 import java.sql.Connection;
 import java.sql.Statement;
 
-import com.mysql.jdbc.PreparedStatement;
-import com.mysql.jdbc.ResultSet;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 
 public class DataUpdates {
