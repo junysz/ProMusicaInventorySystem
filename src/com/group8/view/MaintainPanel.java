@@ -14,7 +14,6 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
-import com.apple.jobjc.Coder.SELCoder;
 
 import java.awt.Color;
 import java.awt.event.ActionListener;

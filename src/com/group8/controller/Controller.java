@@ -25,8 +25,6 @@ public class Controller implements CategoryListener, AccountListner {
 		this.theView=theView;
 		this.theModel=theModel;
 
-
-<<<<<<< HEAD
 		//theView.getTabsPane().getReservationPanel().addTableListener(new PopulateTableListener());
 		//theView.getTabsPane().getReservationPanel().addComboBoxCatListener(new ComboBoxListener());
 		//categoryComboBox populate form DB
@@ -288,6 +286,7 @@ public class Controller implements CategoryListener, AccountListner {
 			update();
 		}
 	}
+	
 	//MaintainPanel: populates all ComboBoxes:SelectCategory
 	public void update() {
 
