@@ -1,5 +1,6 @@
 package com.group8.view;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import java.awt.BorderLayout;
@@ -13,10 +14,13 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
+import com.apple.jobjc.Coder.SELCoder;
+
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.util.List;
 
 
 
@@ -69,19 +73,20 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	private JLabel errorLabel3;
 	private JButton btnCreateCategory;
 	private JLabel lblSelectCategory;
-	private JComboBox selectCategorycomboBox;
+	private JComboBox<String> selectCategorycomboBox;
 	private JLabel lblEnterSubcategoryName;
 	private JTextField enterSubCatNameTF;
+	
 	private JLabel errorLabel4;
 	private JButton btnCreateSubcategory;
 	private JLabel lblSelectCategory_1;
-	private JComboBox selectCategoryToEditcomboBox;
+	private JComboBox<String> selectCategoryToEditcomboBox;
 	private JLabel lblEditName;
 	private JTextField editCategoryNameTF;
 	private JLabel errorLabel5;
 	private JButton btnConfirmChanges_2;
 	private JLabel lblSelectCategory_2;
-	private JComboBox findCategoryComboBox;
+	private JComboBox<String> findCategoryComboBox;
 	private JLabel lblSelectSubcategory_1;
 	private JComboBox selectSubCatToEditComboBox;
 	private JLabel lblEditName_1;
@@ -95,13 +100,16 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	private JTextField editAccountPasswordTF;
 	private JLabel lblPassword_1;
 
+
+	private CategoryComboBoxModel categoryComboBoxModel;
+
 	//all components
 	void init(){
 
 		setLayout(new BorderLayout(0, 0));
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-	    tabbedPane.setBorder(new EmptyBorder(10, 10, 10, 10));
+		tabbedPane.setBorder(new EmptyBorder(10, 10, 10, 10));
 		add(tabbedPane, BorderLayout.CENTER);
 
 		MaintainAccountPanel = new JPanel();
@@ -176,10 +184,10 @@ public class MaintainPanel extends JPanel implements ActionListener {
 
 		//Create a Button Group for the Account status radio buttons
 		ButtonGroup statusGroup = new ButtonGroup();
-		
+
 		lblPassword_1 = new JLabel("Password");
 		editAccountPanel.add(lblPassword_1, "cell 1 4");
-		
+
 		editAccountPasswordTF = new JTextField();
 		editAccountPanel.add(editAccountPasswordTF, "cell 3 4 2 1,growx");
 		editAccountPasswordTF.setColumns(10);
@@ -188,21 +196,21 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		errorLabel2.setForeground(Color.RED);
 		editAccountPanel.add(errorLabel2, "cell 3 5 2 1");
 		errorLabel2.setVisible(false);
-						
-								lblStatus = new JLabel("Status");
-								editAccountPanel.add(lblStatus, "cell 1 6");
-						
-								rdbtnEnableAccount = new JRadioButton("Enabled");
-								editAccountPanel.add(rdbtnEnableAccount, "cell 3 6");
-								statusGroup.add(rdbtnEnableAccount);
-				
-						rdbtnDisableAccount = new JRadioButton("Disabled");
-						editAccountPanel.add(rdbtnDisableAccount, "cell 4 6");
-						statusGroup.add(rdbtnDisableAccount);
-						
-						
-								btnConfirmChanges = new JButton("Confirm Changes");
-								editAccountPanel.add(btnConfirmChanges, "cell 3 8");
+
+		lblStatus = new JLabel("Status");
+		editAccountPanel.add(lblStatus, "cell 1 6");
+
+		rdbtnEnableAccount = new JRadioButton("Enabled");
+		editAccountPanel.add(rdbtnEnableAccount, "cell 3 6");
+		statusGroup.add(rdbtnEnableAccount);
+
+		rdbtnDisableAccount = new JRadioButton("Disabled");
+		editAccountPanel.add(rdbtnDisableAccount, "cell 4 6");
+		statusGroup.add(rdbtnDisableAccount);
+
+
+		btnConfirmChanges = new JButton("Confirm Changes");
+		editAccountPanel.add(btnConfirmChanges, "cell 3 8");
 
 		MaintainCategoriesPanel = new JPanel();
 		tabbedPane.addTab("Maintain Categories", null, MaintainCategoriesPanel, null);
@@ -224,10 +232,10 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		errorLabel3 = new JLabel("");
 		errorLabel3.setForeground(Color.RED);
 		createCategoryPanel.add(errorLabel3, "cell 3 1,alignx right");
-		
-				btnCreateCategory = new JButton("Create Category");
-				
-						createCategoryPanel.add(btnCreateCategory, "cell 3 5");
+
+		btnCreateCategory = new JButton("Create Category");
+
+		createCategoryPanel.add(btnCreateCategory, "cell 3 5");
 
 		createSubCatPanel = new JPanel();
 		MaintainCategoriesPanel.add(createSubCatPanel);
@@ -262,13 +270,20 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		lblSelectCategory_1 = new JLabel("Select Category");
 		editCategoryPanel.add(lblSelectCategory_1, "cell 1 0");
 
-		selectCategoryToEditcomboBox = new JComboBox();
+
+
+		categoryComboBoxModel= new CategoryComboBoxModel();
+		selectCategoryToEditcomboBox = new JComboBox<String>();
+		selectCategorycomboBox.setModel(categoryComboBoxModel);
+
+
 		editCategoryPanel.add(selectCategoryToEditcomboBox, "cell 3 0,growx");
 
 		lblEditName = new JLabel("Edit Name");
 		editCategoryPanel.add(lblEditName, "cell 1 1");
 
 		editCategoryNameTF = new JTextField();
+		
 		editCategoryPanel.add(editCategoryNameTF, "cell 3 1,growx");
 		editCategoryNameTF.setColumns(10);
 
@@ -441,6 +456,20 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		btnRemoveItem = new JButton("Remove Item");
 		editItemPanel.add(btnRemoveItem, "cell 3 10,growx");
 
+
+
+
+	}
+
+
+	public JTextField getEditCategoryNameTF() {
+		return editCategoryNameTF;
+	}
+
+
+	public void setEditCategoryNameTF(String editCategoryNameTF) {
+		
+		this.editCategoryNameTF.setText(editCategoryNameTF);
 	}
 
 
@@ -452,16 +481,21 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		//*********HERE PLACE FOR ADDING LISTENERS***********//		
 		//I am getting category name and passing it to the controller as a CategoryFormEvent which is passed as 
 		//a parameter to the CategoryListener Interface
-		
+
 		btnCreateAccount.addActionListener(this);
 		btnCreateCategory.addActionListener(this);
 		btnConfirmChanges.addActionListener(this);
 		btnCreateSubcategory.addActionListener(this);
-		btnConfirmChanges_2.addActionListener(this);
+		//btnConfirmChanges_2.addActionListener(this);
 		btnConfirmChanges_3.addActionListener(this);
 		btnCreate.addActionListener(this);
 		btnConfirmChanges_1.addActionListener(this);
 		btnRemoveItem.addActionListener(this);
+
+
+
+
+
 	}
 
 
@@ -476,12 +510,12 @@ public class MaintainPanel extends JPanel implements ActionListener {
 			if(accountListener!=null){
 				int getIndexFromCombobox=selectAccountTypeComboBox.getSelectedIndex();
 				String accountType=null;
-					if(getIndexFromCombobox == 0){
-						accountType="manager";
-					}
-					else{
-						accountType="user";
-					}
+				if(getIndexFromCombobox == 0){
+					accountType="manager";
+				}
+				else{
+					accountType="user";
+				}
 				accountListener.accountAddedPerformed(new AccountFormEvent(enterUsernameTF.getText(), enterPasswordTF1.getText(), enterPasswordTF2.getText(),accountType));
 			}
 		}
@@ -489,6 +523,14 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		{
 			System.out.println("Edit existing Account  button clicked");
 		}
+
+
+
+
+
+
+
+
 		else if(e.getSource().equals(btnCreateCategory))
 		{
 			System.out.println("Create new category button clicked");
@@ -498,10 +540,12 @@ public class MaintainPanel extends JPanel implements ActionListener {
 				categoryListenr.categoryAddedPerformed(new CategoryFormEvent(enterCategoryNameTF.getText()));
 			}
 		}
-		else if(e.getSource().equals(btnCreateSubcategory))
-		{
-			System.out.println("Create new Sub-category button clicked");
-		}
+		
+
+
+
+
+
 		else if(e.getSource().equals(btnConfirmChanges_2))
 		{
 			System.out.println("Edit Category button clicked");
@@ -522,33 +566,148 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		{
 			System.out.println("Remove Item button clicked");		
 		}
+
+
+	}
+
+
+
+
+
+	/***************************START COMBO-BOXES*****************************/
+	//BUTTONS:
+	public void addCreateSubCategoryBtn(ActionListener listen){
+		btnCreateSubcategory.addActionListener(listen);
 	}
 	
+	
+	/*
+	 * Populates ALL Category combo-boxes 
+	 * Sets new model for 3 combo-boxes
+	 * This method is also used to update all category combo-boxes
+	 * When new category is created
+	 */
+	public void setNewModel(List<String>comboBoxList){
+		categoryComboBoxModel= new CategoryComboBoxModel();
+		
+		categoryComboBoxModel.setComboBoxList(comboBoxList);
+
+		selectCategorycomboBox.setModel(categoryComboBoxModel);
+		selectCategoryToEditcomboBox.setModel(categoryComboBoxModel);
+		findCategoryComboBox.setModel(categoryComboBoxModel);
+		createCategoryComboBox.setModel(categoryComboBoxModel);
+		editCategoryComboBox.setModel(categoryComboBoxModel);
+		
+	}
+	/*
+	 * I want to get strings form selected comboBoxes
+	 * This will tell me when combo-boxes has been clicked and 
+	 * Give me String form particular combo-box
+	 */
+	public void addselectCategorycomboBoxListener(ActionListener listen){
+		selectCategorycomboBox.addActionListener(listen);
+	}
+	public void addselectCategoryToEditcomboBoxListener(ActionListener listen){
+		selectCategoryToEditcomboBox.addActionListener(listen);
+	}
+	public void addfindCategoryComboBoxListener(ActionListener listen){
+		findCategoryComboBox.addActionListener(listen);
+	}
+
+	
+	public void addbtnConfirmChanges_2Listener(ActionListener listen){
+		btnConfirmChanges_2.addActionListener(listen);
+	}
+
+
+
+
+	public void setCategoryListenr(CategoryListener categoryListenr) {
+		System.out.println("I will accept any object that implemnts CategoryListener Class: MaintainPanel");
+		this.categoryListenr = categoryListenr;
+	}
+	public void setAccountListener(AccountListner accountListener) {
+		System.out.println("I will accept any object that implemnts AccountListener Class: MaintainPanel");	 
+		this.accountListener= accountListener;	
+	}
+	
+	//JoptionPanel to inform that create category field is empty
+	public void warnCategoryFieldEmpty(){
+
+		JOptionPane.showMessageDialog(null,
+				"Category field empty.",
+				"Go away warning",
+				JOptionPane.WARNING_MESSAGE);
+	}
+	public void warnCategoryExist() {
+		JOptionPane.showMessageDialog(null,
+				"Category Already Exist.",
+				"Go away warning",
+				JOptionPane.WARNING_MESSAGE);
+		
+	}
+	public void warnSubCategoryFieldEmpty(){
+		JOptionPane.showMessageDialog(null,
+				"Sub-Category field empty.",
+				"Go away warning",
+				JOptionPane.WARNING_MESSAGE);
+	}
+	public void warnCategoryNull(){
+		JOptionPane.showMessageDialog(null,
+				"Select Category field.",
+				"Go away warning",
+				JOptionPane.WARNING_MESSAGE);
+	}
+	
+
+	/***************************END COMBO-BOXES*****************************/
+
+
+
+
+
+
 	//adds two strings to account panel to the combo-box
 	public void addAccountTypeToComboBox(){
 		selectAccountTypeComboBox.addItem("Manager");
 		selectAccountTypeComboBox.addItem("User");
 	}
-		
-		
 	//sets listener passed from TestingMainPanel from Mian_Test
-	public void setCategoryListenr(CategoryListener categoryListenr) {
-		 System.out.println("I will accept any object that implemnts CategoryListener Class: MaintainPanel");
-		this.categoryListenr = categoryListenr;
+
+
+	public JComboBox<String> getSelectCategorycomboBox() {
+		return selectCategorycomboBox;
 	}
-	
-	
+
+
+	public JComboBox<String> getSelectCategoryToEditcomboBox() {
+		return selectCategoryToEditcomboBox;
+	}
+
+
+	public JComboBox<String> getFindCategoryComboBox() {
+		return findCategoryComboBox;
+	}
+
+
 	
 
 
-	public void setAccountListener(AccountListner accountListener) {
-		 System.out.println("I will accept any object that implemnts AccountListener Class: MaintainPanel");
-		 
-		 this.accountListener= accountListener;
+	public void clearCategoryTF() {
+		enterCategoryNameTF.setText("");
 		
 	}
-	
-	
+
+	public String getEnterSubCatNameTF() {
+		return enterSubCatNameTF.getText();
+	}
+
+
+	public void setEnterSubCatNameTF(JTextField enterSubCatNameTF) {
+		this.enterSubCatNameTF = enterSubCatNameTF;
+	}
+
+
 	
 
 }

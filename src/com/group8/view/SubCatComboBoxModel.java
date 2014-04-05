@@ -7,15 +7,15 @@ import java.util.List;
 import javax.swing.ComboBoxModel;
 import javax.swing.event.ListDataListener;
 
-public class CategoryComboBoxModel  implements ComboBoxModel<String> {
+public class SubCatComboBoxModel  implements ComboBoxModel<String> {
 
-	  
+	
 	
 	List<String>comboBoxList;
 	
 	Object selectedCategory;
 	
-	public CategoryComboBoxModel() {
+	public SubCatComboBoxModel() {
 		this.comboBoxList=new ArrayList<>();
 	}
 
@@ -33,7 +33,7 @@ public class CategoryComboBoxModel  implements ComboBoxModel<String> {
 
 	@Override
 	public void addListDataListener(ListDataListener l) {
-		
+		// TODO Auto-generated method stub
 		
 	}
 
