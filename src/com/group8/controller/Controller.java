@@ -51,11 +51,13 @@ public class Controller implements CategoryListener, AccountListner {
 		theView.getTabsPane().getReservationPanel().addTableListener(new PopulateTableListener());
 		theView.getTabsPane().getReservationPanel().addComboBoxCatListener(new ComboBoxListener());
 		theView.getTabsPane().getReservationPanel().addComboBoxSubCatListener(new ComboBoxSubCatListener());
-		//categoryComboBox populate form DB
+		
+		//categoryComboBox populate form DB NOT WORKING NOW UNTIL MAINTAN CATEGORY FINISHED 
 		populateCategoryReservPanel();
 	}
-
-
+	/************************************************************/
+	/******NOT WORKING NOW UNTIL MAINTAN CATEGORY FINISHED******/ 
+	/************************************************************/
 	public void populateCategoryReservPanel(){
 		try{
 			categories=theModel.getMySomeCategories(); //i deleted this method from model, i can replace with proper one using query
@@ -112,15 +114,17 @@ public class Controller implements CategoryListener, AccountListner {
 		}
 
 	}
+	/************************************************************/
+	/***********************END*********************************/
 
-
-
+	
+	
+	
+	
 
 	/***************************************************************************************/
 	/***************************START COMBO-BOXES MAINTAIN_PANEL*****************************/
 	/***************************************************************************************/
-
-
 
 	//Updates Category that has been edited by the user
 	class ConfirmChanges_2Listener implements ActionListener{
@@ -271,7 +275,7 @@ public class Controller implements CategoryListener, AccountListner {
 	
 	
 
-	/***************************************************************************************/
+	/**************************NOT WORKING NOW UNTIL MAINTAN CATEGORY FINISHED***************/
 	/***************************ACCOUNT STUFF************************************************/
 	/***************************************************************************************/
 	/*
@@ -287,6 +291,6 @@ public class Controller implements CategoryListener, AccountListner {
 
 		//theModel.addNewAccount(a);
 	}
-
+	/****************************END********************************************************/
 
 }
