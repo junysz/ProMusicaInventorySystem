@@ -45,5 +45,14 @@ public class TabsPane extends JTabbedPane {
 		maintainPanel.setCategoryListenr(categoryListenr);
 		
 	}
+	
+	
+	
+	//Reference for the Reports Panel
+	public ReportPanel getReportPanel(){
+		
+		return reportsPanel;
+	}
+	
 }
 

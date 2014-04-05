@@ -30,6 +30,7 @@ public class Controller implements CategoryListener, AccountListner {
 
 		//Adds Category To DataBase when btn clicked
 		theView.setCategoryListener(this);
+		
 
 		//Adding Listeners: Combo-boxes
 		theView.getTabsPane().getMaintainPanel().addselectCategorycomboBoxListener(new SelectCategorycomboBoxListener());
@@ -40,7 +41,7 @@ public class Controller implements CategoryListener, AccountListner {
 		//update all comboBoxes 
 		update();
 
-
+		
 
 		//BUTTONS
 		theView.getTabsPane().getMaintainPanel().addCreateSubCategoryBtn(new CreateSubCategoryBtn());
@@ -54,6 +55,20 @@ public class Controller implements CategoryListener, AccountListner {
 		
 		//categoryComboBox populate form DB NOT WORKING NOW UNTIL MAINTAN CATEGORY FINISHED 
 		populateCategoryReservPanel();
+		
+		
+		
+		/***********REPORT PANEL*****************
+		 * theView.getTabsPane().getReportPanel().
+		 */
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 	/************************************************************/
 	/******NOT WORKING NOW UNTIL MAINTAN CATEGORY FINISHED******/ 
@@ -172,7 +187,7 @@ public class Controller implements CategoryListener, AccountListner {
 				Category c= new Category(categoryForSub);
 				//get category Id from
 				//we have id
-				
+				//int test=theView.getTabsPane().getMaintainPanel().
 				
 				SubCategory s=new SubCategory(subCatTF);
 				theModel.addNewSubCategory(c,s);

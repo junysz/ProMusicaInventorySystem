@@ -595,6 +595,9 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		selectCategorycomboBox.setModel(categoryComboBoxModel);
 		selectCategoryToEditcomboBox.setModel(categoryComboBoxModel);
 		findCategoryComboBox.setModel(categoryComboBoxModel);
+		createCategoryComboBox.setModel(categoryComboBoxModel);
+		editCategoryComboBox.setModel(categoryComboBoxModel);
+		
 	}
 	/*
 	 * I want to get strings form selected comboBoxes
@@ -623,6 +626,11 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		System.out.println("I will accept any object that implemnts CategoryListener Class: MaintainPanel");
 		this.categoryListenr = categoryListenr;
 	}
+	public void setAccountListener(AccountListner accountListener) {
+		System.out.println("I will accept any object that implemnts AccountListener Class: MaintainPanel");	 
+		this.accountListener= accountListener;	
+	}
+	
 	//JoptionPanel to inform that create category field is empty
 	public void warnCategoryFieldEmpty(){
 
@@ -682,10 +690,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	}
 
 
-	public void setAccountListener(AccountListner accountListener) {
-		System.out.println("I will accept any object that implemnts AccountListener Class: MaintainPanel");	 
-		this.accountListener= accountListener;	
-	}
+	
 
 
 	public void clearCategoryTF() {
