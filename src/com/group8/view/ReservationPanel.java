@@ -30,7 +30,7 @@ import java.awt.event.ActionEvent;
 public class ReservationPanel extends JPanel 
 {
 	List<Item>dbItem= new ArrayList<>();
-	List<String>category= new ArrayList<>();
+	//List<String>category= new ArrayList<>();
 
 	private JTextField searchKeywordTF;
 	private JTextField docketNoTF;
@@ -42,18 +42,24 @@ public class ReservationPanel extends JPanel
 	JTabbedPane tabbedPane;
 	JPanel findReservationPanel;
 
-	private ItemTableModel itemTableModel;
-	private JTable tableItemsRevervation;
-	private CategoryComboBoxModel categoryComboBoxModel;
+
 
 	/*
 	 * JPanel makeNewReservation components 
 	 */
+	private ItemTableModel 			itemTableModel;
+	private JTable 					tableItemsRevervation;
+	private CategoryComboBoxModel 	categoryComboBoxModel;
+	private JComboBox<String> 		selectCategoryCBox;
+	private SubCatComboBoxModel  	subCatComboBoxModel;
+	private JComboBox<String> 		selectSubcategoryCBox;
+
+
 	private JPanel makeNewReservationPanel;
 	private JLabel lblNewLabel;
 	private JLabel lblSelectCategory;
-	private JComboBox<String> selectCategoryCBox;
-	private JComboBox slecetSubcategoryCBox;
+
+
 	private JLabel lblSlecetSubcategory;
 	private JLabel lblSearch;
 	private JButton btnFindItems;
@@ -159,7 +165,7 @@ public class ReservationPanel extends JPanel
 
 
 		/*
-		 * makeReservationPanel STUFF
+		 * MakeNewReservationPanel STUFF
 		 */
 		makeNewReservationPanel = new JPanel();
 		tabbedPane.addTab("Make New", null, makeNewReservationPanel, null);
@@ -167,7 +173,8 @@ public class ReservationPanel extends JPanel
 
 		lblNewLabel = new JLabel("Find One Item to Reserve");
 		lblSelectCategory = new JLabel("Select Category");
-		slecetSubcategoryCBox = new JComboBox();
+
+
 		lblSearch = new JLabel("Search by Keyword ");
 		lblSlecetSubcategory = new JLabel("Select Sub-Category");
 		searchKeywordTF = new JTextField();
@@ -184,17 +191,24 @@ public class ReservationPanel extends JPanel
 
 		makeNewReservationPanel.add(lblNewLabel, "cell 0 0 2 1");
 
-		categoryComboBoxModel=new CategoryComboBoxModel(category);
-
-
+		/* 
+		 * Creating models for comboBoxes
+		 * Model classes are passed as parameters to combo-boxes
+		 */
+		categoryComboBoxModel=new CategoryComboBoxModel(); 
 		selectCategoryCBox = new JComboBox<String>();
 		selectCategoryCBox.setModel(categoryComboBoxModel);
+
+		subCatComboBoxModel= new SubCatComboBoxModel();
+		selectSubcategoryCBox = new JComboBox<String>();
+		selectSubcategoryCBox.setModel(subCatComboBoxModel);
+
 
 
 		makeNewReservationPanel.add(selectCategoryCBox, "flowx,cell 0 1,growx");
 		makeNewReservationPanel.add(lblSelectCategory, "cell 0 1,alignx left");	
 		makeNewReservationPanel.add(lblSlecetSubcategory, "cell 2 1");
-		makeNewReservationPanel.add(slecetSubcategoryCBox, "cell 3 1,growx");
+		makeNewReservationPanel.add(selectSubcategoryCBox, "cell 3 1,growx");
 		makeNewReservationPanel.add(lblSearch, "cell 4 1");
 		makeNewReservationPanel.add(searchKeywordTF, "cell 5 1,growx");
 		makeNewReservationPanel.add(btnFindItems, "cell 6 1");
@@ -233,7 +247,9 @@ public class ReservationPanel extends JPanel
 	public JComboBox<String> getSelectCategoryCBox() {
 		return selectCategoryCBox;
 	}
-
+	public JComboBox<String> getSelectSubcategoryCBox() {
+		return selectSubcategoryCBox;
+	}
 
 
 	/*******************
@@ -242,23 +258,34 @@ public class ReservationPanel extends JPanel
 
 	/*
 	 * Provide the way to notify The Controller 
-	 * whenever comboBoc category is clicked
+	 * whenever comboBox category is clicked
 	 * This will be handled by The Controller
 	 */
 	public void addComboBoxCatListener(ActionListener listenComboCategory ){
 		selectCategoryCBox.addActionListener(listenComboCategory);
 	}
-
-
-
-
-
+	/*
+	 * Provide the way to notify The Controller 
+	 * whenever comboBox subCategory is clicked
+	 * This will be handled by The Controller
+	 */
+	public void addComboBoxSubCatListener(ActionListener listenComboSubCategory){
+		selectSubcategoryCBox.addActionListener(listenComboSubCategory);
+	}
 
 
 
 	public void setComboBoxCategoryModel(List<String>comboBoxList){
 		categoryComboBoxModel.setComboBoxList(comboBoxList);
 	}
+	public void setComboBoxSubCategoryModel(List<String>comboBoxList){
+		subCatComboBoxModel.setComboBoxList(comboBoxList);
+
+	}
+
+
+
+
 
 	/*
 	 * Provide the way to notify The Controller 
@@ -272,7 +299,7 @@ public class ReservationPanel extends JPanel
 
 	/*
 	 * I want to set Table Model
-	 * This will come form Model
+	 * This will come from Model
 	 * Model doesn't know about view
 	 * So the controller will set this. 
 	 */

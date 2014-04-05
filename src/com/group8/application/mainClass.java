@@ -20,3 +20,11 @@ public class mainClass {
 		});
 	}
 }
+//Controller theController= new Controller(theView);
+/*pass object that listen for an event this is going to be Controller
+				 *we have to pass here an object that implements interface with method that 
+				 *will be used whenever category event occurs
+				 *if a category event occurs in the view tell controller about it set controller as a listener to the view  
+				 */
+				//theView.setCategoryListener(theController);
+				//theView.setAccountListener(theController);

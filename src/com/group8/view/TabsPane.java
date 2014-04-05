@@ -12,7 +12,7 @@ public class TabsPane extends JTabbedPane {
 	private ReservationPanel reservationPanel;
 	private MaintainPanel maintainPanel;
 	private StockBrowserPanel stockBrowsingPanel;
-	private ReportsPanel reportsPanel;
+	private ReportPanel reportsPanel;
 
 	public TabsPane() {
 		setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
@@ -20,7 +20,7 @@ public class TabsPane extends JTabbedPane {
 		stockBrowsingPanel = new StockBrowserPanel();
 		reservationPanel=new ReservationPanel();
 		maintainPanel= new MaintainPanel();
-		reportsPanel=new ReportsPanel();
+		reportsPanel=new ReportPanel();
 		
 		add("Stock Browsing",stockBrowsingPanel);
 		add("Reservation",reservationPanel);
@@ -36,5 +36,23 @@ public class TabsPane extends JTabbedPane {
 	{	
 		return reservationPanel;	
 	}
+	public MaintainPanel getMaintainPanel(){
+		return maintainPanel;
+	}
+
+
+	public void setCategoryListenr(CategoryListener categoryListenr) {
+		maintainPanel.setCategoryListenr(categoryListenr);
+		
+	}
+	
+	
+	
+	//Reference for the Reports Panel
+	public ReportPanel getReportPanel(){
+		
+		return reportsPanel;
+	}
+	
 }
 
