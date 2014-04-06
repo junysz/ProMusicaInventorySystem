@@ -98,6 +98,9 @@ public class MainModel {
 	{
 		updates.updateItem(i, subCatID);
 	}
+	public void removeItem(Item i){
+		updates.removeItem(i);
+	}
 
 
 	//queries methods

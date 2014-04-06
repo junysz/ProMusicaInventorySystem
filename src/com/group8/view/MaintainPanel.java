@@ -24,7 +24,7 @@ import java.util.List;
 
 
 public class MaintainPanel extends JPanel implements ActionListener {
-	private JTextField enterUsernameTF, enterPasswordTF1, enterPasswordTF2, editUsernameTF;
+	private JTextField enterUsernameTF, enterPasswordTF1, confirmPasswordTF, editUsernameTF;
 	private JPanel MaintainAccountPanel, newAccountPanel, editAccountPanel, MaintainCategoriesPanel, MaintainItemPanel;
 	private JLabel lblUserName, lblPassword, lblConfirmPassword, lblSelectType, errorLabel1,errorLabel2, lblSelectAccount, lblUsername, lblSelectType_1, lblStatus;
 	private JComboBox<String> selectAccountTypeComboBox, selectAccountComboBox, selectAccountTypeEditComboBox;
@@ -96,7 +96,6 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	private JLabel lblNewLabel_1;
 	private JComboBox changeSubCatComboBox;
 	private CategoryListener categoryListenr;
-	private AccountListner accountListener;
 	private JTextField editAccountPasswordTF;
 	private JLabel lblPassword_1;
 
@@ -139,9 +138,9 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		lblConfirmPassword = new JLabel("Confirm Password");
 		newAccountPanel.add(lblConfirmPassword, "cell 1 3");
 
-		enterPasswordTF2 = new JTextField();
-		newAccountPanel.add(enterPasswordTF2, "cell 3 3,growx");
-		enterPasswordTF2.setColumns(10);
+		confirmPasswordTF = new JTextField();
+		newAccountPanel.add(confirmPasswordTF, "cell 3 3,growx");
+		confirmPasswordTF.setColumns(10);
 
 		lblSelectType = new JLabel("Select Type");
 		newAccountPanel.add(lblSelectType, "cell 1 4");
@@ -504,22 +503,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) 
 	{
 
-		if(e.getSource().equals(btnCreateAccount))
-		{
-			System.out.println("Create New Account button clicked\n");
-			if(accountListener!=null){
-				int getIndexFromCombobox=selectAccountTypeComboBox.getSelectedIndex();
-				String accountType=null;
-				if(getIndexFromCombobox == 0){
-					accountType="manager";
-				}
-				else{
-					accountType="user";
-				}
-				accountListener.accountAddedPerformed(new AccountFormEvent(enterUsernameTF.getText(), enterPasswordTF1.getText(), enterPasswordTF2.getText(),accountType));
-			}
-		}
-		else if(e.getSource().equals(btnConfirmChanges))		
+		if(e.getSource().equals(btnConfirmChanges))		
 		{
 			System.out.println("Edit existing Account  button clicked");
 		}
@@ -577,13 +561,24 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		btnCreateSubcategory.addActionListener(listen);
 	}
 	//Creates the Add New Item Button Listener
-	public void addCreateItemBtn(ActionListener listen)
-	{
+	public void addCreateItemBtn(ActionListener listen){
 		btnCreateNewItem.addActionListener(listen);
 	}
+	//Create the Edit Item Button Listener
+	public void addEditItemBtn(ActionListener listen){
+		btnConfirmChanges.addActionListener(listen);
+	}
+	//Create the Remove Item Button Listener
+	public void addRemoveItemBtn(ActionListener listen){
+		btnRemoveItem.addActionListener(listen);
+	}
+	//Creates the Add New ACcount Button Listener
+	public void addCreateAccountBtn(ActionListener listen){
+		btnCreateAccount.addActionListener(listen);
+	}
 
-	
-	
+
+
 
 	/* METHOD: setCategoryModels is for Category Combo BOxes
 	 * Populates ALL Category combo-boxes in the Maintenance Tab
@@ -593,7 +588,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 
 		categoryComboBoxModel= new CategoryComboBoxModel();
 		categoryComboBoxModel.setComboBoxList(comboBoxList);
-		
+
 		//5 CATEGORY COMBO BOXES IN THE MAINTAIN PANEL
 		selectCategorycomboBox.setModel(categoryComboBoxModel);
 		selectCategoryToEditcomboBox.setModel(categoryComboBoxModel);
@@ -620,15 +615,11 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		btnConfirmChanges_2.addActionListener(listen);
 	}
 
-	
+
 	//WIERD CATEGORY LISTENERS
 	public void setCategoryListenr(CategoryListener categoryListenr) {
 		System.out.println("I will accept any object that implemnts CategoryListener Class: MaintainPanel");
 		this.categoryListenr = categoryListenr;
-	}
-	public void setAccountListener(AccountListner accountListener) {
-		System.out.println("I will accept any object that implemnts AccountListener Class: MaintainPanel");	 
-		this.accountListener= accountListener;	
 	}
 
 	//JoptionPanel WARNING MESSAGES
@@ -662,7 +653,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	 * WARNING MESSAGES FOR THE CREATE SUBCATEGORY FORM
 	 */
 	public void warnCreateSubCatFormErrors(ArrayList<String> errors){
-		
+
 		String message = "Fix:\n"; //errors message for JOptionPane
 		//For each error in the list add the error to the message
 		for(String e: errors)
@@ -678,7 +669,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	 * WARNING MESSAGES FOR THE CREATE ITEM FORM
 	 */
 	public void warnCreateItemFormErrors(ArrayList<String> errors){
-		
+
 		String message = "Fix:\n"; //errors message for JOptionPane
 		//For each error in the list add the error to the message
 		for(String e: errors)
@@ -694,7 +685,23 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	 * WARNING MESSAGES FOR THE EDIT ITEM FORM
 	 */
 	public void warnEditItemFormErrors(ArrayList<String> errors){
-		
+
+		String message = "Fix:\n"; //errors message for JOptionPane
+		//For each error in the list add the error to the message
+		for(String e: errors)
+		{
+			message+=e + "\n";
+		}
+		JOptionPane.showMessageDialog(null,
+				message,
+				"Go away warning",
+				JOptionPane.WARNING_MESSAGE);
+	}
+	/*
+	 * WARNING MESSAGES FOR THE CREATE ACCOUNT FORM
+	 */
+	public void warnCreateAccountFormErrors(ArrayList<String> errors){
+
 		String message = "Fix:\n"; //errors message for JOptionPane
 		//For each error in the list add the error to the message
 		for(String e: errors)
@@ -779,5 +786,18 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	public JComboBox<String> getItemMoveSubCatComboBox() {
 		return changeSubCatComboBox;
 	}
-	
+	//CREATE ACCOUNT PANEL GETTER METHODS
+	public String getEnterUsernameTF() {
+		return enterUsernameTF.getText();
+	}
+	public String getEnterPasswordTF() {
+		return enterPasswordTF1.getText();
+	}
+	public String getConfirmPasswordTF() {
+		return confirmPasswordTF.getText();
+	}
+	public JComboBox<String> getSelectAccountTypeComboBox() {
+		return selectAccountTypeComboBox;
+
+	}
 }

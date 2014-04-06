@@ -6,13 +6,11 @@ import java.util.List;
 
 
 import com.group8.model.*;
-import com.group8.view.AccountFormEvent;
-import com.group8.view.AccountListner;
 import com.group8.view.CategoryFormEvent;
 import com.group8.view.CategoryListener;
 import com.group8.view.MainFrame;
 
-public class Controller implements CategoryListener, AccountListner {
+public class Controller implements CategoryListener {
 
 	private List <Item> temItemList;
 	private List<String> categories;
@@ -25,18 +23,7 @@ public class Controller implements CategoryListener, AccountListner {
 		this.theView=theView;
 		this.theModel=theModel;
 
-		//theView.getTabsPane().getReservationPanel().addTableListener(new PopulateTableListener());
-		//theView.getTabsPane().getReservationPanel().addComboBoxCatListener(new ComboBoxListener());
-		//categoryComboBox populate form DB
-		//populateCategoryBoxes();
 
-
-		/*
-	public void populateCategoryBoxes(){
-		categories=theModel.getMySomeCategories(); //i deleted this method from model, i can replace with proper one using query
-		theView.getTabsPane().getReservationPanel().setComboBoxCategoryModel(categories);
-	}
-=======
 		/******Maintain Categories Panel**************/
 
 		//Adds Category To DataBase when btn clicked
@@ -54,8 +41,13 @@ public class Controller implements CategoryListener, AccountListner {
 
 
 
-		//BUTTONS
+		//ACTIVATE MAINTENACE PANEL BUTTON LISTENERS
 		theView.getTabsPane().getMaintainPanel().addCreateSubCategoryBtn(new CreateSubCategoryBtn());
+		theView.getTabsPane().getMaintainPanel().addCreateItemBtn(new CreateItemBtn());
+		theView.getTabsPane().getMaintainPanel().addEditItemBtn(new ConfirmItemChangesBtn());
+		theView.getTabsPane().getMaintainPanel().addRemoveItemBtn(new RemoveItemBtn());
+		theView.getTabsPane().getMaintainPanel().addCreateAccountBtn(new CreateAccountBtn());
+		
 
 		/********************************************/
 
@@ -172,9 +164,7 @@ public class Controller implements CategoryListener, AccountListner {
 		public void actionPerformed(ActionEvent e) {
 			String comboBox1=theView.getTabsPane().getMaintainPanel().getSelectCategorycomboBox().getSelectedItem().toString();
 			System.out.println(comboBox1);
-			/*
-			 * We can create Sub-Category here 
-			 */
+
 		}
 	}
 	//BUTONS:
@@ -219,7 +209,7 @@ public class Controller implements CategoryListener, AccountListner {
 		}
 	}
 	//Inner Class that listens for the Create Item Button
-	class CreateItemyBtn implements ActionListener{
+	class CreateItemBtn implements ActionListener{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -277,7 +267,7 @@ public class Controller implements CategoryListener, AccountListner {
 		}
 	}
 	//Inner Class that listens for the Confirm Item Changes Button
-	class ConfirmItemyChangesBtn implements ActionListener{
+	class ConfirmItemChangesBtn implements ActionListener{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -346,6 +336,86 @@ public class Controller implements CategoryListener, AccountListner {
 			else{
 				theView.getTabsPane().getMaintainPanel().warnEditItemFormErrors(errorMessages);
 			}
+		}
+	}
+	//Inner Class that listens for the Create Account Button
+		class RemoveItemBtn implements ActionListener{
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String itemSelection=null;
+
+				//read the values (itemSelection) from the view
+				try{
+					itemSelection=theView.getTabsPane().getMaintainPanel().getItemToEditComboBox().getSelectedItem().toString();
+				}catch(Exception ex){
+					System.out.println("Problem reading input from Form");
+				}
+				//Now validate the data and add errors to errorMessages
+				ArrayList<String> errorMessages = new ArrayList<String>();
+				if(itemSelection==null){
+					errorMessages.add("Select Item");
+				}
+				
+				if(errorMessages.isEmpty()){
+					Item item = theModel.getItemByName(itemSelection);
+					theModel.removeItem(item);
+					System.out.println("Remove Item successful");
+				}
+				else{
+					theView.getTabsPane().getMaintainPanel().warnEditItemFormErrors(errorMessages);
+				}
+				
+
+			}
+		}
+	//Inner Class that listens for the Create Account Button
+	class CreateAccountBtn implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String username=null;
+			String password1=null;
+			String password2=null;
+			String accountTypeSelection=null;
+
+			//read the values (username, enterPassword, confirmPassword, accountType) from the view
+			try{
+				username=theView.getTabsPane().getMaintainPanel().getEnterUsernameTF();
+				password1=theView.getTabsPane().getMaintainPanel().getEnterPasswordTF();
+				password2= theView.getTabsPane().getMaintainPanel().getConfirmPasswordTF();
+				accountTypeSelection=theView.getTabsPane().getMaintainPanel().getSelectAccountTypeComboBox().getSelectedItem().toString();
+			}catch(Exception ex){
+				System.out.println("Problem reading input fron Create New Account Form");
+			}
+			//Now validate the data and add errors to errorMessages
+			ArrayList<String> errorMessages = new ArrayList<String>();
+			if(username.isEmpty()){
+				errorMessages.add("Username");
+			}
+			if(password1.isEmpty() || password2.isEmpty()){
+				errorMessages.add("Enter Password Twice");
+			}
+			if(!(password1.equals(password2))){
+				errorMessages.add("Passwords Do Not Match");
+			}
+			if(accountTypeSelection==null){
+				errorMessages.add("Account Type");
+			}
+			
+			if(errorMessages.isEmpty()){
+				Account a = new Account();
+				a.setAccountName(username);
+				a.setPassword(password1);
+				a.setType(accountTypeSelection);
+				
+				theModel.addNewAccount(a);
+				System.out.println("Account Added successful");
+			}
+			else{
+				theView.getTabsPane().getMaintainPanel().warnCreateAccountFormErrors(errorMessages);
+			}
+			
+			
+
 		}
 	}
 
@@ -448,16 +518,9 @@ public class Controller implements CategoryListener, AccountListner {
 	/*
 	 * Implementation of AccountListener passes account from view 
 	 */
-	public void accountAddedPerformed(AccountFormEvent accountFormEvent) {
 
-		Account a = new Account();
-		a.setAccountName(accountFormEvent.getUserName());
-		a.setPassword(accountFormEvent.getPassword());
-		a.setType(accountFormEvent.getType());
-		System.out.println(a.getAccountName() + a.getPassword() + a.getType());
-
-		//theModel.addNewAccount(a);
-	}
 	/****************************END********************************************************/
 
+
 }
+
