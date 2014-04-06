@@ -197,11 +197,11 @@ public class Controller implements CategoryListener, AccountListner {
 				errorMessages.add("CategorySelction");
 				//oldWarningHandeler --- theView.getTabsPane().getMaintainPanel().warnSubCategoryFieldEmpty();
 			}
-			else if(subCatTF.isEmpty()){
+			if(subCatTF.isEmpty()){
 				errorMessages.add("SubCategory Name");
 			}
 			//else we can go ahead and make sub category
-			else{
+			if(errorMessages.isEmpty()){
 				//first we get the category id based on the name that was selected
 				int catID = theModel.getCategoryIdFromName(categorySelection);
 				//then we create the Category Object to pass to the model
@@ -213,7 +213,7 @@ public class Controller implements CategoryListener, AccountListner {
 				//Testing Prints
 				System.out.println("Test if works: CategoryName: "+ c.getCategoryName()+"\n SubCategoryName: "+s.getSubCatName());
 			}
-			if(!(errorMessages.isEmpty())){
+			else{
 				theView.getTabsPane().getMaintainPanel().warnCreateSubCatFormErrors(errorMessages);
 			}
 		}
@@ -228,7 +228,7 @@ public class Controller implements CategoryListener, AccountListner {
 			String itemModel=null;
 			double itemPrice=0;
 			int stockLevel=0;//optional parameter from the view
-			
+
 			//read the values (subCat, brand, model, price, stockLevel) from the view
 			try{
 				subCatSelection=theView.getTabsPane().getMaintainPanel().getNewItemSubCatComboBox().getSelectedItem().toString();
@@ -244,18 +244,17 @@ public class Controller implements CategoryListener, AccountListner {
 			if(subCatSelection==null){
 				errorMessages.add("SubCategory Selection");
 			}
-			else if(itemBrand.isEmpty()){
+			if(itemBrand.isEmpty()){
 				errorMessages.add("Brand Name");
 			}
-			else if(itemModel.isEmpty()){
+			if(itemModel.isEmpty()){
 				errorMessages.add("Model Name");
 			}
-			else if(!(itemPrice>0)){
+			if(!(itemPrice>0)){
 				errorMessages.add("Price");
 			}
-			//else we can go ahead and make sub category
-			else{
-				errorMessages.clear();
+			//If there is no errors then we can go ahead and make sub category
+			if(errorMessages.isEmpty()){
 				//first we get the SubCategory id based on the name that was selected
 				int subCatID = theModel.getSubCatIdFromName(subCatSelection);
 				//then we create the SubCategory Object to pass to the model
@@ -272,8 +271,80 @@ public class Controller implements CategoryListener, AccountListner {
 				System.out.println("Test if works: ItemName: "+ i.getBrand()+" " +i.getModel() +"\n Price: "+i.getPrice());
 			}
 			//Now handle the error Messages if there was any by sending the errors list to the view to be displayed
-			if(!(errorMessages.isEmpty())){
+			else{
 				theView.getTabsPane().getMaintainPanel().warnCreateItemFormErrors(errorMessages);
+			}
+		}
+	}
+	//Inner Class that listens for the Confirm Item Changes Button
+	class ConfirmItemyChangesBtn implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String itemSubCat=null;
+			String itemSelection=null;
+			String changeBrand=null;
+			String changeModel=null;
+			double changePrice=0;
+			String changeSubCatSelection=null;
+
+			//read the values (item, editBrand, editModel, editPrice, changeOfSubCategory) from the view
+			try{
+				itemSubCat=theView.getTabsPane().getMaintainPanel().getItemToEditSubCatComboBox().getSelectedItem().toString();
+				itemSelection=theView.getTabsPane().getMaintainPanel().getItemToEditComboBox().getSelectedItem().toString();
+				changeBrand= theView.getTabsPane().getMaintainPanel().getEditBrandTF();
+				changeModel= theView.getTabsPane().getMaintainPanel().getEditModelTF();
+				changePrice= Double.parseDouble(theView.getTabsPane().getMaintainPanel().getEditPriceTF());
+				changeSubCatSelection=theView.getTabsPane().getMaintainPanel().getItemMoveSubCatComboBox().getSelectedItem().toString();
+			}catch(Exception ex){
+				System.out.println("Problem reading input fron Edit Existing Item Form");
+			}
+			//Now validate the data and add errors to errorMessages
+			ArrayList<String> errorMessages = new ArrayList<String>();
+			if(itemSelection==null){
+				errorMessages.add("Item Selection");
+			}
+			if(changeBrand.isEmpty()){
+				errorMessages.add("Brand Name");
+			}
+			if(changeModel.isEmpty()){
+				errorMessages.add("Model Name");
+			}
+			if(!(changePrice>0)){
+				errorMessages.add("Price");
+			}
+			if(changeSubCatSelection==null){
+				errorMessages.add("Move Sub Category");
+			}
+			//If there is no errors then we can go ahead and edit the item accordingly
+			if(errorMessages.isEmpty()){
+				//First we get the Item based on the string that was selected (contains "Brand Model")
+				Item item = theModel.getItemByName(itemSelection);
+
+				//Now we check if there was any change in the Brand, Model, and Price entered by the user
+				if(!(item.getBrand().equals(changeBrand))){
+					item.setBrand(changeBrand);
+				}
+				if(!(item.getModel().equals(changeModel))){
+					item.setModel(changeModel);
+				}
+				if(item.getPrice() != changePrice){
+					item.setPrice(changePrice);
+				}
+				//Now i need the items existing subCatID and the changeSubCatID selected by user
+				int itemSubCatID = theModel.getSubCatIdFromName(itemSubCat);
+				int changeSubCatID = theModel.getSubCatIdFromName(changeSubCatSelection);
+				//check if the user selected a change for SubCat and then give the changed ID to itemSubCatID
+				if(itemSubCatID != changeSubCatID){
+					itemSubCatID = changeSubCatID;
+				}
+				theModel.updateItem(item, itemSubCatID);
+				//Testing Prints
+				System.out.println();
+			}
+			//Now handle the error Messages if there was any by sending the errors list to the view to be displayed
+			else{
+				theView.getTabsPane().getMaintainPanel().warnEditItemFormErrors(errorMessages);
 			}
 		}
 	}
@@ -293,7 +364,7 @@ public class Controller implements CategoryListener, AccountListner {
 			 */
 			//GET CATEGORY FORM DB TO EDIT
 			ArrayList<String> cat= new ArrayList<>();
-			cat=theModel.getListOfCategories();
+			cat=theModel.getCategoryNames();
 			String getToTextField=null;
 			for(int i=0;i<cat.size();i++){
 				getToTextField=cat.get(i);
@@ -323,7 +394,7 @@ public class Controller implements CategoryListener, AccountListner {
 		boolean flagExist=false;
 		String newCategoryName=catFormEvent.getName();
 		ArrayList<String>listCategories= new ArrayList<>();
-		listCategories=theModel.getListOfCategories();
+		listCategories=theModel.getCategoryNames();
 
 		for(int i=0;i<listCategories.size();i++){
 
@@ -360,7 +431,7 @@ public class Controller implements CategoryListener, AccountListner {
 	public void update() {
 
 		//sets the mode lfor all the category combo boxes in maintain panel
-		theView.getTabsPane().getMaintainPanel().setCategoryModels(theModel.getListOfCategories());	
+		theView.getTabsPane().getMaintainPanel().setCategoryModels(theModel.getCategoryNames());	
 	}
 	/**************************************END COMBO-BOXES**********************************/
 	/***************************************************************************************/

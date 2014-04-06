@@ -53,16 +53,16 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	private JLabel lblSubcategory_1;
 	private JComboBox editSubCatComboBox;
 	private JLabel lblSelectItem;
-	private JComboBox selectItemComboBox;
+	private JComboBox selectItemToEditComboBox;
 	private JLabel lblBrand_1;
 	private JTextField editBrandTF;
 	private JLabel lblModel_1;
 	private JTextField editModelTF;
 	private JLabel lblPrice_1;
-	private JTextField textField;
+	private JTextField editPriceTF;
 	private JLabel lblNewLabel;
 	private JLabel errorLabel8;
-	private JButton btnConfirmChanges_1;
+	private JButton btnConfirmItemChanges;
 	private JButton btnRemoveItem;
 	private JPanel createCategoryPanel;
 	private JPanel createSubCatPanel;
@@ -412,8 +412,8 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		lblSelectItem = new JLabel("Select Item");
 		editItemPanel.add(lblSelectItem, "cell 1 3");
 
-		selectItemComboBox = new JComboBox();
-		editItemPanel.add(selectItemComboBox, "cell 3 3 2 1,growx");
+		selectItemToEditComboBox = new JComboBox();
+		editItemPanel.add(selectItemToEditComboBox, "cell 3 3 2 1,growx");
 
 		lblBrand_1 = new JLabel("Brand");
 		editItemPanel.add(lblBrand_1, "cell 1 4");
@@ -432,9 +432,9 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		lblPrice_1 = new JLabel("Price");
 		editItemPanel.add(lblPrice_1, "cell 1 6");
 
-		textField = new JTextField();
-		editItemPanel.add(textField, "cell 3 6,alignx left");
-		textField.setColumns(10);
+		editPriceTF = new JTextField();
+		editItemPanel.add(editPriceTF, "cell 3 6,alignx left");
+		editPriceTF.setColumns(10);
 
 		lblNewLabel = new JLabel("\u20AC");
 		lblNewLabel.setForeground(Color.GRAY);
@@ -450,8 +450,8 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		errorLabel8.setForeground(Color.RED);
 		editItemPanel.add(errorLabel8, "cell 3 8 2 1");
 
-		btnConfirmChanges_1 = new JButton("Confirm Changes");
-		editItemPanel.add(btnConfirmChanges_1, "cell 3 9");
+		btnConfirmItemChanges = new JButton("Confirm Changes");
+		editItemPanel.add(btnConfirmItemChanges, "cell 3 9");
 
 		btnRemoveItem = new JButton("Remove Item");
 		editItemPanel.add(btnRemoveItem, "cell 3 10,growx");
@@ -489,7 +489,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		//btnConfirmChanges_2.addActionListener(this);
 		btnConfirmChanges_3.addActionListener(this);
 		btnCreateNewItem.addActionListener(this);
-		btnConfirmChanges_1.addActionListener(this);
+		btnConfirmItemChanges.addActionListener(this);
 		btnRemoveItem.addActionListener(this);
 
 
@@ -558,7 +558,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		{
 			System.out.println("Create New Item button clicked");
 		}
-		else if(e.getSource().equals(btnConfirmChanges_1))
+		else if(e.getSource().equals(btnConfirmItemChanges))
 		{
 			System.out.println("Edit Item button clicked");
 		}
@@ -690,6 +690,22 @@ public class MaintainPanel extends JPanel implements ActionListener {
 				"Go away warning",
 				JOptionPane.WARNING_MESSAGE);
 	}
+	/*
+	 * WARNING MESSAGES FOR THE EDIT ITEM FORM
+	 */
+	public void warnEditItemFormErrors(ArrayList<String> errors){
+		
+		String message = "Fix:\n"; //errors message for JOptionPane
+		//For each error in the list add the error to the message
+		for(String e: errors)
+		{
+			message+=e + "\n";
+		}
+		JOptionPane.showMessageDialog(null,
+				message,
+				"Go away warning",
+				JOptionPane.WARNING_MESSAGE);
+	}
 
 
 	/************************WORKER METHODS**********************************/
@@ -744,5 +760,24 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	public String getEnterStockLevelTF() {
 		return enterStockLevelTF.getText();
 	}
-
+	//EDIT EXISTING ITEM PANEL GETTER METHODS
+	public JComboBox<String> getItemToEditSubCatComboBox() {
+		return editSubCatComboBox;
+	}
+	public JComboBox<String> getItemToEditComboBox() {
+		return selectItemToEditComboBox;
+	}
+	public String getEditBrandTF() {
+		return editBrandTF.getText();
+	}
+	public String getEditModelTF() {
+		return editModelTF.getText();
+	}
+	public String getEditPriceTF() {
+		return editPriceTF.getText();
+	}
+	public JComboBox<String> getItemMoveSubCatComboBox() {
+		return changeSubCatComboBox;
+	}
+	
 }

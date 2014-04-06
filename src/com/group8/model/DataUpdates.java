@@ -39,34 +39,39 @@ public class DataUpdates {
 		}
 	}
 
-public void updateCategory(String name,String newName)
+	protected void updateCategory(String name,String newName)
 	{ 
-	 
-		
+
+
 		try
 		{
-			
+
 			java.sql.PreparedStatement preparedStatement = con.prepareStatement("UPDATE Category SET categoryName=? WHERE categoryName = ?");
-			
-			    preparedStatement.setString(1,newName);
-		
-			    preparedStatement.setString(2,name);			   		
-					
-			
-		int    res = preparedStatement.executeUpdate(); //updates name for category
+
+			preparedStatement.setString(1,newName);
+
+			preparedStatement.setString(2,name);			   		
+
+
+			int    res = preparedStatement.executeUpdate(); //updates name for category
 			preparedStatement.close();
-		  
-		
-		   }
+
+
+		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
 		}
+	}
+
+	protected void updateItem(Item i, int subCatID)
+	{
+
 	}
 }
 
 
 
 
-	
+
 
