@@ -189,10 +189,16 @@ public class Controller implements CategoryListener, AccountListner {
 				categorySelection=theView.getTabsPane().getMaintainPanel().getSelectCategorycomboBox().getSelectedItem().toString();
 				subCatTF= theView.getTabsPane().getMaintainPanel().getEnterSubCatNameTF();
 			}catch(Exception ex){
-				theView.getTabsPane().getMaintainPanel().warnCategoryNull();
+				System.out.println("Problem reading data from Create SubCategory Form");
+				//oldWarningHandeler --- theView.getTabsPane().getMaintainPanel().warnCategoryNull();
 			}
-			if(subCatTF.isEmpty()){
-				theView.getTabsPane().getMaintainPanel().warnSubCategoryFieldEmpty();
+			ArrayList<String> errorMessages = new ArrayList<String>();
+			if(categorySelection==null){
+				errorMessages.add("CategorySelction");
+				//oldWarningHandeler --- theView.getTabsPane().getMaintainPanel().warnSubCategoryFieldEmpty();
+			}
+			else if(subCatTF.isEmpty()){
+				errorMessages.add("SubCategory");
 			}
 			//else we can go ahead and make sub category
 			else{
@@ -207,6 +213,9 @@ public class Controller implements CategoryListener, AccountListner {
 				//Testing Prints
 				System.out.println("Test if works: CategoryName: "+ c.getCategoryName()+"\n SubCategoryName: "+s.getSubCatName());
 			}
+			if(!(errorMessages.isEmpty())){
+				theView.getTabsPane().getMaintainPanel().warnCreateSubCatFormErrors(errorMessages);
+			}
 		}
 	}
 	//Inner Class that listens for the Create Item Button
@@ -214,14 +223,13 @@ public class Controller implements CategoryListener, AccountListner {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			String categorySelection=null;
 			String subCatSelection=null;
 			String itemBrand=null;
 			String itemModel=null;
 			double itemPrice=0;
 			int stockLevel=0;//optional parameter from the view
 			
-			//read the values from the view
+			//read the values (subCat, brand, model, price, stockLevel) from the view
 			try{
 				subCatSelection=theView.getTabsPane().getMaintainPanel().getNewItemSubCatComboBox().getSelectedItem().toString();
 				itemBrand= theView.getTabsPane().getMaintainPanel().getEnterBrandTF();
@@ -229,10 +237,9 @@ public class Controller implements CategoryListener, AccountListner {
 				itemPrice= Double.parseDouble(theView.getTabsPane().getMaintainPanel().getEnterPriceTF());
 				stockLevel = Integer.parseInt(theView.getTabsPane().getMaintainPanel().getEnterStockLevelTF());
 			}catch(Exception ex){
-				theView.getTabsPane().getMaintainPanel().warnCategoryNull();
+				System.out.println("Problem reading input fron Create Item Form");
 			}
-			//if(subCatTF.isEmpty()){
-				//theView.getTabsPane().getMaintainPanel().warnSubCategoryFieldEmpty();}
+			//Now validate the data and add errors to errorMessages
 			ArrayList<String> errorMessages = new ArrayList<String>();
 			if(subCatSelection==null){
 				errorMessages.add("SubCategory");
@@ -263,6 +270,10 @@ public class Controller implements CategoryListener, AccountListner {
 				theModel.addNewItem(i,s);
 				//Testing Prints
 				System.out.println("Test if works: ItemName: "+ i.getBrand()+" " +i.getModel() +"\n Price: "+i.getPrice());
+			}
+			//Now handle the error Messages if there was any by sending the errors list to the view to be displayed
+			if(!(errorMessages.isEmpty())){
+				theView.getTabsPane().getMaintainPanel().warnCreateItemFormErrors(errorMessages);
 			}
 		}
 	}

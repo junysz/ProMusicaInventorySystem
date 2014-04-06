@@ -658,6 +658,38 @@ public class MaintainPanel extends JPanel implements ActionListener {
 				"Go away warning",
 				JOptionPane.WARNING_MESSAGE);
 	}
+	/*
+	 * WARNING MESSAGES FOR THE CREATE SUBCATEGORY FORM
+	 */
+	public void warnCreateSubCatFormErrors(ArrayList<String> errors){
+		
+		String message = "Fix:\n"; //errors message for JOptionPane
+		//For each error in the list add the error to the message
+		for(String e: errors)
+		{
+			message+=e + "\n";
+		}
+		JOptionPane.showMessageDialog(null,
+				message,
+				"Go away warning",
+				JOptionPane.WARNING_MESSAGE);
+	}
+	/*
+	 * WARNING MESSAGES FOR THE CREATE ITEM FORM
+	 */
+	public void warnCreateItemFormErrors(ArrayList<String> errors){
+		
+		String message = "Fix:\n"; //errors message for JOptionPane
+		//For each error in the list add the error to the message
+		for(String e: errors)
+		{
+			message+=e + "\n";
+		}
+		JOptionPane.showMessageDialog(null,
+				message,
+				"Go away warning",
+				JOptionPane.WARNING_MESSAGE);
+	}
 
 
 	/************************WORKER METHODS**********************************/
