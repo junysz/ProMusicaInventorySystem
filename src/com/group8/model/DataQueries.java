@@ -211,7 +211,7 @@ public class DataQueries {
 		}  
 	}
 
-public ArrayList<Sale>  getSalesByDate(Date date1,Date date2)
+	public ArrayList<Sale>  getSalesByDate(Date date1,Date date2)
 	{
 		Sale sale;
 		try {
@@ -229,7 +229,7 @@ public ArrayList<Sale>  getSalesByDate(Date date1,Date date2)
 				Date saleDate  =rs.getDate("saleDate");	
 				double price = rs.getDouble("totalSalePrice");                    
 				int accountID =rs.getInt("accountID");
-			
+
 				sale=new Sale(SaleID,saleDate,price,accountID); //create new object sale
 				listSales.add(sale);       //add the Sale to a list
 			}      
@@ -240,6 +240,27 @@ public ArrayList<Sale>  getSalesByDate(Date date1,Date date2)
 		catch (Exception io) {
 			return null;
 		}  
+	}
+
+	protected int getCategoryIdByName(String catName)
+	{
+		try{
+			String query = "Select CategoryID From Category where categoryName = ? ";
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1,catName); //sets the categoryName for the statement query
+			ResultSet rs = pstmt.executeQuery(); //executes query and puts the category ID into rs
+			int catID = 0; //initialize the variable to hold the catID we get back from DB
+			while( rs.next()) { 
+				catID = rs.getInt("categoryID");	// sets the cat ID  
+			}
+			rs.close(); //close result set
+			pstmt.close(); //close prepared statement
+			return catID;
+		}
+		catch(Exception e)
+		{
+			return (Integer) null;
+		}
 	}
 
 }

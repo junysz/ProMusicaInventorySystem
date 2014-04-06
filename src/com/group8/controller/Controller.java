@@ -29,7 +29,7 @@ public class Controller implements CategoryListener, AccountListner {
 		//theView.getTabsPane().getReservationPanel().addComboBoxCatListener(new ComboBoxListener());
 		//categoryComboBox populate form DB
 		//populateCategoryBoxes();
-	}
+	
 	
 	/*
 	public void populateCategoryBoxes(){
@@ -91,7 +91,6 @@ public class Controller implements CategoryListener, AccountListner {
 		}catch(Exception e){
 			System.out.println("data base is empty");
 		}
->>>>>>> origin/master
 
 	}
 
@@ -150,7 +149,7 @@ public class Controller implements CategoryListener, AccountListner {
 	
 
 	/***************************************************************************************/
-	/***************************START COMBO-BOXES MAINTAIN_PANEL*****************************/
+	/*****************?????????????START COMBO-BOXES MAINTAIN_PANEL??????????*****************************/
 	/***************************************************************************************/
 
 	//Updates Category that has been edited by the user
@@ -179,14 +178,15 @@ public class Controller implements CategoryListener, AccountListner {
 		}
 	}
 	//BUTONS:
+	//Inner Class that listens for the Create SubCategory Button
 	class CreateSubCategoryBtn implements ActionListener{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			String categoryForSub=null;
+			String categorySelection=null;
 			String subCatTF=null;
 			try{
-				categoryForSub=theView.getTabsPane().getMaintainPanel().getSelectCategorycomboBox().getSelectedItem().toString();
+				categorySelection=theView.getTabsPane().getMaintainPanel().getSelectCategorycomboBox().getSelectedItem().toString();
 				subCatTF= theView.getTabsPane().getMaintainPanel().getEnterSubCatNameTF();
 			}catch(Exception ex){
 				theView.getTabsPane().getMaintainPanel().warnCategoryNull();
@@ -194,15 +194,17 @@ public class Controller implements CategoryListener, AccountListner {
 			if(subCatTF.isEmpty()){
 				theView.getTabsPane().getMaintainPanel().warnSubCategoryFieldEmpty();
 			}
+			//else we can go ahead and make sub category
 			else{
-
-				Category c= new Category(categoryForSub);
-				//get category Id from
-				//we have id
-				//int test=theView.getTabsPane().getMaintainPanel().
-				
+				//first we get the category id based on the name that was selected
+				int catID = theModel.getCategoryIdFromName(categorySelection);
+				//then we create the Category Object to pass to the model
+				Category c = new Category(catID, categorySelection);
+				//Now create the SubCategory Object we want to write to the database
 				SubCategory s=new SubCategory(subCatTF);
+				//send both object to the model to handle the database insert
 				theModel.addNewSubCategory(c,s);
+				//Testing Prints
 				System.out.println("Test if works: CategoryName: "+ c.getCategoryName()+"\n SubCategoryName: "+s.getSubCatName());
 			}
 		}
@@ -290,7 +292,8 @@ public class Controller implements CategoryListener, AccountListner {
 	//MaintainPanel: populates all ComboBoxes:SelectCategory
 	public void update() {
 
-		theView.getTabsPane().getMaintainPanel().setNewModel(theModel.getListOfCategories());	
+		//sets the mode lfor all the category combo boxes in maintain panel
+		theView.getTabsPane().getMaintainPanel().setCategoryModels(theModel.getListOfCategories());	
 	}
 	/**************************************END COMBO-BOXES**********************************/
 	/***************************************************************************************/

@@ -8,15 +8,21 @@ package com.group8.model;
  * The SubCat Name is chosen by the user when implementing the software
  * */
 public class SubCategory {
-	
+
 	//Attributes of a Sub Category
 	private int subCatID;
 	private String subCatName;
-	
-	
+
+
 	//Constructor that accepts the name as an argument
 	public SubCategory(String n)
 	{
+		setSubCatName(n);		
+	}
+	//Constructor that accepts the id and name as an argument
+	public SubCategory(int id, String n)
+	{
+		setSubCatID(id);
 		setSubCatName(n);		
 	}
 	//Set and Get methods for access to the attributes

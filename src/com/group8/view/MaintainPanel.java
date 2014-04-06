@@ -586,9 +586,9 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	 * This method is also used to update all category combo-boxes
 	 * When new category is created
 	 */
-	public void setNewModel(List<String>comboBoxList){
-		categoryComboBoxModel= new CategoryComboBoxModel();
+	public void setCategoryModels(List<String>comboBoxList){
 		
+		categoryComboBoxModel= new CategoryComboBoxModel();
 		categoryComboBoxModel.setComboBoxList(comboBoxList);
 
 		selectCategorycomboBox.setModel(categoryComboBoxModel);
