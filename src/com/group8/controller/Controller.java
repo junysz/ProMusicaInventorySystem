@@ -29,9 +29,9 @@ public class Controller implements CategoryListener, AccountListner {
 		//theView.getTabsPane().getReservationPanel().addComboBoxCatListener(new ComboBoxListener());
 		//categoryComboBox populate form DB
 		//populateCategoryBoxes();
-	
-	
-	/*
+
+
+		/*
 	public void populateCategoryBoxes(){
 		categories=theModel.getMySomeCategories(); //i deleted this method from model, i can replace with proper one using query
 		theView.getTabsPane().getReservationPanel().setComboBoxCategoryModel(categories);
@@ -41,7 +41,7 @@ public class Controller implements CategoryListener, AccountListner {
 
 		//Adds Category To DataBase when btn clicked
 		theView.setCategoryListener(this);
-		
+
 
 		//Adding Listeners: Combo-boxes
 		theView.getTabsPane().getMaintainPanel().addselectCategorycomboBoxListener(new SelectCategorycomboBoxListener());
@@ -52,7 +52,7 @@ public class Controller implements CategoryListener, AccountListner {
 		//update all comboBoxes 
 		update();
 
-		
+
 
 		//BUTTONS
 		theView.getTabsPane().getMaintainPanel().addCreateSubCategoryBtn(new CreateSubCategoryBtn());
@@ -63,23 +63,23 @@ public class Controller implements CategoryListener, AccountListner {
 		theView.getTabsPane().getReservationPanel().addTableListener(new PopulateTableListener());
 		theView.getTabsPane().getReservationPanel().addComboBoxCatListener(new ComboBoxListener());
 		theView.getTabsPane().getReservationPanel().addComboBoxSubCatListener(new ComboBoxSubCatListener());
-		
+
 		//categoryComboBox populate form DB NOT WORKING NOW UNTIL MAINTAN CATEGORY FINISHED 
 		populateCategoryReservPanel();
-		
-		
-		
+
+
+
 		/***********REPORT PANEL*****************
 		 * theView.getTabsPane().getReportPanel().
 		 */
-		
-		
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
+
+
 	}
 	/************************************************************/
 	/******NOT WORKING NOW UNTIL MAINTAN CATEGORY FINISHED******/ 
@@ -143,10 +143,10 @@ public class Controller implements CategoryListener, AccountListner {
 	/************************************************************/
 	/***********************END*********************************/
 
-	
-	
-	
-	
+
+
+
+
 
 	/***************************************************************************************/
 	/*****************?????????????START COMBO-BOXES MAINTAIN_PANEL??????????*****************************/
@@ -159,7 +159,7 @@ public class Controller implements CategoryListener, AccountListner {
 			String categoryEdited=theView.getTabsPane().getMaintainPanel().getEditCategoryNameTF().getText();
 			String categoryOld=	theView.getTabsPane().getMaintainPanel().getSelectCategoryToEditcomboBox().getSelectedItem().toString();
 			System.out.println("Old Category Name: "+categoryOld+ "\nNew Category Name: "+categoryEdited);
-			
+
 			theModel.updateCategory(categoryOld,categoryEdited);
 			update();
 		}
@@ -209,7 +209,63 @@ public class Controller implements CategoryListener, AccountListner {
 			}
 		}
 	}
+	//Inner Class that listens for the Create Item Button
+	class CreateItemyBtn implements ActionListener{
 
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String categorySelection=null;
+			String subCatSelection=null;
+			String itemBrand=null;
+			String itemModel=null;
+			double itemPrice=0;
+			int stockLevel=0;//optional parameter from the view
+			
+			//read the values from the view
+			try{
+				subCatSelection=theView.getTabsPane().getMaintainPanel().getNewItemSubCatComboBox().getSelectedItem().toString();
+				itemBrand= theView.getTabsPane().getMaintainPanel().getEnterBrandTF();
+				itemModel= theView.getTabsPane().getMaintainPanel().getEnterModelTF();
+				itemPrice= Double.parseDouble(theView.getTabsPane().getMaintainPanel().getEnterPriceTF());
+				stockLevel = Integer.parseInt(theView.getTabsPane().getMaintainPanel().getEnterStockLevelTF());
+			}catch(Exception ex){
+				theView.getTabsPane().getMaintainPanel().warnCategoryNull();
+			}
+			//if(subCatTF.isEmpty()){
+				//theView.getTabsPane().getMaintainPanel().warnSubCategoryFieldEmpty();}
+			ArrayList<String> errorMessages = new ArrayList<String>();
+			if(subCatSelection==null){
+				errorMessages.add("SubCategory");
+			}
+			else if(itemBrand.isEmpty()){
+				errorMessages.add("Brand");
+			}
+			else if(itemModel.isEmpty()){
+				errorMessages.add("Model");
+			}
+			else if(!(itemPrice>0)){
+				errorMessages.add("Price");
+			}
+			//else we can go ahead and make sub category
+			else{
+				errorMessages.clear();
+				//first we get the SubCategory id based on the name that was selected
+				int subCatID = theModel.getSubCatIdFromName(subCatSelection);
+				//then we create the SubCategory Object to pass to the model
+				SubCategory s=new SubCategory(subCatID, subCatSelection);
+				Item i = new Item();
+				i.setBrand(itemBrand);
+				i.setModel(itemModel);
+				i.setPrice(itemPrice);
+				i.setStockLevel(stockLevel);
+				i.setAvailableStockLevel(stockLevel);
+				//send both object to the model to handle the database insert
+				theModel.addNewItem(i,s);
+				//Testing Prints
+				System.out.println("Test if works: ItemName: "+ i.getBrand()+" " +i.getModel() +"\n Price: "+i.getPrice());
+			}
+		}
+	}
 
 
 
@@ -288,7 +344,7 @@ public class Controller implements CategoryListener, AccountListner {
 			update();
 		}
 	}
-	
+
 	//MaintainPanel: populates all ComboBoxes:SelectCategory
 	public void update() {
 
@@ -299,10 +355,10 @@ public class Controller implements CategoryListener, AccountListner {
 	/***************************************************************************************/
 
 
-	
-	
-	
-	
+
+
+
+
 
 	/**************************NOT WORKING NOW UNTIL MAINTAN CATEGORY FINISHED***************/
 	/***************************ACCOUNT STUFF************************************************/

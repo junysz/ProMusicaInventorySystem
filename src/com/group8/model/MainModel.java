@@ -152,6 +152,11 @@ public class MainModel {
 		int id = queries.getCategoryIdByName(name);
 		return id;
 	}
+	public int getSubCatIdFromName(String name)
+	{
+		int id = queries.getSubCatIdByName(name);
+		return id;
+	}
 	//public ArrayList<Sale>  getSalesByDate(Date date1,Date date2)
 	//{
 	//return queries.getSalesByDate(date1, date2);

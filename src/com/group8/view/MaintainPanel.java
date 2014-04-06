@@ -33,10 +33,11 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	private JPanel createItemPanel;
 	private JPanel editItemPanel;
 	private JLabel lblCategory;
-	private JComboBox createCategoryComboBox;
+	private JComboBox selectItemCategoryComboBox;
 	private JLabel lblSubcategory;
-	private JComboBox createSubCatComboBox;
+	private JComboBox selectItemSubCatComboBox;
 	private JLabel lblBrand;
+	private JTextField enterBrandTF;
 	private JLabel lblModel;
 	private JTextField enterModelTF;
 	private JLabel lblPrice;
@@ -44,7 +45,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	private JLabel lblStockLevel;
 	private JTextField enterStockLevelTF;
 	private JLabel errorLabel7;
-	private JButton btnCreate;
+	private JButton btnCreateNewItem;
 	private JLabel lbloptional;
 	private JLabel lblEuro;
 	private JLabel lblCategory_1;
@@ -75,7 +76,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	private JComboBox<String> selectCategorycomboBox;
 	private JLabel lblEnterSubcategoryName;
 	private JTextField enterSubCatNameTF;
-	
+
 	private JLabel errorLabel4;
 	private JButton btnCreateSubcategory;
 	private JLabel lblSelectCategory_1;
@@ -282,7 +283,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		editCategoryPanel.add(lblEditName, "cell 1 1");
 
 		editCategoryNameTF = new JTextField();
-		
+
 		editCategoryPanel.add(editCategoryNameTF, "cell 3 1,growx");
 		editCategoryNameTF.setColumns(10);
 
@@ -338,14 +339,14 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		lblCategory = new JLabel("Category");
 		createItemPanel.add(lblCategory, "cell 1 1");
 
-		createCategoryComboBox = new JComboBox();
-		createItemPanel.add(createCategoryComboBox, "cell 3 1 2 1,growx");
+		selectItemCategoryComboBox = new JComboBox();
+		createItemPanel.add(selectItemCategoryComboBox, "cell 3 1 2 1,growx");
 
 		lblSubcategory = new JLabel("Sub-Category");
 		createItemPanel.add(lblSubcategory, "cell 1 2");
 
-		createSubCatComboBox = new JComboBox();
-		createItemPanel.add(createSubCatComboBox, "cell 3 2 2 1,growx");
+		selectItemSubCatComboBox = new JComboBox();
+		createItemPanel.add(selectItemSubCatComboBox, "cell 3 2 2 1,growx");
 
 		lblBrand = new JLabel("Brand");
 		createItemPanel.add(lblBrand, "cell 1 3");
@@ -387,8 +388,8 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		errorLabel7.setForeground(Color.RED);
 		createItemPanel.add(errorLabel7, "cell 3 7 2 1");
 
-		btnCreate = new JButton("Create Item");
-		createItemPanel.add(btnCreate, "cell 3 8 2 1");
+		btnCreateNewItem = new JButton("Create Item");
+		createItemPanel.add(btnCreateNewItem, "cell 3 8 2 1");
 
 
 		editItemPanel = new JPanel();
@@ -467,7 +468,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 
 
 	public void setEditCategoryNameTF(String editCategoryNameTF) {
-		
+
 		this.editCategoryNameTF.setText(editCategoryNameTF);
 	}
 
@@ -487,7 +488,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		btnCreateSubcategory.addActionListener(this);
 		//btnConfirmChanges_2.addActionListener(this);
 		btnConfirmChanges_3.addActionListener(this);
-		btnCreate.addActionListener(this);
+		btnCreateNewItem.addActionListener(this);
 		btnConfirmChanges_1.addActionListener(this);
 		btnRemoveItem.addActionListener(this);
 
@@ -539,7 +540,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 				categoryListenr.categoryAddedPerformed(new CategoryFormEvent(enterCategoryNameTF.getText()));
 			}
 		}
-		
+
 
 
 
@@ -553,7 +554,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		{
 			System.out.println("Edit Sub-Category button clicked");
 		}
-		else if (e.getSource().equals(btnCreate))
+		else if (e.getSource().equals(btnCreateNewItem))
 		{
 			System.out.println("Create New Item button clicked");
 		}
@@ -570,33 +571,36 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	}
 
 
-
-
-
-	/***************************START COMBO-BOXES*****************************/
-	//BUTTONS:
+	//Creating the BUTTON LISTENERS:
+	//Creates the Add New SubCategory Button Listener
 	public void addCreateSubCategoryBtn(ActionListener listen){
 		btnCreateSubcategory.addActionListener(listen);
 	}
+	//Creates the Add New Item Button Listener
+	public void addCreateItemBtn(ActionListener listen)
+	{
+		btnCreateNewItem.addActionListener(listen);
+	}
+
 	
 	
-	/*
-	 * Populates ALL Category combo-boxes 
-	 * Sets new model for 3 combo-boxes
-	 * This method is also used to update all category combo-boxes
-	 * When new category is created
+
+	/* METHOD: setCategoryModels is for Category Combo BOxes
+	 * Populates ALL Category combo-boxes in the Maintenance Tab
+	 * When new category is created this method is used to update all the Category Combo Boxes in the Maintenance Tab
 	 */
 	public void setCategoryModels(List<String>comboBoxList){
-		
+
 		categoryComboBoxModel= new CategoryComboBoxModel();
 		categoryComboBoxModel.setComboBoxList(comboBoxList);
-
+		
+		//5 CATEGORY COMBO BOXES IN THE MAINTAIN PANEL
 		selectCategorycomboBox.setModel(categoryComboBoxModel);
 		selectCategoryToEditcomboBox.setModel(categoryComboBoxModel);
 		findCategoryComboBox.setModel(categoryComboBoxModel);
-		createCategoryComboBox.setModel(categoryComboBoxModel);
+		selectItemCategoryComboBox.setModel(categoryComboBoxModel);
 		editCategoryComboBox.setModel(categoryComboBoxModel);
-		
+
 	}
 	/*
 	 * I want to get strings form selected comboBoxes
@@ -612,15 +616,12 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	public void addfindCategoryComboBoxListener(ActionListener listen){
 		findCategoryComboBox.addActionListener(listen);
 	}
-
-	
 	public void addbtnConfirmChanges_2Listener(ActionListener listen){
 		btnConfirmChanges_2.addActionListener(listen);
 	}
 
-
-
-
+	
+	//WIERD CATEGORY LISTENERS
 	public void setCategoryListenr(CategoryListener categoryListenr) {
 		System.out.println("I will accept any object that implemnts CategoryListener Class: MaintainPanel");
 		this.categoryListenr = categoryListenr;
@@ -629,8 +630,8 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		System.out.println("I will accept any object that implemnts AccountListener Class: MaintainPanel");	 
 		this.accountListener= accountListener;	
 	}
-	
-	//JoptionPanel to inform that create category field is empty
+
+	//JoptionPanel WARNING MESSAGES
 	public void warnCategoryFieldEmpty(){
 
 		JOptionPane.showMessageDialog(null,
@@ -643,7 +644,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 				"Category Already Exist.",
 				"Go away warning",
 				JOptionPane.WARNING_MESSAGE);
-		
+
 	}
 	public void warnSubCategoryFieldEmpty(){
 		JOptionPane.showMessageDialog(null,
@@ -657,44 +658,34 @@ public class MaintainPanel extends JPanel implements ActionListener {
 				"Go away warning",
 				JOptionPane.WARNING_MESSAGE);
 	}
-	
-
-	/***************************END COMBO-BOXES*****************************/
 
 
+	/************************WORKER METHODS**********************************/
+	/********************** SETS   &   GETS *********************************/
 
-
-
-
-	//adds two strings to account panel to the combo-box
+	//This method sets the values for the Account Type Combo Box on the Create Account Panel
 	public void addAccountTypeToComboBox(){
 		selectAccountTypeComboBox.addItem("Manager");
 		selectAccountTypeComboBox.addItem("User");
 	}
-	//sets listener passed from TestingMainPanel from Mian_Test
 
-
+	//CATEGORY COMBO-BOX GETTER METHODS
 	public JComboBox<String> getSelectCategorycomboBox() {
 		return selectCategorycomboBox;
 	}
-
-
 	public JComboBox<String> getSelectCategoryToEditcomboBox() {
 		return selectCategoryToEditcomboBox;
 	}
-
-
 	public JComboBox<String> getFindCategoryComboBox() {
 		return findCategoryComboBox;
 	}
 
-
-	
-
-
+	//methods for clearing text fields after data has been entered
 	public void clearCategoryTF() {
 		enterCategoryNameTF.setText("");
-		
+	}
+	public void cleatSubCatTF(){
+		enterSubCatNameTF.setText("");
 	}
 
 	public String getEnterSubCatNameTF() {
@@ -702,11 +693,24 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	}
 
 
-	public void setEnterSubCatNameTF(JTextField enterSubCatNameTF) {
-		this.enterSubCatNameTF = enterSubCatNameTF;
+	//CREATE NEW ITEM PANEL GETTER METHODS
+	public JComboBox<String> getNewItemCategoryComboBox() {
+		return selectItemCategoryComboBox;
 	}
-
-
-	
+	public JComboBox<String> getNewItemSubCatComboBox() {
+		return selectItemSubCatComboBox;
+	}
+	public String getEnterBrandTF() {
+		return enterBrandTF.getText();
+	}
+	public String getEnterModelTF() {
+		return enterModelTF.getText();
+	}
+	public String getEnterPriceTF() {
+		return enterPriceTF.getText();
+	}
+	public String getEnterStockLevelTF() {
+		return enterStockLevelTF.getText();
+	}
 
 }

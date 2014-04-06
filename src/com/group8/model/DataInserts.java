@@ -64,8 +64,7 @@ public class DataInserts {
 		{
 			statement = con.createStatement();
 			//Structure for inserting a new tuple in the Item table
-	String insert = "Insert into Item (itemPrice, itemBrand, itemModel, stockLevel, availableStockLevel,flag,subCatID) values (" + i.getPrice() + ", '" 
-			+ i.getBrand() + "','" + i.getModel() + "'," + i.getStockLevel() + ","+0+"," + i.getAvailableStockLevel() + ","+s.getSubCatID();
+			String insert = "Insert into Item (itemPrice, itemBrand, itemModel, stockLevel, availableStockLevel,flag,subCatID) values (" + i.getPrice() + ", '" + i.getBrand() + "','" + i.getModel() + "'," + i.getStockLevel() + "," + i.getAvailableStockLevel() + ", 1,"+s.getSubCatID()+")";
 			int res = statement.executeUpdate(insert); //writes to Item table
 			
 			statement.close();
@@ -116,7 +115,7 @@ public class DataInserts {
 		{
 			statement = con.createStatement();
 			//Structure for inserting a new tuple in the Account table
-			String insert = "Insert into Account (accountName, accountPassword, accountType, flag ) values ('" + a.getAccountName() + "','" + a.getPassword() + "','" + a.getType()+"," + 0+")";
+			String insert = "Insert into Account (accountName, password, accountType, flag ) values ('" + a.getAccountName() + "','" + a.getPassword() + "','" + a.getType()+",1)";
 			int res = statement.executeUpdate(insert); //writes to Item SOld table
 			con.commit();
 			statement.close();
@@ -133,7 +132,7 @@ public class DataInserts {
 		{
 			statement = con.createStatement();
 			//Structure for inserting a new tuple in the Reservation table
-			String insert = "Insert into Reservation (accountID,docketNo, reservationDate, depositPlaced,flag,itemID) values ("  + a.getAccountID()+  "','"+r.getDocketNo() + "','" + r.getStartDate() + "','" + r.getDeposit() +  "," + i.getItemID() + ","+ 0+")";
+			String insert = "Insert into Reservation (accountID,docketNo, reservationDate, depositPlaced,flag,itemID) values (" + a.getAccountID() + "','"+r.getDocketNo() + "','" + r.getStartDate() + "','" + r.getDeposit() +  ", 1," + i.getItemID() + ")";
 			int res = statement.executeUpdate(insert); //writes to Reservation table
 	
 			statement.close();

@@ -242,10 +242,11 @@ public class DataQueries {
 		}  
 	}
 
+	//pass the category name to get back the category id
 	protected int getCategoryIdByName(String catName)
 	{
 		try{
-			String query = "Select CategoryID From Category where categoryName = ? ";
+			String query = "Select categoryID From Category where categoryName = ? ";
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1,catName); //sets the categoryName for the statement query
 			ResultSet rs = pstmt.executeQuery(); //executes query and puts the category ID into rs
@@ -256,6 +257,27 @@ public class DataQueries {
 			rs.close(); //close result set
 			pstmt.close(); //close prepared statement
 			return catID;
+		}
+		catch(Exception e)
+		{
+			return (Integer) null;
+		}
+	}
+	//pass the subCat name to get back the subCatID
+	protected int getSubCatIdByName(String subCatName) {
+	
+		try{
+			String query = "Select subCatID From subcategory where subCatName = ? ";
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1,subCatName); //sets the subCategoryName for the statement query
+			ResultSet rs = pstmt.executeQuery(); //executes query and puts the SubCategory ID into rs
+			int subCatID = 0; //initialize the variable to hold the catID we get back from DB
+			while( rs.next()) { 
+				subCatID = rs.getInt("subCatID");	// sets the subCat ID  
+			}
+			rs.close(); //close result set
+			pstmt.close(); //close prepared statement
+			return subCatID;
 		}
 		catch(Exception e)
 		{
