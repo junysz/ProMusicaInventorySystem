@@ -198,7 +198,7 @@ public class Controller implements CategoryListener, AccountListner {
 				//oldWarningHandeler --- theView.getTabsPane().getMaintainPanel().warnSubCategoryFieldEmpty();
 			}
 			else if(subCatTF.isEmpty()){
-				errorMessages.add("SubCategory");
+				errorMessages.add("SubCategory Name");
 			}
 			//else we can go ahead and make sub category
 			else{
@@ -242,13 +242,13 @@ public class Controller implements CategoryListener, AccountListner {
 			//Now validate the data and add errors to errorMessages
 			ArrayList<String> errorMessages = new ArrayList<String>();
 			if(subCatSelection==null){
-				errorMessages.add("SubCategory");
+				errorMessages.add("SubCategory Selection");
 			}
 			else if(itemBrand.isEmpty()){
-				errorMessages.add("Brand");
+				errorMessages.add("Brand Name");
 			}
 			else if(itemModel.isEmpty()){
-				errorMessages.add("Model");
+				errorMessages.add("Model Name");
 			}
 			else if(!(itemPrice>0)){
 				errorMessages.add("Price");
