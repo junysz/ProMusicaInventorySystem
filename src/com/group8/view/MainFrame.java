@@ -154,6 +154,9 @@ public class MainFrame extends JFrame
 		public void addLoginListener(LoginListener l)
 		{
 			loginPanel.addLoginButtonListener(l);
+			
+			//Set enter key for login button
+			loginPanel.getRootPane().setDefaultButton(loginPanel.getLoginBtn());
 		}
 		
 		
