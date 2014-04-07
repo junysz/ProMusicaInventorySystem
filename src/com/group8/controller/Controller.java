@@ -167,7 +167,12 @@ public class Controller implements CategoryListener {
 
 		}
 	}
-	//BUTONS:
+	/*
+	 * *********** INNER CLASSES TO LISTEN TO BUTTONS ON THE MAINTAIN PANEL ********************
+	 * ALL THESE CLASSES HANDLE THE EVENTS WHEN A BUTTON IS CLICKEDON A FORM FROM MAINTAIN PANEL
+	 * ******************************************************************************************
+	 */
+	
 	//Inner Class that listens for the Create SubCategory Button
 	class CreateSubCategoryBtn implements ActionListener{
 
@@ -202,6 +207,7 @@ public class Controller implements CategoryListener {
 				theModel.addNewSubCategory(c,s);
 				//Testing Prints
 				System.out.println("Test if works: CategoryName: "+ c.getCategoryName()+"\n SubCategoryName: "+s.getSubCatName());
+				theView.getTabsPane().getMaintainPanel().clearNewSubCatForm();
 			}
 			else{
 				theView.getTabsPane().getMaintainPanel().warnCreateSubCatFormErrors(errorMessages);
@@ -259,6 +265,7 @@ public class Controller implements CategoryListener {
 				theModel.addNewItem(i,s);
 				//Testing Prints
 				System.out.println("Test if works: ItemName: "+ i.getBrand()+" " +i.getModel() +"\n Price: "+i.getPrice());
+				theView.getTabsPane().getMaintainPanel().clearNewItemForm();
 			}
 			//Now handle the error Messages if there was any by sending the errors list to the view to be displayed
 			else{
@@ -331,6 +338,7 @@ public class Controller implements CategoryListener {
 				theModel.updateItem(item, itemSubCatID);
 				//Testing Prints
 				System.out.println();
+				theView.getTabsPane().getMaintainPanel().clearEditItemForm();
 			}
 			//Now handle the error Messages if there was any by sending the errors list to the view to be displayed
 			else{
@@ -360,6 +368,7 @@ public class Controller implements CategoryListener {
 					Item item = theModel.getItemByName(itemSelection);
 					theModel.removeItem(item);
 					System.out.println("Remove Item successful");
+					theView.getTabsPane().getMaintainPanel().clearEditItemForm();
 				}
 				else{
 					theView.getTabsPane().getMaintainPanel().warnEditItemFormErrors(errorMessages);
@@ -409,6 +418,7 @@ public class Controller implements CategoryListener {
 				
 				theModel.addNewAccount(a);
 				System.out.println("Account Added successful");
+				theView.getTabsPane().getMaintainPanel().clearNewAccountForm();
 			}
 			else{
 				theView.getTabsPane().getMaintainPanel().warnCreateAccountFormErrors(errorMessages);

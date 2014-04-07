@@ -28,6 +28,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	private JPanel MaintainAccountPanel, newAccountPanel, editAccountPanel, MaintainCategoriesPanel, MaintainItemPanel;
 	private JLabel lblUserName, lblPassword, lblConfirmPassword, lblSelectType, errorLabel1,errorLabel2, lblSelectAccount, lblUsername, lblSelectType_1, lblStatus;
 	private JComboBox<String> selectAccountTypeComboBox, selectAccountToEditComboBox, editAccountTypeComboBox;
+	private ButtonGroup statusGroup;
 	private JRadioButton rdbtnEnableAccount, rdbtnDisableAccount;
 	private JButton btnCreateAccount, btnConfirmChanges;
 	private JPanel createItemPanel;
@@ -182,7 +183,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		editAccountPanel.add(editAccountTypeComboBox, "cell 3 3 2 1,growx");
 
 		//Create a Button Group for the Account status radio buttons
-		ButtonGroup statusGroup = new ButtonGroup();
+		statusGroup = new ButtonGroup();
 
 		lblPassword_1 = new JLabel("Password");
 		editAccountPanel.add(lblPassword_1, "cell 1 4");
@@ -810,5 +811,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		editUsernameTF.setText("");
 		editAccountTypeComboBox.setSelectedItem(null);
 		editAccountPasswordTF.setText("");
+		rdbtnEnableAccount.setSelected(false);
+		rdbtnDisableAccount.setSelected(false);
 	}
 }
