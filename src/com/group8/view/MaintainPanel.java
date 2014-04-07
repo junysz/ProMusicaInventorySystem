@@ -476,7 +476,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	public MaintainPanel() {
 
 		init();
-		addAccountTypeToComboBox();   
+		addAccountTypeToComboBox();  //adds the Strings Manager and Sales Staff to the type selection combo box 
 
 		//*********HERE PLACE FOR ADDING LISTENERS***********//		
 		//I am getting category name and passing it to the controller as a CategoryFormEvent which is passed as 
@@ -571,7 +571,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	public void addfindCatForSubCatToEditComboBoxListener(ActionListener listen){
 		findCatForSubCatToEditComboBox.addActionListener(listen);
 	}
-	public void addbtnConfirmChanges_2Listener(ActionListener listen){
+	public void addbtnConfirmCategoryChangesListener(ActionListener listen){
 		btnConfirmChanges_2.addActionListener(listen);
 	}
 
