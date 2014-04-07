@@ -1,817 +1,532 @@
-package com.group8.view;
-
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
-
-import javax.swing.JTabbedPane;
-
-import net.miginfocom.swing.MigLayout;
-
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.TitledBorder;
-
-
-import java.awt.Color;
-import java.awt.event.ActionListener;
+package com.group8.controller;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
 
-
-public class MaintainPanel extends JPanel implements ActionListener {
-	private JTextField enterUsernameTF, enterPasswordTF, confirmPasswordTF, editUsernameTF;
-	private JPanel MaintainAccountPanel, newAccountPanel, editAccountPanel, MaintainCategoriesPanel, MaintainItemPanel;
-	private JLabel lblUserName, lblPassword, lblConfirmPassword, lblSelectType, errorLabel1,errorLabel2, lblSelectAccount, lblUsername, lblSelectType_1, lblStatus;
-	private JComboBox<String> selectAccountTypeComboBox, selectAccountToEditComboBox, editAccountTypeComboBox;
-	private ButtonGroup statusGroup;
-	private JRadioButton rdbtnEnableAccount, rdbtnDisableAccount;
-	private JButton btnCreateAccount, btnConfirmChanges;
-	private JPanel createItemPanel;
-	private JPanel editItemPanel;
-	private JLabel lblCategory;
-	private JComboBox selectItemCategoryComboBox;
-	private JLabel lblSubcategory;
-	private JComboBox selectItemSubCatComboBox;
-	private JLabel lblBrand;
-	private JTextField enterBrandTF;
-	private JLabel lblModel;
-	private JTextField enterModelTF;
-	private JLabel lblPrice;
-	private JTextField enterPriceTF;
-	private JLabel lblStockLevel;
-	private JTextField enterStockLevelTF;
-	private JLabel errorLabel7;
-	private JButton btnCreateNewItem;
-	private JLabel lbloptional;
-	private JLabel lblEuro;
-	private JLabel lblCategory_1;
-	private JComboBox editCategoryComboBox;
-	private JLabel lblSubcategory_1;
-	private JComboBox editSubCatComboBox;
-	private JLabel lblSelectItem;
-	private JComboBox selectItemToEditComboBox;
-	private JLabel lblBrand_1;
-	private JTextField editBrandTF;
-	private JLabel lblModel_1;
-	private JTextField editModelTF;
-	private JLabel lblPrice_1;
-	private JTextField editPriceTF;
-	private JLabel lblNewLabel;
-	private JLabel errorLabel8;
-	private JButton btnConfirmItemChanges;
-	private JButton btnRemoveItem;
-	private JPanel createCategoryPanel;
-	private JPanel createSubCatPanel;
-	private JPanel editCategoryPanel;
-	private JPanel editSubCatPanel;
-	private JLabel lblEnterName;
-	private JTextField enterCategoryNameTF;
-	private JLabel errorLabel3;
-	private JButton btnCreateCategory;
-	private JLabel lblSelectCategory;
-	private JComboBox<String> selectCategoryComboBox;
-	private JLabel lblEnterSubcategoryName;
-	private JTextField enterSubCatNameTF;
-
-	private JLabel errorLabel4;
-	private JButton btnCreateSubcategory;
-	private JLabel lblSelectCategory_1;
-	private JComboBox<String> selectCategoryToEditComboBox;
-	private JLabel lblEditName;
-	private JTextField editCategoryNameTF;
-	private JLabel errorLabel5;
-	private JButton btnConfirmChanges_2;
-	private JLabel lblSelectCategory_2;
-	private JComboBox<String> findCategoryComboBox;
-	private JLabel lblSelectSubcategory_1;
-	private JComboBox selectSubCatToEditComboBox;
-	private JLabel lblEditName_1;
-	private JTextField editSubCatNameTF;
-	private JLabel errorLabel6;
-	private JButton btnConfirmChanges_3;
-	private JLabel lblNewLabel_1;
-	private JComboBox changeSubCatComboBox;
-	private CategoryListener categoryListenr;
-	private JTextField editAccountPasswordTF;
-	private JLabel lblPassword_1;
-
-
-	private CategoryComboBoxModel categoryComboBoxModel;
-
-	//all components
-	void init(){
-
-		setLayout(new BorderLayout(0, 0));
-
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBorder(new EmptyBorder(10, 10, 10, 10));
-		add(tabbedPane, BorderLayout.CENTER);
-
-		MaintainAccountPanel = new JPanel();
-		tabbedPane.addTab("Maintan Accounts", null, MaintainAccountPanel, null);
-		MaintainAccountPanel.setLayout(new GridLayout(1, 2, 10, 10));
-
-		newAccountPanel = new JPanel();
-		MaintainAccountPanel.add(newAccountPanel);
-		newAccountPanel.setLayout(new MigLayout("", "[][][][grow]", "[][][][][][][]"));
-		//SET A TITLE BORDER FOR THE PANEL
-		newAccountPanel.setBorder(new TitledBorder("Create New Account"));
-
-		lblUserName = new JLabel("User Name");
-		newAccountPanel.add(lblUserName, "cell 1 1");
-
-		enterUsernameTF = new JTextField();
-		newAccountPanel.add(enterUsernameTF, "cell 3 1,growx");
-		enterUsernameTF.setColumns(10);
-
-		lblPassword = new JLabel("Password");
-		newAccountPanel.add(lblPassword, "cell 1 2");
-
-		enterPasswordTF = new JTextField();
-		newAccountPanel.add(enterPasswordTF, "cell 3 2,growx");
-		enterPasswordTF.setColumns(10);
-
-		lblConfirmPassword = new JLabel("Confirm Password");
-		newAccountPanel.add(lblConfirmPassword, "cell 1 3");
-
-		confirmPasswordTF = new JTextField();
-		newAccountPanel.add(confirmPasswordTF, "cell 3 3,growx");
-		confirmPasswordTF.setColumns(10);
-
-		lblSelectType = new JLabel("Select Type");
-		newAccountPanel.add(lblSelectType, "cell 1 4");
-
-		selectAccountTypeComboBox = new JComboBox();
-		newAccountPanel.add(selectAccountTypeComboBox, "cell 3 4,growx");
-
-		errorLabel1 = new JLabel();
-		errorLabel1.setForeground(Color.RED);
-		newAccountPanel.add(errorLabel1, "cell 3 5");
-		errorLabel1.setVisible(false);
-
-		btnCreateAccount = new JButton("Create Account");
-		newAccountPanel.add(btnCreateAccount, "cell 3 6");
-
-		editAccountPanel = new JPanel();
-		MaintainAccountPanel.add(editAccountPanel);
-		editAccountPanel.setLayout(new MigLayout("", "[][][][120.00,grow][grow]", "[][][][][][][][][][]"));
-		//SET A TITLE BORDER FOR THE PANEL
-		editAccountPanel.setBorder(new TitledBorder("Edit Existing Account"));
-
-		lblSelectAccount = new JLabel("Select Account");
-		editAccountPanel.add(lblSelectAccount, "cell 1 1");
-
-		selectAccountToEditComboBox = new JComboBox();
-		editAccountPanel.add(selectAccountToEditComboBox, "cell 3 1 2 1,growx");
-
-		lblUsername = new JLabel("Username");
-		editAccountPanel.add(lblUsername, "cell 1 2");
-
-		editUsernameTF = new JTextField();
-		editAccountPanel.add(editUsernameTF, "cell 3 2 2 1,growx");
-		editUsernameTF.setColumns(10);
-
-		lblSelectType_1 = new JLabel("Select Type");
-		editAccountPanel.add(lblSelectType_1, "cell 1 3");
-
-		editAccountTypeComboBox = new JComboBox();
-		editAccountPanel.add(editAccountTypeComboBox, "cell 3 3 2 1,growx");
-
-		//Create a Button Group for the Account status radio buttons
-		statusGroup = new ButtonGroup();
-
-		lblPassword_1 = new JLabel("Password");
-		editAccountPanel.add(lblPassword_1, "cell 1 4");
-
-		editAccountPasswordTF = new JTextField();
-		editAccountPanel.add(editAccountPasswordTF, "cell 3 4 2 1,growx");
-		editAccountPasswordTF.setColumns(10);
-
-		errorLabel2 = new JLabel("");
-		errorLabel2.setForeground(Color.RED);
-		editAccountPanel.add(errorLabel2, "cell 3 5 2 1");
-		errorLabel2.setVisible(false);
-
-		lblStatus = new JLabel("Status");
-		editAccountPanel.add(lblStatus, "cell 1 6");
-
-		rdbtnEnableAccount = new JRadioButton("Enabled");
-		editAccountPanel.add(rdbtnEnableAccount, "cell 3 6");
-		statusGroup.add(rdbtnEnableAccount);
-
-		rdbtnDisableAccount = new JRadioButton("Disabled");
-		editAccountPanel.add(rdbtnDisableAccount, "cell 4 6");
-		statusGroup.add(rdbtnDisableAccount);
-
-
-		btnConfirmChanges = new JButton("Confirm Changes");
-		editAccountPanel.add(btnConfirmChanges, "cell 3 8");
-
-		MaintainCategoriesPanel = new JPanel();
-		tabbedPane.addTab("Maintain Categories", null, MaintainCategoriesPanel, null);
-		MaintainCategoriesPanel.setLayout(new GridLayout(2, 2, 10, 10));
-
-		createCategoryPanel = new JPanel();
-		MaintainCategoriesPanel.add(createCategoryPanel);
-		createCategoryPanel.setLayout(new MigLayout("", "[][][][grow]", "[][][][][][]"));
-
-		createCategoryPanel.setBorder(new TitledBorder("Create New Category"));
-
-		lblEnterName = new JLabel("Enter Category Name");
-		createCategoryPanel.add(lblEnterName, "cell 1 0");
-
-		enterCategoryNameTF = new JTextField();
-		createCategoryPanel.add(enterCategoryNameTF, "cell 3 0,growx");
-		enterCategoryNameTF.setColumns(10);
-
-		errorLabel3 = new JLabel("");
-		errorLabel3.setForeground(Color.RED);
-		createCategoryPanel.add(errorLabel3, "cell 3 1,alignx right");
-
-		btnCreateCategory = new JButton("Create Category");
-
-		createCategoryPanel.add(btnCreateCategory, "cell 3 5");
-
-		createSubCatPanel = new JPanel();
-		MaintainCategoriesPanel.add(createSubCatPanel);
-
-		createSubCatPanel.setBorder(new TitledBorder("Create Sub-Category"));
-		createSubCatPanel.setLayout(new MigLayout("", "[][][][grow]", "[][][][]"));
-
-		lblSelectCategory = new JLabel("Select Category");
-		createSubCatPanel.add(lblSelectCategory, "cell 1 0");
-
-		selectCategoryComboBox = new JComboBox();
-		createSubCatPanel.add(selectCategoryComboBox, "cell 3 0,growx");
-
-		lblEnterSubcategoryName = new JLabel("Enter Sub-Category Name");
-		createSubCatPanel.add(lblEnterSubcategoryName, "cell 1 1");
-
-		enterSubCatNameTF = new JTextField();
-		createSubCatPanel.add(enterSubCatNameTF, "cell 3 1,growx");
-		enterSubCatNameTF.setColumns(10);
-
-		errorLabel4 = new JLabel("");
-		createSubCatPanel.add(errorLabel4, "cell 3 2");
-
-		btnCreateSubcategory = new JButton("Create Sub-Category");
-		createSubCatPanel.add(btnCreateSubcategory, "cell 3 3");
-
-		editCategoryPanel = new JPanel();
-		MaintainCategoriesPanel.add(editCategoryPanel);
-		editCategoryPanel.setBorder(new TitledBorder("Edit Category"));
-		editCategoryPanel.setLayout(new MigLayout("", "[][][][grow]", "[][][][][]"));
-
-		lblSelectCategory_1 = new JLabel("Select Category");
-		editCategoryPanel.add(lblSelectCategory_1, "cell 1 0");
-
-
-
-		categoryComboBoxModel= new CategoryComboBoxModel();
-		selectCategoryToEditComboBox = new JComboBox<String>();
-		selectCategoryComboBox.setModel(categoryComboBoxModel);
-
-
-		editCategoryPanel.add(selectCategoryToEditComboBox, "cell 3 0,growx");
-
-		lblEditName = new JLabel("Edit Name");
-		editCategoryPanel.add(lblEditName, "cell 1 1");
-
-		editCategoryNameTF = new JTextField();
-
-		editCategoryPanel.add(editCategoryNameTF, "cell 3 1,growx");
-		editCategoryNameTF.setColumns(10);
-
-		errorLabel5 = new JLabel("");
-		errorLabel5.setForeground(Color.RED);
-		editCategoryPanel.add(errorLabel5, "cell 3 2");
-
-		btnConfirmChanges_2 = new JButton("Confirm Changes");
-		editCategoryPanel.add(btnConfirmChanges_2, "cell 3 3");
-
-		editSubCatPanel = new JPanel();
-		MaintainCategoriesPanel.add(editSubCatPanel);
-
-		editSubCatPanel.setBorder(new TitledBorder("Edit Sub-Category"));
-
-		editSubCatPanel.setLayout(new MigLayout("", "[][][][grow]", "[][][][][]"));
-
-		lblSelectCategory_2 = new JLabel("Select Category");
-		editSubCatPanel.add(lblSelectCategory_2, "cell 1 0");
-
-		findCategoryComboBox = new JComboBox();
-		editSubCatPanel.add(findCategoryComboBox, "cell 3 0,growx");
-
-		lblSelectSubcategory_1 = new JLabel("Select Sub-Category");
-		editSubCatPanel.add(lblSelectSubcategory_1, "cell 1 1");
-
-		selectSubCatToEditComboBox = new JComboBox();
-		editSubCatPanel.add(selectSubCatToEditComboBox, "cell 3 1,growx");
-
-		lblEditName_1 = new JLabel("Edit Name");
-		editSubCatPanel.add(lblEditName_1, "cell 1 2");
-
-		editSubCatNameTF = new JTextField();
-		editSubCatPanel.add(editSubCatNameTF, "cell 3 2,growx");
-		editSubCatNameTF.setColumns(10);
-
-		errorLabel6 = new JLabel("");
-		errorLabel6.setForeground(Color.RED);
-		editSubCatPanel.add(errorLabel6, "cell 3 3");
-
-		btnConfirmChanges_3 = new JButton("Confirm Changes");
-		editSubCatPanel.add(btnConfirmChanges_3, "cell 3 4");
-
-		MaintainItemPanel = new JPanel();
-		tabbedPane.addTab("Maintain Items", null, MaintainItemPanel, null);
-		MaintainItemPanel.setLayout(new GridLayout(1, 2, 10, 10));
-
-		createItemPanel = new JPanel();
-		createItemPanel.setBorder(new TitledBorder("Create New Item"));
-		MaintainItemPanel.add(createItemPanel);
-		createItemPanel.setLayout(new MigLayout("", "[][][][131.00][grow]", "[][][][][][][][][][][]"));
-
-		lblCategory = new JLabel("Category");
-		createItemPanel.add(lblCategory, "cell 1 1");
-
-		selectItemCategoryComboBox = new JComboBox();
-		createItemPanel.add(selectItemCategoryComboBox, "cell 3 1 2 1,growx");
-
-		lblSubcategory = new JLabel("Sub-Category");
-		createItemPanel.add(lblSubcategory, "cell 1 2");
-
-		selectItemSubCatComboBox = new JComboBox();
-		createItemPanel.add(selectItemSubCatComboBox, "cell 3 2 2 1,growx");
-
-		lblBrand = new JLabel("Brand");
-		createItemPanel.add(lblBrand, "cell 1 3");
-
-		JTextField enterBrandTF = new JTextField();
-		createItemPanel.add(enterBrandTF, "cell 3 3 2 1,growx");
-		enterBrandTF.setColumns(10);
-
-		lblModel = new JLabel("Model");
-		createItemPanel.add(lblModel, "cell 1 4");
-
-		enterModelTF = new JTextField();
-		createItemPanel.add(enterModelTF, "cell 3 4 2 1,growx");
-		enterModelTF.setColumns(10);
-
-		lblPrice = new JLabel("Price");
-		createItemPanel.add(lblPrice, "cell 1 5");
-
-		enterPriceTF = new JTextField();
-		createItemPanel.add(enterPriceTF, "cell 3 5,growx");
-		enterPriceTF.setColumns(10);
-
-		lblEuro = new JLabel("\u20AC");
-		lblEuro.setForeground(Color.GRAY);
-		createItemPanel.add(lblEuro, "cell 4 5");
-
-		lblStockLevel = new JLabel("Stock Level");
-		createItemPanel.add(lblStockLevel, "cell 1 6");
-
-		enterStockLevelTF = new JTextField();
-		createItemPanel.add(enterStockLevelTF, "cell 3 6,growx");
-		enterStockLevelTF.setColumns(10);
-
-		lbloptional = new JLabel("*optional");
-		lbloptional.setForeground(Color.GRAY);
-		createItemPanel.add(lbloptional, "cell 4 6");
-
-		errorLabel7 = new JLabel("");
-		errorLabel7.setForeground(Color.RED);
-		createItemPanel.add(errorLabel7, "cell 3 7 2 1");
-
-		btnCreateNewItem = new JButton("Create Item");
-		createItemPanel.add(btnCreateNewItem, "cell 3 8 2 1");
-
-
-		editItemPanel = new JPanel();
-		editItemPanel.setBorder(new TitledBorder("Edit Existing Item"));
-		MaintainItemPanel.add(editItemPanel);
-		editItemPanel.setLayout(new MigLayout("", "[][][][136.00,grow][grow]", "[][][][][][][][][][][]"));
-
-		lblCategory_1 = new JLabel("Category");
-		editItemPanel.add(lblCategory_1, "cell 1 1");
-
-		editCategoryComboBox = new JComboBox();
-		editItemPanel.add(editCategoryComboBox, "cell 3 1 2 1,growx");
-
-		lblSubcategory_1 = new JLabel("Sub-Category");
-		editItemPanel.add(lblSubcategory_1, "cell 1 2");
-
-		editSubCatComboBox = new JComboBox();
-		editItemPanel.add(editSubCatComboBox, "cell 3 2 2 1,growx");
-
-		lblSelectItem = new JLabel("Select Item");
-		editItemPanel.add(lblSelectItem, "cell 1 3");
-
-		selectItemToEditComboBox = new JComboBox();
-		editItemPanel.add(selectItemToEditComboBox, "cell 3 3 2 1,growx");
-
-		lblBrand_1 = new JLabel("Brand");
-		editItemPanel.add(lblBrand_1, "cell 1 4");
-
-		editBrandTF = new JTextField();
-		editItemPanel.add(editBrandTF, "cell 3 4 2 1,growx");
-		editBrandTF.setColumns(10);
-
-		lblModel_1 = new JLabel("Model");
-		editItemPanel.add(lblModel_1, "cell 1 5");
-
-		editModelTF = new JTextField();
-		editItemPanel.add(editModelTF, "cell 3 5 2 1,growx");
-		editModelTF.setColumns(10);
-
-		lblPrice_1 = new JLabel("Price");
-		editItemPanel.add(lblPrice_1, "cell 1 6");
-
-		editPriceTF = new JTextField();
-		editItemPanel.add(editPriceTF, "cell 3 6,alignx left");
-		editPriceTF.setColumns(10);
-
-		lblNewLabel = new JLabel("\u20AC");
-		lblNewLabel.setForeground(Color.GRAY);
-		editItemPanel.add(lblNewLabel, "cell 4 6");
-
-		lblNewLabel_1 = new JLabel("Move Sub-Cat");
-		editItemPanel.add(lblNewLabel_1, "cell 1 7");
-
-		changeSubCatComboBox = new JComboBox();
-		editItemPanel.add(changeSubCatComboBox, "cell 3 7 2 1,growx");
-
-		errorLabel8 = new JLabel("");
-		errorLabel8.setForeground(Color.RED);
-		editItemPanel.add(errorLabel8, "cell 3 8 2 1");
-
-		btnConfirmItemChanges = new JButton("Confirm Changes");
-		editItemPanel.add(btnConfirmItemChanges, "cell 3 9");
-
-		btnRemoveItem = new JButton("Remove Item");
-		editItemPanel.add(btnRemoveItem, "cell 3 10,growx");
-
-
-
-
-	}
-
-
-	public JTextField getEditCategoryNameTF() {
-		return editCategoryNameTF;
-	}
-
-
-	public void setEditCategoryNameTF(String editCategoryNameTF) {
-
-		this.editCategoryNameTF.setText(editCategoryNameTF);
-	}
-
-
-	public MaintainPanel() {
-
-		init();
-		addAccountTypeToComboBox();   
-
-		//*********HERE PLACE FOR ADDING LISTENERS***********//		
-		//I am getting category name and passing it to the controller as a CategoryFormEvent which is passed as 
-		//a parameter to the CategoryListener Interface
-
-		btnCreateCategory.addActionListener(this);
-		btnConfirmChanges.addActionListener(this);
-		btnConfirmChanges_3.addActionListener(this);
-
-
-
-
-
-	}
-
-
-
-	// Event detected on the create category button 
-	public void actionPerformed(ActionEvent e) 
+import com.group8.model.*;
+import com.group8.view.CategoryFormEvent;
+import com.group8.view.CategoryListener;
+import com.group8.view.MainFrame;
+
+public class Controller implements CategoryListener {
+
+	private List <Item> temItemList;
+	private List<String> categories;
+	private List<String> test;
+	private MainFrame theView;  	
+	private MainModel theModel;											
+
+	public Controller(MainFrame theView, MainModel theModel )
 	{
-		if(e.getSource().equals(btnCreateCategory))
-		{
-			System.out.println("Create new category button clicked");
-			System.out.println("I have to invoke categoryAddedPerformed which takes in category name");
+		this.theView=theView;
+		this.theModel=theModel;
 
-			if(categoryListenr !=null){
-				categoryListenr.categoryAddedPerformed(new CategoryFormEvent(enterCategoryNameTF.getText()));
+
+		/******Maintain Categories Panel**************/
+
+		//Adds Category To DataBase when btn clicked
+		theView.setCategoryListener(this);
+
+
+		//Adding Listeners: Combo-boxes
+		theView.getTabsPane().getMaintainPanel().addselectCategorycomboBoxListener(new SelectCategorycomboBoxListener());
+		theView.getTabsPane().getMaintainPanel().addselectCategoryToEditcomboBoxListener(new SelectCategoryToEditcomboBoxListener());
+		theView.getTabsPane().getMaintainPanel().addfindCategoryComboBoxListener(new FindCategoryComboBoxListener());
+		//button confirms editing Category
+		theView.getTabsPane().getMaintainPanel().addbtnConfirmChanges_2Listener(new ConfirmChanges_2Listener());
+		//update all comboBoxes 
+		update();
+
+
+
+		//ACTIVATE MAINTENACE PANEL BUTTON LISTENERS
+		theView.getTabsPane().getMaintainPanel().addCreateSubCategoryBtn(new CreateSubCategoryBtn());
+		theView.getTabsPane().getMaintainPanel().addCreateItemBtn(new CreateItemBtn());
+		theView.getTabsPane().getMaintainPanel().addEditItemBtn(new ConfirmItemChangesBtn());
+		theView.getTabsPane().getMaintainPanel().addRemoveItemBtn(new RemoveItemBtn());
+		theView.getTabsPane().getMaintainPanel().addCreateAccountBtn(new CreateAccountBtn());
+		
+
+		/********************************************/
+
+
+		theView.getTabsPane().getReservationPanel().addTableListener(new PopulateTableListener());
+		theView.getTabsPane().getReservationPanel().addComboBoxCatListener(new ComboBoxListener());
+		theView.getTabsPane().getReservationPanel().addComboBoxSubCatListener(new ComboBoxSubCatListener());
+
+		//categoryComboBox populate form DB NOT WORKING NOW UNTIL MAINTAN CATEGORY FINISHED 
+		populateCategoryReservPanel();
+
+
+
+		/***********REPORT PANEL*****************
+		 * theView.getTabsPane().getReportPanel().
+		 */
+
+
+
+
+
+
+
+
+	}
+	/************************************************************/
+	/******NOT WORKING NOW UNTIL MAINTAN CATEGORY FINISHED******/ 
+	/************************************************************/
+	public void populateCategoryReservPanel(){
+		try{
+			categories=theModel.getMySomeCategories(); //i deleted this method from model, i can replace with proper one using query
+			theView.getTabsPane().getReservationPanel().setComboBoxCategoryModel(categories);
+		}catch(Exception e){
+			System.out.println("data base is empty");
+		}
+
+	}
+
+	class PopulateTableListener implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			temItemList=theModel.getMeSomeItems(); //i deleted this method from model, i can replace with proper one using query
+			theView.getTabsPane().getReservationPanel().setTableModel(temItemList);	
+		}	
+	}
+	class ComboBoxListener implements ActionListener{
+
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+
+			String selectedCategory=theView.getTabsPane().getReservationPanel().getSelectCategoryCBox().getSelectedItem().toString();
+			System.out.println("ComboBox Category changed to: "+selectedCategory);
+
+			//now populate all sub-categories ....
+			test=theModel.getMeSomeSubCategories();
+
+			theView.getTabsPane().getReservationPanel().setComboBoxSubCategoryModel(test);
+		}
+
+
+
+	}
+	class ComboBoxSubCatListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+
+			try{
+				String subCat=	theView.getTabsPane().getReservationPanel().getSelectSubcategoryCBox().getSelectedItem().toString();
+				System.out.println("ComboBox Sub-category changed to: "+ subCat);
+
+
+			}catch(Exception exception)
+			{
+				exception.printStackTrace();
+				System.out.println("No data in comboBox");
+			}
+
+
+
+			//get Items for sub-category and display in the table
+
+		}
+
+	}
+	/************************************************************/
+	/***********************END*********************************/
+
+
+
+
+
+
+	/***************************************************************************************/
+	/*****************?????????????START COMBO-BOXES MAINTAIN_PANEL??????????*****************************/
+	/***************************************************************************************/
+
+	//Updates Category that has been edited by the user
+	class ConfirmChanges_2Listener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String categoryEdited=theView.getTabsPane().getMaintainPanel().getEditCategoryNameTF().getText();
+			String categoryOld=	theView.getTabsPane().getMaintainPanel().getSelectCategoryToEditcomboBox().getSelectedItem().toString();
+			System.out.println("Old Category Name: "+categoryOld+ "\nNew Category Name: "+categoryEdited);
+
+			theModel.updateCategory(categoryOld,categoryEdited);
+			update();
+		}
+	}
+
+
+	//Gets string form bomboBox
+	class SelectCategorycomboBoxListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String comboBox1=theView.getTabsPane().getMaintainPanel().getSelectCategorycomboBox().getSelectedItem().toString();
+			System.out.println(comboBox1);
+
+		}
+	}
+	/*
+	 * *********** INNER CLASSES TO LISTEN TO BUTTONS ON THE MAINTAIN PANEL ********************
+	 * ALL THESE CLASSES HANDLE THE EVENTS WHEN A BUTTON IS CLICKEDON A FORM FROM MAINTAIN PANEL
+	 * ******************************************************************************************
+	 */
+	
+	//Inner Class that listens for the Create SubCategory Button
+	class CreateSubCategoryBtn implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String categorySelection=null;
+			String subCatTF=null;
+			try{
+				categorySelection=theView.getTabsPane().getMaintainPanel().getSelectCategorycomboBox().getSelectedItem().toString();
+				subCatTF= theView.getTabsPane().getMaintainPanel().getEnterSubCatNameTF();
+			}catch(Exception ex){
+				System.out.println("Problem reading data from Create SubCategory Form");
+				//oldWarningHandeler --- theView.getTabsPane().getMaintainPanel().warnCategoryNull();
+			}
+			ArrayList<String> errorMessages = new ArrayList<String>();
+			if(categorySelection==null){
+				errorMessages.add("CategorySelction");
+				//oldWarningHandeler --- theView.getTabsPane().getMaintainPanel().warnSubCategoryFieldEmpty();
+			}
+			if(subCatTF.isEmpty()){
+				errorMessages.add("SubCategory Name");
+			}
+			//else we can go ahead and make sub category
+			if(errorMessages.isEmpty()){
+				//first we get the category id based on the name that was selected
+				int catID = theModel.getCategoryIdFromName(categorySelection);
+				//then we create the Category Object to pass to the model
+				Category c = new Category(catID, categorySelection);
+				//Now create the SubCategory Object we want to write to the database
+				SubCategory s=new SubCategory(subCatTF);
+				//send both object to the model to handle the database insert
+				theModel.addNewSubCategory(c,s);
+				//Testing Prints
+				System.out.println("Test if works: CategoryName: "+ c.getCategoryName()+"\n SubCategoryName: "+s.getSubCatName());
+				//Now that data processing is complete, clear the GUI form
+				theView.getTabsPane().getMaintainPanel().clearNewSubCatForm();
+			}
+			else{
+				theView.getTabsPane().getMaintainPanel().warnCreateSubCatFormErrors(errorMessages);
 			}
 		}
-		else if(e.getSource().equals(btnConfirmChanges_2))
-		{
-			System.out.println("Edit Category button clicked");
+	}
+	//Inner Class that listens for the Create Item Button
+	class CreateItemBtn implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String subCatSelection=null;
+			String itemBrand=null;
+			String itemModel=null;
+			double itemPrice=0;
+			int stockLevel=0;//optional parameter from the view
+
+			//read the values (subCat, brand, model, price, stockLevel) from the view
+			try{
+				subCatSelection=theView.getTabsPane().getMaintainPanel().getNewItemSubCatComboBox().getSelectedItem().toString();
+				itemBrand= theView.getTabsPane().getMaintainPanel().getEnterBrandTF();
+				itemModel= theView.getTabsPane().getMaintainPanel().getEnterModelTF();
+				itemPrice= Double.parseDouble(theView.getTabsPane().getMaintainPanel().getEnterPriceTF());
+				stockLevel = Integer.parseInt(theView.getTabsPane().getMaintainPanel().getEnterStockLevelTF());
+			}catch(Exception ex){
+				System.out.println("Problem reading input fron Create Item Form");
+			}
+			//Now validate the data and add errors to errorMessages
+			ArrayList<String> errorMessages = new ArrayList<String>();
+			if(subCatSelection==null){
+				errorMessages.add("SubCategory Selection");
+			}
+			if(itemBrand.isEmpty()){
+				errorMessages.add("Brand Name");
+			}
+			if(itemModel.isEmpty()){
+				errorMessages.add("Model Name");
+			}
+			if(!(itemPrice>0)){
+				errorMessages.add("Price");
+			}
+			//If there is no errors then we can go ahead and make sub category
+			if(errorMessages.isEmpty()){
+				//first we get the SubCategory id based on the name that was selected
+				int subCatID = theModel.getSubCatIdFromName(subCatSelection);
+				//then we create the SubCategory Object to pass to the model
+				SubCategory s=new SubCategory(subCatID, subCatSelection);
+				Item i = new Item();
+				i.setBrand(itemBrand);
+				i.setModel(itemModel);
+				i.setPrice(itemPrice);
+				i.setStockLevel(stockLevel);
+				i.setAvailableStockLevel(stockLevel);
+				//send both object to the model to handle the database insert
+				theModel.addNewItem(i,s);
+				//Testing Prints
+				System.out.println("Test if works: ItemName: "+ i.getBrand()+" " +i.getModel() +"\n Price: "+i.getPrice());
+				//Now that data processing is complete, clear the GUI form
+				theView.getTabsPane().getMaintainPanel().clearNewItemForm();
+				
+			}
+			//Now handle the error Messages if there was any by sending the errors list to the view to be displayed
+			else{
+				theView.getTabsPane().getMaintainPanel().warnCreateItemFormErrors(errorMessages);
+			}
+		}
+	}
+	//Inner Class that listens for the Confirm Item Changes Button
+	class ConfirmItemChangesBtn implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String itemSubCat=null;
+			String itemSelection=null;
+			String changeBrand=null;
+			String changeModel=null;
+			double changePrice=0;
+			String changeSubCatSelection=null;
+
+			//read the values (item, editBrand, editModel, editPrice, changeOfSubCategory) from the view
+			try{
+				itemSubCat=theView.getTabsPane().getMaintainPanel().getItemToEditSubCatComboBox().getSelectedItem().toString();
+				itemSelection=theView.getTabsPane().getMaintainPanel().getItemToEditComboBox().getSelectedItem().toString();
+				changeBrand= theView.getTabsPane().getMaintainPanel().getEditBrandTF();
+				changeModel= theView.getTabsPane().getMaintainPanel().getEditModelTF();
+				changePrice= Double.parseDouble(theView.getTabsPane().getMaintainPanel().getEditPriceTF());
+				changeSubCatSelection=theView.getTabsPane().getMaintainPanel().getItemMoveSubCatComboBox().getSelectedItem().toString();
+			}catch(Exception ex){
+				System.out.println("Problem reading input fron Edit Existing Item Form");
+			}
+			//Now validate the data and add errors to errorMessages
+			ArrayList<String> errorMessages = new ArrayList<String>();
+			if(itemSelection==null){
+				errorMessages.add("Item Selection");
+			}
+			if(changeBrand.isEmpty()){
+				errorMessages.add("Brand Name");
+			}
+			if(changeModel.isEmpty()){
+				errorMessages.add("Model Name");
+			}
+			if(!(changePrice>0)){
+				errorMessages.add("Price");
+			}
+			if(changeSubCatSelection==null){
+				errorMessages.add("Move Sub Category");
+			}
+			//If there is no errors then we can go ahead and edit the item accordingly
+			if(errorMessages.isEmpty()){
+				//First we get the Item based on the string that was selected (contains "Brand Model")
+				Item item = theModel.getItemByName(itemSelection);
+
+				//Now we check if there was any change in the Brand, Model, and Price entered by the user
+				if(!(item.getBrand().equals(changeBrand))){
+					item.setBrand(changeBrand);
+				}
+				if(!(item.getModel().equals(changeModel))){
+					item.setModel(changeModel);
+				}
+				if(item.getPrice() != changePrice){
+					item.setPrice(changePrice);
+				}
+				//Now i need the items existing subCatID and the changeSubCatID selected by user
+				int itemSubCatID = theModel.getSubCatIdFromName(itemSubCat);
+				int changeSubCatID = theModel.getSubCatIdFromName(changeSubCatSelection);
+				//check if the user selected a change for SubCat and then give the changed ID to itemSubCatID
+				if(itemSubCatID != changeSubCatID){
+					itemSubCatID = changeSubCatID;
+				}
+				theModel.updateItem(item, itemSubCatID);
+				//Testing Prints
+				System.out.println();
+				//Now that data processing is complete, clear the GUI form
+				theView.getTabsPane().getMaintainPanel().clearEditItemForm();
+			}
+			//Now handle the error Messages if there was any by sending the errors list to the view to be displayed
+			else{
+				theView.getTabsPane().getMaintainPanel().warnEditItemFormErrors(errorMessages);
+			}
+		}
+	}
+	//Inner Class that listens for the Create Account Button
+		class RemoveItemBtn implements ActionListener{
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String itemSelection=null;
+
+				//read the values (itemSelection) from the view
+				try{
+					itemSelection=theView.getTabsPane().getMaintainPanel().getItemToEditComboBox().getSelectedItem().toString();
+				}catch(Exception ex){
+					System.out.println("Problem reading input from Form");
+				}
+				//Now validate the data and add errors to errorMessages
+				ArrayList<String> errorMessages = new ArrayList<String>();
+				if(itemSelection==null){
+					errorMessages.add("Select Item");
+				}
+				
+				if(errorMessages.isEmpty()){
+					Item item = theModel.getItemByName(itemSelection);
+					theModel.removeItem(item);
+					System.out.println("Remove Item successful");
+					//Now that data processing is complete, clear the GUI form
+					theView.getTabsPane().getMaintainPanel().clearEditItemForm();
+				}
+				else{
+					theView.getTabsPane().getMaintainPanel().warnEditItemFormErrors(errorMessages);
+				}
+				
+
+			}
+		}
+	//Inner Class that listens for the Create Account Button
+	class CreateAccountBtn implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String username=null;
+			String password1=null;
+			String password2=null;
+			String accountTypeSelection=null;
+
+			//read the values (username, enterPassword, confirmPassword, accountType) from the view
+			try{
+				username=theView.getTabsPane().getMaintainPanel().getEnterUsernameTF();
+				password1=theView.getTabsPane().getMaintainPanel().getEnterPasswordTF();
+				password2= theView.getTabsPane().getMaintainPanel().getConfirmPasswordTF();
+				accountTypeSelection=theView.getTabsPane().getMaintainPanel().getSelectAccountTypeComboBox().getSelectedItem().toString();
+			}catch(Exception ex){
+				System.out.println("Problem reading input fron Create New Account Form");
+			}
+			//Now validate the data and add errors to errorMessages
+			ArrayList<String> errorMessages = new ArrayList<String>();
+			if(username.isEmpty()){
+				errorMessages.add("Username");
+			}
+			if(password1.isEmpty() || password2.isEmpty()){
+				errorMessages.add("Enter Password Twice");
+			}
+			if(!(password1.equals(password2))){
+				errorMessages.add("Passwords Do Not Match");
+			}
+			if(accountTypeSelection==null){
+				errorMessages.add("Account Type");
+			}
+			
+			if(errorMessages.isEmpty()){
+				Account a = new Account();
+				a.setAccountName(username);
+				a.setPassword(password1);
+				a.setType(accountTypeSelection);
+				
+				theModel.addNewAccount(a);
+				System.out.println("Account Added successful");
+				//Now that data processing is complete, clear the GUI form
+				theView.getTabsPane().getMaintainPanel().clearNewAccountForm();
+			}
+			else{
+				theView.getTabsPane().getMaintainPanel().warnCreateAccountFormErrors(errorMessages);
+			}
+			
+			
+
+		}
+	}
+
+
+
+	//Gets string form bomboBox
+	class SelectCategoryToEditcomboBoxListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String comboBox2= theView.getTabsPane().getMaintainPanel().getSelectCategoryToEditcomboBox().getSelectedItem().toString();
+			System.out.println(comboBox2);
+			/*
+			 * We can now get category name from database
+			 * populate text area to edit name of subcategory 
+			 */
+			//GET CATEGORY FORM DB TO EDIT
+			ArrayList<String> cat= new ArrayList<>();
+			cat=theModel.getCategoryNames();
+			String getToTextField=null;
+			for(int i=0;i<cat.size();i++){
+				getToTextField=cat.get(i);
+				if(getToTextField.equalsIgnoreCase(comboBox2)){
+					break;
+				}
+			}
+			theView.getTabsPane().getMaintainPanel().setEditCategoryNameTF(getToTextField);
+		}
+	}
+	//Gets string form bomboBox
+	class FindCategoryComboBoxListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String comboBox3= theView.getTabsPane().getMaintainPanel().getFindCategoryComboBox().getSelectedItem().toString();
+			System.out.println(comboBox3);
+
+		}
+	}
+
+	/*this is method implemented from CategoryListener Interface 
+	 *Category object is passed form view 
+	 *??we can pass it to the model from here??
+	 */
+	public void categoryAddedPerformed(CategoryFormEvent catFormEvent) 
+	{	
+		boolean flagExist=false;
+		String newCategoryName=catFormEvent.getName();
+		ArrayList<String>listCategories= new ArrayList<>();
+		listCategories=theModel.getCategoryNames();
+
+		for(int i=0;i<listCategories.size();i++){
+
+			String copmapareCat=listCategories.get(i);
+			if(copmapareCat.equalsIgnoreCase(newCategoryName)){
+				flagExist=true;
+				break;
+			}
+
 		}
 
 
-	}
 
+		if(newCategoryName.isEmpty()){
+			theView.getTabsPane().getMaintainPanel().warnCategoryFieldEmpty();
 
-	//Creating the BUTTON LISTENERS:
-	//Creates the Add New SubCategory Button Listener
-	public void addCreateSubCategoryBtn(ActionListener listen){
-		btnCreateSubcategory.addActionListener(listen);
-	}
-	//Creates the Add New Item Button Listener
-	public void addCreateItemBtn(ActionListener listen){
-		btnCreateNewItem.addActionListener(listen);
-	}
-	//Create the Edit Item Button Listener
-	public void addEditItemBtn(ActionListener listen){
-		btnConfirmChanges.addActionListener(listen);
-	}
-	//Create the Remove Item Button Listener
-	public void addRemoveItemBtn(ActionListener listen){
-		btnRemoveItem.addActionListener(listen);
-	}
-	//Creates the Add New ACcount Button Listener
-	public void addCreateAccountBtn(ActionListener listen){
-		btnCreateAccount.addActionListener(listen);
-	}
-
-
-
-
-	/* METHOD: setCategoryModels is for Category Combo BOxes
-	 * Populates ALL Category combo-boxes in the Maintenance Tab
-	 * When new category is created this method is used to update all the Category Combo Boxes in the Maintenance Tab
-	 */
-	public void setCategoryModels(List<String>comboBoxList){
-
-		categoryComboBoxModel= new CategoryComboBoxModel();
-		categoryComboBoxModel.setComboBoxList(comboBoxList);
-
-		//5 CATEGORY COMBO BOXES IN THE MAINTAIN PANEL
-		selectCategoryComboBox.setModel(categoryComboBoxModel);
-		selectCategoryToEditComboBox.setModel(categoryComboBoxModel);
-		findCategoryComboBox.setModel(categoryComboBoxModel);
-		selectItemCategoryComboBox.setModel(categoryComboBoxModel);
-		editCategoryComboBox.setModel(categoryComboBoxModel);
-
-	}
-	/*
-	 * I want to get strings form selected comboBoxes
-	 * This will tell me when combo-boxes has been clicked and 
-	 * Give me String form particular combo-box
-	 */
-	public void addselectCategorycomboBoxListener(ActionListener listen){
-		selectCategoryComboBox.addActionListener(listen);
-	}
-	public void addselectCategoryToEditcomboBoxListener(ActionListener listen){
-		selectCategoryToEditComboBox.addActionListener(listen);
-	}
-	public void addfindCategoryComboBoxListener(ActionListener listen){
-		findCategoryComboBox.addActionListener(listen);
-	}
-	public void addbtnConfirmChanges_2Listener(ActionListener listen){
-		btnConfirmChanges_2.addActionListener(listen);
-	}
-
-
-	//WIERD CATEGORY LISTENERS
-	public void setCategoryListenr(CategoryListener categoryListenr) {
-		System.out.println("I will accept any object that implemnts CategoryListener Class: MaintainPanel");
-		this.categoryListenr = categoryListenr;
-	}
-
-	/*
-	 * ****************** WARNING MESSAGES HANDLERS **********************
-	 * NEEDED BY CONTROLLER TO WARN THE USER WHEN THEY HAVE INPUT BAD DATA
-	 * ********** ALL WARNING OUTPUT METHODS SHOULD GO HERE **************
-	 */
-	public void warnCategoryFieldEmpty(){
-
-		JOptionPane.showMessageDialog(null,
-				"Category field empty.",
-				"Go away warning",
-				JOptionPane.WARNING_MESSAGE);
-	}
-	public void warnCategoryExist() {
-		JOptionPane.showMessageDialog(null,
-				"Category Already Exist.",
-				"Go away warning",
-				JOptionPane.WARNING_MESSAGE);
-
-	}
-	public void warnSubCategoryFieldEmpty(){
-		JOptionPane.showMessageDialog(null,
-				"Sub-Category field empty.",
-				"Go away warning",
-				JOptionPane.WARNING_MESSAGE);
-	}
-	public void warnCategoryNull(){
-		JOptionPane.showMessageDialog(null,
-				"Select Category field.",
-				"Go away warning",
-				JOptionPane.WARNING_MESSAGE);
-	}
-	/*
-	 * WARNING MESSAGES FOR THE CREATE SUBCATEGORY FORM
-	 */
-	public void warnCreateSubCatFormErrors(ArrayList<String> errors){
-
-		String message = "Fix:\n"; //errors message for JOptionPane
-		//For each error in the list add the error to the message
-		for(String e: errors)
-		{
-			message+=e + "\n";
 		}
-		JOptionPane.showMessageDialog(null,
-				message,
-				"Go away warning",
-				JOptionPane.WARNING_MESSAGE);
-	}
-	/*
-	 * WARNING MESSAGES FOR THE CREATE ITEM FORM
-	 */
-	public void warnCreateItemFormErrors(ArrayList<String> errors){
-
-		String message = "Fix:\n"; //errors message for JOptionPane
-		//For each error in the list add the error to the message
-		for(String e: errors)
-		{
-			message+=e + "\n";
+		else if(flagExist){
+			theView.getTabsPane().getMaintainPanel().warnCategoryExist();
+			theView.getTabsPane().getMaintainPanel().clearNewCategoryForm();
 		}
-		JOptionPane.showMessageDialog(null,
-				message,
-				"Go away warning",
-				JOptionPane.WARNING_MESSAGE);
-	}
-	/*
-	 * WARNING MESSAGES FOR THE EDIT ITEM FORM
-	 */
-	public void warnEditItemFormErrors(ArrayList<String> errors){
+		else{
+			System.out.println("I am adding new category to dataBase: "+catFormEvent.getName());
+			Category c = new Category(catFormEvent.getName());
+			theModel.addNewCategory(c);
+			//update dataBase and other comboBoxes
 
-		String message = "Fix:\n"; //errors message for JOptionPane
-		//For each error in the list add the error to the message
-		for(String e: errors)
-		{
-			message+=e + "\n";
+			//update MainTainPanel
+			update();
 		}
-		JOptionPane.showMessageDialog(null,
-				message,
-				"Go away warning",
-				JOptionPane.WARNING_MESSAGE);
 	}
-	/*
-	 * WARNING MESSAGES FOR THE CREATE ACCOUNT FORM
-	 */
-	public void warnCreateAccountFormErrors(ArrayList<String> errors){
 
-		String message = "Fix:\n"; //errors message for JOptionPane
-		//For each error in the list add the error to the message
-		for(String e: errors)
-		{
-			message+=e + "\n";
-		}
-		JOptionPane.showMessageDialog(null,
-				message,
-				"Go away warning",
-				JOptionPane.WARNING_MESSAGE);
+	//MaintainPanel: populates all ComboBoxes:SelectCategory
+	public void update() {
+
+		//sets the model for all the category combo boxes in maintain panel
+		theView.getTabsPane().getMaintainPanel().setCategoryModels(theModel.getCategoryNames());	
 	}
 
 
-	/************************WORKER METHODS**********************************/
-	/********************** SETS   &   GETS *********************************/
 
-	//This method sets the values for the Account Type Combo Box on the Create Account Panel
-	public void addAccountTypeToComboBox(){
-		selectAccountTypeComboBox.addItem("Manager");
-		selectAccountTypeComboBox.addItem("User");
-	}
 
-	/*
-	 * ***************METHODS FOR GETTING GUI ITEMS********************
-	 * NEEDED BY THE CONTROLLER TO ACCESS THE DATA ENTERED BY THE USER
-	 * *********ALL GETTER METHODS SHOULD GO IN HERE ******************
-	 */
+
+
 	
-	//EDIT CATEGORY GETTER METHODS
-	public JComboBox<String> getFindCategoryComboBox() {
-		return findCategoryComboBox;
-	}
-	public JComboBox<String> getSelectCategoryToEditcomboBox() {
-		return selectCategoryToEditComboBox;
-	}
-	
-	//CREATE NEW SUBCATEGORY GETTER METHODS
-	public JComboBox<String> getSelectCategorycomboBox() {
-		return selectCategoryComboBox;
-	}
-	public String getEnterSubCatNameTF() {
-		return enterSubCatNameTF.getText();
-	}
 
 
-	//CREATE NEW ITEM PANEL GETTER METHODS
-	public JComboBox<String> getNewItemCategoryComboBox() {
-		return selectItemCategoryComboBox;
-	}
-	public JComboBox<String> getNewItemSubCatComboBox() {
-		return selectItemSubCatComboBox;
-	}
-	public String getEnterBrandTF() {
-		return enterBrandTF.getText();
-	}
-	public String getEnterModelTF() {
-		return enterModelTF.getText();
-	}
-	public String getEnterPriceTF() {
-		return enterPriceTF.getText();
-	}
-	public String getEnterStockLevelTF() {
-		return enterStockLevelTF.getText();
-	}
-	//EDIT EXISTING ITEM PANEL GETTER METHODS
-	public JComboBox<String> getItemToEditSubCatComboBox() {
-		return editSubCatComboBox;
-	}
-	public JComboBox<String> getItemToEditComboBox() {
-		return selectItemToEditComboBox;
-	}
-	public String getEditBrandTF() {
-		return editBrandTF.getText();
-	}
-	public String getEditModelTF() {
-		return editModelTF.getText();
-	}
-	public String getEditPriceTF() {
-		return editPriceTF.getText();
-	}
-	public JComboBox<String> getItemMoveSubCatComboBox() {
-		return changeSubCatComboBox;
-	}
-	//CREATE ACCOUNT PANEL GETTER METHODS
-	public String getEnterUsernameTF() {
-		return enterUsernameTF.getText();
-	}
-	public String getEnterPasswordTF() {
-		return enterPasswordTF.getText();
-	}
-	public String getConfirmPasswordTF() {
-		return confirmPasswordTF.getText();
-	}
-	public JComboBox<String> getSelectAccountTypeComboBox() {
-		return selectAccountTypeComboBox;
-	}
-	
-	/*
-	 * ************** METHODS FOR CLEARING FORMS *************************
-	 *  THERE IS A METHOD TO CLEAR GUI ITEMS FOR EVERY PANEL IN THIS CLASS
-	 *  ******* USED AT END OF EVERY BUTTON ACTION LISTENER **************
-	 *  ******************************************************************
-	 */
-	public void clearNewCategoryForm() {
-		enterCategoryNameTF.setText("");
-	}
-	public void clearEditCategoryForm(){
-		selectCategoryToEditComboBox.setSelectedItem(null);
-		editCategoryNameTF.setText("");
-	}
-	public void clearNewSubCatForm(){
-		selectCategoryComboBox.setSelectedItem(null);
-		enterSubCatNameTF.setText("");
-	}
-	public void clearEditSubCatForm(){
-		selectSubCatToEditComboBox.setSelectedItem(null);
-		editSubCatNameTF.setText("");
-	}
-	public void clearNewItemForm(){
-		selectItemCategoryComboBox.setSelectedItem(null);
-		selectItemSubCatComboBox.setSelectedItem(null);
-		enterBrandTF.setText("");
-		enterModelTF.setText("");
-		enterPriceTF.setText("");
-		enterStockLevelTF.setText("");		
-	}
-	public void clearEditItemForm(){
-		editSubCatComboBox.setSelectedItem(null);
-		selectItemToEditComboBox.setSelectedItem(null);
-		editBrandTF.setText("");
-		editModelTF.setText("");
-		editPriceTF.setText("");
-		changeSubCatComboBox.setSelectedItem(null);
-	}
-	public void clearNewAccountForm(){
-		enterUsernameTF.setText("");
-		enterPasswordTF.setText("");
-		confirmPasswordTF.setText("");
-		selectAccountTypeComboBox.setSelectedItem(null);
-	}
-	public void clearEditAccountForm(){
-		selectAccountToEditComboBox.setSelectedItem(null);
-		editUsernameTF.setText("");
-		editAccountTypeComboBox.setSelectedItem(null);
-		editAccountPasswordTF.setText("");
-		rdbtnEnableAccount.setSelected(false);
-		rdbtnDisableAccount.setSelected(false);
-	}
 }
+
