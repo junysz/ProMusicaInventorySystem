@@ -20,50 +20,49 @@ public class LoginListener implements ActionListener {
  * This action listener is only for login button!
  */
 	
-	private MainFrame mainView;
-	private MainModel mainModel;
-	private String usrName, usrPass;
+	private MainFrame theView;
+	private MainModel theModel;
+	private String usrName=new String(""), usrPass=new String("");
+	
 	public LoginListener(MainFrame v, MainModel m)
 	{
-		mainView = v;
-		mainModel = m;
+		theView = v;
+		theModel = m;
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		System.out.println("Action Performed...");
-		usrName = mainView.getLoginPanel().getUsernameFieldString();
-		usrPass = mainView.getLoginPanel().getPasswordFieldString();
+		usrName = theView.getUsernameLoginString();
+		usrPass = theView.getPasswordLoginString();
+		System.out.println("Logging in as: "+theView.getUsernameLoginString() + " with password: "+theView.getPasswordLoginString());
 		boolean valid = false;
 		
-		if(usrName.equals("") || usrName==null || usrPass.equals("") || usrPass==null)
+		if(usrName.equals("") || usrPass.equals(""))
 		{
-			JOptionPane.showMessageDialog(mainView, "One of th fields is empty! \nPlease try again.", "Error!", 0);
+			JOptionPane.showMessageDialog(theView, "One of th fields is empty! \nPlease try again.", "Error!", 0);
+			theView.displayLoginView(usrName);
 		}
 		else
 		{
-			for(int i = 0 ; i < mainModel.getAllAccounts().size() ; i++){
+			for(int i = 0 ; i < theModel.getAllAccounts().size() ; i++){
 				
 			
-				if(usrName.equals(mainModel.getAllAccounts().get(i).getAccountName())&&usrPass.equals(mainModel.getAllAccounts().get(i).getPassword()))
+				if(usrName.equals(theModel.getAllAccounts().get(i).getAccountName())&&usrPass.equals(theModel.getAllAccounts().get(i).getPassword()))
 				{
 	
-					JOptionPane.showMessageDialog(mainView, "Login Succesful!", "Succes", 1);
-					mainView.getLoginPanel().setVisible(false);
-					mainView.getTabsPane().setVisible(true);
+					JOptionPane.showMessageDialog(theView, "Login Succesful!", "Succes", 1);
+					theView.displayMainView();
 					valid = true;
 					
 				}
 			}
 			if(!valid)
 			{
-				JOptionPane.showMessageDialog(mainView, "One of the fields is invalid! \nPlease try again.", "Incorrect Information!", 0);
+				JOptionPane.showMessageDialog(theView, "One of the fields is invalid! \nPlease try again.", "Incorrect Information!", 0);
+				theView.displayLoginView(usrName);
 			}
 		}
 
-		mainView.getLoginPanel().setUserField(usrName);
-		mainView.getLoginPanel().setPassField("");
-		mainView.getLoginPanel().getUsernameField().selectAll();
-		mainView.getLoginPanel().getUsernameField().grabFocus();
 		
 	}
 	

@@ -47,6 +47,7 @@ public class Controller implements CategoryListener {
 		theView.getTabsPane().getMaintainPanel().addEditItemBtn(new ConfirmItemChangesBtn());
 		theView.getTabsPane().getMaintainPanel().addRemoveItemBtn(new RemoveItemBtn());
 		theView.getTabsPane().getMaintainPanel().addCreateAccountBtn(new CreateAccountBtn());
+		theView.addLoginListener(new LoginListener(theView, theModel));
 		
 
 		/********************************************/
