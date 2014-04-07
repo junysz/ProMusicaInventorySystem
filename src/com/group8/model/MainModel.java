@@ -21,7 +21,11 @@ import java.util.List;
  */
 public class MainModel {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	
+=======
+	TemporaryDataBaseClass someItems = new TemporaryDataBaseClass();
+>>>>>>> 1ee246f5f276ec73b8f9a86de848ba69caeb1518
 =======
 	TemporaryDataBaseClass someItems = new TemporaryDataBaseClass();
 >>>>>>> 1ee246f5f276ec73b8f9a86de848ba69caeb1518
@@ -108,7 +112,11 @@ public class MainModel {
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 /*	//queries methods
+=======
+	//queries methods
+>>>>>>> 1ee246f5f276ec73b8f9a86de848ba69caeb1518
 =======
 	//queries methods
 >>>>>>> 1ee246f5f276ec73b8f9a86de848ba69caeb1518
@@ -122,7 +130,11 @@ public class MainModel {
 		return someItems.getMeSomeSubCategories();
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
 */
+=======
+
+>>>>>>> 1ee246f5f276ec73b8f9a86de848ba69caeb1518
 =======
 
 >>>>>>> 1ee246f5f276ec73b8f9a86de848ba69caeb1518
@@ -148,6 +160,7 @@ public class MainModel {
 	public ArrayList<Account>  getAllAccounts()
 	{ return queries.getAllAccounts();
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 	}
 	public int getCategoryIdFromName(String name)
@@ -187,6 +200,19 @@ public class MainModel {
 		int id = queries.getSubCatIdByName(name);
 		return id;
 	}
+=======
+	}
+	public int getCategoryIdFromName(String name)
+	{
+		int id = queries.getCategoryIdByName(name);
+		return id;
+	}
+	public int getSubCatIdFromName(String name)
+	{
+		int id = queries.getSubCatIdByName(name);
+		return id;
+	}
+>>>>>>> 1ee246f5f276ec73b8f9a86de848ba69caeb1518
 	//This method will return an item using a string containing the brand and model separated by a space
 	public Item getItemByName(String itemName)
 	{
@@ -202,6 +228,9 @@ public class MainModel {
 	//return queries.getSalesByDate(date1, date2);
 
 	//}
+<<<<<<< HEAD
+>>>>>>> 1ee246f5f276ec73b8f9a86de848ba69caeb1518
+=======
 >>>>>>> 1ee246f5f276ec73b8f9a86de848ba69caeb1518
 
 }
