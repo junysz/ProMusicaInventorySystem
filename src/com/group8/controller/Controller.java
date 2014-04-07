@@ -484,7 +484,7 @@ public class Controller implements CategoryListener {
 		}
 		else if(flagExist){
 			theView.getTabsPane().getMaintainPanel().warnCategoryExist();
-			theView.getTabsPane().getMaintainPanel().clearCategoryTF();
+			theView.getTabsPane().getMaintainPanel().clearNewCategoryForm();
 		}
 		else{
 			System.out.println("I am adding new category to dataBase: "+catFormEvent.getName());
