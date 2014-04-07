@@ -39,7 +39,7 @@ public class MainModel {
 			}
 			String conURL="jdbc:mysql://localhost:3306/mydb";
 			//establish the connection when the MainModel is created
-			mainConnection = DriverManager.getConnection(conURL,"root","root");
+			mainConnection = DriverManager.getConnection(conURL,"root","");
 
 			inserts = new DataInserts(mainConnection);
 			queries = new DataQueries(mainConnection);
