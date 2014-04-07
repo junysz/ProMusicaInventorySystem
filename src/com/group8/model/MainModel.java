@@ -117,7 +117,10 @@ public class MainModel {
 	{
 		return queries.getCategoryNames();
 	}
-
+	public ArrayList<String>  getSubCategoryNames()
+	{
+		return queries.getSubCategoryNames();
+	}
 	public   ArrayList<String> getSubCategories(String catName)
 	{
 		return queries.getSubCategories(catName);

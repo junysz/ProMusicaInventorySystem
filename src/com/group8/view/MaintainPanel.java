@@ -112,105 +112,8 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		tabbedPane.setBorder(new EmptyBorder(10, 10, 10, 10));
 		add(tabbedPane, BorderLayout.CENTER);
 
-		MaintainAccountPanel = new JPanel();
-		tabbedPane.addTab("Maintan Accounts", null, MaintainAccountPanel, null);
-		MaintainAccountPanel.setLayout(new GridLayout(1, 2, 10, 10));
-
-		newAccountPanel = new JPanel();
-		MaintainAccountPanel.add(newAccountPanel);
-		newAccountPanel.setLayout(new MigLayout("", "[][][][grow]", "[][][][][][][]"));
-		//SET A TITLE BORDER FOR THE PANEL
-		newAccountPanel.setBorder(new TitledBorder("Create New Account"));
-
-		lblUserName = new JLabel("User Name");
-		newAccountPanel.add(lblUserName, "cell 1 1");
-
-		enterUsernameTF = new JTextField();
-		newAccountPanel.add(enterUsernameTF, "cell 3 1,growx");
-		enterUsernameTF.setColumns(10);
-
-		lblPassword = new JLabel("Password");
-		newAccountPanel.add(lblPassword, "cell 1 2");
-
-		enterPasswordTF = new JTextField();
-		newAccountPanel.add(enterPasswordTF, "cell 3 2,growx");
-		enterPasswordTF.setColumns(10);
-
-		lblConfirmPassword = new JLabel("Confirm Password");
-		newAccountPanel.add(lblConfirmPassword, "cell 1 3");
-
-		confirmPasswordTF = new JTextField();
-		newAccountPanel.add(confirmPasswordTF, "cell 3 3,growx");
-		confirmPasswordTF.setColumns(10);
-
-		lblSelectType = new JLabel("Select Type");
-		newAccountPanel.add(lblSelectType, "cell 1 4");
-
-		selectAccountTypeComboBox = new JComboBox();
-		newAccountPanel.add(selectAccountTypeComboBox, "cell 3 4,growx");
-
-		errorLabel1 = new JLabel();
-		errorLabel1.setForeground(Color.RED);
-		newAccountPanel.add(errorLabel1, "cell 3 5");
-		errorLabel1.setVisible(false);
-
-		btnCreateAccount = new JButton("Create Account");
-		newAccountPanel.add(btnCreateAccount, "cell 3 6");
-
-		editAccountPanel = new JPanel();
-		MaintainAccountPanel.add(editAccountPanel);
-		editAccountPanel.setLayout(new MigLayout("", "[][][][120.00,grow][grow]", "[][][][][][][][][][]"));
-		//SET A TITLE BORDER FOR THE PANEL
-		editAccountPanel.setBorder(new TitledBorder("Edit Existing Account"));
-
-		lblSelectAccount = new JLabel("Select Account");
-		editAccountPanel.add(lblSelectAccount, "cell 1 1");
-
-		selectAccountToEditComboBox = new JComboBox();
-		editAccountPanel.add(selectAccountToEditComboBox, "cell 3 1 2 1,growx");
-
-		lblUsername = new JLabel("Username");
-		editAccountPanel.add(lblUsername, "cell 1 2");
-
-		editUsernameTF = new JTextField();
-		editAccountPanel.add(editUsernameTF, "cell 3 2 2 1,growx");
-		editUsernameTF.setColumns(10);
-
-		lblSelectType_1 = new JLabel("Select Type");
-		editAccountPanel.add(lblSelectType_1, "cell 1 3");
-
-		editAccountTypeComboBox = new JComboBox();
-		editAccountPanel.add(editAccountTypeComboBox, "cell 3 3 2 1,growx");
-
 		//Create a Button Group for the Account status radio buttons
 		statusGroup = new ButtonGroup();
-
-		lblPassword_1 = new JLabel("Password");
-		editAccountPanel.add(lblPassword_1, "cell 1 4");
-
-		editAccountPasswordTF = new JTextField();
-		editAccountPanel.add(editAccountPasswordTF, "cell 3 4 2 1,growx");
-		editAccountPasswordTF.setColumns(10);
-
-		errorLabel2 = new JLabel("");
-		errorLabel2.setForeground(Color.RED);
-		editAccountPanel.add(errorLabel2, "cell 3 5 2 1");
-		errorLabel2.setVisible(false);
-
-		lblStatus = new JLabel("Status");
-		editAccountPanel.add(lblStatus, "cell 1 6");
-
-		rdbtnEnableAccount = new JRadioButton("Enabled");
-		editAccountPanel.add(rdbtnEnableAccount, "cell 3 6");
-		statusGroup.add(rdbtnEnableAccount);
-
-		rdbtnDisableAccount = new JRadioButton("Disabled");
-		editAccountPanel.add(rdbtnDisableAccount, "cell 4 6");
-		statusGroup.add(rdbtnDisableAccount);
-
-
-		btnConfirmChanges = new JButton("Confirm Changes");
-		editAccountPanel.add(btnConfirmChanges, "cell 3 8");
 
 		MaintainCategoriesPanel = new JPanel();
 		tabbedPane.addTab("Maintain Categories", null, MaintainCategoriesPanel, null);
@@ -455,6 +358,103 @@ public class MaintainPanel extends JPanel implements ActionListener {
 
 		btnRemoveItem = new JButton("Remove Item");
 		editItemPanel.add(btnRemoveItem, "cell 3 10,growx");
+		
+				MaintainAccountPanel = new JPanel();
+				tabbedPane.addTab("Maintan Accounts", null, MaintainAccountPanel, null);
+				MaintainAccountPanel.setLayout(new GridLayout(1, 2, 10, 10));
+				
+						newAccountPanel = new JPanel();
+						MaintainAccountPanel.add(newAccountPanel);
+						newAccountPanel.setLayout(new MigLayout("", "[][][][grow]", "[][][][][][][]"));
+						//SET A TITLE BORDER FOR THE PANEL
+						newAccountPanel.setBorder(new TitledBorder("Create New Account"));
+						
+								lblUserName = new JLabel("User Name");
+								newAccountPanel.add(lblUserName, "cell 1 1");
+								
+										enterUsernameTF = new JTextField();
+										newAccountPanel.add(enterUsernameTF, "cell 3 1,growx");
+										enterUsernameTF.setColumns(10);
+										
+												lblPassword = new JLabel("Password");
+												newAccountPanel.add(lblPassword, "cell 1 2");
+												
+														enterPasswordTF = new JTextField();
+														newAccountPanel.add(enterPasswordTF, "cell 3 2,growx");
+														enterPasswordTF.setColumns(10);
+														
+																lblConfirmPassword = new JLabel("Confirm Password");
+																newAccountPanel.add(lblConfirmPassword, "cell 1 3");
+																
+																		confirmPasswordTF = new JTextField();
+																		newAccountPanel.add(confirmPasswordTF, "cell 3 3,growx");
+																		confirmPasswordTF.setColumns(10);
+																		
+																				lblSelectType = new JLabel("Select Type");
+																				newAccountPanel.add(lblSelectType, "cell 1 4");
+																				
+																						selectAccountTypeComboBox = new JComboBox();
+																						newAccountPanel.add(selectAccountTypeComboBox, "cell 3 4,growx");
+																						
+																								errorLabel1 = new JLabel();
+																								errorLabel1.setForeground(Color.RED);
+																								newAccountPanel.add(errorLabel1, "cell 3 5");
+																								errorLabel1.setVisible(false);
+																								
+																										btnCreateAccount = new JButton("Create Account");
+																										newAccountPanel.add(btnCreateAccount, "cell 3 6");
+																										
+																												editAccountPanel = new JPanel();
+																												MaintainAccountPanel.add(editAccountPanel);
+																												editAccountPanel.setLayout(new MigLayout("", "[][][][120.00,grow][grow]", "[][][][][][][][][][]"));
+																												//SET A TITLE BORDER FOR THE PANEL
+																												editAccountPanel.setBorder(new TitledBorder("Edit Existing Account"));
+																												
+																														lblSelectAccount = new JLabel("Select Account");
+																														editAccountPanel.add(lblSelectAccount, "cell 1 1");
+																														
+																																selectAccountToEditComboBox = new JComboBox();
+																																editAccountPanel.add(selectAccountToEditComboBox, "cell 3 1 2 1,growx");
+																																
+																																		lblUsername = new JLabel("Username");
+																																		editAccountPanel.add(lblUsername, "cell 1 2");
+																																		
+																																				editUsernameTF = new JTextField();
+																																				editAccountPanel.add(editUsernameTF, "cell 3 2 2 1,growx");
+																																				editUsernameTF.setColumns(10);
+																																				
+																																						lblSelectType_1 = new JLabel("Select Type");
+																																						editAccountPanel.add(lblSelectType_1, "cell 1 3");
+																																						
+																																								editAccountTypeComboBox = new JComboBox();
+																																								editAccountPanel.add(editAccountTypeComboBox, "cell 3 3 2 1,growx");
+																																								
+																																										lblPassword_1 = new JLabel("Password");
+																																										editAccountPanel.add(lblPassword_1, "cell 1 4");
+																																										
+																																												editAccountPasswordTF = new JTextField();
+																																												editAccountPanel.add(editAccountPasswordTF, "cell 3 4 2 1,growx");
+																																												editAccountPasswordTF.setColumns(10);
+																																												
+																																														errorLabel2 = new JLabel("");
+																																														errorLabel2.setForeground(Color.RED);
+																																														editAccountPanel.add(errorLabel2, "cell 3 5 2 1");
+																																														errorLabel2.setVisible(false);
+																																														
+																																																lblStatus = new JLabel("Status");
+																																																editAccountPanel.add(lblStatus, "cell 1 6");
+																																																
+																																																		rdbtnEnableAccount = new JRadioButton("Enabled");
+																																																		editAccountPanel.add(rdbtnEnableAccount, "cell 3 6");
+																																																		statusGroup.add(rdbtnEnableAccount);
+																																																		
+																																																				rdbtnDisableAccount = new JRadioButton("Disabled");
+																																																				editAccountPanel.add(rdbtnDisableAccount, "cell 4 6");
+																																																				statusGroup.add(rdbtnDisableAccount);
+																																																				
+																																																				
+																																																						btnConfirmChanges = new JButton("Confirm Changes");
+																																																						editAccountPanel.add(btnConfirmChanges, "cell 3 8");
 
 
 
@@ -773,15 +773,15 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		enterCategoryNameTF.setText("");
 	}
 	public void clearEditCategoryForm(){
-		selectCategoryToEditComboBox.setSelectedItem(null);
+		selectCategoryToEditComboBox.setSelectedIndex(0);
 		editCategoryNameTF.setText("");
 	}
 	public void clearNewSubCatForm(){
-		selectCategoryComboBox.setSelectedItem(null);
+		selectCategoryComboBox.setSelectedIndex(0);
 		enterSubCatNameTF.setText("");
 	}
 	public void clearEditSubCatForm(){
-		selectSubCatToEditComboBox.setSelectedItem(null);
+		selectSubCatToEditComboBox.setSelectedIndex(0);
 		editSubCatNameTF.setText("");
 	}
 	public void clearNewItemForm(){

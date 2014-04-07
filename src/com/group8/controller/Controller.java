@@ -180,6 +180,7 @@ public class Controller implements CategoryListener {
 		public void actionPerformed(ActionEvent e) {
 			String categorySelection=null;
 			String subCatTF=null;
+			boolean nameExists = false; //used to see if the name already exists
 			try{
 				categorySelection=theView.getTabsPane().getMaintainPanel().getSelectCategorycomboBox().getSelectedItem().toString();
 				subCatTF= theView.getTabsPane().getMaintainPanel().getEnterSubCatNameTF();
@@ -187,6 +188,7 @@ public class Controller implements CategoryListener {
 				System.out.println("Problem reading data from Create SubCategory Form");
 				//oldWarningHandeler --- theView.getTabsPane().getMaintainPanel().warnCategoryNull();
 			}
+			
 			ArrayList<String> errorMessages = new ArrayList<String>();
 			if(categorySelection==null){
 				errorMessages.add("CategorySelction");
@@ -194,6 +196,22 @@ public class Controller implements CategoryListener {
 			}
 			if(subCatTF.isEmpty()){
 				errorMessages.add("SubCategory Name");
+			}
+			//now that we know they have selected a category entered a subCatname we need to see if it already exists
+			else{
+				ArrayList<String>listSubCategories= new ArrayList<>();
+				listSubCategories=theModel.getSubCategoryNames();
+				for(String copmapareSubCat: listSubCategories){
+
+					if(copmapareSubCat.equalsIgnoreCase(subCatTF)){
+						nameExists=true;
+						break;
+					}
+
+				}
+			}
+			if(nameExists){
+				errorMessages.add("Sub Category Name already Exists");
 			}
 			//else we can go ahead and make sub category
 			if(errorMessages.isEmpty()){
@@ -519,14 +537,6 @@ public class Controller implements CategoryListener {
 		//sets the model for all the category combo boxes in maintain panel
 		theView.getTabsPane().getMaintainPanel().setCategoryModels(theModel.getCategoryNames());	
 	}
-
-
-
-
-
-
-	
-
 
 }
 
