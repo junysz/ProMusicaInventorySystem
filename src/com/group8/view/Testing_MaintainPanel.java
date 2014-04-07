@@ -45,10 +45,6 @@ public class Testing_MaintainPanel extends JFrame {
 		maintainPanel.setCategoryListenr(categoryListenr);
 	}
 
-	public void setAccountListener(AccountListner accountListener) {
-		maintainPanel.setAccountListener(accountListener);
-	}
-
 	
 	
 	public ReservationPanel getReservationPanel()

@@ -1,9 +1,13 @@
 package com.group8.model;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.DriverManager;
 import java.util.ArrayList;
+
+import java.util.List;
+
 
 /*
  * This class is responsible for the entire model package. 
@@ -16,7 +20,11 @@ import java.util.ArrayList;
  * Each of these instances use a reference to the same connection established here in the Constructor.
  */
 public class MainModel {
-
+<<<<<<< HEAD
+	
+=======
+	TemporaryDataBaseClass someItems = new TemporaryDataBaseClass();
+>>>>>>> 1ee246f5f276ec73b8f9a86de848ba69caeb1518
 	private Connection mainConnection; //this holds the database connection when the class is created
 	private DataInserts inserts;
 	private DataQueries queries;
@@ -26,15 +34,24 @@ public class MainModel {
 	public MainModel()
 	{
 		try
-		{
+		{ 
+
+			try {
+				Class.forName("com.mysql.jdbc.Driver");
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+				System.out.println("Driver not found");
+			}
+			String conURL="jdbc:mysql://localhost:3306/mydb";
 			//establish the connection when the MainModel is created
-			mainConnection = DriverManager.getConnection("URL");
-			
+			mainConnection = DriverManager.getConnection(conURL,"root","");
+
 			inserts = new DataInserts(mainConnection);
 			queries = new DataQueries(mainConnection);
 			updates = new DataUpdates(mainConnection);
 
 		}
+
 		catch(SQLException e)
 		{
 			e.printStackTrace();
@@ -74,44 +91,119 @@ public class MainModel {
 	{
 		inserts.insertNewAccount(a);
 	}
-	
+
+
 	//update methods
-	
 	public void updateCategory(String name,String newName)
 	{
 		updates.updateCategory(name,newName);
 	}
-	
+	public void updateItem(Item i, int subCatID)
+	{
+		updates.updateItem(i, subCatID);
+	}
+	public void removeItem(Item i){
+		updates.removeItem(i);
+	}
+
+
+<<<<<<< HEAD
+/*	//queries methods
+=======
 	//queries methods
-	
+>>>>>>> 1ee246f5f276ec73b8f9a86de848ba69caeb1518
+	public List<Item> getMeSomeItems(){
+		return someItems.getMeSomeItems();
+	}
+	public List<String>getMySomeCategories(){
+		return someItems.getMeSomeCategories();
+	}
+	public List<String>getMeSomeSubCategories(){
+		return someItems.getMeSomeSubCategories();
+	}
+<<<<<<< HEAD
+*/
+=======
+
+>>>>>>> 1ee246f5f276ec73b8f9a86de848ba69caeb1518
 	public ArrayList<String>  getCategoryNames()
 	{
-	return queries.getCategoryNames();
+		return queries.getCategoryNames();
 	}
-	
+
 	public   ArrayList<String> getSubCategories(String catName)
 	{
-	return queries.getSubCategories(catName);
-		
+		return queries.getSubCategories(catName);
+
 	}
 	public ArrayList<Item>  getItemsInSubcategory(String subCatName)
 	{
-	  return queries.getItemsInSubcategory(subCatName);
+		return queries.getItemsInSubcategory(subCatName);
 	}
-	
+
 	public ArrayList<Item>  getItemsByKeyword(String keyword)
 	{ 
 		return queries.getItemsByKeyword(keyword);
 	}
 	public ArrayList<Account>  getAllAccounts()
 	{ return queries.getAllAccounts();
-	
+
+<<<<<<< HEAD
 	}
-	public ArrayList<Sale>  getSalesByDate(Date date1,Date date2)
+	public int getCategoryIdFromName(String name)
 	{
-	return queries.getSalesByDate(date1, date2);
-    
+		int id = queries.getCategoryIdByName(name);
+		return id;
 	}
+	public int getSubCatIdFromName(String name)
+	{
+		int id = queries.getSubCatIdByName(name);
+		return id;
+	}
+	//This method will return an item using a string containing the brand and model separated by a space
+	public Item getItemByName(String itemName)
+	{
+		int space =itemName.indexOf(" ");
+		String brand = itemName.substring(0, space); //gets brand from the first part of the string up to 1 before the space
+		String model = itemName.substring(space).replace(" ", ""); //gets the model from the space to the end of the string and strips off the space after
+		Item i = queries.getItemByName(brand, model); //gets item based on brand and model
+		return i; //returns the item
+		
+=======
+>>>>>>> 1ee246f5f276ec73b8f9a86de848ba69caeb1518
+	}
+	public int getCategoryIdFromName(String name)
+	{
+<<<<<<< HEAD
+	return queries.getSalesByDate(date1, date2);
+
+}
+=======
+		int id = queries.getCategoryIdByName(name);
+		return id;
+	}
+	public int getSubCatIdFromName(String name)
+	{
+		int id = queries.getSubCatIdByName(name);
+		return id;
+	}
+	//This method will return an item using a string containing the brand and model separated by a space
+	public Item getItemByName(String itemName)
+	{
+		int space =itemName.indexOf(" ");
+		String brand = itemName.substring(0, space); //gets brand from the first part of the string up to 1 before the space
+		String model = itemName.substring(space).replace(" ", ""); //gets the model from the space to the end of the string and strips off the space after
+		Item i = queries.getItemByName(brand, model); //gets item based on brand and model
+		return i; //returns the item
+		
+	}
+	//public ArrayList<Sale>  getSalesByDate(Date date1,Date date2)
+	//{
+	//return queries.getSalesByDate(date1, date2);
+
+	//}
+>>>>>>> 1ee246f5f276ec73b8f9a86de848ba69caeb1518
+
 }
 
 

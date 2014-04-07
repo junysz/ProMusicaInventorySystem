@@ -24,7 +24,7 @@ public class MainFrame extends JFrame
 	private JMenu mnFile;
 	private JMenu mnHelp;
 	private TabsPane tabbedPane;
-	private StockBrowserPanel stockBrowsingPanel;
+	//private StockBrowserPanel stockBrowsingPanel;
 	private JMenu mnManageStock;
 	private JMenuItem mntmLogOut;
 	private JMenuItem mntmExit;
@@ -116,11 +116,25 @@ public class MainFrame extends JFrame
 	{
 		return loginPanel;
 	}
-	public StockBrowserPanel getStockBrowsingPanel()
-	{
-		return stockBrowsingPanel;
-	}
+	
 	
 
 
+	
+	
+	
+	
+	
+	
+	
+	//this will accept any object that implements CategoryListener 
+		//this is going to be class form controller packet
+		public void setCategoryListener(CategoryListener categoryListenr){
+			System.out.println("I will accept any object that implemnts CategoryListener Class:Testing_MaintainPanel");
+			tabbedPane.setCategoryListenr(categoryListenr);
+			
+		}
+		
+		
+		
 }
