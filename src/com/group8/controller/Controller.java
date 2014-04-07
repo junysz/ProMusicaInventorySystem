@@ -207,6 +207,7 @@ public class Controller implements CategoryListener {
 				theModel.addNewSubCategory(c,s);
 				//Testing Prints
 				System.out.println("Test if works: CategoryName: "+ c.getCategoryName()+"\n SubCategoryName: "+s.getSubCatName());
+				//Now that data processing is complete, clear the GUI form
 				theView.getTabsPane().getMaintainPanel().clearNewSubCatForm();
 			}
 			else{
@@ -265,7 +266,9 @@ public class Controller implements CategoryListener {
 				theModel.addNewItem(i,s);
 				//Testing Prints
 				System.out.println("Test if works: ItemName: "+ i.getBrand()+" " +i.getModel() +"\n Price: "+i.getPrice());
+				//Now that data processing is complete, clear the GUI form
 				theView.getTabsPane().getMaintainPanel().clearNewItemForm();
+				
 			}
 			//Now handle the error Messages if there was any by sending the errors list to the view to be displayed
 			else{
@@ -338,6 +341,7 @@ public class Controller implements CategoryListener {
 				theModel.updateItem(item, itemSubCatID);
 				//Testing Prints
 				System.out.println();
+				//Now that data processing is complete, clear the GUI form
 				theView.getTabsPane().getMaintainPanel().clearEditItemForm();
 			}
 			//Now handle the error Messages if there was any by sending the errors list to the view to be displayed
@@ -368,6 +372,7 @@ public class Controller implements CategoryListener {
 					Item item = theModel.getItemByName(itemSelection);
 					theModel.removeItem(item);
 					System.out.println("Remove Item successful");
+					//Now that data processing is complete, clear the GUI form
 					theView.getTabsPane().getMaintainPanel().clearEditItemForm();
 				}
 				else{
@@ -418,6 +423,7 @@ public class Controller implements CategoryListener {
 				
 				theModel.addNewAccount(a);
 				System.out.println("Account Added successful");
+				//Now that data processing is complete, clear the GUI form
 				theView.getTabsPane().getMaintainPanel().clearNewAccountForm();
 			}
 			else{
@@ -510,26 +516,16 @@ public class Controller implements CategoryListener {
 	//MaintainPanel: populates all ComboBoxes:SelectCategory
 	public void update() {
 
-		//sets the mode lfor all the category combo boxes in maintain panel
+		//sets the model for all the category combo boxes in maintain panel
 		theView.getTabsPane().getMaintainPanel().setCategoryModels(theModel.getCategoryNames());	
 	}
-	/**************************************END COMBO-BOXES**********************************/
-	/***************************************************************************************/
 
 
 
 
 
 
-
-	/**************************NOT WORKING NOW UNTIL MAINTAN CATEGORY FINISHED***************/
-	/***************************ACCOUNT STUFF************************************************/
-	/***************************************************************************************/
-	/*
-	 * Implementation of AccountListener passes account from view 
-	 */
-
-	/****************************END********************************************************/
+	
 
 
 }
