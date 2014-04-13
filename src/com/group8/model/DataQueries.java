@@ -42,7 +42,31 @@ public class DataQueries {
 			return null;
 		}  
 	}
+	//This method is responsible for getting all the SubCategory NAMES into a list
+	public ArrayList<String>  getSubCategoryNames()
+	{
 
+		try {
+
+			String query = "Select * from SubCategory";  //create a new query ,getting all fields
+			pstmt = con.prepareStatement(query);
+
+			ResultSet rs =  pstmt.executeQuery(query); //create a new result set
+			ArrayList<String> subCatNames = new ArrayList<String>();  //declaring an array list of type String
+			while (rs.next()) 
+			{
+				String name = rs.getString("subCatName");   //get name from result set for the category
+				subCatNames.add(name);                           //add name to the list     
+			}      
+
+			rs.close(); //close result set
+			pstmt.close(); //close prepared statement
+			return subCatNames;
+		}
+		catch (Exception io) {
+			return null;
+		}  
+	}
 
 	//this method is responsible for returning an array LIST of NAMES sub-categories that are within a given Category name
 	public ArrayList<String> getSubCategories(String catName)
@@ -265,7 +289,7 @@ public class DataQueries {
 	}
 	//pass the subCat name to get back the subCatID
 	protected int getSubCatIdByName(String subCatName) {
-	
+
 		try{
 			String query = "Select subCatID From subcategory where subCatName = ? ";
 			pstmt = con.prepareStatement(query);
@@ -284,7 +308,7 @@ public class DataQueries {
 			return (Integer) null;
 		}
 	}
-	
+
 	//pass this method the brand and model strings to get back the item
 	protected Item getItemByName(String brand, String model)
 	{
