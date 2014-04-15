@@ -24,14 +24,17 @@ public class Controller implements CategoryListener {
 		this.theModel=theModel;
 
 
+		//LOGIN LISTENER
+		theView.addLoginListener(new LoginListener(theView, theModel));
+		
 		/******Maintain Categories Panel**************/
 
 		//Adds Category To DataBase when btn clicked
 		theView.setCategoryListener(this);
 		//button confirms editing Category
-		theView.getTabsPane().getMaintainPanel().addbtnConfirmChanges_2Listener(new ConfirmChanges_2Listener());
+		theView.getTabsPane().getMaintainPanel().addEditCategoryBtn(new ConfirmCategoryChangesListener());
 
-
+	
 
 		//Adding Listeners to Combo-boxes to trigger item selections
 		//Create SubCat Panel
@@ -53,7 +56,9 @@ public class Controller implements CategoryListener {
 		theView.getTabsPane().getMaintainPanel().addEditItemBtn(new ConfirmItemChangesBtn());
 		theView.getTabsPane().getMaintainPanel().addRemoveItemBtn(new RemoveItemBtn());
 		theView.getTabsPane().getMaintainPanel().addCreateAccountBtn(new CreateAccountBtn());
-		theView.addLoginListener(new LoginListener(theView, theModel));
+		
+		
+		
 
 		/********************************************/
 
@@ -146,12 +151,9 @@ public class Controller implements CategoryListener {
 
 
 
-	/***************************************************************************************/
-	/*****************?????????????START COMBO-BOXES MAINTAIN_PANEL??????????*****************************/
-	/***************************************************************************************/
 
 	//Updates Category that has been edited by the user
-	class ConfirmChanges_2Listener implements ActionListener{
+	class ConfirmCategoryChangesListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String categoryEdited=theView.getTabsPane().getMaintainPanel().getEditCategoryNameTF().getText();
@@ -166,7 +168,7 @@ public class Controller implements CategoryListener {
 
 	/*
 	 * *********** INNER CLASSES TO LISTEN TO BUTTONS ON THE MAINTAIN PANEL ********************
-	 * ALL THESE CLASSES HANDLE THE EVENTS WHEN A BUTTON IS CLICKEDON A FORM FROM MAINTAIN PANEL
+	 * ALL THESE CLASSES HANDLE THE EVENTS WHEN A BUTTON IS CLICKED ON A FORM FROM MAINTAIN PANEL
 	 * ******************************************************************************************
 	 */
 
@@ -450,6 +452,13 @@ public class Controller implements CategoryListener {
 		}
 	}
 
+	/*
+	 * *********** INNER CLASSES TO LISTEN TO COMBO BOXES ON THE MAINTAIN PANEL **********************
+	 * ALL THESE CLASSES HANDLE THE EVENTS WHEN SELECTIONS ARE MADE ON COMBO BOXES FROM MAINTAIN PANEL
+	 * ***********************************************************************************************
+	 */
+	
+	
 	//Inner Class Responsible for listening to the Select Category Combo Box on the Create SubCategory Panel
 	class SelectCategoryForSubCatComboBoxListener implements ActionListener{
 		@Override

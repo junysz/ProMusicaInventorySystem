@@ -516,6 +516,10 @@ public class MaintainPanel extends JPanel implements ActionListener {
 
 
 	//Creating the BUTTON LISTENERS:
+	public void addEditCategoryBtn(ActionListener listen){
+		btnConfirmChanges_2.addActionListener(listen);
+	}
+	
 	//Creates the Add New SubCategory Button Listener
 	public void addCreateSubCategoryBtn(ActionListener listen){
 		btnCreateSubcategory.addActionListener(listen);
@@ -557,22 +561,22 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		editCategoryComboBox.setModel(categoryComboBoxModel);
 
 	}
-	/*
-	 * I want to get strings from selected comboBoxes
-	 * This will tell me when combo-boxes has been clicked and 
-	 * Give me String form particular combo-box
-	 */
+	//COMBO BOX LISTENERS FOR MAINTAIN PANEL
+	//Create SUBCAT Panel
 	public void addSelectCategoryForSubCatComboBoxListener(ActionListener listen){
 		selectCategoryForSubCatComboBox.addActionListener(listen);
 	}
+	//EDIT CATEGORY PANEL
 	public void addselectCategoryToEditcomboBoxListener(ActionListener listen){
 		selectCategoryToEditComboBox.addActionListener(listen);
 	}
+	//CREATE SUBCAT PANEL
 	public void addfindCatForSubCatToEditComboBoxListener(ActionListener listen){
 		findCatForSubCatToEditComboBox.addActionListener(listen);
 	}
-	public void addbtnConfirmChanges_2Listener(ActionListener listen){
-		btnConfirmChanges_2.addActionListener(listen);
+	//EDIT ITEM PANEL - Picks SubCat for Items to be display
+	public void addFindItemsInSubCatListener(ActionListener listen){
+		editSubCatComboBox.addActionListener(listen);
 	}
 
 
