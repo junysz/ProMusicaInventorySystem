@@ -17,7 +17,7 @@ public class LoginPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 3568249935233716447L;
 	private JTextField usrNameTF;
-	JButton btnLogin;
+	private JButton btnLogin;
 	private JPasswordField usrPassPF;
 	private JLabel lblUsername;
 	private JLabel lblPassword;

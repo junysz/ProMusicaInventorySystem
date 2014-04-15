@@ -42,7 +42,31 @@ public class DataQueries {
 			return null;
 		}  
 	}
+	//This method is responsible for getting all the SubCategory NAMES into a list
+	public ArrayList<String>  getSubCategoryNames()
+	{
 
+		try {
+
+			String query = "Select * from SubCategory";  //create a new query ,getting all fields
+			pstmt = con.prepareStatement(query);
+
+			ResultSet rs =  pstmt.executeQuery(query); //create a new result set
+			ArrayList<String> subCatNames = new ArrayList<String>();  //declaring an array list of type String
+			while (rs.next()) 
+			{
+				String name = rs.getString("subCatName");   //get name from result set for the category
+				subCatNames.add(name);                           //add name to the list     
+			}      
+
+			rs.close(); //close result set
+			pstmt.close(); //close prepared statement
+			return subCatNames;
+		}
+		catch (Exception io) {
+			return null;
+		}  
+	}
 
 	//this method is responsible for returning an array LIST of NAMES sub-categories that are within a given Category name
 	public ArrayList<String> getSubCategories(String catName)
@@ -85,20 +109,20 @@ public class DataQueries {
 	}
 
 
-	// Method to get Objects Items in a given subcategory 				
+	// Method to get Objects Items in a given subCategory 				
 	public ArrayList<Item>  getItemsInSubcategory(String subCatName)
 	{
 		Item item;
 		try {
 
-			ArrayList<Item> listItems = new ArrayList<Item>(); // new arraylist of type Item
+			ArrayList<Item> listItems = new ArrayList<Item>(); // new arrayList of type Item
 
-			//create a new query based on subcategory Name
-			//query structure for requesting a subCategoryID from any subcategory name that is passed
+			//create a new query based on subCategory Name
+			//query structure for requesting a subCategoryID from any subCategory name that is passed
 			String query = "Select SubCategoryID From SubCategory where subCatName = ? ";
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1,subCatName); //sets the SubcategoryName for the statement query
-			ResultSet rs = pstmt.executeQuery(); //executes query and puts the subcategory ID into rs
+			ResultSet rs = pstmt.executeQuery(); //executes query and puts the subCategory ID into rs
 			int subCatID = 0; //initialize the variable to hold the catID we get back from DB
 			while( rs.next()) { 
 				subCatID = rs.getInt("subCatID");	// sets the cat ID  
@@ -121,7 +145,7 @@ public class DataQueries {
 				String model = rs2.getString("itemModel");   //get attributes for the item from result set 2
 				int level    = rs2.getInt("stockLevel");
 				int level2   = rs2.getInt("availableStockLevel");
-				boolean flag=rs2.getBoolean("itemFlag");
+				boolean flag=rs2.getBoolean("flag");
 
 				item=new Item(brand,model,level,price,level2);//creating a new object with some of the attributes
 				item.setFlag(flag);   //set flag for the item
@@ -191,9 +215,9 @@ public class DataQueries {
 			{
 				Integer    id   = rs.getInt("accountID");	
 				String username = rs.getString("accountName");         
-				String password = rs.getString("accountPassword");  //get attributes from Account table
+				String password = rs.getString("password");  //get attributes from Account table
 				String type     = rs.getString("accountType");
-				boolean flag   =rs.getBoolean("accountFlag"); 
+				boolean flag   =rs.getBoolean("flag"); 
 
 				account=new Account(type,username,password);//create a new object account
 				account.setAccountID(id);
@@ -211,7 +235,7 @@ public class DataQueries {
 		}  
 	}
 
-public ArrayList<Sale>  getSalesByDate(Date date1,Date date2)
+	public ArrayList<Sale>  getSalesByDate(Date date1,Date date2)
 	{
 		Sale sale;
 		try {
@@ -229,7 +253,7 @@ public ArrayList<Sale>  getSalesByDate(Date date1,Date date2)
 				Date saleDate  =rs.getDate("saleDate");	
 				double price = rs.getDouble("totalSalePrice");                    
 				int accountID =rs.getInt("accountID");
-			
+
 				sale=new Sale(SaleID,saleDate,price,accountID); //create new object sale
 				listSales.add(sale);       //add the Sale to a list
 			}      
@@ -242,6 +266,79 @@ public ArrayList<Sale>  getSalesByDate(Date date1,Date date2)
 		}  
 	}
 
+	//pass the category name to get back the category id
+	protected int getCategoryIdByName(String catName)
+	{
+		try{
+			String query = "Select categoryID From Category where categoryName = ? ";
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1,catName); //sets the categoryName for the statement query
+			ResultSet rs = pstmt.executeQuery(); //executes query and puts the category ID into rs
+			int catID = 0; //initialize the variable to hold the catID we get back from DB
+			while( rs.next()) { 
+				catID = rs.getInt("categoryID");	// sets the cat ID  
+			}
+			rs.close(); //close result set
+			pstmt.close(); //close prepared statement
+			return catID;
+		}
+		catch(Exception e)
+		{
+			return (Integer) null;
+		}
+	}
+	//pass the subCat name to get back the subCatID
+	protected int getSubCatIdByName(String subCatName) {
+
+		try{
+			String query = "Select subCatID From subcategory where subCatName = ? ";
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1,subCatName); //sets the subCategoryName for the statement query
+			ResultSet rs = pstmt.executeQuery(); //executes query and puts the SubCategory ID into rs
+			int subCatID = 0; //initialize the variable to hold the catID we get back from DB
+			while( rs.next()) { 
+				subCatID = rs.getInt("subCatID");	// sets the subCat ID  
+			}
+			rs.close(); //close result set
+			pstmt.close(); //close prepared statement
+			return subCatID;
+		}
+		catch(Exception e)
+		{
+			return (Integer) null;
+		}
+	}
+
+	//pass this method the brand and model strings to get back the item
+	protected Item getItemByName(String brand, String model)
+	{
+		try{
+			String query = "Select * From item where itemBrand = ? and itemModel = ? ";
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1,brand); //sets the itemBrand for the statement query
+			pstmt.setString(2,model); //sets the itemModel for the statement query
+			ResultSet rs = pstmt.executeQuery(); //executes query and puts the Item Table Data into rs
+			Item item = new Item();
+			while( rs.next()) { 
+				int id   = rs.getInt("itemID");	
+				double price = rs.getDouble("itemPrice");         
+				String itemBrand = rs.getString("itemBrand");  //get attributes from Account table
+				String itemModel = rs.getString("itemModel");
+				int level = rs.getInt("stockLevel");
+				int level2 = rs.getInt("availableStockLevel");
+				boolean flag   =rs.getBoolean("flag"); 
+
+				item=new Item(id,price,itemBrand,itemModel,level,level2, flag); //create new object item
+			}
+			rs.close(); //close result set
+			pstmt.close(); //close prepared statement
+			return item;
+		}
+		catch(Exception e)
+		{
+			return null;
+		}
+	}
 }
 
 
