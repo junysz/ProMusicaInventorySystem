@@ -1,10 +1,7 @@
 package com.group8.model;
 import java.sql.*;
 import java.util.ArrayList;
-<<<<<<< HEAD
-=======
-import java.util.Collection;
->>>>>>> PawelMerge
+
 import java.util.Collections;
 
 
@@ -41,11 +38,9 @@ public class DataQueries {
 
 			rs.close(); //close result set
 			pstmt.close(); //close prepared statement
-<<<<<<< HEAD
+
 			Collections.sort (catNames);
-=======
-			Collections.sort(catNames);
->>>>>>> PawelMerge
+
 			return catNames;
 		}
 		catch (Exception io) {
@@ -111,11 +106,9 @@ public class DataQueries {
 
 			rs2.close(); //close result set 2
 			pstmt2.close(); //close prepared statement
-<<<<<<< HEAD
+
 			Collections.sort (listNames);
-=======
-			Collections.sort(listNames);
->>>>>>> PawelMerge
+
 			return listNames;
 		}
 		catch (Exception io) {
