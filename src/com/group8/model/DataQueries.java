@@ -1,13 +1,14 @@
 package com.group8.model;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 public class DataQueries {
 
 	Connection con;
 	Statement statement;
-	PreparedStatement pstmt;
+	PreparedStatement pstmt,pstmt2;
 
 	public DataQueries(Connection connection)
 	{
@@ -36,6 +37,7 @@ public class DataQueries {
 
 			rs.close(); //close result set
 			pstmt.close(); //close prepared statement
+			Collections.sort (catNames);
 			return catNames;
 		}
 		catch (Exception io) {
@@ -87,19 +89,20 @@ public class DataQueries {
 
 			//now we can run another query because we have the foreign key for SubCategory table
 			String query2 = "Select subCatName From SubCategory where categoryID = ? ";
-			pstmt = con.prepareStatement(query2);
-			pstmt.setInt(1,catID); //sets the categoryID for the statement query
-			ResultSet rs2 =  pstmt.executeQuery(query2);
+			pstmt2 = con.prepareStatement(query2);
+			pstmt2.setInt(1,catID); //sets the categoryID for the statement query
+			ResultSet rs2 =  pstmt2.executeQuery();
 
 			while (rs2.next()) 
 			{
-				String name = rs2.getString("subCategoryName");
+				String name = rs2.getString("subCatName");
 				listNames.add(name);   //add newly created object item to the list to be returned
 
 			}      
 
 			rs2.close(); //close result set 2
-			pstmt.close(); //close prepared statement
+			pstmt2.close(); //close prepared statement
+			Collections.sort (listNames);
 			return listNames;
 		}
 		catch (Exception io) {
