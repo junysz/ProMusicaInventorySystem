@@ -121,6 +121,8 @@ public class MainModel {
 	{
 		return queries.getSubCategoryNames();
 	}
+	
+	//get me all sub-cat for category chosen 
 	public   ArrayList<String> getSubCategories(String catName)
 	{
 		return queries.getSubCategories(catName);
@@ -139,6 +141,10 @@ public class MainModel {
 	{ return queries.getAllAccounts();
 
 	}
+	
+	
+	
+	
 	public int getCategoryIdFromName(String name)
 	{
 		int id = queries.getCategoryIdByName(name);

@@ -38,7 +38,7 @@ public class Controller implements CategoryListener {
 
 		//Adding Listeners to Combo-boxes to trigger item selections
 		//Create SubCat Panel
-		theView.getTabsPane().getMaintainPanel().addSelectCategoryForSubCatComboBoxListener(new SelectCategoryForSubCatComboBoxListener());
+		theView.getTabsPane().getMaintainPanel().addSelectCategoryForSubCatComboBoxListener(new SelectCategoryForSubCatComboBoxListener());      ///WE CAN REMOVE IT IF NOT NEDDED
 		//Edit SubCat Pane;
 		theView.getTabsPane().getMaintainPanel().addfindCatForSubCatToEditComboBoxListener(new FindCatForSubCatToEditComboBoxListener());
 
@@ -216,6 +216,7 @@ public class Controller implements CategoryListener {
 			if(errorMessages.isEmpty()){
 				//first we get the category id based on the name that was selected
 				int catID = theModel.getCategoryIdFromName(categorySelection);
+				System.out.println("TESTING CATID: "+catID);
 				//then we create the Category Object to pass to the model
 				Category c = new Category(catID, categorySelection);
 				//Now create the SubCategory Object we want to write to the database
@@ -226,6 +227,7 @@ public class Controller implements CategoryListener {
 				System.out.println("Test if works: CategoryName: "+ c.getCategoryName()+"\n SubCategoryName: "+s.getSubCatName());
 				//Now that data processing is complete, clear the GUI form
 				theView.getTabsPane().getMaintainPanel().clearNewSubCatForm();
+				
 			}
 			else{
 				theView.getTabsPane().getMaintainPanel().warnCreateSubCatFormErrors(errorMessages);
@@ -464,7 +466,7 @@ public class Controller implements CategoryListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String comboBox1=theView.getTabsPane().getMaintainPanel().getSelectCategorycomboBox().getSelectedItem().toString();
-			System.out.println(comboBox1);
+			System.out.println("I'm comboBox Listener Create sub Category: "+comboBox1);
 
 		}
 	}
@@ -493,12 +495,34 @@ public class Controller implements CategoryListener {
 			theView.getTabsPane().getMaintainPanel().setEditCategoryNameTF(getToTextField);
 		}
 	}
+	
+	
+	
+	
 	//Gets string form bomboBox
 	class FindCatForSubCatToEditComboBoxListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String comboBox3= theView.getTabsPane().getMaintainPanel().getFindCategoryComboBox().getSelectedItem().toString();
-			System.out.println(comboBox3);
+			System.out.println("I'm CatListner get me all sub-cats for: "+comboBox3);
+			
+			
+			
+			//get all subCategory for Category
+			//set model maintain panel
+			
+			
+			/*List<String>test = new ArrayList<>();
+			test.add("1");
+			test.add("2");
+			test.add("3");
+			test.add("4");*/
+			test=theModel.getSubCategories(comboBox3);
+			
+			System.out.println(test.size());
+			
+			theView.getTabsPane().getMaintainPanel().setSubCategoryModels(test);
+			
 
 		}
 	}
@@ -543,6 +567,7 @@ public class Controller implements CategoryListener {
 			//update MainTainPanel
 			update();
 		}
+		theView.getTabsPane().getMaintainPanel().clearNewCategoryForm();
 	}
 
 	//MaintainPanel: populates all ComboBoxes:SelectCategory

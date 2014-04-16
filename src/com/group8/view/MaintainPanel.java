@@ -34,9 +34,9 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	private JPanel createItemPanel;
 	private JPanel editItemPanel;
 	private JLabel lblCategory;
-	private JComboBox selectItemCategoryComboBox;
+	private JComboBox<String> selectItemCategoryComboBox;
 	private JLabel lblSubcategory;
-	private JComboBox selectItemSubCatComboBox;
+	private JComboBox<String> selectItemSubCatComboBox;
 	private JLabel lblBrand;
 	private JTextField enterBrandTF;
 	private JLabel lblModel;
@@ -50,9 +50,9 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	private JLabel lbloptional;
 	private JLabel lblEuro;
 	private JLabel lblCategory_1;
-	private JComboBox editCategoryComboBox;
+	private JComboBox<String> editCategoryComboBox;
 	private JLabel lblSubcategory_1;
-	private JComboBox editSubCatComboBox;
+	private JComboBox<String> editSubCatComboBox;
 	private JLabel lblSelectItem;
 	private JComboBox selectItemToEditComboBox;
 	private JLabel lblBrand_1;
@@ -89,7 +89,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	private JLabel lblSelectCategory_2;
 	private JComboBox<String> findCatForSubCatToEditComboBox;
 	private JLabel lblSelectSubcategory_1;
-	private JComboBox selectSubCatToEditComboBox;
+	private JComboBox<String> selectSubCatToEditComboBox;
 	private JLabel lblEditName_1;
 	private JTextField editSubCatNameTF;
 	private JLabel errorLabel6;
@@ -174,10 +174,14 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		editCategoryPanel.add(lblSelectCategory_1, "cell 1 0");
 
 
-
+		//SET MODEL FOR CATEGORY
 		categoryComboBoxModel= new CategoryComboBoxModel();
 		selectCategoryToEditComboBox = new JComboBox<String>();
 		selectCategoryForSubCatComboBox.setModel(categoryComboBoxModel);
+		
+		
+		//SET MODEL COR SUB-CATEGORY
+		
 
 
 		editCategoryPanel.add(selectCategoryToEditComboBox, "cell 3 0,growx");
@@ -551,16 +555,50 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	public void setCategoryModels(List<String>comboBoxList){
 
 		categoryComboBoxModel= new CategoryComboBoxModel();
+		CategoryComboBoxModel categoryComboBoxModel= new CategoryComboBoxModel();
+		CategoryComboBoxModel categoryComboBoxModel2= new CategoryComboBoxModel();
+		CategoryComboBoxModel categoryComboBoxModel3= new CategoryComboBoxModel();
+		CategoryComboBoxModel categoryComboBoxModel4= new CategoryComboBoxModel();
+		CategoryComboBoxModel categoryComboBoxModel5= new CategoryComboBoxModel();
+		
 		categoryComboBoxModel.setComboBoxList(comboBoxList);
-
+		categoryComboBoxModel2.setComboBoxList(comboBoxList);
+		categoryComboBoxModel3.setComboBoxList(comboBoxList);
+		categoryComboBoxModel4.setComboBoxList(comboBoxList);
+		categoryComboBoxModel5.setComboBoxList(comboBoxList);
 		//5 CATEGORY COMBO BOXES IN THE MAINTAIN PANEL
 		selectCategoryForSubCatComboBox.setModel(categoryComboBoxModel);
-		selectCategoryToEditComboBox.setModel(categoryComboBoxModel);
-		findCatForSubCatToEditComboBox.setModel(categoryComboBoxModel);
-		selectItemCategoryComboBox.setModel(categoryComboBoxModel);
-		editCategoryComboBox.setModel(categoryComboBoxModel);
-
+		selectCategoryToEditComboBox.setModel(categoryComboBoxModel2);
+		findCatForSubCatToEditComboBox.setModel(categoryComboBoxModel3);
+		selectItemCategoryComboBox.setModel(categoryComboBoxModel4);
+		editCategoryComboBox.setModel(categoryComboBoxModel5);
+		
 	}
+	
+	//list of sub-categories for MaintianCategries and MaintainItems Panel
+	public void setSubCategoryModels(List<String>comboBoxList){
+		CategoryComboBoxModel subCategoryCbM= new CategoryComboBoxModel();
+		CategoryComboBoxModel subCategoryCbM2= new CategoryComboBoxModel();
+		CategoryComboBoxModel subCategoryCbM3= new CategoryComboBoxModel();
+		
+		subCategoryCbM.setComboBoxList(comboBoxList);
+		subCategoryCbM2.setComboBoxList(comboBoxList);
+		subCategoryCbM3.setComboBoxList(comboBoxList);
+		
+		
+		
+		
+		selectSubCatToEditComboBox.setModel(subCategoryCbM);
+		
+		selectItemSubCatComboBox.setModel(subCategoryCbM2);
+		
+		editSubCatComboBox.setModel(subCategoryCbM3);
+	}
+	
+	
+	
+	
+	
 	//COMBO BOX LISTENERS FOR MAINTAIN PANEL
 	//Create SUBCAT Panel
 	public void addSelectCategoryForSubCatComboBoxListener(ActionListener listen){
@@ -781,7 +819,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		editCategoryNameTF.setText("");
 	}
 	public void clearNewSubCatForm(){
-		selectCategoryForSubCatComboBox.setSelectedIndex(0);
+		//selectCategoryForSubCatComboBox.setSelectedIndex(0);
 		enterSubCatNameTF.setText("");
 	}
 	public void clearEditSubCatForm(){
