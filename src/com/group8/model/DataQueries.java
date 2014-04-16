@@ -70,7 +70,7 @@ public class DataQueries {
 
 	//this method is responsible for returning an array LIST of NAMES sub-categories that are within a given Category name
 	public ArrayList<String> getSubCategories(String catName)
-	{ 
+	{        ArrayList<String> listNames = new ArrayList<String>();  //declaring an array list of type String
 		try {
 			//query structure for requesting a CategoryID from any category name that is passed
 			String query = "Select CategoryID From Category where categoryName = ? ";
@@ -86,24 +86,23 @@ public class DataQueries {
 
 
 			//now we can run another query because we have the foreign key for SubCategory table
-			String query2 = "Select subCatName From SubCategory where categoryID = " + catID + " ";
-			statement = con.createStatement();
-			ResultSet rs1 = statement.executeQuery(query2); //puts the list of subcat names into rs1
-			con.commit();
+			String query2 = "Select subCatName From SubCategory where categoryID = ? ";
+			pstmt = con.prepareStatement(query2);
+			pstmt.setInt(1,catID); //sets the categoryID for the statement query
+			ResultSet rs2 =  pstmt.executeQuery(query2);
 
-			//ArrayList to temporarily store the SUbCatNames so we can pass them back to controller
-			ArrayList<String> subCatNames = new ArrayList<String>();
-			while(rs1.next())
+			while (rs2.next()) 
 			{
-				//assigns each subCat name recieved from database into the array list
-				subCatNames.add(rs1.getString(1)); 
-			}
-			statement.close();
+				String name = rs2.getString("subCategoryName");
+				listNames.add(name);   //add newly created object item to the list to be returned
 
-			return subCatNames; //returns ArrayList
+			}      
 
-
-		}catch (Exception io) {
+			rs2.close(); //close result set 2
+			pstmt.close(); //close prepared statement
+			return listNames;
+		}
+		catch (Exception io) {
 			return null;
 		}  
 	}
