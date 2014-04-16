@@ -488,7 +488,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 
 		btnCreateCategory.addActionListener(this);
 		btnConfirmChanges.addActionListener(this);
-		btnConfirmChanges_3.addActionListener(this);
+		//btnConfirmChanges_3.addActionListener(this);
 
 
 
@@ -520,6 +520,11 @@ public class MaintainPanel extends JPanel implements ActionListener {
 
 
 	//Creating the BUTTON LISTENERS:
+	
+	public void addSubmitSubCategoryBtn(ActionListener listen){
+		btnConfirmChanges_3.addActionListener(listen);
+		
+	}
 	public void addEditCategoryBtn(ActionListener listen){
 		btnConfirmChanges_2.addActionListener(listen);
 	}
@@ -615,6 +620,12 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	//EDIT ITEM PANEL - Picks SubCat for Items to be display
 	public void addFindItemsInSubCatListener(ActionListener listen){
 		editSubCatComboBox.addActionListener(listen);
+	}
+	
+	//Edit sub-category picks sub-category and set it on text area for editing 
+	public void addEditSubCategory(ActionListener listen){
+		
+		selectSubCatToEditComboBox.addActionListener(listen);
 	}
 
 
@@ -818,6 +829,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		selectCategoryToEditComboBox.setSelectedIndex(0);
 		editCategoryNameTF.setText("");
 	}
+	
 	public void clearNewSubCatForm(){
 		//selectCategoryForSubCatComboBox.setSelectedIndex(0);
 		enterSubCatNameTF.setText("");
@@ -826,6 +838,21 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		selectSubCatToEditComboBox.setSelectedIndex(0);
 		editSubCatNameTF.setText("");
 	}
+	public JTextField getEditSubCatNameTF() {
+		return editSubCatNameTF;
+	}
+
+
+	public void getEditSubCatNameTF(String subCatEdit) {
+		 editSubCatNameTF.setText(subCatEdit);
+	}
+
+
+	public JComboBox<String> getSelectSubCatToEditComboBox() {
+		return selectSubCatToEditComboBox;
+	}
+
+
 	public void clearNewItemForm(){
 		selectItemCategoryComboBox.setSelectedItem(0);
 		selectItemSubCatComboBox.setSelectedItem(0);
@@ -855,5 +882,11 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		editAccountPasswordTF.setText("");
 		rdbtnEnableAccount.setSelected(false);
 		rdbtnDisableAccount.setSelected(false);
+	}
+
+
+	public void setSelectSubCatToEditComboBox(String subCategoryEdit) {
+		editSubCatNameTF.setText(subCategoryEdit);
+		
 	}
 }

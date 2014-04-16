@@ -93,6 +93,9 @@ public class MainModel {
 	{
 		updates.updateCategory(name,newName);
 	}
+	public void updateSubCategory(String name,String newName){
+		updates.updateSubCategory(name, newName);
+	}
 	public void updateItem(Item i, int subCatID)
 	{
 		updates.updateItem(i, subCatID);
