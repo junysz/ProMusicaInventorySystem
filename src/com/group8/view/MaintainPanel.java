@@ -835,7 +835,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		enterSubCatNameTF.setText("");
 	}
 	public void clearEditSubCatForm(){
-		selectSubCatToEditComboBox.setSelectedIndex(0);
+		selectSubCatToEditComboBox.setSelectedItem("");
 		editSubCatNameTF.setText("");
 	}
 	public JTextField getEditSubCatNameTF() {
