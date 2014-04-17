@@ -2,12 +2,14 @@ package com.group8.model;
 import java.sql.*;
 import java.util.ArrayList;
 
+import java.util.Collections;
+
 
 public class DataQueries {
 
 	Connection con;
 	Statement statement;
-	PreparedStatement pstmt;
+	PreparedStatement pstmt,pstmt2;
 
 	public DataQueries(Connection connection)
 	{
@@ -36,6 +38,9 @@ public class DataQueries {
 
 			rs.close(); //close result set
 			pstmt.close(); //close prepared statement
+
+			Collections.sort (catNames);
+
 			return catNames;
 		}
 		catch (Exception io) {
@@ -61,6 +66,7 @@ public class DataQueries {
 
 			rs.close(); //close result set
 			pstmt.close(); //close prepared statement
+			Collections.sort(subCatNames);
 			return subCatNames;
 		}
 		catch (Exception io) {
@@ -70,7 +76,7 @@ public class DataQueries {
 
 	//this method is responsible for returning an array LIST of NAMES sub-categories that are within a given Category name
 	public ArrayList<String> getSubCategories(String catName)
-	{ 
+	{        ArrayList<String> listNames = new ArrayList<String>();  //declaring an array list of type String
 		try {
 			//query structure for requesting a CategoryID from any category name that is passed
 			String query = "Select CategoryID From Category where categoryName = ? ";
@@ -86,28 +92,29 @@ public class DataQueries {
 
 
 			//now we can run another query because we have the foreign key for SubCategory table
-			String query2 = "Select subCatName From SubCategory where categoryID = " + catID + " ";
-			statement = con.createStatement();
-			ResultSet rs1 = statement.executeQuery(query2); //puts the list of subcat names into rs1
-			con.commit();
+			String query2 = "Select subCatName From SubCategory where categoryID = ? ";
+			pstmt2 = con.prepareStatement(query2);
+			pstmt2.setInt(1,catID); //sets the categoryID for the statement query
+			ResultSet rs2 =  pstmt2.executeQuery();
 
-			//ArrayList to temporarily store the SUbCatNames so we can pass them back to controller
-			ArrayList<String> subCatNames = new ArrayList<String>();
-			while(rs1.next())
+			while (rs2.next()) 
 			{
-				//assigns each subCat name recieved from database into the array list
-				subCatNames.add(rs1.getString(1)); 
-			}
-			statement.close();
+				String name = rs2.getString("subCatName");
+				listNames.add(name);   //add newly created object item to the list to be returned
 
-			return subCatNames; //returns ArrayList
+			}      
 
+			rs2.close(); //close result set 2
+			pstmt2.close(); //close prepared statement
 
-		}catch (Exception io) {
+			Collections.sort (listNames);
+
+			return listNames;
+		}
+		catch (Exception io) {
 			return null;
 		}  
 	}
-
 
 	// Method to get Objects Items in a given subCategory 				
 	public ArrayList<Item>  getItemsInSubcategory(String subCatName)
@@ -119,9 +126,12 @@ public class DataQueries {
 
 			//create a new query based on subCategory Name
 			//query structure for requesting a subCategoryID from any subCategory name that is passed
-			String query = "Select SubCategoryID From SubCategory where subCatName = ? ";
+			String query = "Select SubCatID From SubCategory where subCatName = ? ";
+			
 			pstmt = con.prepareStatement(query);
+			
 			pstmt.setString(1,subCatName); //sets the SubcategoryName for the statement query
+			
 			ResultSet rs = pstmt.executeQuery(); //executes query and puts the subCategory ID into rs
 			int subCatID = 0; //initialize the variable to hold the catID we get back from DB
 			while( rs.next()) { 
@@ -129,7 +139,7 @@ public class DataQueries {
 			}
 			rs.close(); //close result set
 			pstmt.close(); //close prepared statement
-
+			
 
 			//now we can run another query because we have the foreign key for Item table
 			String query2 = "Select * From Item where SubCatID = "+subCatID+" ";	    
