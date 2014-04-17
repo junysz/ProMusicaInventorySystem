@@ -872,7 +872,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		enterCategoryNameTF.setText("");
 	}
 	public void clearEditCategoryForm(){
-		selectCategoryToEditComboBox.setSelectedIndex(0);
+		//selectCategoryToEditComboBox.setSelectedIndex(0);
 		editCategoryNameTF.setText("");
 	}
 	
