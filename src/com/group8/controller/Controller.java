@@ -242,14 +242,13 @@ public class Controller implements CategoryListener {
 
 
 
->>>>>>> 41a9cf09b4def1488732f87b1a5b41f9ea866371
+
 
 		}
 	}
 
 
-<<<<<<< HEAD
-=======
+
 	/*
 	 * *********** INNER CLASSES TO LISTEN TO BUTTONS ON THE MAINTAIN PANEL ********************
 	 * ALL THESE CLASSES HANDLE THE EVENTS WHEN A BUTTON IS CLICKED ON A FORM FROM MAINTAIN PANEL
@@ -313,7 +312,7 @@ public class Controller implements CategoryListener {
 
 
 
->>>>>>> 41a9cf09b4def1488732f87b1a5b41f9ea866371
+
 	//Inner Class that listens for the Create SubCategory Button
 	class CreateSubCategoryBtn implements ActionListener{
 		@Override
@@ -633,7 +632,7 @@ public class Controller implements CategoryListener {
 	 * ******************************************************************************************
 	 */
 	
-=======
+/*
 	 * *********** INNER CLASSES TO LISTEN TO COMBO BOXES ON THE MAINTAIN PANEL **********************
 	 * ALL THESE CLASSES HANDLE THE EVENTS WHEN SELECTIONS ARE MADE ON COMBO BOXES FROM MAINTAIN PANEL
 	 * ***********************************************************************************************
