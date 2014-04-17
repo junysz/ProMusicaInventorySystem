@@ -126,9 +126,12 @@ public class DataQueries {
 
 			//create a new query based on subCategory Name
 			//query structure for requesting a subCategoryID from any subCategory name that is passed
-			String query = "Select SubCategoryID From SubCategory where subCatName = ? ";
+			String query = "Select SubCatID From SubCategory where subCatName = ? ";
+			
 			pstmt = con.prepareStatement(query);
+			
 			pstmt.setString(1,subCatName); //sets the SubcategoryName for the statement query
+			
 			ResultSet rs = pstmt.executeQuery(); //executes query and puts the subCategory ID into rs
 			int subCatID = 0; //initialize the variable to hold the catID we get back from DB
 			while( rs.next()) { 
@@ -136,7 +139,7 @@ public class DataQueries {
 			}
 			rs.close(); //close result set
 			pstmt.close(); //close prepared statement
-
+			
 
 			//now we can run another query because we have the foreign key for Item table
 			String query2 = "Select * From Item where SubCatID = "+subCatID+" ";	    
