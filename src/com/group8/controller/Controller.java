@@ -367,7 +367,11 @@ public class Controller implements CategoryListener {
 				//Now that data processing is complete, clear the GUI form
 				theView.getTabsPane().getMaintainPanel().clearNewSubCatForm();
 				
-				//update category
+				//working now on it
+				//reset category combo-box
+				List<String>l = new ArrayList<>();
+				getMaintainPanel().setSubCategoryModelItems(l);
+				
 			}
 			else{
 				theView.getTabsPane().getMaintainPanel().warnCreateSubCatFormErrors(errorMessages);
@@ -441,6 +445,20 @@ public class Controller implements CategoryListener {
 				
 				//update sub-cat
 				theView.getTabsPane().getMaintainPanel().clearEditItemForm();
+				
+				
+				theView.getTabsPane().getMaintainPanel().setCategoryModels(theModel.getCategoryNames());	
+				
+				//sets sub category with empty list
+				List<String>l = new ArrayList<>();
+				getMaintainPanel().setSubCategoryModelItems(l);
+				
+				
+				update();
+				
+				//try to update right sub-cat model
+				
+				
 
 			}
 			//Now handle the error Messages if there was any by sending the errors list to the view to be displayed
