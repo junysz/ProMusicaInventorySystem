@@ -180,10 +180,10 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		categoryComboBoxModel= new CategoryComboBoxModel();
 		selectCategoryToEditComboBox = new JComboBox<String>();
 		selectCategoryForSubCatComboBox.setModel(categoryComboBoxModel);
-		
-		
+
+
 		//SET MODEL COR SUB-CATEGORY
-		
+
 
 
 		editCategoryPanel.add(selectCategoryToEditComboBox, "cell 3 0,growx");
@@ -516,15 +516,15 @@ public class MaintainPanel extends JPanel implements ActionListener {
 
 
 	//Creating the BUTTON LISTENERS:
-	
+
 	public void addSubmitSubCategoryBtn(ActionListener listen){
 		btnConfirmChanges_3.addActionListener(listen);
-		
+
 	}
 	public void addEditCategoryBtn(ActionListener listen){
 		btnConfirmChanges_2.addActionListener(listen);
 	}
-	
+
 	//Creates the Add New SubCategory Button Listener
 	public void addCreateSubCategoryBtn(ActionListener listen){
 		btnCreateSubcategory.addActionListener(listen);
@@ -561,7 +561,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		CategoryComboBoxModel categoryComboBoxModel3= new CategoryComboBoxModel();
 		CategoryComboBoxModel categoryComboBoxModel4= new CategoryComboBoxModel();
 		CategoryComboBoxModel categoryComboBoxModel5= new CategoryComboBoxModel();
-		
+
 		categoryComboBoxModel.setComboBoxList(comboBoxList);
 		categoryComboBoxModel2.setComboBoxList(comboBoxList);
 		categoryComboBoxModel3.setComboBoxList(comboBoxList);
@@ -573,32 +573,32 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		findCatForSubCatToEditComboBox.setModel(categoryComboBoxModel3);
 		selectItemCategoryComboBox.setModel(categoryComboBoxModel4);
 		editCategoryComboBox.setModel(categoryComboBoxModel5);
-			}
-	
-	
+	}
+
+
 	//list of sub-categories for MaintianCategries and MaintainItems Panel
 	public void setSubCategoryModels(List<String>comboBoxList){
 		CategoryComboBoxModel subCategoryCbM= new CategoryComboBoxModel();
 		subCategoryCbM.setComboBoxList(comboBoxList);
 		selectSubCatToEditComboBox.setModel(subCategoryCbM);
 	}
-	
+
 	//sets list on Maintain Item sub-category(create new item) COMBOB0X
 	public void setSubCategoryModelItems(List<String>comboBoxList){
-		 subCategoryCbM2= new CategoryComboBoxModel();
+		subCategoryCbM2= new CategoryComboBoxModel();
 		subCategoryCbM2.setComboBoxList(comboBoxList);
 		selectItemSubCatComboBox.setModel(subCategoryCbM2);
-		
+
 	}
-	
+
 	//sets list on Maintain Items sub-category (edit existing item) COMBOBOX
 	public void setSubCategoryModelItems2(List<String>comboBoxList){
-		
+
 		CategoryComboBoxModel subCategoryCbM3= new CategoryComboBoxModel();
 		subCategoryCbM3.setComboBoxList(comboBoxList);
 		editSubCatComboBox.setModel(subCategoryCbM3);
 	}
-	
+
 	//set list on Maintain Items for select item combo box
 	public void setItemModle(List<String>comboBoxList){
 		CategoryComboBoxModel selectItemModel= new CategoryComboBoxModel();
@@ -606,8 +606,8 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		selectItemToEditComboBox.setModel(selectItemModel);
 	}
 
-	
-	
+
+
 	//COMBO BOX LISTENERS FOR MAINTAIN PANEL
 	//Create SUBCAT Panel
 	public void addSelectCategoryForSubCatComboBoxListener(ActionListener listen){
@@ -621,30 +621,30 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	public void addfindCatForSubCatToEditComboBoxListener(ActionListener listen){
 		findCatForSubCatToEditComboBox.addActionListener(listen);
 	}
-	
-	
-	
+
+
+
 	//EDIT ITEM PANEL - Picks SubCat for Items to be display
 	public void addFindItemsInSubCatListener( MouseListener listen){
 		selectItemSubCatComboBox.addMouseListener(listen);
-		
+
 	}
-	
+
 	//Edit sub-category picks sub-category and set it on text area for editing 
 	public void addEditSubCategory(ActionListener listen){
-		
+
 		selectSubCatToEditComboBox.addActionListener(listen);
 	}
 
-	
-	
+
+
 	//WIERD CATEGORY LISTENERS
 	public void setCategoryListenr(CategoryListener categoryListenr) {
 		System.out.println("I will accept any object that implemnts CategoryListener Class: MaintainPanel");
 		this.categoryListenr = categoryListenr;
 	}
-	
-	
+
+
 	/*
 	 * *********************************************************************
 	 * MAINTAIN ITEMS
@@ -662,20 +662,20 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	public void addEditSubCatComboBox(ActionListener listen){
 		editSubCatComboBox.addActionListener(listen);
 	}
-	
+
 	//COMBOBOX	RIGHT PANEL get item and populate fields
 	public void addSelectItemToEditComboBox(ActionListener listen){
 		selectItemToEditComboBox.addActionListener(listen);
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
 
 	public JComboBox<String> getEditCategoryComboBox() {
 		return editCategoryComboBox;
@@ -839,6 +839,16 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	public String getEditBrandTF() {
 		return editBrandTF.getText();
 	}
+	public void setEditBrandTF(String brand){
+		editBrandTF.setText(brand);
+	}
+	public void setEditModelTF(String model){
+		editModelTF.setText(model);
+	}
+	public void setEditPriceTF(String pirce){
+		editPriceTF.setText(pirce);
+	}
+	
 	public String getEditModelTF() {
 		return editModelTF.getText();
 	}
@@ -869,6 +879,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	 *  ******************************************************************
 	 */
 	public void clearNewCategoryForm() {
+		clearAllSub_CatComboBoxes();
 		enterCategoryNameTF.setText("");
 	}
 	public void clearEditCategoryForm(){
@@ -876,12 +887,21 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		editCategoryNameTF.setText("");
 	}
 	
+	public void clearAllSub_CatComboBoxes(){
+		List<String>clearSubCat= new ArrayList<>();
+		setSubCategoryModels(clearSubCat);
+		setSubCategoryModelItems(clearSubCat);
+		setSubCategoryModelItems2(clearSubCat);
+	}
+
 	public void clearNewSubCatForm(){
-		//selectCategoryForSubCatComboBox.setSelectedIndex(0);
+		//clear sub-Category comboBox
+		clearAllSub_CatComboBoxes();
 		enterSubCatNameTF.setText("");
+		editSubCatNameTF.setText("");
 	}
 	public void clearEditSubCatForm(){
-		selectSubCatToEditComboBox.setSelectedItem("");
+		clearAllSub_CatComboBoxes();
 		editSubCatNameTF.setText("");
 	}
 	public JTextField getEditSubCatNameTF() {
@@ -890,7 +910,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 
 
 	public void getEditSubCatNameTF(String subCatEdit) {
-		 editSubCatNameTF.setText(subCatEdit);
+		editSubCatNameTF.setText(subCatEdit);
 	}
 
 
@@ -899,17 +919,17 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	}
 
 	public void clearNewItemForm(){
-	//	selectItemCategoryComboBox.setSelectedItem(0);
+
+		//clear sub-Category comboBox
 		
-	//	selectItemSubCatComboBox.setSelectedItem(0);
 		enterBrandTF.setText("");
 		enterModelTF.setText("");
 		enterPriceTF.setText("");
 		enterStockLevelTF.setText("");		
 	}
 	public void clearEditItemForm(){
-		//editSubCatComboBox.setSelectedItem(0);
-		//selectItemToEditComboBox.setSelectedItem(0);
+		List<String>clearSubCat= new ArrayList<>();
+		setSubCategoryModels(clearSubCat);
 		editBrandTF.setText("");
 		editModelTF.setText("");
 		editPriceTF.setText("");
@@ -933,15 +953,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 
 	public void setSelectSubCatToEditComboBox(String subCategoryEdit) {
 		editSubCatNameTF.setText(subCategoryEdit);
-		
+
 	}
 
-
-	public void setEditSubCatComboBox() {
-		//editSubCatComboBox.setSelectedItem(0);
-	}
-	
-	
-	
-	
 }
