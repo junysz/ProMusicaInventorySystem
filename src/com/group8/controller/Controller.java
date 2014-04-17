@@ -328,8 +328,8 @@ public class Controller implements CategoryListener {
 				
 				//working now on it
 				//reset category combo-box
-				List<String>l = new ArrayList<>();
-				getMaintainPanel().setSubCategoryModelItems(l);
+				update();
+				
 				
 			}
 			else{
