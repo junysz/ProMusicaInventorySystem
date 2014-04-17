@@ -28,11 +28,10 @@ public class Controller implements CategoryListener {
 		this.theView=theView;
 		this.theModel=theModel;
 
-<<<<<<< HEAD
+
 		/*********************************************/
 		/************ MAINTAIN PANEL **************/
 		/*********************************************/
-=======
 
 		//LOGIN LISTENER
 		theView.addLoginListener(new LoginListener(theView, theModel));
@@ -45,7 +44,7 @@ public class Controller implements CategoryListener {
 		theView.getTabsPane().getMaintainPanel().addEditCategoryBtn(new ConfirmCategoryChangesListener());
 
 
->>>>>>> 41a9cf09b4def1488732f87b1a5b41f9ea866371
+
 
 		//Adding Listeners to Combo-boxes to trigger item selections
 		//Edit Category Panel
@@ -666,7 +665,7 @@ public class Controller implements CategoryListener {
 
 
 
->>>>>>> 41a9cf09b4def1488732f87b1a5b41f9ea866371
+
 	//Inner Class Responsible for listening to the Select Category Combo Box on the Create SubCategory Panel
 	class SelectCategoryForSubCatComboBoxListener implements ActionListener{
 		@Override
@@ -895,4 +894,4 @@ public class Controller implements CategoryListener {
 	}
 
 }
-
+	}

@@ -621,10 +621,11 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	public void addfindCatForSubCatToEditComboBoxListener(ActionListener listen){
 		findCatForSubCatToEditComboBox.addActionListener(listen);
 	}
-<<<<<<< HEAD
+
 	public void addbtnConfirmCategoryChangesListener(ActionListener listen){
 		btnConfirmChanges_2.addActionListener(listen);
-=======
+	}
+
 	
 	
 	
@@ -638,7 +639,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	public void addEditSubCategory(ActionListener listen){
 		
 		selectSubCatToEditComboBox.addActionListener(listen);
->>>>>>> 41a9cf09b4def1488732f87b1a5b41f9ea866371
+
 	}
 
 	
