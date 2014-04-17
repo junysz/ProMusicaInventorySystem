@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
+
 import com.group8.model.Item;
 /*
  * This is wrapper class that sets model  the table form REserveationPanel class 

@@ -13,7 +13,7 @@ public class Reservation {
 	private int reservationID;
 	private String resDate; 
 	private double depositPlaced;
-	private int docketNo; 
+	private int docketNo;
 	
 	//Blank Constructor
 	public Reservation()

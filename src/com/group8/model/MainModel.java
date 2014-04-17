@@ -93,6 +93,9 @@ public class MainModel {
 	{
 		updates.updateCategory(name,newName);
 	}
+	public void updateSubCategory(String name,String newName){
+		updates.updateSubCategory(name, newName);
+	}
 	public void updateItem(Item i, int subCatID)
 	{
 		updates.updateItem(i, subCatID);
@@ -121,6 +124,8 @@ public class MainModel {
 	{
 		return queries.getSubCategoryNames();
 	}
+	
+	//get me all sub-cat for category chosen 
 	public   ArrayList<String> getSubCategories(String catName)
 	{
 		return queries.getSubCategories(catName);
@@ -139,6 +144,10 @@ public class MainModel {
 	{ return queries.getAllAccounts();
 
 	}
+	
+	
+	
+	
 	public int getCategoryIdFromName(String name)
 	{
 		int id = queries.getCategoryIdByName(name);
