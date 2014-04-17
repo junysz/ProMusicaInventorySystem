@@ -29,10 +29,6 @@ public class Controller implements CategoryListener {
 		this.theModel=theModel;
 
 
-		/*********************************************/
-		/************ MAINTAIN PANEL **************/
-		/*********************************************/
-
 		//LOGIN LISTENER
 		theView.addLoginListener(new LoginListener(theView, theModel));
 
@@ -45,10 +41,7 @@ public class Controller implements CategoryListener {
 
 
 
-
 		//Adding Listeners to Combo-boxes to trigger item selections
-		//Edit Category Panel
-		theView.getTabsPane().getMaintainPanel().addselectCategoryToEditcomboBoxListener(new SelectCategoryToEditcomboBoxListener());
 		//Create SubCat Panel
 		theView.getTabsPane().getMaintainPanel().addSelectCategoryForSubCatComboBoxListener(new SelectCategoryForSubCatComboBoxListener());      ///WE CAN REMOVE IT IF NOT NEDDED
 		//Edit SubCat Pane;
@@ -57,6 +50,7 @@ public class Controller implements CategoryListener {
 		//this is sub category combobox maintian items panel
 		getMaintainPanel().addFindItemsInSubCatListener(new SubCatNewItem());
 
+		theView.getTabsPane().getMaintainPanel().addselectCategoryToEditcomboBoxListener(new SelectCategoryToEditcomboBoxListener());
 
 		theView.getTabsPane().getMaintainPanel().addEditSubCategory(new EditSubCategoryMaintainP());
 
@@ -64,28 +58,14 @@ public class Controller implements CategoryListener {
 		update();
 
 
-		//Adds Category To DataBase when btn clicked
-		theView.setCategoryListener(this);
-		
+
 		//ACTIVATE MAINTENACE PANEL BUTTON LISTENERS
-		theView.getTabsPane().getMaintainPanel().addbtnConfirmCategoryChangesListener(new ConfirmCategoryChangesListener());
 		theView.getTabsPane().getMaintainPanel().addCreateSubCategoryBtn(new CreateSubCategoryBtn());
 		theView.getTabsPane().getMaintainPanel().addCreateItemBtn(new CreateItemBtn());
 		theView.getTabsPane().getMaintainPanel().addEditItemBtn(new ConfirmItemChangesBtn());
 		theView.getTabsPane().getMaintainPanel().addRemoveItemBtn(new RemoveItemBtn());
 		theView.getTabsPane().getMaintainPanel().addCreateAccountBtn(new CreateAccountBtn());
 
-<<<<<<< HEAD
-		/************************************************/
-		/*********** ENDS OF MAINTAIN PANEL *************/
-		/************************************************/
-		
-		
-		
-		/************************************************/
-		/************* RESERVATION PANEL ****************/
-		/************************************************/
-=======
 		theView.getTabsPane().getMaintainPanel().addSubmitSubCategoryBtn(new ConfirmSubCatChangesBtn());
 
 
@@ -93,7 +73,6 @@ public class Controller implements CategoryListener {
 
 		/********************************************/
 
->>>>>>> 41a9cf09b4def1488732f87b1a5b41f9ea866371
 
 		/******Maintain Items Panel**************/
 		getMaintainPanel().addCategoryListnerCreateItem(new CategoryListnerCreateItemComBox());
@@ -186,7 +165,6 @@ public class Controller implements CategoryListener {
 	}
 	/************************************************************/
 	/***********************END*********************************/
-	/************************************************************/
 
 
 	//Updates Category that has been edited by the user
@@ -212,20 +190,6 @@ public class Controller implements CategoryListener {
 			if(errorMessages.isEmpty()){
 				System.out.println("Old Category Name: "+categoryOld+ "\nNew Category Name: "+categoryEdited);
 
-<<<<<<< HEAD
-	/*
-	 * *********** INNER CLASSES TO LISTEN TO BUTTONS ON THE MAINTAIN PANEL ********************
-	 * ALL THESE CLASSES HANDLE THE EVENTS WHEN A BUTTON IS CLICKEDON A FORM FROM MAINTAIN PANEL
-	 * ******************************************************************************************
-	 */
-	//Updates Category that has been edited by the user
-	class ConfirmCategoryChangesListener implements ActionListener{
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			String categoryEdited=theView.getTabsPane().getMaintainPanel().getEditCategoryNameTF().getText();
-			String categoryOld=	theView.getTabsPane().getMaintainPanel().getSelectCategoryToEditcomboBox().getSelectedItem().toString();
-			System.out.println("Old Category Name: "+categoryOld+ "\nNew Category Name: "+categoryEdited);
-=======
 
 				theModel.updateCategory(categoryOld,categoryEdited);
 				update();
@@ -367,8 +331,8 @@ public class Controller implements CategoryListener {
 				
 				//working now on it
 				//reset category combo-box
-				List<String>l = new ArrayList<>();
-				getMaintainPanel().setSubCategoryModelItems(l);
+				update();
+				
 				
 			}
 			else{
@@ -627,12 +591,15 @@ public class Controller implements CategoryListener {
 
 	/*
 <<<<<<< HEAD
+<<<<<<< HEAD
 	 * *********** INNER CLASSES TO LISTEN TO COMBO BOXES ON THE MAINTAIN PANEL ********************
 	 * ALL THESE CLASSES HANDLE THE EVENTS WHEN A COMBO BOX SELECTION IS MADE BY THE USER
 	 * ******************************************************************************************
 	 */
 	
 /*
+=======
+>>>>>>> a9bd01fb271de97111ca144ff389919ac5a94c4c
 	 * *********** INNER CLASSES TO LISTEN TO COMBO BOXES ON THE MAINTAIN PANEL **********************
 	 * ALL THESE CLASSES HANDLE THE EVENTS WHEN SELECTIONS ARE MADE ON COMBO BOXES FROM MAINTAIN PANEL
 	 * ***********************************************************************************************
@@ -660,7 +627,6 @@ public class Controller implements CategoryListener {
 		}
 
 	}
-
 
 
 
@@ -727,8 +693,6 @@ public class Controller implements CategoryListener {
 		}
 	}
 
-	
-	
 	/*this is method implemented from CategoryListener Interface 
 	 *Category object is passed form view 
 	 *??we can pass it to the model from here??
@@ -893,4 +857,4 @@ public class Controller implements CategoryListener {
 	}
 
 }
-	}
+
