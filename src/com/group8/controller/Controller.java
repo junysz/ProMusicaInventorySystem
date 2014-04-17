@@ -208,10 +208,8 @@ public class Controller implements CategoryListener {
 
 
 
-
 		}
 	}
-
 
 
 	/*
@@ -278,7 +276,6 @@ public class Controller implements CategoryListener {
 
 
 
-
 	//Inner Class that listens for the Create SubCategory Button
 	class CreateSubCategoryBtn implements ActionListener{
 		@Override
@@ -335,11 +332,8 @@ public class Controller implements CategoryListener {
 				//reset category combo-box
 				update();
 				
-<<<<<<< HEAD
-=======
 				
 				
->>>>>>> PawelNewMerge
 				
 			}
 			else{
@@ -589,16 +583,6 @@ public class Controller implements CategoryListener {
 	}
 
 	/*
-<<<<<<< HEAD
-<<<<<<< HEAD
-	 * *********** INNER CLASSES TO LISTEN TO COMBO BOXES ON THE MAINTAIN PANEL ********************
-	 * ALL THESE CLASSES HANDLE THE EVENTS WHEN A COMBO BOX SELECTION IS MADE BY THE USER
-	 * ******************************************************************************************
-	 */
-	
-/*
-=======
->>>>>>> a9bd01fb271de97111ca144ff389919ac5a94c4c
 	 * *********** INNER CLASSES TO LISTEN TO COMBO BOXES ON THE MAINTAIN PANEL **********************
 	 * ALL THESE CLASSES HANDLE THE EVENTS WHEN SELECTIONS ARE MADE ON COMBO BOXES FROM MAINTAIN PANEL
 	 * ***********************************************************************************************

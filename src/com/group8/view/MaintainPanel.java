@@ -482,7 +482,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	public MaintainPanel() {
 
 		init();
-		addAccountTypeToComboBox();  //adds the Strings Manager and Sales Staff to the type selection combo box 
+		addAccountTypeToComboBox();   
 
 		//*********HERE PLACE FOR ADDING LISTENERS***********//		
 		//I am getting category name and passing it to the controller as a CategoryFormEvent which is passed as 
@@ -622,18 +622,8 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		findCatForSubCatToEditComboBox.addActionListener(listen);
 	}
 
-<<<<<<< HEAD
-	public void addbtnConfirmCategoryChangesListener(ActionListener listen){
-		btnConfirmChanges_2.addActionListener(listen);
-	}
-
-	
-	
-	
-=======
 
 
->>>>>>> PawelNewMerge
 	//EDIT ITEM PANEL - Picks SubCat for Items to be display
 	public void addFindItemsInSubCatListener( MouseListener listen){
 		selectItemSubCatComboBox.addMouseListener(listen);
@@ -644,7 +634,6 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	public void addEditSubCategory(ActionListener listen){
 
 		selectSubCatToEditComboBox.addActionListener(listen);
-
 	}
 
 
