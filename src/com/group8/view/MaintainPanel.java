@@ -776,6 +776,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 				"Go away warning",
 				JOptionPane.WARNING_MESSAGE);
 	}
+	
 
 
 	/************************WORKER METHODS**********************************/

@@ -9,6 +9,8 @@ import javax.swing.JLabel;
 import com.group8.model.Item;
 import com.group8.model.Sale;
 import com.toedter.calendar.JDateChooser;
+
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.Label;
@@ -21,7 +23,7 @@ import javax.swing.JButton;
 
 
 public class ReportPanel extends JPanel {
-	private JTable tableReport;
+	private JTable tableReport;   
 	private ReportTableModel 	ReportTableModel;
 	private 	JButton btnReport;	
 	JDateChooser date1;
@@ -43,8 +45,9 @@ public class ReportPanel extends JPanel {
 		 date2 = new JDateChooser();
 		add(date2, "cell 5 5,grow");
 		
-	    btnReport = new JButton("Get report");
+	    btnReport = new JButton("Get report");  //Button to generate the reports
 		add(btnReport, "cell 9 5");
+	
 	
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -52,7 +55,7 @@ public class ReportPanel extends JPanel {
 		
 		ReportTableModel= new ReportTableModel();
 		tableReport = new JTable();		
-		tableReport.setModel(ReportTableModel);
+		tableReport.setModel(ReportTableModel);//set model for table
 		
 		scrollPane.setViewportView(tableReport);		
 			
@@ -63,6 +66,7 @@ public class ReportPanel extends JPanel {
 	{
 		btnReport.addActionListener(listenForBtnReport);
 	}
+
 
 	/*
 	 * I want to set Table Model
@@ -80,13 +84,14 @@ public class ReportPanel extends JPanel {
 
 	}
         
-	public Date getDate1()
+	public Date getDate1()   //get first date from the JDateChooser
 	{
 		try 
 		{
-		java.util.Date tempDate= date1.getDate();
+		java.util.Date tempDate= date1.getDate();  
 		@SuppressWarnings("deprecation")
-		java.sql.Date sqlDate = new java.sql.Date(tempDate.getTime()); 		
+		 //need to convert from java.util to java.sql	
+		java.sql.Date sqlDate = new java.sql.Date(tempDate.getTime()); 	
 	    return  sqlDate;	
 		}
 		catch (Exception io) {
@@ -99,6 +104,7 @@ public class ReportPanel extends JPanel {
 	try
 	       {
 		java.util.Date tempDate= date2.getDate();
+		 //need to convert from java.util to java.sql	
 	    java.sql.Date sqlDate = new java.sql.Date(tempDate.getTime()); 		
 	    return  sqlDate;	
 	 }
@@ -106,12 +112,25 @@ public class ReportPanel extends JPanel {
 		return null;
 	}  
 	}
-	
-	public boolean getValid()
-	{
-	if (getDate1()==null || getDate2() ==null)
-	{return false;}
-	else return true;
+
+	//method for warning the user if dates are not selected
+
+
+	public void warnDateNull(){
+
+		JOptionPane.showMessageDialog(null,
+				"Please make a selection for the dates.",
+				"Warning",
+				JOptionPane.WARNING_MESSAGE);
+	}
+
+//method to warn the user if first date is after the second date
+	public void warnDateAfter(){
+		JOptionPane.showMessageDialog(null,
+				"Your first date is after the second one!.",
+				"Warning",
+				JOptionPane.WARNING_MESSAGE);
 	}
 	
-}
+	}
+
