@@ -133,6 +133,7 @@ public class Controller implements CategoryListener {
 	}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	
 	
 
@@ -232,6 +233,42 @@ public class Controller implements CategoryListener {
 >>>>>>> 279609cd67b15f835b12f0aee4634b480e2ca67d
 			
 >>>>>>> d48fba8a53982885d12121d5554c8bfabdef970f
+=======
+	/*
+	 * 
+	 * *****************************************************
+	 * Class for setting the Table in the Report Panel
+	 */
+	class PopulateTable2Listener implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+
+			
+			
+		    ArrayList<Sale> saleList=new ArrayList <Sale>();		        		       
+			java.sql.Date date1=  theView.getTabsPane().getReportPanel().getDate1();//get first date from the ReportPanel
+			java.sql.Date date2=	theView.getTabsPane().getReportPanel().getDate2();	//get the second date			
+			saleList=theModel.getSalesByDate(date1,date2); //query database for Sales between the two dates
+			if (date1!=null && date2!=null)
+			{
+			theView.getTabsPane().getReportPanel().setTableModel(saleList);	//set the table if dates are not null
+			if (date1.after(date2))
+			{
+				theView.getTabsPane().getReportPanel().warnDateAfter();//if first date after second warn user
+			}
+			}
+			else 
+			{  theView.getTabsPane().getReportPanel().warnDateNull(); //if any date null warn user
+=======
+=======
+>>>>>>> 279609cd67b15f835b12f0aee4634b480e2ca67d
+=======
+>>>>>>> 279609cd67b15f835b12f0aee4634b480e2ca67d
+			
+>>>>>>> d48fba8a53982885d12121d5554c8bfabdef970f
 		    ArrayList<Sale> saleList=new ArrayList <Sale>();		        		       
 			java.sql.Date date1=  theView.getTabsPane().getReportPanel().getDate1();
 			java.sql.Date date2=	theView.getTabsPane().getReportPanel().getDate2();				
@@ -248,6 +285,7 @@ public class Controller implements CategoryListener {
 =======
 >>>>>>> 279609cd67b15f835b12f0aee4634b480e2ca67d
 <<<<<<< HEAD
+<<<<<<< HEAD
 			
 			}
 			if (date1.after(date2))
@@ -277,6 +315,15 @@ public class Controller implements CategoryListener {
 >>>>>>> d48fba8a53982885d12121d5554c8bfabdef970f
 			}
 			
+=======
+			
+			}
+			if (date1.after(date2))
+			{
+				theView.getTabsPane().getReportPanel().warnDateAfter();
+			}
+			
+>>>>>>> d48fba8a53982885d12121d5554c8bfabdef970f
 <<<<<<< HEAD
 >>>>>>> 279609cd67b15f835b12f0aee4634b480e2ca67d
 =======
@@ -287,9 +334,18 @@ public class Controller implements CategoryListener {
 			{
 				theView.getTabsPane().getReportPanel().warnDateAfter();
 			}
+<<<<<<< HEAD
 			
 <<<<<<< HEAD
 =======
+>>>>>>> 279609cd67b15f835b12f0aee4634b480e2ca67d
+			
+			}
+			
+			
+>>>>>>> d48fba8a53982885d12121d5554c8bfabdef970f
+=======
+			
 >>>>>>> 279609cd67b15f835b12f0aee4634b480e2ca67d
 			
 			}
@@ -301,6 +357,9 @@ public class Controller implements CategoryListener {
 	}
 	/******************************************************************/
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> d48fba8a53982885d12121d5554c8bfabdef970f
+=======
 >>>>>>> d48fba8a53982885d12121d5554c8bfabdef970f
 =======
 >>>>>>> d48fba8a53982885d12121d5554c8bfabdef970f

@@ -114,8 +114,11 @@ public class ReportPanel extends JPanel {
 	}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
+>>>>>>> d48fba8a53982885d12121d5554c8bfabdef970f
+=======
 >>>>>>> d48fba8a53982885d12121d5554c8bfabdef970f
 =======
 >>>>>>> d48fba8a53982885d12121d5554c8bfabdef970f
@@ -125,10 +128,19 @@ public class ReportPanel extends JPanel {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	
 	
 	public void warnDateNull(){
 
+=======
+	public void warnDateNull(){
+
+=======
+	
+	public void warnDateNull(){
+>>>>>>> 279609cd67b15f835b12f0aee4634b480e2ca67d
+>>>>>>> d48fba8a53982885d12121d5554c8bfabdef970f
 =======
 	public void warnDateNull(){
 
@@ -151,6 +163,7 @@ public class ReportPanel extends JPanel {
 				JOptionPane.WARNING_MESSAGE);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 	}
 
@@ -169,6 +182,10 @@ public class ReportPanel extends JPanel {
 <<<<<<< HEAD
 	}
 
+=======
+	}
+
+>>>>>>> d48fba8a53982885d12121d5554c8bfabdef970f
 =======
 	}
 
@@ -197,6 +214,9 @@ public class ReportPanel extends JPanel {
 }
 >>>>>>> 279609cd67b15f835b12f0aee4634b480e2ca67d
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> d48fba8a53982885d12121d5554c8bfabdef970f
+=======
 >>>>>>> d48fba8a53982885d12121d5554c8bfabdef970f
 =======
 >>>>>>> d48fba8a53982885d12121d5554c8bfabdef970f
