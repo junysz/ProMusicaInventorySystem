@@ -112,58 +112,14 @@ public class ReportPanel extends JPanel {
 		return null;
 	}  
 	}
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> d48fba8a53982885d12121d5554c8bfabdef970f
-=======
->>>>>>> d48fba8a53982885d12121d5554c8bfabdef970f
-=======
->>>>>>> d48fba8a53982885d12121d5554c8bfabdef970f
 
-	//method for warning the user if dates are not selected
-
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-	
 	
 	public void warnDateNull(){
 
-=======
-	public void warnDateNull(){
-
-=======
-	
-	public void warnDateNull(){
->>>>>>> 279609cd67b15f835b12f0aee4634b480e2ca67d
->>>>>>> d48fba8a53982885d12121d5554c8bfabdef970f
-=======
-	public void warnDateNull(){
-
-=======
-	
-	public void warnDateNull(){
->>>>>>> 279609cd67b15f835b12f0aee4634b480e2ca67d
->>>>>>> d48fba8a53982885d12121d5554c8bfabdef970f
-=======
-	public void warnDateNull(){
-
-=======
-	
-	public void warnDateNull(){
->>>>>>> 279609cd67b15f835b12f0aee4634b480e2ca67d
->>>>>>> d48fba8a53982885d12121d5554c8bfabdef970f
 		JOptionPane.showMessageDialog(null,
 				"Please make a selection for the dates.",
 				"Warning",
 				JOptionPane.WARNING_MESSAGE);
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 	}
 
@@ -175,48 +131,9 @@ public class ReportPanel extends JPanel {
 				JOptionPane.WARNING_MESSAGE);
 	}
 
-	}
-	
-	
-=======
-<<<<<<< HEAD
+
 	}
 
-=======
-	}
 
->>>>>>> d48fba8a53982885d12121d5554c8bfabdef970f
-=======
-	}
 
->>>>>>> d48fba8a53982885d12121d5554c8bfabdef970f
-//method to warn the user if first date is after the second date
-	public void warnDateAfter(){
-		JOptionPane.showMessageDialog(null,
-				"Your first date is after the second one!.",
-				"Warning",
-				JOptionPane.WARNING_MESSAGE);
-	}
-	
-	}
 
-=======
-	}
-	
-	public void warnDateAfter(){
-		JOptionPane.showMessageDialog(null,
-				"Your first date is after the second one!.",
-				"Warning",
-				JOptionPane.WARNING_MESSAGE);
-	}
-	
-	
-}
->>>>>>> 279609cd67b15f835b12f0aee4634b480e2ca67d
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> d48fba8a53982885d12121d5554c8bfabdef970f
-=======
->>>>>>> d48fba8a53982885d12121d5554c8bfabdef970f
-=======
->>>>>>> d48fba8a53982885d12121d5554c8bfabdef970f
