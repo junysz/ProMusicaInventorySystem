@@ -7,6 +7,7 @@ import javax.swing.JTabbedPane;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
@@ -314,6 +315,13 @@ public class ReservationPanel extends JPanel
 		itemTableModel.fireTableDataChanged();
 
 	}
+	public void warnSubCategoryNull(){
 
+		JOptionPane.showMessageDialog(null,
+				"Please make a selection for the subcategory",
+				"Warning",
+				JOptionPane.WARNING_MESSAGE);
+
+	}
 
 }

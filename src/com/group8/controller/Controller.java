@@ -125,10 +125,21 @@ public class Controller implements CategoryListener {
 
 	class PopulateTableListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			
-			String subCat=	theView.getTabsPane().getReservationPanel().getSelectSubcategoryCBox().getSelectedItem().toString();
+			String subCat = null;
+		if ( theView.getTabsPane().getReservationPanel().getSelectSubcategoryCBox().getSelectedItem()!=null)
+			{ 
+			 subCat=	theView.getTabsPane().getReservationPanel().getSelectSubcategoryCBox().getSelectedItem().toString();
+			}
+		else 
+		{
+			theView.getTabsPane().getReservationPanel().warnSubCategoryNull();
+		}	
+							
+			if (subCat!=null)
+			{
 			temItemList=theModel.getItemsInSubcategory(subCat); 
 			theView.getTabsPane().getReservationPanel().setTableModel(temItemList);	
+			}
 		}	
 	}
 
@@ -142,7 +153,6 @@ public class Controller implements CategoryListener {
 	 
 	class PopulateTable2Listener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			
 
 
 			
