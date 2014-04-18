@@ -187,6 +187,8 @@ public class ReservationPanel extends JPanel
 		itemTableModel= new ItemTableModel();
 		tableItemsRevervation = new JTable();
 		tableItemsRevervation.setModel(itemTableModel);
+		tableItemsRevervation.getColumnModel().getColumn(0).setMinWidth(0);
+		tableItemsRevervation.getColumnModel().getColumn(0).setMaxWidth(0);
 		scrollPaneReservTable.setViewportView(tableItemsRevervation);
 
 		makeNewReservationPanel.add(lblNewLabel, "cell 0 0 2 1");

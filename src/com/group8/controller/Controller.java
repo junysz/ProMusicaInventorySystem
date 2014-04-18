@@ -3,6 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import com.group8.view.MaintainPanel;
 public class Controller implements CategoryListener {
 
 	private List <Item> temItemList;
+	private ArrayList <Sale> saleList;
 	private List<String> categories;
 	private List<String> test;
 	private MainFrame theView;  	
@@ -64,7 +66,6 @@ public class Controller implements CategoryListener {
 		theView.getTabsPane().getMaintainPanel().addEditItemBtn(new ConfirmItemChangesBtn());
 		theView.getTabsPane().getMaintainPanel().addRemoveItemBtn(new RemoveItemBtn());
 		theView.getTabsPane().getMaintainPanel().addCreateAccountBtn(new CreateAccountBtn());
-
 		theView.getTabsPane().getMaintainPanel().addSubmitSubCategoryBtn(new ConfirmSubCatChangesBtn());
 
 
@@ -94,8 +95,10 @@ public class Controller implements CategoryListener {
 
 
 		/***********REPORT PANEL*****************
-		 * theView.getTabsPane().getReportPanel().
-		 */
+		 * */
+		 
+		 theView.getTabsPane().getReportPanel().addTableListener(new PopulateTable2Listener());
+		 
 
 
 
@@ -110,7 +113,7 @@ public class Controller implements CategoryListener {
 	/************************************************************/
 	public void populateCategoryReservPanel(){
 		try{
-			categories=theModel.getMySomeCategories(); //i deleted this method from model, i can replace with proper one using query
+			categories=theModel.getCategoryNames();
 			theView.getTabsPane().getReservationPanel().setComboBoxCategoryModel(categories);
 		}catch(Exception e){
 			System.out.println("data base is empty");
@@ -120,10 +123,28 @@ public class Controller implements CategoryListener {
 
 	class PopulateTableListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			temItemList=theModel.getMeSomeItems(); //i deleted this method from model, i can replace with proper one using query
+			
+			String subCat=	theView.getTabsPane().getReservationPanel().getSelectSubcategoryCBox().getSelectedItem().toString();
+			temItemList=theModel.getItemsInSubcategory(subCat); 
 			theView.getTabsPane().getReservationPanel().setTableModel(temItemList);	
 		}	
 	}
+	
+	class PopulateTable2Listener implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+		    ArrayList<Sale> saleList=new ArrayList <Sale>();
+		    
+		    		       
+			java.sql.Date date1=  theView.getTabsPane().getReportPanel().getDate1();
+			java.sql.Date date2=	theView.getTabsPane().getReportPanel().getDate2();	
+			
+			saleList=theModel.getSalesByDate(date1,date2);
+			theView.getTabsPane().getReportPanel().setTableModel(saleList);	
+			
+			
+		}	
+	}
+	
 	class ComboBoxListener implements ActionListener{
 
 
@@ -134,7 +155,7 @@ public class Controller implements CategoryListener {
 			System.out.println("ComboBox Category changed to: "+selectedCategory);
 
 			//now populate all sub-categories ....
-			test=theModel.getMeSomeSubCategories();
+			test=theModel.getSubCategories(selectedCategory);
 
 			theView.getTabsPane().getReservationPanel().setComboBoxSubCategoryModel(test);
 		}
@@ -583,6 +604,18 @@ public class Controller implements CategoryListener {
 	}
 
 	/*
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+	 * *********** INNER CLASSES TO LISTEN TO COMBO BOXES ON THE MAINTAIN PANEL ********************
+	 * ALL THESE CLASSES HANDLE THE EVENTS WHEN A COMBO BOX SELECTION IS MADE BY THE USER
+	 * ******************************************************************************************
+	 */
+	
+/*
+
+>>>>>>> origin/Gab3
 	 * *********** INNER CLASSES TO LISTEN TO COMBO BOXES ON THE MAINTAIN PANEL **********************
 	 * ALL THESE CLASSES HANDLE THE EVENTS WHEN SELECTIONS ARE MADE ON COMBO BOXES FROM MAINTAIN PANEL
 	 * ***********************************************************************************************
