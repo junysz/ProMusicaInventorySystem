@@ -62,28 +62,7 @@ public class DataUpdates {
 		}
 	}
 	
-	protected void updateSubCategory(String name,String newName)
-	{ 
-		try
-		{
-
-			PreparedStatement preparedStatement = con.prepareStatement("UPDATE SubCategory SET subCatName=? WHERE subCatName = ?");
-
-			preparedStatement.setString(1,newName);
-
-			preparedStatement.setString(2,name);			   		
-
-
-			int    res = preparedStatement.executeUpdate(); //updates name for category
-			preparedStatement.close();
-
-
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
+	
 
 	protected void updateSubCategory(String name,String newName)
 	{ 

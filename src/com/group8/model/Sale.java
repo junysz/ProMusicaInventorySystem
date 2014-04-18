@@ -22,12 +22,12 @@ public class Sale {
 		
 	}
 	//Constructor that accepts the Date and Total as arguments
-	public Sale(int id,Date d, double t,int accountID)
+	public Sale(int id,Date saleDate2, double t,int accountID)
 	{	
-		setDate(d);
+		setDate(saleDate2);
 		setTotalPrice(t);
 		setSaleID(id);
-		setAccountID(ac);
+		setAccountID(accountID);
 	}
 	//Sets and Gets for Sale Attributes
 	//setSaleID will set the system ID for each Sale
@@ -38,9 +38,9 @@ public class Sale {
 	}
 	//setDate will set the Date the Sale took place
 	//String d is the date to be set
-	public void setDate(Date d)
+	public void setDate(Date saleDate2)
 	{
-		this.saleDate = d;
+		this.saleDate =  saleDate2;
 	}
 	//setTotalPrice will set the total price of all items that were sold
 	//double p is the price to be set

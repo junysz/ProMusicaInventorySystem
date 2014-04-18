@@ -1,6 +1,7 @@
 package com.group8.model;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.DriverManager;
 import java.util.ArrayList;
@@ -168,11 +169,11 @@ public class MainModel {
 		return i; //returns the item
 		
 	}
-	//public ArrayList<Sale>  getSalesByDate(Date date1,Date date2)
-	//{
-	//return queries.getSalesByDate(date1, date2);
+	public ArrayList<Sale>  getSalesByDate(Date date1,Date date2)
+	{
+	return queries.getSalesByDate(date1,date2);
 
-	//}
+	}
 
 }
 

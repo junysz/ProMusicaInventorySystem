@@ -252,7 +252,7 @@ public class DataQueries {
 
 			ArrayList<Sale> listSales = new ArrayList<Sale>();  //create an array list of type Sale
 			//this query will return all sales between the two given dates
-			String query = "SELECT *  FROM Sale WHERE saleDate between"+ date1+"and "+date2+""; 					
+			String query = "SELECT *  FROM Sale ";			
 			pstmt = con.prepareStatement(query);
 			ResultSet rs =  pstmt.executeQuery(query);
 
@@ -263,10 +263,12 @@ public class DataQueries {
 				Date saleDate  =rs.getDate("saleDate");	
 				double price = rs.getDouble("totalSalePrice");                    
 				int accountID =rs.getInt("accountID");
-
 				sale=new Sale(SaleID,saleDate,price,accountID); //create new object sale
+				if (sale.getDate().after(date1) && sale.getDate().before(date2))
+				{
 				listSales.add(sale);       //add the Sale to a list
-			}      
+			   }    
+			}
 			rs.close(); //close result set
 			pstmt.close(); //close prepared statement
 			return listSales;

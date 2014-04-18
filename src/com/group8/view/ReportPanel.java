@@ -5,46 +5,94 @@ import java.awt.BorderLayout;
 import javax.swing.JTextField;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JLabel;
+
+import com.group8.model.Item;
+import com.group8.model.Sale;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.Label;
+import java.awt.event.ActionListener;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JButton;
 
 
 public class ReportPanel extends JPanel {
-	private JTable table;
-
-	/**
-	 * Create the panel.
-	 */
+	private JTable tableReport;
+	private ReportTableModel 	ReportTableModel;
+	private 	JButton btnReport;	
+	JDateChooser date1;
+	private JDateChooser date2;
+	private JLabel date1Label,date2Label;
+	
 	public ReportPanel() {
 		setLayout(new MigLayout("", "[24.00][][][grow][][][grow][][][][grow][][][][][][][][][][][][][][][][][][][][][][][]", "[][][][][][][34.00][][][grow][]"));
 		
-		Label label = new Label("Start Date");
-		add(label, "cell 1 5");
+	    date1Label = new JLabel("Start Date");
+		add(date1Label, "cell 1 5");
 		
-		JDateChooser dateChooser = new JDateChooser();
-		add(dateChooser, "cell 2 5,grow");
+	    date1 = new JDateChooser();
+		add(date1, "cell 2 5,grow");
 		
-		Label label_1 = new Label("End Date");
-		add(label_1, "cell 4 5");
+		date2Label = new JLabel("End Date");
+		add(date2Label, "cell 4 5");
 		
-		JDateChooser dateChooser_1 = new JDateChooser();
-		add(dateChooser_1, "cell 5 5,grow");
+		 date2 = new JDateChooser();
+		add(date2, "cell 5 5,grow");
 		
-		JButton btnNewButton = new JButton("Get report");
-		add(btnNewButton, "cell 9 5");
+	    btnReport = new JButton("Get report");
+		add(btnReport, "cell 9 5");
 		
 		JScrollPane scrollPane = new JScrollPane();
 		add(scrollPane, "cell 0 9 32 1,grow");
 		
-		table = new JTable();
-		scrollPane.setColumnHeaderView(table);
+		ReportTableModel= new ReportTableModel();
+		tableReport = new JTable();		
+		tableReport.setModel(ReportTableModel);
 		
+		tableReport.getColumnModel().getColumn(0).setMinWidth(0);
+		tableReport.getColumnModel().getColumn(0).setMaxWidth(0);
+		scrollPane.setViewportView(tableReport);		
 			
 				
 
 	}
+	public void addTableListener(ActionListener listenForBtnReport)
+	{
+		btnReport.addActionListener(listenForBtnReport);
+	}
 
+	/*
+	 * I want to set Table Model
+	 * This will come from Model
+	 * Model doesn't know about view
+	 * So the controller will set this. 
+	 */
+	public void setTableModel(List<Sale>listFormController)
+	{
+		System.out.println("I want to set table model");
+
+		ReportTableModel.setTableModel(listFormController);
+		tableReport.setModel(ReportTableModel);
+		ReportTableModel.fireTableDataChanged();
+
+	}
+        
+	public Date getDate1()
+	{
+		java.util.Date tempDate= date1.getDate();
+		@SuppressWarnings("deprecation")
+		java.sql.Date sqlDate = new java.sql.Date(tempDate.getTime()); 		
+	    return  sqlDate;	
+	}
+	
+	public Date  getDate2()
+	{
+		java.util.Date tempDate= date2.getDate();
+		java.sql.Date sqlDate = new java.sql.Date(tempDate.getTime()); 		
+	    return  sqlDate;	
+	}
 }
