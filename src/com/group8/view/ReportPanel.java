@@ -112,16 +112,22 @@ public class ReportPanel extends JPanel {
 		return null;
 	}  
 	}
+<<<<<<< HEAD
 
 	//method for warning the user if dates are not selected
 
 
 	public void warnDateNull(){
 
+=======
+	
+	public void warnDateNull(){
+>>>>>>> 279609cd67b15f835b12f0aee4634b480e2ca67d
 		JOptionPane.showMessageDialog(null,
 				"Please make a selection for the dates.",
 				"Warning",
 				JOptionPane.WARNING_MESSAGE);
+<<<<<<< HEAD
 	}
 
 //method to warn the user if first date is after the second date
@@ -134,3 +140,16 @@ public class ReportPanel extends JPanel {
 	
 	}
 
+=======
+	}
+	
+	public void warnDateAfter(){
+		JOptionPane.showMessageDialog(null,
+				"Your first date is after the second one!.",
+				"Warning",
+				JOptionPane.WARNING_MESSAGE);
+	}
+	
+	
+}
+>>>>>>> 279609cd67b15f835b12f0aee4634b480e2ca67d

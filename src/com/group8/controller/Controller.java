@@ -141,6 +141,7 @@ public class Controller implements CategoryListener {
 			
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 			
 			
@@ -161,6 +162,8 @@ public class Controller implements CategoryListener {
 =======
 =======
 >>>>>>> 279609cd67b15f835b12f0aee4634b480e2ca67d
+=======
+>>>>>>> 279609cd67b15f835b12f0aee4634b480e2ca67d
 			
 		    ArrayList<Sale> saleList=new ArrayList <Sale>();		        		       
 			java.sql.Date date1=  theView.getTabsPane().getReportPanel().getDate1();
@@ -173,7 +176,10 @@ public class Controller implements CategoryListener {
 			else 
 			{  theView.getTabsPane().getReportPanel().warnDateNull();
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 279609cd67b15f835b12f0aee4634b480e2ca67d
 			
 			}
 			if (date1.after(date2))
@@ -181,6 +187,9 @@ public class Controller implements CategoryListener {
 				theView.getTabsPane().getReportPanel().warnDateAfter();
 			}
 			
+<<<<<<< HEAD
+>>>>>>> 279609cd67b15f835b12f0aee4634b480e2ca67d
+=======
 >>>>>>> 279609cd67b15f835b12f0aee4634b480e2ca67d
 			
 			}
