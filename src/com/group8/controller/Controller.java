@@ -97,7 +97,9 @@ public class Controller implements CategoryListener {
 		/***********REPORT PANEL*****************
 		 * */
 		 
-		 theView.getTabsPane().getReportPanel().addTableListener(new PopulateTable2Listener());
+		theView.getTabsPane().getReportPanel().addTableListener(new PopulateTable2Listener());
+		 
+	}
 		 
 
 
@@ -107,7 +109,7 @@ public class Controller implements CategoryListener {
 
 
 
-	}
+	
 	/************************************************************/
 	/******NOT WORKING NOW UNTIL MAINTAN CATEGORY FINISHED******/ 
 	/************************************************************/
@@ -129,23 +131,38 @@ public class Controller implements CategoryListener {
 			theView.getTabsPane().getReservationPanel().setTableModel(temItemList);	
 		}	
 	}
-	
+	/*
+	 * 
+	 * *****************************************************
+	 * Class for setting the Table in the Report Panel
+	 */
 	class PopulateTable2Listener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-		    ArrayList<Sale> saleList=new ArrayList <Sale>();
-		    
-		    		       
-			java.sql.Date date1=  theView.getTabsPane().getReportPanel().getDate1();
-			java.sql.Date date2=	theView.getTabsPane().getReportPanel().getDate2();	
 			
+			
+		    ArrayList<Sale> saleList=new ArrayList <Sale>();		        		       
+			java.sql.Date date1=  theView.getTabsPane().getReportPanel().getDate1();
+			java.sql.Date date2=	theView.getTabsPane().getReportPanel().getDate2();				
 			saleList=theModel.getSalesByDate(date1,date2);
+			if (date1!=null && date2!=null)
+			{
 			theView.getTabsPane().getReportPanel().setTableModel(saleList);	
+			}
+			else 
+			{  theView.getTabsPane().getReportPanel().warnDateNull();
+			
+			}
+			if (date1.after(date2))
+			{
+				theView.getTabsPane().getReportPanel().warnDateAfter();
+			}
+			
 			
 			
 			
 		}	
 	}
-	
+	/******************************************************************/
 	class ComboBoxListener implements ActionListener{
 
 

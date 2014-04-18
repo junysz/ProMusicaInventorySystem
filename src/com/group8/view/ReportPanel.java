@@ -9,6 +9,8 @@ import javax.swing.JLabel;
 import com.group8.model.Item;
 import com.group8.model.Sale;
 import com.toedter.calendar.JDateChooser;
+
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.Label;
@@ -46,6 +48,7 @@ public class ReportPanel extends JPanel {
 	    btnReport = new JButton("Get report");
 		add(btnReport, "cell 9 5");
 	
+	
 		
 		JScrollPane scrollPane = new JScrollPane();
 		add(scrollPane, "cell 0 9 32 1,grow");
@@ -63,6 +66,7 @@ public class ReportPanel extends JPanel {
 	{
 		btnReport.addActionListener(listenForBtnReport);
 	}
+
 
 	/*
 	 * I want to set Table Model
@@ -107,11 +111,19 @@ public class ReportPanel extends JPanel {
 	}  
 	}
 	
-	public boolean getValid()
-	{
-	if (getDate1()==null || getDate2() ==null)
-	{return false;}
-	else return true;
+	public void warnDateNull(){
+		JOptionPane.showMessageDialog(null,
+				"Please make a selection for the dates.",
+				"Warning",
+				JOptionPane.WARNING_MESSAGE);
 	}
+	
+	public void warnDateAfter(){
+		JOptionPane.showMessageDialog(null,
+				"Your first date is after the second one!.",
+				"Warning",
+				JOptionPane.WARNING_MESSAGE);
+	}
+	
 	
 }
