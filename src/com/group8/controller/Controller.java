@@ -89,7 +89,7 @@ public class Controller implements CategoryListener {
 		theView.getTabsPane().getReservationPanel().addComboBoxCatListener(new ComboBoxListener());
 		theView.getTabsPane().getReservationPanel().addComboBoxSubCatListener(new ComboBoxSubCatListener());
 
-		//categoryComboBox populate form DB NOT WORKING NOW UNTIL MAINTAN CATEGORY FINISHED 
+		
 		populateCategoryReservPanel();
 
 
@@ -140,6 +140,7 @@ public class Controller implements CategoryListener {
 			
 			saleList=theModel.getSalesByDate(date1,date2);
 			theView.getTabsPane().getReportPanel().setTableModel(saleList);	
+			
 			
 			
 		}	

@@ -255,6 +255,10 @@ public class DataQueries {
 			String query = "SELECT *  FROM Sale ";			
 			pstmt = con.prepareStatement(query);
 			ResultSet rs =  pstmt.executeQuery(query);
+			ArrayList<Account> Accounts=new ArrayList<Account>();
+			Accounts=getAllAccounts();
+			int size=Accounts.size();
+			
 
 			while (rs.next()) 
 			{
@@ -263,9 +267,16 @@ public class DataQueries {
 				Date saleDate  =rs.getDate("saleDate");	
 				double price = rs.getDouble("totalSalePrice");                    
 				int accountID =rs.getInt("accountID");
-				sale=new Sale(SaleID,saleDate,price,accountID); //create new object sale
+				
+				
+				sale=new Sale(SaleID,saleDate,price,accountID,"GoPlanet"); //create new object sale
 				if (sale.getDate().after(date1) && sale.getDate().before(date2))
 				{
+				for (int i=0;i<size;i++)
+				{
+					if (sale.getAccountID()==Accounts.get(i).getAccountID()) 
+					{sale.setName(Accounts.get(i).getAccountName());}
+				}
 				listSales.add(sale);       //add the Sale to a list
 			   }    
 			}

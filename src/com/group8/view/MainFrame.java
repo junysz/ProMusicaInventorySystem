@@ -58,7 +58,7 @@ public class MainFrame extends JFrame
 	
 	
 		public void setCategoryListener(CategoryListener categoryListenr){
-			System.out.println("I will accept any object that implemnts CategoryListener Class:Testing_MaintainPanel");
+			
 			tabbedPane.setCategoryListenr(categoryListenr);
 			
 		}

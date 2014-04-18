@@ -41,7 +41,7 @@ public class Testing_MaintainPanel extends JFrame {
 	//this will accept any object that implements CategoryListener 
 	//this is going to be class form controller packet
 	public void setCategoryListener(CategoryListener categoryListenr){
-		System.out.println("I will accept any object that implemnts CategoryListener Class:Testing_MaintainPanel");
+		
 		maintainPanel.setCategoryListenr(categoryListenr);
 	}
 

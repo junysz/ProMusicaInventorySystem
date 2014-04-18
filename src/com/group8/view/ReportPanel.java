@@ -45,6 +45,7 @@ public class ReportPanel extends JPanel {
 		
 	    btnReport = new JButton("Get report");
 		add(btnReport, "cell 9 5");
+	
 		
 		JScrollPane scrollPane = new JScrollPane();
 		add(scrollPane, "cell 0 9 32 1,grow");
@@ -53,8 +54,6 @@ public class ReportPanel extends JPanel {
 		tableReport = new JTable();		
 		tableReport.setModel(ReportTableModel);
 		
-		tableReport.getColumnModel().getColumn(0).setMinWidth(0);
-		tableReport.getColumnModel().getColumn(0).setMaxWidth(0);
 		scrollPane.setViewportView(tableReport);		
 			
 				
@@ -73,7 +72,7 @@ public class ReportPanel extends JPanel {
 	 */
 	public void setTableModel(List<Sale>listFormController)
 	{
-		System.out.println("I want to set table model");
+		
 
 		ReportTableModel.setTableModel(listFormController);
 		tableReport.setModel(ReportTableModel);
@@ -83,16 +82,36 @@ public class ReportPanel extends JPanel {
         
 	public Date getDate1()
 	{
+		try 
+		{
 		java.util.Date tempDate= date1.getDate();
 		@SuppressWarnings("deprecation")
 		java.sql.Date sqlDate = new java.sql.Date(tempDate.getTime()); 		
 	    return  sqlDate;	
+		}
+		catch (Exception io) {
+			return null;
+		}  
 	}
 	
 	public Date  getDate2()
 	{
+	try
+	       {
 		java.util.Date tempDate= date2.getDate();
-		java.sql.Date sqlDate = new java.sql.Date(tempDate.getTime()); 		
+	    java.sql.Date sqlDate = new java.sql.Date(tempDate.getTime()); 		
 	    return  sqlDate;	
+	 }
+	catch (Exception io) {
+		return null;
+	}  
 	}
+	
+	public boolean getValid()
+	{
+	if (getDate1()==null || getDate2() ==null)
+	{return false;}
+	else return true;
+	}
+	
 }

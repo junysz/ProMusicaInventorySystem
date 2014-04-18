@@ -640,7 +640,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 
 	//WIERD CATEGORY LISTENERS
 	public void setCategoryListenr(CategoryListener categoryListenr) {
-		System.out.println("I will accept any object that implemnts CategoryListener Class: MaintainPanel");
+		
 		this.categoryListenr = categoryListenr;
 	}
 

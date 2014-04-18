@@ -14,6 +14,7 @@ public class Sale {
 	private int saleID,ac;
 	private Date saleDate;
 	private double totalSalePrice;
+	private String name;
 	
 	
 	//Blank Constructor
@@ -22,12 +23,13 @@ public class Sale {
 		
 	}
 	//Constructor that accepts the Date and Total as arguments
-	public Sale(int id,Date saleDate2, double t,int accountID)
+	public Sale(int id,Date saleDate2, double t,int accountID,String name)
 	{	
 		setDate(saleDate2);
 		setTotalPrice(t);
 		setSaleID(id);
 		setAccountID(accountID);
+		setName(name);
 	}
 	//Sets and Gets for Sale Attributes
 	//setSaleID will set the system ID for each Sale
@@ -56,6 +58,15 @@ public class Sale {
 	public int getAccountID()
 	{
 		return ac;
+	}
+	public void setName(String p)
+	{
+		this.name = p;
+	}
+	
+	public String getName()
+	{
+		return name;
 	}
 	//returns the saleID
 	public int getSaleID()

@@ -11,7 +11,8 @@ import com.group8.model.Sale;
 public class ReportTableModel extends AbstractTableModel{
 
 	private List<Sale> db;
-	private String[] titles= {"SaleID","Sale  Date","Total Price","Account name"};
+	 
+	private String[] titles= {"Sale  Date","Total Price","Account name"};
 	
 	
 	
@@ -29,13 +30,13 @@ public class ReportTableModel extends AbstractTableModel{
 	@Override
 	public int getColumnCount() {
 		
-		return 4;
+		return 3;
 	}
 
 	@Override
 	public int getRowCount() {
 	
-		return db.size();
+		return db.size(); 
 	}
 	 public String getColumnName(int column) {
 	        return titles[column];
@@ -48,15 +49,12 @@ public Object getValueAt(int row, int column) {
 		
 		switch(column)
 		{
-		case 0:
-			return sale.getSaleID();	
-		case 1:	
+		case 0:	
 			return sale.getDate();
-		case 2:
+		case 1:
 			return sale.getTotalPrice();
-		case 3:
-			return sale.getAccountID();
-		
+		case 2:
+			return sale.getName();
 		}
 		return null;
 	}
