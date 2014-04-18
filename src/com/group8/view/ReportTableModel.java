@@ -12,7 +12,7 @@ public class ReportTableModel extends AbstractTableModel{
 
 	private List<Sale> db;
 	 
-	private String[] titles= {"Sale  Date","Total Price","Account name"};
+	private String[] titles= {"Sale  Date","Total Price","Account name"}; //set column headers
 	
 	
 	
@@ -20,7 +20,7 @@ public class ReportTableModel extends AbstractTableModel{
 	
 	public ReportTableModel()
 	{	
-		db=new ArrayList<Sale>();
+		db=new ArrayList<Sale>(); //use arrayList in the constructor 
 	}
 	
 	public void setTableModel(List<Sale>db){
@@ -28,7 +28,7 @@ public class ReportTableModel extends AbstractTableModel{
 	}
 
 	@Override
-	public int getColumnCount() {
+	public int getColumnCount() { //number of columns
 		
 		return 3;
 	}
@@ -36,33 +36,27 @@ public class ReportTableModel extends AbstractTableModel{
 	@Override
 	public int getRowCount() {
 	
-		return db.size(); 
+		return db.size(); //number of rows equal with number of sale objects in list
 	}
 	 public String getColumnName(int column) {
-	        return titles[column];
+	        return titles[column];      //set column headers names
 	    }
 
 	@Override
-public Object getValueAt(int row, int column) {
+public Object getValueAt(int row, int column) {  //set values of cells
 		
 		Sale sale=db.get(row);
 		
 		switch(column)
 		{
 		case 0:	
-			return sale.getDate();
+			return sale.getDate();  //put date
 		case 1:
-			return sale.getTotalPrice();
+			return sale.getTotalPrice(); //put price
 		case 2:
-			return sale.getName();
+			return sale.getName(); //put name
 		}
 		return null;
 	}
   
-	public void setValueAt(Object aValue, int row, int column) {
-		// TODO Auto-generated method stub
-		super.setValueAt(aValue, row, column);
-	
-	}	
-	
-}
+	}
