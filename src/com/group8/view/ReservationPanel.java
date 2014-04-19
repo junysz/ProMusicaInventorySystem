@@ -60,8 +60,8 @@ public class ReservationPanel extends JPanel
 	private SubCatComboBoxModel  	subCatComboBoxModel;
 	private JComboBox<String> 		selectSubcategoryCBox;
 	
-	  JList list;
-	  DefaultListModel model;
+	  JList<String> list;
+	  DefaultListModel<String> model;
 
 
 	private JPanel makeNewReservationPanel;
@@ -97,8 +97,8 @@ public class ReservationPanel extends JPanel
 		findReservationPanel.setLayout(new MigLayout("", "[][grow][][grow][grow][grow][grow]", "[][grow][grow]"));
         
 
-		model = new DefaultListModel();	
-	    list = new JList(model);		
+		model = new DefaultListModel<String>();	
+	    list = new JList<String>(model);		
 		JScrollPane scrollPane = new JScrollPane(list);
 		scrollPane.setBorder(new TitledBorder("Docket Numbers"));
 		

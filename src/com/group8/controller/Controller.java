@@ -162,6 +162,7 @@ public class Controller implements CategoryListener {
 	 * 
 	 * *****************************************************
 	 * Class for setting the Table in the Report Panel */
+	
 	 
 	class PopulateTable2Listener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
