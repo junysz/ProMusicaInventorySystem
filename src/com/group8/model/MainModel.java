@@ -79,7 +79,7 @@ public class MainModel {
 	{
 		inserts.insertNewItemSold(i, s, itemSalePrice);
 	}
-	public void addNewReservation(Reservation r, Account a, Item i)
+	public void addNewReservation(ReservedItem r, Account a, Item i)
 	{
 		inserts.insertNewReservation(r, a, i);
 	}
@@ -175,7 +175,11 @@ public class MainModel {
 	return queries.getSalesByDate(date1,date2);
 
 	}
-
+	
+	 public ArrayList<ReservedItem >getReservedItems()
+	 {
+	 return queries.getReservedItems();
+	 }
 }
 
 

@@ -5,8 +5,11 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import javax.swing.JTabbedPane;
 import net.miginfocom.swing.MigLayout;
+
+import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -20,6 +23,8 @@ import javax.swing.table.TableModel;
 
 import com.group8.controller.Controller;
 import com.group8.model.Item;
+import com.group8.model.ReservedItem;
+import com.group8.model.Sale;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -31,7 +36,7 @@ import java.awt.event.ActionEvent;
 public class ReservationPanel extends JPanel 
 {
 	List<Item>dbItem= new ArrayList<>();
-	//List<String>category= new ArrayList<>();
+	
 
 	private JTextField searchKeywordTF;
 	private JTextField docketNoTF;
@@ -54,6 +59,9 @@ public class ReservationPanel extends JPanel
 	private JComboBox<String> 		selectCategoryCBox;
 	private SubCatComboBoxModel  	subCatComboBoxModel;
 	private JComboBox<String> 		selectSubcategoryCBox;
+	
+	  JList list;
+	  DefaultListModel model;
 
 
 	private JPanel makeNewReservationPanel;
@@ -87,9 +95,13 @@ public class ReservationPanel extends JPanel
 		findReservationPanel = new JPanel();
 		tabbedPane.addTab("Find", null, findReservationPanel, null);
 		findReservationPanel.setLayout(new MigLayout("", "[][grow][][grow][grow][grow][grow]", "[][grow][grow]"));
+        
 
-		JScrollPane scrollPane = new JScrollPane();
+		model = new DefaultListModel();	
+	    list = new JList(model);		
+		JScrollPane scrollPane = new JScrollPane(list);
 		scrollPane.setBorder(new TitledBorder("Docket Numbers"));
+		
 
 		findReservationPanel.add(scrollPane, "cell 1 1 1 2,grow");
 
@@ -315,6 +327,19 @@ public class ReservationPanel extends JPanel
 		itemTableModel.fireTableDataChanged();
 
 	}
+	public void setListModel(List<ReservedItem> list)
+	{
+		
+   int size=list.size();
+   for (int i=0;i<size;i++)
+   {
+	   model.addElement(list.get(i).getDocketNo());
+   }
+		
+		
+
+	}
+	
 	public void warnSubCategoryNull(){
 
 		JOptionPane.showMessageDialog(null,

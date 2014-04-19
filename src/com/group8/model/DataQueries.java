@@ -362,6 +362,39 @@ public class DataQueries {
 			return null;
 		}
 	}
+  protected ArrayList<ReservedItem >getReservedItems()
+  {
+	  try {
+
+			ArrayList<ReservedItem> list = new ArrayList<ReservedItem>(); //create a new arraylist type account
+			String query = "Select * from ReservedItem ";  //create a new query 
+			pstmt = con.prepareStatement(query);
+			ResultSet rs =  pstmt.executeQuery(query);
+			while (rs.next()) 
+			{
+				int   accountID   = rs.getInt("accountID");	  
+				String docketNo = rs.getString("docketNo");  //get attributes from ReservedItem Table
+				Date date     = rs.getDate("reservationDate");
+				Double deposit=rs.getDouble("depositPlaced");
+				int itemID=rs.getInt("itemID");
+				boolean flag   =rs.getBoolean("flag"); 
+
+				ReservedItem reservedItem=new ReservedItem(date,deposit,docketNo,itemID,accountID,flag);//create a new object reservedItem
+				list.add(reservedItem);  //add object to the list
+
+			}  
+
+			rs.close(); //close result set
+			pstmt.close(); //close prepared statement
+			return list;
+		}
+		catch (Exception io) {
+			return null;
+		}  
+	  
+	  
+  }
+
 }
 
 

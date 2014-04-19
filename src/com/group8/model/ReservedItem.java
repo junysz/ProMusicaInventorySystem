@@ -1,5 +1,7 @@
 package com.group8.model;
 
+import java.sql.Date;
+
 
 /*The Concept of a Reservation is represented by this class.
  * The reservationID is the system ID used to identify Reservations
@@ -7,25 +9,31 @@ package com.group8.model;
  * The depositPlaced is the deposit currently paid on the item
  * The docketNo is the number on the paper docket, the customer and the store keep a copy of this docket while the Reservation is still not paid off
  * */
-public class Reservation {
+public class ReservedItem {
 
 	//Attributes of a Reservation
 	private int reservationID;
-	private String resDate; 
+	private Date resDate; 
 	private double depositPlaced;
-	private int docketNo;
+	private String docketNo;
+	private int itemID;
+	private int accountID;
+	private boolean flag;
 	
 	//Blank Constructor
-	public Reservation()
+	public ReservedItem()
 	{
 		
 	}
 	//Constructor that accepts the Date, Deposit, and DocketNo as arguments
-	public Reservation(String date, double deposit, int docketNum)
+	public ReservedItem(Date date, double deposit, String docketNum,int itemID,int accountID,boolean flag)
 	{
-		setStartDate(date);
+		setDate(date);
 		setDeposit(deposit);
 		setDocketNo(docketNum);
+		setItemID(itemID);
+		setAccountID(accountID);
+		setFlag(flag);
 	}
 	//Sets and Gets for the Reservation Attributes
 	//setResID will set the reservationID for the Reservation
@@ -36,7 +44,7 @@ public class Reservation {
 	}
 	//setStartDate will set the resDate for the Reservation
 	//String d is the date to be set
-	public void setStartDate(String d)
+	public void setDate(Date d)
 	{
 		this.resDate = d;
 	}
@@ -48,17 +56,32 @@ public class Reservation {
 	}
 	//setDocketNo will set the docketNo for the Reservation
 	//integer d is the number to be set
-	public void setDocketNo(int d)
+	public void setDocketNo(String d)
 	{
 		this.docketNo = d;
 	}
+	
+	public void setItemID(int d)
+	{
+		this.itemID = d;
+	}
+
+	public void setAccountID(int d)
+	{
+		this.accountID = d;
+	}
+	public void setFlag(boolean b)
+	{
+		this.flag = b;
+	}
+		
 	//returns reservationID
 	public int getResID()
 	{
 		return reservationID;
 	}
 	//returns resDate
-	public String getStartDate()
+	public Date getDate()
 	{
 		return resDate;
 	}
@@ -68,8 +91,25 @@ public class Reservation {
 		return depositPlaced;
 	}
 	//returns docketNo
-	public int getDocketNo()
+	public String getDocketNo()
 	{
 		return docketNo;
 	}
+	public int getItemID()
+	{
+		return itemID;
+	}
+	//returns depositPlaced
+	public int getAccountID()
+	{
+		return accountID;
+	}
+	//returns docketNo
+	public boolean getFlag()
+	{
+		return flag;
+	}
+	
+	
+	
 }
