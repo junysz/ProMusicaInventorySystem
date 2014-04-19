@@ -33,6 +33,8 @@ public class Controller implements CategoryListener {
 
 		//LOGIN LISTENER
 		theView.addLoginListener(new LoginListener(theView, theModel));
+		
+		
 
 		/******Maintain Categories Panel**************/
 
@@ -96,23 +98,30 @@ public class Controller implements CategoryListener {
 
 		/***********REPORT PANEL*****************
 		 * */
-		 
+	
+	
+		
 		theView.getTabsPane().getReportPanel().addTableListener(new PopulateTable2Listener());
 		 
-	}
-		 
-
-
-
-
-
-
-
-
+		
+	/************************************************************/
+	/******ReservationPanel******/ 
+	/************************************************************/
 	
-	/************************************************************/
-	/******NOT WORKING NOW UNTIL MAINTAN CATEGORY FINISHED******/ 
-	/************************************************************/
+	
+	 //Populate List in ReservePanel
+	
+    ArrayList<ReservedItem> List=new ArrayList <ReservedItem>();     		       
+	List=theModel.getReservedItems(); //query database for Sales between the two dates	
+	theView.getTabsPane().getReservationPanel().setListModel(List);
+	
+	
+	
+	}
+	
+	
+	
+	
 	public void populateCategoryReservPanel(){
 		try{
 			categories=theModel.getCategoryNames();
@@ -122,6 +131,9 @@ public class Controller implements CategoryListener {
 		}
 
 	}
+	
+
+	
 
 	class PopulateTableListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
@@ -144,7 +156,7 @@ public class Controller implements CategoryListener {
 	}
 
 	
-
+  
 	
 	/*
 	 * 
@@ -176,6 +188,9 @@ public class Controller implements CategoryListener {
 	}
 
 	
+			
+			
+		  
 	
 			
 			
