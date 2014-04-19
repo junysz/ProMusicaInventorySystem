@@ -31,7 +31,7 @@ public class LoginListener implements ActionListener {
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("Action Performed...");
+		
 		usrName = theView.getUsernameLoginString();
 		usrPass = theView.getPasswordLoginString();
 		System.out.println("Logging in as: "+theView.getUsernameLoginString() + " with password: "+theView.getPasswordLoginString());
@@ -50,7 +50,7 @@ public class LoginListener implements ActionListener {
 				if(usrName.equals(theModel.getAllAccounts().get(i).getAccountName())&&usrPass.equals(theModel.getAllAccounts().get(i).getPassword()))
 				{
 	
-					JOptionPane.showMessageDialog(theView, "Login Succesful!", "Succes", 1);
+					
 					theView.displayMainView();
 					valid = true;
 					

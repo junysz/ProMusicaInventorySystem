@@ -1,7 +1,7 @@
 package com.group8.model;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Collection;
+
 import java.util.Collections;
 
 
@@ -38,7 +38,9 @@ public class DataQueries {
 
 			rs.close(); //close result set
 			pstmt.close(); //close prepared statement
-			Collections.sort(catNames);
+
+			Collections.sort (catNames);
+
 			return catNames;
 		}
 		catch (Exception io) {
@@ -104,7 +106,9 @@ public class DataQueries {
 
 			rs2.close(); //close result set 2
 			pstmt2.close(); //close prepared statement
-			Collections.sort(listNames);
+
+			Collections.sort (listNames);
+
 			return listNames;
 		}
 		catch (Exception io) {
@@ -248,9 +252,13 @@ public class DataQueries {
 
 			ArrayList<Sale> listSales = new ArrayList<Sale>();  //create an array list of type Sale
 			//this query will return all sales between the two given dates
-			String query = "SELECT *  FROM Sale WHERE saleDate between"+ date1+"and "+date2+""; 					
+			String query = "SELECT *  FROM Sale ";			
 			pstmt = con.prepareStatement(query);
 			ResultSet rs =  pstmt.executeQuery(query);
+			ArrayList<Account> Accounts=new ArrayList<Account>();
+			Accounts=getAllAccounts();
+			int size=Accounts.size();
+			
 
 			while (rs.next()) 
 			{
@@ -259,10 +267,19 @@ public class DataQueries {
 				Date saleDate  =rs.getDate("saleDate");	
 				double price = rs.getDouble("totalSalePrice");                    
 				int accountID =rs.getInt("accountID");
-
-				sale=new Sale(SaleID,saleDate,price,accountID); //create new object sale
+				
+				
+				sale=new Sale(SaleID,saleDate,price,accountID,"GoPlanet"); //create new object sale
+				if (sale.getDate().after(date1) && sale.getDate().before(date2))
+				{
+				for (int i=0;i<size;i++)
+				{
+					if (sale.getAccountID()==Accounts.get(i).getAccountID()) 
+					{sale.setName(Accounts.get(i).getAccountName());}
+				}
 				listSales.add(sale);       //add the Sale to a list
-			}      
+			   }    
+			}
 			rs.close(); //close result set
 			pstmt.close(); //close prepared statement
 			return listSales;
@@ -345,6 +362,39 @@ public class DataQueries {
 			return null;
 		}
 	}
+  protected ArrayList<ReservedItem >getReservedItems()
+  {
+	  try {
+
+			ArrayList<ReservedItem> list = new ArrayList<ReservedItem>(); //create a new arraylist type account
+			String query = "Select * from ReservedItem ";  //create a new query 
+			pstmt = con.prepareStatement(query);
+			ResultSet rs =  pstmt.executeQuery(query);
+			while (rs.next()) 
+			{
+				int   accountID   = rs.getInt("accountID");	  
+				String docketNo = rs.getString("docketNo");  //get attributes from ReservedItem Table
+				Date date     = rs.getDate("reservationDate");
+				Double deposit=rs.getDouble("depositPlaced");
+				int itemID=rs.getInt("itemID");
+				boolean flag   =rs.getBoolean("flag"); 
+
+				ReservedItem reservedItem=new ReservedItem(date,deposit,docketNo,itemID,accountID,flag);//create a new object reservedItem
+				list.add(reservedItem);  //add object to the list
+
+			}  
+
+			rs.close(); //close result set
+			pstmt.close(); //close prepared statement
+			return list;
+		}
+		catch (Exception io) {
+			return null;
+		}  
+	  
+	  
+  }
+
 }
 
 

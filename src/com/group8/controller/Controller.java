@@ -3,6 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import com.group8.view.MaintainPanel;
 public class Controller implements CategoryListener {
 
 	private List <Item> temItemList;
+	private ArrayList <Sale> saleList;
 	private List<String> categories;
 	private List<String> test;
 	private MainFrame theView;  	
@@ -31,6 +33,8 @@ public class Controller implements CategoryListener {
 
 		//LOGIN LISTENER
 		theView.addLoginListener(new LoginListener(theView, theModel));
+		
+		
 
 		/******Maintain Categories Panel**************/
 
@@ -64,7 +68,6 @@ public class Controller implements CategoryListener {
 		theView.getTabsPane().getMaintainPanel().addEditItemBtn(new ConfirmItemChangesBtn());
 		theView.getTabsPane().getMaintainPanel().addRemoveItemBtn(new RemoveItemBtn());
 		theView.getTabsPane().getMaintainPanel().addCreateAccountBtn(new CreateAccountBtn());
-
 		theView.getTabsPane().getMaintainPanel().addSubmitSubCategoryBtn(new ConfirmSubCatChangesBtn());
 
 
@@ -88,42 +91,113 @@ public class Controller implements CategoryListener {
 		theView.getTabsPane().getReservationPanel().addComboBoxCatListener(new ComboBoxListener());
 		theView.getTabsPane().getReservationPanel().addComboBoxSubCatListener(new ComboBoxSubCatListener());
 
-		//categoryComboBox populate form DB NOT WORKING NOW UNTIL MAINTAN CATEGORY FINISHED 
+		
 		populateCategoryReservPanel();
 
 
 
 		/***********REPORT PANEL*****************
-		 * theView.getTabsPane().getReportPanel().
-		 */
-
-
-
-
-
-
-
-
+		 * */
+	
+	
+		
+		theView.getTabsPane().getReportPanel().addTableListener(new PopulateTable2Listener());
+		 
+		
+	/************************************************************/
+	/******ReservationPanel******/ 
+	/************************************************************/
+	
+	
+	 //Populate List in ReservePanel
+	
+    ArrayList<ReservedItem> List=new ArrayList <ReservedItem>();     		       
+	List=theModel.getReservedItems(); //query database for Sales between the two dates	
+	theView.getTabsPane().getReservationPanel().setListModel(List);
+	
+	
+	
 	}
-	/************************************************************/
-	/******NOT WORKING NOW UNTIL MAINTAN CATEGORY FINISHED******/ 
-	/************************************************************/
+	
+	
+	
+	
 	public void populateCategoryReservPanel(){
 		try{
-			categories=theModel.getMySomeCategories(); //i deleted this method from model, i can replace with proper one using query
+			categories=theModel.getCategoryNames();
 			theView.getTabsPane().getReservationPanel().setComboBoxCategoryModel(categories);
 		}catch(Exception e){
 			System.out.println("data base is empty");
 		}
 
 	}
+	
+
+	
 
 	class PopulateTableListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			temItemList=theModel.getMeSomeItems(); //i deleted this method from model, i can replace with proper one using query
+			String subCat = null;
+		if ( theView.getTabsPane().getReservationPanel().getSelectSubcategoryCBox().getSelectedItem()!=null)
+			{ 
+			 subCat=	theView.getTabsPane().getReservationPanel().getSelectSubcategoryCBox().getSelectedItem().toString();
+			}
+		else 
+		{
+			theView.getTabsPane().getReservationPanel().warnSubCategoryNull();
+		}	
+							
+			if (subCat!=null)
+			{
+			temItemList=theModel.getItemsInSubcategory(subCat); 
 			theView.getTabsPane().getReservationPanel().setTableModel(temItemList);	
+			}
 		}	
 	}
+
+	
+  
+	
+	/*
+	 * 
+	 * *****************************************************
+	 * Class for setting the Table in the Report Panel */
+	
+	 
+	class PopulateTable2Listener implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+
+
+			
+			
+		    ArrayList<Sale> saleList=new ArrayList <Sale>();		        		       
+			java.sql.Date date1=  theView.getTabsPane().getReportPanel().getDate1();//get first date from the ReportPanel
+			java.sql.Date date2=	theView.getTabsPane().getReportPanel().getDate2();	//get the second date			
+			saleList=theModel.getSalesByDate(date1,date2); //query database for Sales between the two dates
+			if (date1!=null && date2!=null)
+			{
+			theView.getTabsPane().getReportPanel().setTableModel(saleList);	//set the table if dates are not null
+			if (date1.after(date2))
+			{
+				theView.getTabsPane().getReportPanel().warnDateAfter();//if first date after second warn user
+			}
+			}
+			else 
+			{  theView.getTabsPane().getReportPanel().warnDateNull(); //if any date null warn user
+			}
+			}
+	}
+
+	
+			
+			
+		  
+	
+			
+			
+	
+	/******************************************************************/
+
 	class ComboBoxListener implements ActionListener{
 
 
@@ -134,7 +208,7 @@ public class Controller implements CategoryListener {
 			System.out.println("ComboBox Category changed to: "+selectedCategory);
 
 			//now populate all sub-categories ....
-			test=theModel.getMeSomeSubCategories();
+			test=theModel.getSubCategories(selectedCategory);
 
 			theView.getTabsPane().getReservationPanel().setComboBoxSubCategoryModel(test);
 		}
@@ -164,10 +238,7 @@ public class Controller implements CategoryListener {
 		}
 
 	}
-	/************************************************************/
-	/***********************END*********************************/
-
-
+	
 	//Updates Category that has been edited by the user
 	class ConfirmCategoryChangesListener implements ActionListener{
 		@Override
@@ -583,6 +654,7 @@ public class Controller implements CategoryListener {
 	}
 
 	/*
+>>>>>>> origin/Gab3
 	 * *********** INNER CLASSES TO LISTEN TO COMBO BOXES ON THE MAINTAIN PANEL **********************
 	 * ALL THESE CLASSES HANDLE THE EVENTS WHEN SELECTIONS ARE MADE ON COMBO BOXES FROM MAINTAIN PANEL
 	 * ***********************************************************************************************
@@ -754,8 +826,9 @@ public class Controller implements CategoryListener {
 			
 			
 		}
-
 	}
+	
+	
 
 	// *************************End maintain item panel************************
 
@@ -810,6 +883,7 @@ public class Controller implements CategoryListener {
 	public MaintainPanel getMaintainPanel(){
 		return theView.getTabsPane().getMaintainPanel();
 	}
-
 }
+
+
 

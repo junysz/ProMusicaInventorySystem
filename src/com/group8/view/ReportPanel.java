@@ -5,43 +5,135 @@ import java.awt.BorderLayout;
 import javax.swing.JTextField;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JLabel;
+
+import com.group8.model.Item;
+import com.group8.model.Sale;
 import com.toedter.calendar.JDateChooser;
+
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import java.awt.Label;
+import java.awt.event.ActionListener;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JButton;
 
 
 public class ReportPanel extends JPanel {
-	private JTable table;
-
-	/**
-	 * Create the panel.
-	 */
+	private JTable tableReport;   
+	private ReportTableModel 	ReportTableModel;
+	private 	JButton btnReport;	
+	JDateChooser date1;
+	private JDateChooser date2;
+	private JLabel date1Label,date2Label;
+	
 	public ReportPanel() {
-		setLayout(new MigLayout("", "[][grow][][grow][][][][][][][][][][93.00][][42.00][111.00][][][][][][][][][][][][][][][][][][][][]", "[][][][49.00][][][][][][grow][]"));
+		setLayout(new MigLayout("", "[24.00][][][grow][][][grow][][][][grow][][][][][][][][][][][][][][][][][][][][][][][]", "[][][][][][][34.00][][][grow][]"));
 		
-		JLabel lblNewLabel = new JLabel("Start Date");
-		add(lblNewLabel, "cell 3 6");
+	    date1Label = new JLabel("Start Date");
+		add(date1Label, "cell 1 5");
 		
-		JDateChooser dateChooser = new JDateChooser();
-		add(dateChooser, "cell 5 6");
+	    date1 = new JDateChooser();
+		add(date1, "cell 2 5,grow");
 		
-		JLabel lblNewLabel_1 = new JLabel("End date");
-		add(lblNewLabel_1, "cell 7 6,aligny baseline");
+		date2Label = new JLabel("End Date");
+		add(date2Label, "cell 4 5");
 		
-		JDateChooser dateChooser_1 = new JDateChooser();
-		add(dateChooser_1, "cell 9 6,grow");
+		 date2 = new JDateChooser();
+		add(date2, "cell 5 5,grow");
+		
+	    btnReport = new JButton("Get report");  //Button to generate the reports
+		add(btnReport, "cell 9 5");
+	
+	
 		
 		JScrollPane scrollPane = new JScrollPane();
-		add(scrollPane, "cell 1 9 23 1,grow");
+		add(scrollPane, "cell 0 9 32 1,grow");
 		
-		table = new JTable();
-		scrollPane.setColumnHeaderView(table);
+		ReportTableModel= new ReportTableModel();
+		tableReport = new JTable();		
+		tableReport.setModel(ReportTableModel);//set model for table
 		
+		scrollPane.setViewportView(tableReport);		
 			
+				
+
+	}
+	public void addTableListener(ActionListener listenForBtnReport)
+	{
+		btnReport.addActionListener(listenForBtnReport);
+	}
+
+
+	/*
+	 * I want to set Table Model
+	 * This will come from Model
+	 * Model doesn't know about view
+	 * So the controller will set this. 
+	 */
+	public void setTableModel(List<Sale>listFormController)
+	{
 		
-		
-		
+
+		ReportTableModel.setTableModel(listFormController);
+		tableReport.setModel(ReportTableModel);
+		ReportTableModel.fireTableDataChanged();
+
+	}
+        
+	public Date getDate1()   //get first date from the JDateChooser
+	{
+		try 
+		{
+		java.util.Date tempDate= date1.getDate();  
+		@SuppressWarnings("deprecation")
+		 //need to convert from java.util to java.sql	
+		java.sql.Date sqlDate = new java.sql.Date(tempDate.getTime()); 	
+	    return  sqlDate;	
+		}
+		catch (Exception io) {
+			return null;
+		}  
+	}
+	
+	public Date  getDate2()
+	{
+	try
+	       {
+		java.util.Date tempDate= date2.getDate();
+		 //need to convert from java.util to java.sql	
+	    java.sql.Date sqlDate = new java.sql.Date(tempDate.getTime()); 		
+	    return  sqlDate;	
+	 }
+	catch (Exception io) {
+		return null;
+	}  
+	}
+
+	
+	public void warnDateNull(){
+
+		JOptionPane.showMessageDialog(null,
+				"Please make a selection for the dates.",
+				"Warning",
+				JOptionPane.WARNING_MESSAGE);
 
 	}
 
-}
+//method to warn the user if first date is after the second date
+	public void warnDateAfter(){
+		JOptionPane.showMessageDialog(null,
+				"Your first date is after the second one!.",
+				"Warning",
+				JOptionPane.WARNING_MESSAGE);
+	}
+
+
+	}
+
+
+
+
