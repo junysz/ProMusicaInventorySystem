@@ -141,6 +141,7 @@ public class Controller implements CategoryListener {
 		if ( theView.getTabsPane().getReservationPanel().getSelectSubcategoryCBox().getSelectedItem()!=null)
 			{ 
 			 subCat=	theView.getTabsPane().getReservationPanel().getSelectSubcategoryCBox().getSelectedItem().toString();
+			 
 			}
 		else 
 		{
@@ -767,8 +768,18 @@ public class Controller implements CategoryListener {
 			
 			String selectedItem=getMaintainPanel().getItemToEditComboBox().getSelectedItem().toString();
 			
+			String selectedSubCategory= getMaintainPanel().getItemToEditSubCatComboBox().getSelectedItem().toString();
 			
+			//System.out.println("testgin"+selectedItem);
 			
+			//extract model and brand from combo-box select item
+			
+			//use query itemsInSubCategory
+			//getItemsInSubcategory(String subCatName)
+			//create list with all items for selected sub-category
+			
+			//iterate throughout the list and compare brand and model
+			//get correct item and get price and all details
 			
 		}
 		
@@ -797,6 +808,7 @@ public class Controller implements CategoryListener {
 		}
 
 	}
+	//
 	class SubCategoryListenerEditItemCB implements ActionListener{
 
 		@Override
@@ -810,12 +822,14 @@ public class Controller implements CategoryListener {
 
 
 			List<String>listItemBrands= new ArrayList<>();
+			String brandModel=null;
 			for(int i=0;i<listItems.size();i++){
 
 
-
-
-				listItemBrands.add(listItems.get(i).getModel());
+				brandModel=listItems.get(i).getBrand()+" "+listItems.get(i).getModel();
+				
+				
+				listItemBrands.add(brandModel);
 			}
 
 			getMaintainPanel().setItemModle(listItemBrands);
