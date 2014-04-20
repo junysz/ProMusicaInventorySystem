@@ -12,12 +12,19 @@ import com.group8.view.MaintainPanel;
 
 public class Controller implements CategoryListener {
 
-	private List <Item> temItemList;
-	
-	
-	private List<String> test;
 	private MainFrame theView;  	
-	private MainModel theModel;											
+	private MainModel theModel;		
+
+	private List <Item> temItemList;
+	private List<String> test;
+
+	protected MCeditCategoryCB mcEditCategoryCB;
+	protected MCeditCategoryBTN mcEditCategoryBTN;
+	protected MCcreateSubCategoryCB mcCreateSubCategoryCB;
+	protected MCcreateSubCategoryBTN mcCreateSubCategoryBTN;
+	protected MCeditSubCategoryCB1 mcEditSubCategoryCB1;
+	protected MCeditSubCategoryCB2 mcEditSubCategoryCB2;
+	protected MCeditSubCategoryBTN mcEditSubCategoryBTN;
 
 	public Controller(MainFrame theView, MainModel theModel )
 	{
@@ -27,29 +34,22 @@ public class Controller implements CategoryListener {
 
 		//LOGIN LISTENER
 		theView.addLoginListener(new LoginListener(theView, theModel));
-
-
-
-		/******Maintain Categories Panel**************/
-
 		//Adds Category To DataBase when btn clicked
 		theView.setCategoryListener(this);
-		//button confirms editing Category
-		theView.getTabsPane().getMaintainPanel().addEditCategoryBtn(new ConfirmCategoryChangesListener());
 
 
-
-		//Adding Listeners to Combo-boxes to trigger item selections
-		//Create SubCat Panel
-		theView.getTabsPane().getMaintainPanel().addSelectCategoryForSubCatComboBoxListener(new SelectCategoryForSubCatComboBoxListener());      ///WE CAN REMOVE IT IF NOT NEDDED
-		//Edit SubCat Pane;
-		theView.getTabsPane().getMaintainPanel().addfindCatForSubCatToEditComboBoxListener(new FindCatForSubCatToEditComboBoxListener());
-
-
-
-		theView.getTabsPane().getMaintainPanel().addselectCategoryToEditcomboBoxListener(new MCeditCategoryCB());
-
-		theView.getTabsPane().getMaintainPanel().addEditSubCategory(new EditSubCategoryMaintainP());
+		/*******************************************************************/
+		/******Maintain Categories Controller Classes***********************/
+		/*******************************************************************/
+		mcEditCategoryCB= new MCeditCategoryCB(theView,theModel);
+		mcEditCategoryBTN= new MCeditCategoryBTN(theView,theModel); //button confirms editing Category
+		mcCreateSubCategoryCB = new MCcreateSubCategoryCB(theView,theModel);
+		mcCreateSubCategoryBTN= new MCcreateSubCategoryBTN(theView,theModel);
+		mcEditSubCategoryCB1= new MCeditSubCategoryCB1(theView,theModel);
+		mcEditSubCategoryCB2 = new MCeditSubCategoryCB2(theView,theModel);
+		mcEditSubCategoryBTN= new MCeditSubCategoryBTN(theView,theModel);
+		/*******************************************************************/
+		/*******************************************************************/
 
 		//update all comboBoxes
 		update();
@@ -57,24 +57,17 @@ public class Controller implements CategoryListener {
 
 
 		//ACTIVATE MAINTENACE PANEL BUTTON LISTENERS
-		theView.getTabsPane().getMaintainPanel().addCreateSubCategoryBtn(new CreateSubCategoryBtn());
+
 		theView.getTabsPane().getMaintainPanel().addCreateItemBtn(new CreateItemBtn());
 		theView.getTabsPane().getMaintainPanel().addEditItemBtn(new ConfirmItemChangesBtn());
 		theView.getTabsPane().getMaintainPanel().addRemoveItemBtn(new RemoveItemBtn());
 		theView.getTabsPane().getMaintainPanel().addCreateAccountBtn(new CreateAccountBtn());
-		theView.getTabsPane().getMaintainPanel().addSubmitSubCategoryBtn(new ConfirmSubCatChangesBtn());
-
-		/********************************************/
-
 
 		/******Maintain Items Panel**************/
 		getMaintainPanel().addCategoryListnerCreateItem(new CategoryListnerCreateItemComBox());
 		getMaintainPanel().addEditCategoryComboBoxItem(new CategoryListnerEditItemCB());
 
 		getMaintainPanel().addEditSubCatComboBox(new SubCategoryListenerEditItemCB());
-
-
-
 		getMaintainPanel().addSelectItemToEditComboBox(new ListenSelectItemEditCB());
 		/********************************************/
 
@@ -84,7 +77,6 @@ public class Controller implements CategoryListener {
 
 
 		populateCategoryReservPanel();
-
 
 
 		/***********REPORT PANEL*****************
@@ -105,24 +97,15 @@ public class Controller implements CategoryListener {
 		ArrayList<ReservedItem> List=new ArrayList <ReservedItem>();     		       
 		List=theModel.getReservedItems(); //query database for Sales between the two dates	
 		theView.getTabsPane().getReservationPanel().setListModel(List);
-
-
-
 	}
 
 
 
-	//when program starts categories are loaded into the combo-boxes
-	public void populateCategoryReservPanel(){
-		try{
-			 List<String> categories;
-			categories=theModel.getCategoryNames();
-			theView.getTabsPane().getReservationPanel().setComboBoxCategoryModel(categories);
-		}catch(Exception e){
-			System.out.println("data base is empty");
-		}
 
-	}
+
+
+
+
 
 
 
@@ -148,15 +131,6 @@ public class Controller implements CategoryListener {
 		}	
 	}
 
-
-
-
-	/*
-	 * 
-	 * *****************************************************
-	 * Class for setting the Table in the Report Panel */
-
-
 	class PopulateTable2Listener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 
@@ -180,16 +154,6 @@ public class Controller implements CategoryListener {
 			}
 		}
 	}
-
-
-
-
-
-
-
-
-
-	/******************************************************************/
 
 	class ComboBoxListener implements ActionListener{
 
@@ -232,179 +196,13 @@ public class Controller implements CategoryListener {
 
 	}
 
-	//Updates Category that has been edited by the user
-	class ConfirmCategoryChangesListener implements ActionListener{
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			ArrayList<String> errorMessages = new ArrayList<String>();
-
-			String categoryEdited=null;
-			String categoryOld=null;
-			int slectedComboCat=theView.getTabsPane().getMaintainPanel().getSelectCategoryToEditcomboBox().getSelectedIndex();
-			categoryEdited=theView.getTabsPane().getMaintainPanel().getEditCategoryNameTF().getText();
-
-			if(slectedComboCat==-1){
-				errorMessages.add("CategorySelction");
-			}
-			else{
-				categoryOld=theView.getTabsPane().getMaintainPanel().getSelectCategoryToEditcomboBox().getSelectedItem().toString();
-			}
-			if(categoryEdited.isEmpty()){
-				errorMessages.add("Enter new name for Category");
-			}
-			if(errorMessages.isEmpty()){
-				System.out.println("Old Category Name: "+categoryOld+ "\nNew Category Name: "+categoryEdited);
-
-
-				theModel.updateCategory(categoryOld,categoryEdited);
-				update();
-				//FIX PROBLEM left panel category+++++++++++++++++++++++
-
-
-				//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-				theView.getTabsPane().getMaintainPanel().clearEditCategoryForm();
-			}
-			else{
-				theView.getTabsPane().getMaintainPanel().warnCreateSubCatFormErrors(errorMessages);
-			}
 
 
 
 
-		}
-	}
-
-
-	/*
-	 * *********** INNER CLASSES TO LISTEN TO BUTTONS ON THE MAINTAIN PANEL ********************
-	 * ALL THESE CLASSES HANDLE THE EVENTS WHEN A BUTTON IS CLICKED ON A FORM FROM MAINTAIN PANEL
-	 * ******************************************************************************************
-	 */
-
-
-	//Confirm changes butn edit sub-category
-	class ConfirmSubCatChangesBtn implements ActionListener{
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			ArrayList<String> errorMessages = new ArrayList<String>();
-
-			String categorySelected=null;
-			String subCatNewName =null;
-			String subCatOldName=null;
-			int slectedComboCat=theView.getTabsPane().getMaintainPanel().getFindCategoryComboBox().getSelectedIndex();
-			int slectedComboSubCat=theView.getTabsPane().getMaintainPanel().getSelectSubCatToEditComboBox().getSelectedIndex();
-
-			if(slectedComboCat==-1){
-				errorMessages.add("CategorySelction");
-				//oldWarningHandeler --- theView.getTabsPane().getMaintainPanel().warnSubCategoryFieldEmpty();
-			}
-			else{
-				categorySelected=theView.getTabsPane().getMaintainPanel().getFindCategoryComboBox().getSelectedItem().toString();
-			}
-			if(slectedComboSubCat==-1){
-				errorMessages.add("SubCategorySelction");
-			}
-			else{
-
-
-				subCatOldName= theView.getTabsPane().getMaintainPanel().getSelectSubCatToEditComboBox().getSelectedItem().toString();
-
-			}
-
-			if(errorMessages.isEmpty())
-			{
-				subCatNewName=	theView.getTabsPane().getMaintainPanel().getEditSubCatNameTF().getText();
-
-				System.out.println("Old subCat name: "+subCatOldName+"\nNew subCat name: "+subCatNewName);
-				theModel.updateSubCategory(subCatOldName, subCatNewName);
-				//theView.getTabsPane().getMaintainPanel().setSubCategoryModels(theModel.getSubCategoryNames());
-
-				//UPDATE 
-				theView.getTabsPane().getMaintainPanel().setSubCategoryModels(theModel.getSubCategories(categorySelected));
-
-				//set text filed to "" 
-				theView.getTabsPane().getMaintainPanel().clearEditSubCatForm();
-				update();
-
-			}
-			else{
-				theView.getTabsPane().getMaintainPanel().warnCreateSubCatFormErrors(errorMessages);
-			}
-
-
-		}
-
-	}
 
 
 
-	//Inner Class that listens for the Create SubCategory Button
-	class CreateSubCategoryBtn implements ActionListener{
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			String categorySelection=null;
-			String subCatTF=null;
-			ArrayList<String> errorMessages;
-			boolean nameExists = false; //used to see if the name already exists
-			int slectedCombo=theView.getTabsPane().getMaintainPanel().getSelectCategorycomboBox().getSelectedIndex();
-			subCatTF= theView.getTabsPane().getMaintainPanel().getEnterSubCatNameTF();
-			errorMessages = new ArrayList<String>();
-			if(slectedCombo==-1){
-				errorMessages.add("CategorySelction");
-				//oldWarningHandeler --- theView.getTabsPane().getMaintainPanel().warnSubCategoryFieldEmpty();
-			}
-			else{
-				categorySelection=theView.getTabsPane().getMaintainPanel().getSelectCategorycomboBox().getSelectedItem().toString();
-			}
-			if(subCatTF.isEmpty()){
-				errorMessages.add("SubCategory Name");
-			}
-			//now that we know they have selected a category entered a subCatname we need to see if it already exists
-			else{
-				ArrayList<String>listSubCategories= new ArrayList<>();
-				listSubCategories=theModel.getSubCategoryNames();
-				for(String copmapareSubCat: listSubCategories){
-
-					if(copmapareSubCat.equalsIgnoreCase(subCatTF)){
-						nameExists=true;
-						break;
-					}
-				}
-			}
-			if(nameExists){
-				errorMessages.add("Sub Category Name already Exists");
-			}
-			//else we can go ahead and make sub category
-			if(errorMessages.isEmpty()){
-				//first we get the category id based on the name that was selected
-				int catID = theModel.getCategoryIdFromName(categorySelection);
-				System.out.println("TESTING CATID: "+catID);
-				//then we create the Category Object to pass to the model
-				Category c = new Category(catID, categorySelection);
-				//Now create the SubCategory Object we want to write to the database
-				SubCategory s=new SubCategory(subCatTF);
-				//send both object to the model to handle the database insert
-				theModel.addNewSubCategory(c,s);
-				//Testing Prints
-				System.out.println("Test if works: CategoryName: "+ c.getCategoryName()+"\n SubCategoryName: "+s.getSubCatName());
-				//Now that data processing is complete, clear the GUI form
-				theView.getTabsPane().getMaintainPanel().clearNewSubCatForm();
-
-				//working now on it
-				//reset category combo-box
-				update();
-
-
-
-
-			}
-			else{
-				theView.getTabsPane().getMaintainPanel().warnCreateSubCatFormErrors(errorMessages);
-			}
-		}
-	}
 
 
 	//Inner Class that listens for the Create Item Button
@@ -646,108 +444,28 @@ public class Controller implements CategoryListener {
 		}
 	}
 
-	/*
->>>>>>> origin/Gab3
-	 * *********** INNER CLASSES TO LISTEN TO COMBO BOXES ON THE MAINTAIN PANEL **********************
-	 * ALL THESE CLASSES HANDLE THE EVENTS WHEN SELECTIONS ARE MADE ON COMBO BOXES FROM MAINTAIN PANEL
-	 * ***********************************************************************************************
-	 */
-	
-	
-		class MCeditCategoryCB implements ActionListener{
-		//Responsible for listening on the Select Category Combo-Box(EDIT CATEGORY) 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String comboBox2= theView.getTabsPane().getMaintainPanel().getSelectCategoryToEditcomboBox().getSelectedItem().toString();
-				System.out.println(comboBox2);
-				/*
-				 * We can now get category name from database
-				 * populate text area to edit name of subcategory 
-				 */
-				//GET CATEGORY FORM DB TO EDIT
-				ArrayList<String> cat= new ArrayList<>();
-				cat=theModel.getCategoryNames();
-				String getToTextField=null;
-				for(int i=0;i<cat.size();i++){
-					getToTextField=cat.get(i);
-					if(getToTextField.equalsIgnoreCase(comboBox2)){
-						break;
-					}
-				}
-				theView.getTabsPane().getMaintainPanel().setEditCategoryNameTF(getToTextField);
-			}
-		}
-
-
-
-
-	
-	
-	
-	
-	
-	
-	
-
-	class EditSubCategoryMaintainP implements ActionListener{
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-
-			String subCategoryEdit= theView.getTabsPane().getMaintainPanel().getSelectSubCatToEditComboBox().getSelectedItem().toString();
-
-			List<String> subCat= new ArrayList<>();
-			subCat=theModel.getSubCategoryNames();
-			String setSubCatTF=null;
-			for(int i=0;i<subCat.size();i++){
-				setSubCatTF=subCat.get(i);
-				if(setSubCatTF.equalsIgnoreCase(subCategoryEdit)){
-					break;
-				}
-			}
-			theView.getTabsPane().getMaintainPanel().setSelectSubCatToEditComboBox(subCategoryEdit);
-
-		}
-
-	}
-
-
-
-
-	//Inner Class Responsible for listening to the Select Category Combo Box on the Create SubCategory Panel
-	class SelectCategoryForSubCatComboBoxListener implements ActionListener{
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			String comboBox1=theView.getTabsPane().getMaintainPanel().getSelectCategorycomboBox().getSelectedItem().toString();
-			System.out.println("I'm comboBox Listener Create sub Category: "+comboBox1);
-
-		}
-	}
-
-	
-	//Gets string form bomboBox
-	class FindCatForSubCatToEditComboBoxListener implements ActionListener{
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			String comboBox3= theView.getTabsPane().getMaintainPanel().getFindCategoryComboBox().getSelectedItem().toString();
-			System.out.println("I'm CatListner get me all sub-cats for: "+comboBox3);
-
-
-
-			//get all subCategory for Category
-			//set model maintain panel
 
 
 
 
 
-			//System.out.println(test.size());
-
-			theView.getTabsPane().getMaintainPanel().setSubCategoryModels(theModel.getSubCategories(comboBox3));
 
 
-		}
-	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	/*this is method implemented from CategoryListener Interface 
 	 *Category object is passed form view 
@@ -899,6 +617,40 @@ public class Controller implements CategoryListener {
 		theView.getTabsPane().getMaintainPanel().clearNewCategoryForm();
 	}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	//when program starts categories are loaded into the combo-boxes
+	public void populateCategoryReservPanel(){
+		try{
+			List<String> categories;
+			categories=theModel.getCategoryNames();
+			theView.getTabsPane().getReservationPanel().setComboBoxCategoryModel(categories);
+		}catch(Exception e){
+			System.out.println("data base is empty");
+		}
+
+	}
+
 	//MaintainPanel: populates all ComboBoxes:SelectCategory
 	public void update() {
 
@@ -910,6 +662,262 @@ public class Controller implements CategoryListener {
 	public MaintainPanel getMaintainPanel(){
 		return theView.getTabsPane().getMaintainPanel();
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	//THOSE CLASSESS HAS BEEN MOVED OUT OF THE MAIN CONTROLER
+
+
+	/**********************MAINTAIN CATEGORIES Classes moved away START********************************/
+
+	/*class MCeditCategoryCB implements ActionListener{
+		//Responsible for listening on the Select Category Combo-Box(EDIT CATEGORY) 
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String comboBox2= theView.getTabsPane().getMaintainPanel().getSelectCategoryToEditcomboBox().getSelectedItem().toString();
+			System.out.println(comboBox2);
+
+	 * We can now get category name from database
+	 * populate text area to edit name of subcategory 
+
+			//GET CATEGORY FORM DB TO EDIT
+			ArrayList<String> cat= new ArrayList<>();
+			cat=theModel.getCategoryNames();
+			String getToTextField=null;
+			for(int i=0;i<cat.size();i++){
+				getToTextField=cat.get(i);
+				if(getToTextField.equalsIgnoreCase(comboBox2)){
+					break;
+				}
+			}
+			theView.getTabsPane().getMaintainPanel().setEditCategoryNameTF(getToTextField);
+		}
+	}*/
+
+	/*class MCeditCategoryBTN implements ActionListener{
+		//Updates Category that has been edited by the user
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			ArrayList<String> errorMessages = new ArrayList<String>();
+
+			String categoryEdited=null;
+			String categoryOld=null;
+			int slectedComboCat=theView.getTabsPane().getMaintainPanel().getSelectCategoryToEditcomboBox().getSelectedIndex();
+			categoryEdited=theView.getTabsPane().getMaintainPanel().getEditCategoryNameTF().getText();
+
+			if(slectedComboCat==-1){
+				errorMessages.add("CategorySelction");
+			}
+			else{
+				categoryOld=theView.getTabsPane().getMaintainPanel().getSelectCategoryToEditcomboBox().getSelectedItem().toString();
+			}
+			if(categoryEdited.isEmpty()){
+				errorMessages.add("Enter new name for Category");
+			}
+			if(errorMessages.isEmpty()){
+				System.out.println("Old Category Name: "+categoryOld+ "\nNew Category Name: "+categoryEdited);
+				theModel.updateCategory(categoryOld,categoryEdited);
+				update();
+				theView.getTabsPane().getMaintainPanel().clearEditCategoryForm();
+			}
+			else{
+				theView.getTabsPane().getMaintainPanel().warnCreateSubCatFormErrors(errorMessages);
+			}
+		}
+	}*/
+
+	/*class MCcreateSubCategoryCB implements ActionListener{
+		//Class Responsible for listening to the Select Category Combo Box on the Create SubCategory Panel
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			theView.getTabsPane().getMaintainPanel().getSelectCategorycomboBox().getSelectedItem().toString();
+		}
+	}*/
+
+	/*class MCcreateSubCategoryBTN implements ActionListener{
+		//Inner Class that listens for the Create SubCategory Button
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String categorySelection=null;
+			String subCatTF=null;
+			ArrayList<String> errorMessages;
+			boolean nameExists = false; //used to see if the name already exists
+			int slectedCombo=theView.getTabsPane().getMaintainPanel().getSelectCategorycomboBox().getSelectedIndex();
+			subCatTF= theView.getTabsPane().getMaintainPanel().getEnterSubCatNameTF();
+			errorMessages = new ArrayList<String>();
+			if(slectedCombo==-1){
+				errorMessages.add("CategorySelction");
+			}
+			else{
+				categorySelection=theView.getTabsPane().getMaintainPanel().getSelectCategorycomboBox().getSelectedItem().toString();
+			}
+			if(subCatTF.isEmpty()){
+				errorMessages.add("SubCategory Name");
+			}
+			//now that we know they have selected a category entered a subCatname we need to see if it already exists
+			else{
+				ArrayList<String>listSubCategories= new ArrayList<>();
+				listSubCategories=theModel.getSubCategoryNames();
+				for(String copmapareSubCat: listSubCategories){
+
+					if(copmapareSubCat.equalsIgnoreCase(subCatTF)){
+						nameExists=true;
+						break;
+					}
+				}
+			}
+			if(nameExists){
+				errorMessages.add("Sub Category Name already Exists");
+			}
+			//else we can go ahead and make sub category
+			if(errorMessages.isEmpty()){
+				//first we get the category id based on the name that was selected
+				int catID = theModel.getCategoryIdFromName(categorySelection);
+				System.out.println("TESTING CATID: "+catID);
+				//then we create the Category Object to pass to the model
+				Category c = new Category(catID, categorySelection);
+				//Now create the SubCategory Object we want to write to the database
+				SubCategory s=new SubCategory(subCatTF);
+				//send both object to the model to handle the database insert
+				theModel.addNewSubCategory(c,s);
+				//Testing Prints
+				System.out.println("Test if works: CategoryName: "+ c.getCategoryName()+"\n SubCategoryName: "+s.getSubCatName());
+				//Now that data processing is complete, clear the GUI form
+				theView.getTabsPane().getMaintainPanel().clearNewSubCatForm();
+				//working now on it
+				//reset category combo-box
+				update();
+			}
+			else{
+				theView.getTabsPane().getMaintainPanel().warnCreateSubCatFormErrors(errorMessages);
+			}
+		}
+	}*/
+
+	/*class MCeditSubCategoryCB1 implements ActionListener{
+		//Gets string from bomboBox
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String comboBox3= theView.getTabsPane().getMaintainPanel().getFindCategoryComboBox().getSelectedItem().toString();
+			theView.getTabsPane().getMaintainPanel().setSubCategoryModels(theModel.getSubCategories(comboBox3));
+		}
+	}
+	 */
+	/*class MCeditSubCategoryCB2 implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+
+			String subCategoryEdit= theView.getTabsPane().getMaintainPanel().getSelectSubCatToEditComboBox().getSelectedItem().toString();
+			List<String> subCat= new ArrayList<>();
+			subCat=theModel.getSubCategoryNames();
+			String setSubCatTF=null;
+			for(int i=0;i<subCat.size();i++){
+				setSubCatTF=subCat.get(i);
+				if(setSubCatTF.equalsIgnoreCase(subCategoryEdit)){
+					break;
+				}
+			}
+			theView.getTabsPane().getMaintainPanel().setSelectSubCatToEditComboBox(subCategoryEdit);
+		}
+	}*/
+
+	/*class MCeditSubCategoryBTN implements ActionListener{
+		//Confirm changes butn edit sub-category
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			ArrayList<String> errorMessages = new ArrayList<String>();
+
+			String categorySelected=null;
+			String subCatNewName =null;
+			String subCatOldName=null;
+			int slectedComboCat=theView.getTabsPane().getMaintainPanel().getFindCategoryComboBox().getSelectedIndex();
+			int slectedComboSubCat=theView.getTabsPane().getMaintainPanel().getSelectSubCatToEditComboBox().getSelectedIndex();
+
+			if(slectedComboCat==-1){
+				errorMessages.add("CategorySelction");
+			}
+			else{
+				categorySelected=theView.getTabsPane().getMaintainPanel().getFindCategoryComboBox().getSelectedItem().toString();
+			}
+			if(slectedComboSubCat==-1){
+				errorMessages.add("SubCategorySelction");
+			}
+			else{
+				subCatOldName= theView.getTabsPane().getMaintainPanel().getSelectSubCatToEditComboBox().getSelectedItem().toString();
+			}
+
+			if(errorMessages.isEmpty())
+			{
+				subCatNewName=	theView.getTabsPane().getMaintainPanel().getEditSubCatNameTF().getText();
+				theModel.updateSubCategory(subCatOldName, subCatNewName);
+				theView.getTabsPane().getMaintainPanel().setSubCategoryModels(theModel.getSubCategories(categorySelected));
+				theView.getTabsPane().getMaintainPanel().clearEditSubCatForm();
+				update();
+			}
+			else{
+				theView.getTabsPane().getMaintainPanel().warnCreateSubCatFormErrors(errorMessages);
+			}
+		}
+	}*/
+
+
+	/***********************MAINTAIN CATEGORIES END*******************************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 

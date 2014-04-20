@@ -490,7 +490,6 @@ public class MaintainPanel extends JPanel implements ActionListener {
 
 		btnCreateCategory.addActionListener(this);
 		btnConfirmChanges.addActionListener(this);
-		//btnConfirmChanges_3.addActionListener(this);
 
 	}
 
