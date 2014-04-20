@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JComboBox;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 
 import com.group8.model.*;
@@ -16,7 +18,7 @@ import com.group8.view.CategoryListener;
 import com.group8.view.MainFrame;
 import com.group8.view.MaintainPanel;
 
-public class Controller implements CategoryListener {
+public class Controller implements CategoryListener{
 
 	private List <Item> temItemList;
 	private ArrayList <Sale> saleList;
@@ -36,7 +38,7 @@ public class Controller implements CategoryListener {
 		
 		
 
-		/******Maintain Categories Panel**************/
+		/******MAINTAIN CATEGORIES PANEL**************/
 
 		//Adds Category To DataBase when btn clicked
 		theView.setCategoryListener(this);
@@ -62,7 +64,7 @@ public class Controller implements CategoryListener {
 
 
 
-		//ACTIVATE MAINTENACE PANEL BUTTON LISTENERS
+		//ACTIVATE MAINTENANCE PANEL BUTTON LISTENERS
 		theView.getTabsPane().getMaintainPanel().addCreateSubCategoryBtn(new CreateSubCategoryBtn());
 		theView.getTabsPane().getMaintainPanel().addCreateItemBtn(new CreateItemBtn());
 		theView.getTabsPane().getMaintainPanel().addEditItemBtn(new ConfirmItemChangesBtn());
@@ -74,8 +76,6 @@ public class Controller implements CategoryListener {
 
 
 		/********************************************/
-
-
 		/******Maintain Items Panel**************/
 		getMaintainPanel().addCategoryListnerCreateItem(new CategoryListnerCreateItemComBox());
 		getMaintainPanel().addEditCategoryComboBoxItem(new CategoryListnerEditItemCB());
@@ -87,39 +87,35 @@ public class Controller implements CategoryListener {
 		getMaintainPanel().addSelectItemToEditComboBox(new EditItemListener());
 		/********************************************/
 
-		theView.getTabsPane().getReservationPanel().addTableListener(new PopulateTableListener());
-		theView.getTabsPane().getReservationPanel().addComboBoxCatListener(new ComboBoxListener());
-		theView.getTabsPane().getReservationPanel().addComboBoxSubCatListener(new ComboBoxSubCatListener());
-
 		
-		populateCategoryReservPanel();
 
-
-
-		/***********REPORT PANEL*****************
+/**************************************
+		***********REPORT PANEL*****************
+		 * *********************************************
 		 * */
-	
 	
 		
 		theView.getTabsPane().getReportPanel().addTableListener(new PopulateTable2Listener());
 		 
 		
+		
+		
 	/************************************************************/
-	/******ReservationPanel******/ 
+	/******RESERVATION PANEl******/ 
 	/************************************************************/
 	
 	
-	 //Populate List in ReservePanel
-	
-    ArrayList<ReservedItem> List=new ArrayList <ReservedItem>();     		       
-	List=theModel.getReservedItems(); //query database for Sales between the two dates	
-	theView.getTabsPane().getReservationPanel().setListModel(List);
-	
-	
-	
+		theView.getTabsPane().getReservationPanel().addTableListener(new PopulateTableListener());
+		theView.getTabsPane().getReservationPanel().addComboBoxCatListener(new ComboBoxListener());
+		theView.getTabsPane().getReservationPanel().addComboBoxSubCatListener(new ComboBoxSubCatListener());		
+		populateCategoryReservPanel();	
+	    theView.getTabsPane().getReservationPanel().addListListener(new myListListener());		
+        ArrayList<ReservedItem> List=new ArrayList <ReservedItem>();     		       
+        List=theModel.getReservedItems(); 
+	    theView.getTabsPane().getReservationPanel().setListModel(List);
+	    theView.getTabsPane().getReservationPanel().addUpdateListener(new UpdateBtn());
+	    theView.getTabsPane().getReservationPanel().addRemoveListener(new RemoveBtn());
 	}
-	
-	
 	
 	
 	public void populateCategoryReservPanel(){
@@ -141,17 +137,14 @@ public class Controller implements CategoryListener {
 		if ( theView.getTabsPane().getReservationPanel().getSelectSubcategoryCBox().getSelectedItem()!=null)
 			{ 
 			 subCat=	theView.getTabsPane().getReservationPanel().getSelectSubcategoryCBox().getSelectedItem().toString();
+			 temItemList=theModel.getItemsInSubcategory(subCat); 
+			 theView.getTabsPane().getReservationPanel().setTableModel(temItemList);	
 			}
 		else 
 		{
 			theView.getTabsPane().getReservationPanel().warnSubCategoryNull();
 		}	
 							
-			if (subCat!=null)
-			{
-			temItemList=theModel.getItemsInSubcategory(subCat); 
-			theView.getTabsPane().getReservationPanel().setTableModel(temItemList);	
-			}
 		}	
 	}
 
@@ -166,8 +159,6 @@ public class Controller implements CategoryListener {
 	 
 	class PopulateTable2Listener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-
-
 			
 			
 		    ArrayList<Sale> saleList=new ArrayList <Sale>();		        		       
@@ -188,11 +179,94 @@ public class Controller implements CategoryListener {
 			}
 	}
 
+	//class for populating the Textfields in Make new reservation JPanel
 	
+
+	class myListListener implements ListSelectionListener{
+		private String item;
+		private double totalPrice,deposit;
+		private String docketSelected;
+	@Override
+	public void valueChanged(ListSelectionEvent e) {
+		
+	    	
+		  docketSelected = theView.getTabsPane().getReservationPanel().getList().getSelectedValue().toString();
+		 
+		ArrayList<ReservedItem> myList=new ArrayList<ReservedItem>();
+		myList=theModel.getReservedItems();
+		int size=myList.size();
+		for (int i=0;i<size;i++)
+		if (myList.get(i).getDocketNo().equals(docketSelected) )			
+		{
+		int itemID=myList.get(i).getItemID();
+		
+		item=theModel.getItemByID(itemID).getBrand()+" "+theModel.getItemByID(itemID).getModel();
+		totalPrice=theModel.getItemByID(itemID).getPrice();
+		deposit=myList.get(i).getDeposit();
+		
+		}
+		
+		 theView.getTabsPane().getReservationPanel().getDocketNoTF().setText(docketSelected);
+		 theView.getTabsPane().getReservationPanel().getBrandModelTF().setText(item);
+		 theView.getTabsPane().getReservationPanel().getCurrentDepositTF().setText(deposit+"");
+		 theView.getTabsPane().getReservationPanel().getTotalPriceTF().setText(totalPrice+"");
+		 
+		 theView.getTabsPane().getReservationPanel().getEndReservation().setEnabled(true);
+		 theView.getTabsPane().getReservationPanel().getNewButton().setEnabled(true);
+	}	
+	}
 			
+	//Class for listening the button to Update a Reservation
+	 
+	class UpdateBtn implements ActionListener
+	{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+		
+			double newDeposit;
+			ReservedItem reserved;
 			
-		  
-	
+			reserved=new ReservedItem();
+			
+		
+			
+			String docket=theView.getTabsPane().getReservationPanel().getDocketNoTF().getText();			
+			String newDepositString=theView.getTabsPane().getReservationPanel().getupdateDepositTF().getText();
+			try
+			{
+			newDeposit = Double.parseDouble(newDepositString);		    					
+			reserved.setDeposit(newDeposit);
+			theModel.updateReservedItem(docket,newDeposit);
+			theView.getTabsPane().getReservationPanel().getCurrentDepositTF().setText(newDeposit+"");		
+			}
+			
+		
+		catch (Exception io) {
+			theView.getTabsPane().getReservationPanel().warnUpdateNull();	
+		}
+		}
+		
+		
+	}
+		//Class to remove a Reservation  
+	class RemoveBtn implements ActionListener
+	{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {				
+						
+			String docket=theView.getTabsPane().getReservationPanel().getDocketNoTF().getText();
+			
+			theModel.removeReservedItem(docket);
+			 theView.getTabsPane().getReservationPanel().getDocketNoTF().setText("");
+			 theView.getTabsPane().getReservationPanel().getBrandModelTF().setText("");
+			 theView.getTabsPane().getReservationPanel().getCurrentDepositTF().setText("");
+			 theView.getTabsPane().getReservationPanel().getTotalPriceTF().setText("");
+			
+		}
+		
+	}
 			
 			
 	
@@ -883,6 +957,8 @@ public class Controller implements CategoryListener {
 	public MaintainPanel getMaintainPanel(){
 		return theView.getTabsPane().getMaintainPanel();
 	}
+
+
 }
 
 

@@ -38,9 +38,9 @@ public class MainModel {
 				e.printStackTrace();
 				System.out.println("Driver not found");
 			}
-			String conURL="jdbc:mysql://localhost:8889/mydb";
+			String conURL="jdbc:mysql://localhost:3306/mydb";
 			//establish the connection when the MainModel is created
-			mainConnection = DriverManager.getConnection(conURL,"root","root");
+			mainConnection = DriverManager.getConnection(conURL,"root","");
 
 			inserts = new DataInserts(mainConnection);
 			queries = new DataQueries(mainConnection);
@@ -104,8 +104,18 @@ public class MainModel {
 	public void removeItem(Item i){
 		updates.removeItem(i);
 	}
-
-
+   
+	//method to update the deposit associated with the docket number
+	public void updateReservedItem(String docket,double deposit)
+	{
+	updates.updateReservedItem(docket,deposit);
+    }
+	//method to "remove" the deposit associated with the docket number
+	public void removeReservedItem(String docket)
+	{
+		updates.removeReservedItem(docket);
+	}
+/*
 	//queries methods
 	public List<Item> getMeSomeItems(){
 		return someItems.getMeSomeItems();
@@ -116,6 +126,7 @@ public class MainModel {
 	public List<String>getMeSomeSubCategories(){
 		return someItems.getMeSomeSubCategories();
 	}
+	*/
 
 	public ArrayList<String>  getCategoryNames()
 	{
@@ -175,11 +186,20 @@ public class MainModel {
 	return queries.getSalesByDate(date1,date2);
 
 	}
-	
+	//method that returns all the ReservedItems
 	 public ArrayList<ReservedItem >getReservedItems()
 	 {
 	 return queries.getReservedItems();
 	 }
+	 //method that will return an item based on the itemID
+	 public Item getItemByID(int ID)
+	 {
+		 ArrayList<Item> myList=queries.getItemsByKeyword("");
+		 for (int i=0;i<myList.size();i++)
+			 if (ID==myList.get(i).getItemID()) return myList.get(i);
+		 return null;
+	 }
 }
+
 
 
