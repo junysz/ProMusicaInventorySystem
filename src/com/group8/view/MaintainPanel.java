@@ -846,8 +846,9 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	public void setEditModelTF(String model){
 		editModelTF.setText(model);
 	}
-	public void setEditPriceTF(String pirce){
-		editPriceTF.setText(pirce);
+	public void setEditPriceTF(String price){
+		
+		editPriceTF.setText(price);
 	}
 	
 	public String getEditModelTF() {
