@@ -17,6 +17,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListDataListener;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -60,8 +61,8 @@ public class ReservationPanel extends JPanel
 	private SubCatComboBoxModel  	subCatComboBoxModel;
 	private JComboBox<String> 		selectSubcategoryCBox;
 	
-	  JList<String> list;
-	  DefaultListModel<String> model;
+	private  JList<String> list;
+    private DefaultListModel<String> model;
 
 
 	private JPanel makeNewReservationPanel;
@@ -81,6 +82,8 @@ public class ReservationPanel extends JPanel
 	private JTextField depositTF;
 	private JLabel euroLabel;
 	private JButton btnReserveItem;
+	private JButton btnEndReservation;
+	private JButton btnNewButton;
 	private JLabel makeNewErrorLabel;
 
 
@@ -145,10 +148,10 @@ public class ReservationPanel extends JPanel
 		reservationDetailsPanel.add(label_1, "cell 6 2,alignx trailing");
 
 		totalPriceTF = new JTextField();
-		totalPriceTF.setEditable(false);
+		
 		reservationDetailsPanel.add(totalPriceTF, "cell 7 2,growx");
 		totalPriceTF.setColumns(10);
-
+		totalPriceTF.setEditable(false);
 		JLabel lblUpdateDeposit = new JLabel("Update Deposit");
 		reservationDetailsPanel.add(lblUpdateDeposit, "cell 1 4");
 
@@ -164,16 +167,12 @@ public class ReservationPanel extends JPanel
 		resErrorLabel.setForeground(Color.RED);
 		reservationDetailsPanel.add(resErrorLabel, "cell 3 5");
 
-		JButton btnNewButton = new JButton("Update Reservation");
+	    btnNewButton = new JButton("Update Reservation");
 		reservationDetailsPanel.add(btnNewButton, "cell 3 6");
+		btnNewButton.setEnabled(false);
 
-		JButton btnEndReservation = new JButton("End Reservation");
+	    btnEndReservation = new JButton("End Reservation");
 		reservationDetailsPanel.add(btnEndReservation, "cell 3 8");
-
-
-
-
-		
 
 
 
@@ -244,6 +243,7 @@ public class ReservationPanel extends JPanel
 		euroLabel = new JLabel("\u20AC");
 		euroLabel.setForeground(Color.GRAY);
 		btnReserveItem = new JButton("Reserve Item");	
+		btnReserveItem.setEnabled(false);
 		makeNewErrorLabel = new JLabel("");
 		makeNewErrorLabel.setForeground(Color.RED);
 
@@ -257,16 +257,81 @@ public class ReservationPanel extends JPanel
 		southPanelReservation.add(makeNewErrorLabel, "cell 0 2");
 	}
 
+    public int getTableIndex()
+    {
+    	return tableItemsRevervation.getSelectedRow();
+    }
 
-
+	public int getItemID()
+	{
+		
+		int row=getTableIndex();
+		return  (int) tableItemsRevervation.getValueAt(row,0);
+		
+	}
+	public int getAvailableStock()
+	{		
+		int row=getTableIndex();
+		return  (int) tableItemsRevervation.getValueAt(row,4);		
+	}
+	
+	
+	
 	public JComboBox<String> getSelectCategoryCBox() {
 		return selectCategoryCBox;
 	}
 	public JComboBox<String> getSelectSubcategoryCBox() {
 		return selectSubcategoryCBox;
 	}
-
-
+	
+	public JTextField  getDocketNoTF () {
+		return docketNoTF ;
+	}
+	public JTextField getBrandModelTF() {
+		return brandModelTF;
+	}                            						
+	public JTextField getCurrentDepositTF() {
+		return currentDepositTF;
+	}
+	public JTextField getTotalPriceTF() {
+		return totalPriceTF;
+	}
+	public JTextField getupdateDepositTF()
+	{
+		return updateDepositTF;
+	}
+	public JList getList()
+	{
+		return list; 
+	}
+	public JButton getNewButton()
+	{
+		return btnNewButton;
+	}
+	
+	public JButton getEndReservation()
+	{
+		return btnEndReservation;
+	}
+	
+	public JButton getBtnReserveItem()
+	{
+		return btnReserveItem;
+	}
+	
+	public JTextField getDocketTF()
+	{
+		return enterDocketNoTF;
+	}
+	public JTextField getDepositTF()
+	{
+		return depositTF;
+	}
+	
+	public JTextField  getEnterDocketNoTF()
+	{
+		return enterDocketNoTF;
+	}
 	/*******************
 	 * ADDING LISTENERS*
 	 *******************/
@@ -295,18 +360,43 @@ public class ReservationPanel extends JPanel
 	}
 	public void setComboBoxSubCategoryModel(List<String>comboBoxList){
 		subCatComboBoxModel.setComboBoxList(comboBoxList);
-
 	}
+	
 
-
-
-
+	
+	
+	public void addListListener(ListSelectionListener liste ){
+		list.addListSelectionListener(liste);
+	}
+   
+	public void removeList()
+	{
+		model.removeAllElements();
+	}
+   
 
 	/*
 	 * Provide the way to notify The Controller 
 	 * whenever button is clicked
 	 * This will be handled by The Controller
 	 */
+	
+	
+	public void addUpdateListener(ActionListener listenFor)
+	{
+	        btnNewButton.addActionListener(listenFor);
+	}
+	
+	public void addRemoveListener(ActionListener listenFor)
+	{
+		btnEndReservation.addActionListener(listenFor);
+	}
+	
+	public void addReserveListener(ActionListener listenFor)
+	{
+		btnReserveItem.addActionListener(listenFor);
+	}
+	
 	public void addTableListener(ActionListener listenForFindButton)
 	{
 		btnFindItems.addActionListener(listenForFindButton);
@@ -336,8 +426,29 @@ public class ReservationPanel extends JPanel
 	   model.addElement(list.get(i).getDocketNo());
    }
 		
-		
+   	}
+	
+	public void warnUpdateNull(){
 
+		JOptionPane.showMessageDialog(null,
+				"Please enter a number for updating the deposit",
+				"Warning",
+				JOptionPane.WARNING_MESSAGE);
+	}
+	
+	public void warnUpdate(){
+
+		JOptionPane.showMessageDialog(null,
+				"The deposit is too big",
+				"Warning",
+				JOptionPane.WARNING_MESSAGE);
+	}
+	public void warnDocketNull(){
+
+		JOptionPane.showMessageDialog(null,
+				"Please enter the Docket Number",
+				"Warning",
+				JOptionPane.WARNING_MESSAGE);
 	}
 	
 	public void warnSubCategoryNull(){
@@ -348,5 +459,20 @@ public class ReservationPanel extends JPanel
 				JOptionPane.WARNING_MESSAGE);
 
 	}
+	public void warnItemNull(){
 
+		JOptionPane.showMessageDialog(null,
+				"Please make a selection for an item",
+				"Warning",
+				JOptionPane.WARNING_MESSAGE);
+
+	}
+	public void success(){
+
+		JOptionPane.showMessageDialog(null,
+				"Reservation made with success",
+				"Warning",
+				JOptionPane.INFORMATION_MESSAGE);
+
+	}
 }

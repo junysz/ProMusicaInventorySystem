@@ -87,6 +87,29 @@ public class DataUpdates {
 		}
 	}
 	
+	//This method updates an Items' StockAvailableLevel only
+	protected void updateItem(int ItemID,int Stock)
+	{
+		try
+		{
+
+			PreparedStatement preparedStatement = con.prepareStatement("UPDATE Item SET availableStockLevel=? where itemID = ?");
+
+			//Set the variables in the prepared statement
+			preparedStatement.setInt(1,Stock);
+			preparedStatement.setInt(2,ItemID);			
+			int    res = preparedStatement.executeUpdate(); 
+			preparedStatement.close();
+
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
 	
 	//This method updates item after Edit Item button is triggered
 	protected void updateItem(Item i, int subCatID)
@@ -127,6 +150,30 @@ public class DataUpdates {
 			int res = preparedStatement.executeUpdate(); //Sets the boolean flag to false so that the item will no longer appear
 			preparedStatement.close();
 
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+
+	}
+	
+	
+	protected void updateReservedItem(String docket,double deposit)
+	{
+		try
+		{
+
+			PreparedStatement preparedStatement = con.prepareStatement("UPDATE ReservedItem SET depositPlaced=?  WHERE docketNo = ?");
+
+			//Set the variables in the prepared statement
+			preparedStatement.setDouble(1,deposit);
+	
+			preparedStatement.setString(2,docket );
+
+			int    res = preparedStatement.executeUpdate(); 
+			preparedStatement.close();
+
 
 		}
 		catch(Exception e)
@@ -134,6 +181,27 @@ public class DataUpdates {
 			e.printStackTrace();
 		}
 	}
+
+	protected void removeReservedItem(String docket)
+	{
+		try
+		{
+
+			PreparedStatement preparedStatement = con.prepareStatement("UPDATE ReservedItem SET flag=0  WHERE docketNo = ?");
+			
+			
+			preparedStatement.setString(1,docket);
+			int    res = preparedStatement.executeUpdate(); 
+			preparedStatement.close();
+			
+
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
 }
 
 

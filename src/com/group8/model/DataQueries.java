@@ -149,7 +149,7 @@ public class DataQueries {
 
 			while (rs2.next()) 
 			{
-				int id       =rs2.getInt("subCatID");	
+				int id       =rs2.getInt("itemID");	
 				double price = rs2.getDouble("itemPrice");                    
 				String brand = rs2.getString("itemBrand");
 				String model = rs2.getString("itemModel");   //get attributes for the item from result set 2
@@ -158,9 +158,8 @@ public class DataQueries {
 				boolean flag=rs2.getBoolean("flag");
 
 				item=new Item(brand,model,level,price,level2);//creating a new object with some of the attributes
+				item.setItemID(id);
 				item.setFlag(flag);   //set flag for the item
-				item.setItemID(id);    //set itemID for the item
-
 				listItems.add(item);   //add newly created object item to the list to be returned
 
 			}      
@@ -367,7 +366,7 @@ public class DataQueries {
 	  try {
 
 			ArrayList<ReservedItem> list = new ArrayList<ReservedItem>(); //create a new arraylist type account
-			String query = "Select * from ReservedItem ";  //create a new query 
+			String query = "Select * from ReservedItem  where flag>0";  //create a new query 
 			pstmt = con.prepareStatement(query);
 			ResultSet rs =  pstmt.executeQuery(query);
 			while (rs.next()) 
