@@ -531,7 +531,6 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	//Creates the Add New Item Button Listener
 	public void addCreateItemBtn(ActionListener listen){
 		btnCreateNewItem.addActionListener(listen);
-		btnConfirmItemChanges.addActionListener(listen);
 	}
 	public JButton getBtnCreateNewItem() {
 		return btnCreateNewItem;
@@ -541,19 +540,30 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	//Create the Edit Item Button Listener
 	public void addEditItemBtn(ActionListener listen){
 		btnConfirmChanges.addActionListener(listen);
-	}
-	//Create the Remove Item Button Listener
-	public void addRemoveItemBtn(ActionListener listen){
 		btnRemoveItem.addActionListener(listen);
 	}
+	//Create the Remove Item Button Listener
+	/*public void addRemoveItemBtn(ActionListener listen){
+		
+	}*/
+	public JButton getBtnRemoveItem() {
+		return btnRemoveItem;
+	}
+
+
 	//Creates the Add New ACcount Button Listener
 	public void addCreateAccountBtn(ActionListener listen){
 		btnCreateAccount.addActionListener(listen);
 	}
 
-	/*public void addConfirmItemChangesBtn(ActionListener listen){
+	public void addConfirmItemChangesBtn(ActionListener listen){
 		btnConfirmItemChanges.addActionListener(listen);
-	}*/
+	}
+
+
+	public JButton getBtnConfirmItemChanges() {
+		return btnConfirmItemChanges;
+	}
 
 
 	/* METHOD: setCategoryModels is for Category Combo BOxes
@@ -604,6 +614,13 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		CategoryComboBoxModel subCategoryCbM3= new CategoryComboBoxModel();
 		subCategoryCbM3.setComboBoxList(comboBoxList);
 		editSubCatComboBox.setModel(subCategoryCbM3);
+		changeSubCatComboBox.setModel(subCategoryCbM3);
+		
+		CategoryComboBoxModel subCategoryCbM4= new CategoryComboBoxModel();
+		subCategoryCbM4.setComboBoxList(comboBoxList);
+		changeSubCatComboBox.setModel(subCategoryCbM4);
+		
+		
 	}
 
 	//set list on Maintain Items for select item combo box
@@ -611,6 +628,9 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		CategoryComboBoxModel selectItemModel= new CategoryComboBoxModel();
 		selectItemModel.setComboBoxList(comboBoxList);
 		selectItemToEditComboBox.setModel(selectItemModel);
+		
+		
+	
 	}
 
 
@@ -928,8 +948,11 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	}
 
 	public void clearNewItemForm(){
-
+		List<String>clearSubCat= new ArrayList<>();
+		setSubCategoryModelItems2(clearSubCat);
 		//clear sub-Category comboBox
+		setCategoryModels(clearSubCat);
+		setItemModle(clearSubCat);
 		
 		enterBrandTF.setText("");
 		enterModelTF.setText("");
@@ -938,23 +961,23 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	}
 	public void clearEditItemForm(){
 		List<String>clearSubCat= new ArrayList<>();
-		setSubCategoryModels(clearSubCat);
+		setSubCategoryModelItems2(clearSubCat);
+	
 		setItemModle(clearSubCat);
 		editBrandTF.setText("");
 		editModelTF.setText("");
 		editPriceTF.setText("");
-		//changeSubCatComboBox.setSelectedItem(0);
 	}
 	public void clearNewAccountForm(){
 		enterUsernameTF.setText("");
 		enterPasswordTF.setText("");
 		confirmPasswordTF.setText("");
-		//selectAccountTypeComboBox.setSelectedItem(0);
+
 	}
 	public void clearEditAccountForm(){
-		selectAccountToEditComboBox.setSelectedItem(0);
+		//selectAccountToEditComboBox.setSelectedItem(0);
 		editUsernameTF.setText("");
-		editAccountTypeComboBox.setSelectedItem(0);
+	//	editAccountTypeComboBox.setSelectedItem(0);
 		editAccountPasswordTF.setText("");
 		rdbtnEnableAccount.setSelected(false);
 		rdbtnDisableAccount.setSelected(false);

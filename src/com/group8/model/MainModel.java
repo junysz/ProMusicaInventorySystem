@@ -178,7 +178,7 @@ public class MainModel {
 		return id;
 	}
 	//This method will return an item using a string containing the brand and model separated by a space
-	public Item getItemByName(String itemName)
+	/*public Item getItemByName(String itemName)
 	{
 		int space =itemName.indexOf(" ");
 		String brand = itemName.substring(0, space); //gets brand from the first part of the string up to 1 before the space
@@ -186,8 +186,13 @@ public class MainModel {
 		Item i = queries.getItemByName(brand, model); //gets item based on brand and model
 		return i; //returns the item
 		
-	}
+	}*/
 	//the method will return all Sales objects between two dates
+	
+	public Item getItemByName(String brand, String model){
+		return queries.getItemByName(brand, model);
+	}
+	
 	public ArrayList<Sale>  getSalesByDate(Date date1,Date date2)
 	{
 	return queries.getSalesByDate(date1,date2);

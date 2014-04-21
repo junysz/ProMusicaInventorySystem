@@ -4,6 +4,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -19,7 +21,7 @@ public class Controller implements CategoryListener{
 	private List<String> test;
 	private MainFrame theView;  	
 	private MainModel theModel;	
-    private  ArrayList<ReservedItem> List;
+	private  ArrayList<ReservedItem> List;
 
 
 	protected MCeditCategoryCB mcEditCategoryCB;
@@ -35,7 +37,7 @@ public class Controller implements CategoryListener{
 	{
 		this.theView=theView;
 		this.theModel=theModel;
-		
+
 
 
 		//LOGIN LISTENER
@@ -65,18 +67,18 @@ public class Controller implements CategoryListener{
 		update();
 
 
-
+		theView.getTabsPane().getMaintainPanel().addConfirmItemChangesBtn(new ConfirmItemChangesBtn());
 
 		//ACTIVATE MAINTENANCE PANEL BUTTON LISTENERS
-		theView.getTabsPane().getMaintainPanel().addCreateSubCategoryBtn(new MCcreateSubCategoryBTN(theView,theModel));
+		//theView.getTabsPane().getMaintainPanel().addCreateSubCategoryBtn(new MCcreateSubCategoryBTN(theView,theModel));
 		//ACTIVATE MAINTENACE PANEL BUTTON LISTENERS
 
 		theView.getTabsPane().getMaintainPanel().addCreateItemBtn(new CreateItemBtn());
 		theView.getTabsPane().getMaintainPanel().addEditItemBtn(new ConfirmItemChangesBtn());
-		theView.getTabsPane().getMaintainPanel().addRemoveItemBtn(new RemoveItemBtn());
+		//theView.getTabsPane().getMaintainPanel().addRemoveItemBtn(new RemoveItemBtn());
 		theView.getTabsPane().getMaintainPanel().addCreateAccountBtn(new CreateAccountBtn());
 
-		theView.getTabsPane().getMaintainPanel().addSubmitSubCategoryBtn(new MCeditSubCategoryBTN(theView,theModel));
+		//theView.getTabsPane().getMaintainPanel().addSubmitSubCategoryBtn(new MCeditSubCategoryBTN(theView,theModel));
 
 
 
@@ -100,75 +102,75 @@ public class Controller implements CategoryListener{
 		populateCategoryReservPanel();
 
 
-/**************************************
-		***********REPORT PANEL*****************
+		/**************************************
+		 ***********REPORT PANEL*****************
 		 * *********************************************
 		 * */
 
-	
-		
+
+
 		theView.getTabsPane().getReportPanel().addTableListener(new PopulateTable2Listener());
-		 
-		
-		
-		
-	/************************************************************/
-	/******RESERVATION PANEl******/ 
-	/************************************************************/
-		
-			
-				
+
+
+
+
+		/************************************************************/
+		/******RESERVATION PANEl******/ 
+		/************************************************************/
+
+
+
 		theView.getTabsPane().getReservationPanel().addTableListener(new PopulateTableListener());
 		theView.getTabsPane().getReservationPanel().addComboBoxCatListener(new ComboBoxListener());
 		theView.getTabsPane().getReservationPanel().addComboBoxSubCatListener(new ComboBoxSubCatListener());		
 		populateCategoryReservPanel();	
-	    theView.getTabsPane().getReservationPanel().addListListener(new myListListener());		
-        populateList();   
-	    theView.getTabsPane().getReservationPanel().addUpdateListener(new UpdateBtn());
-	    theView.getTabsPane().getReservationPanel().addRemoveListener(new RemoveBtn());
-	    theView.getTabsPane().getReservationPanel().addReserveListener(new ReserveBtn());
+		theView.getTabsPane().getReservationPanel().addListListener(new myListListener());		
+		populateList();   
+		theView.getTabsPane().getReservationPanel().addUpdateListener(new UpdateBtn());
+		theView.getTabsPane().getReservationPanel().addRemoveListener(new RemoveBtn());
+		theView.getTabsPane().getReservationPanel().addReserveListener(new ReserveBtn());
 		theView.getTabsPane().getReportPanel().addTableListener(new PopulateTable2Listener());
 
 	}
-	
-  public void populateTable()
-  {
-		
+
+	public void populateTable()
+	{
+
 		String subCat = null;
 		ArrayList<Item> tempList = new ArrayList<Item>();
-	
-	if ( theView.getTabsPane().getReservationPanel().getSelectSubcategoryCBox().getSelectedItem()!=null)
+
+		if ( theView.getTabsPane().getReservationPanel().getSelectSubcategoryCBox().getSelectedItem()!=null)
 		{ 
-		 subCat=	theView.getTabsPane().getReservationPanel().getSelectSubcategoryCBox().getSelectedItem().toString();
-		 temItemList=theModel.getItemsInSubcategory(subCat); 
-		 for (int i=0;i<temItemList.size();i++)
-			 if (temItemList.get(i).getAvailableStockLevel()>0)			 tempList.add(temItemList.get(i));
-		 theView.getTabsPane().getReservationPanel().setTableModel(tempList);
-		 theView.getTabsPane().getReservationPanel().getBtnReserveItem().setEnabled(true);	
+			subCat=	theView.getTabsPane().getReservationPanel().getSelectSubcategoryCBox().getSelectedItem().toString();
+			temItemList=theModel.getItemsInSubcategory(subCat); 
+			for (int i=0;i<temItemList.size();i++)
+				if (temItemList.get(i).getAvailableStockLevel()>0)			 tempList.add(temItemList.get(i));
+			theView.getTabsPane().getReservationPanel().setTableModel(tempList);
+			theView.getTabsPane().getReservationPanel().getBtnReserveItem().setEnabled(true);	
 		}
-	else 
-	{
-		theView.getTabsPane().getReservationPanel().warnSubCategoryNull();
-		
-	}	
-  }
-	
+		else 
+		{
+			theView.getTabsPane().getReservationPanel().warnSubCategoryNull();
+
+		}	
+	}
+
 
 	class PopulateTableListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			
-		populateTable();
-						
+
+			populateTable();
+
 		}
 	}
 
-	
+
 	class PopulateTable2Listener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 
-			
-			
-		    ArrayList<Sale> saleList=new ArrayList <Sale>();		        		    
+
+
+			ArrayList<Sale> saleList=new ArrayList <Sale>();		        		    
 
 			java.sql.Date date1=  theView.getTabsPane().getReportPanel().getDate1();//get first date from the ReportPanel
 			java.sql.Date date2=	theView.getTabsPane().getReportPanel().getDate2();	//get the second date			
@@ -189,189 +191,189 @@ public class Controller implements CategoryListener{
 
 
 	//class for populating the Textfields in Make new reservation JPanel
-	
+
 
 	class myListListener implements ListSelectionListener{
 		private String item;
 		private double totalPrice,deposit;
 		private String docketSelected;
-	@Override
-	public void valueChanged(ListSelectionEvent e) {
-		
-	    if (theView.getTabsPane().getReservationPanel().getList().getSelectedValue()!=null)	
-		  docketSelected = theView.getTabsPane().getReservationPanel().getList().getSelectedValue().toString();
-		 
-		ArrayList<ReservedItem> myList=new ArrayList<ReservedItem>();
-		myList=theModel.getReservedItems();
-		int size=myList.size();
-		for (int i=0;i<size;i++)
-		if (myList.get(i).getDocketNo().equals(docketSelected) )			
-		{
-		int itemID=myList.get(i).getItemID();
-		
-		
-		item=theModel.getItemByID(itemID).getBrand()+" "+theModel.getItemByID(itemID).getModel();
-		totalPrice=theModel.getItemByID(itemID).getPrice();
-		deposit=myList.get(i).getDeposit();
-		
-		}
-		
-		 theView.getTabsPane().getReservationPanel().getDocketNoTF().setText(docketSelected);
-		 theView.getTabsPane().getReservationPanel().getBrandModelTF().setText(item);
-		 theView.getTabsPane().getReservationPanel().getCurrentDepositTF().setText(deposit+"");
-		 theView.getTabsPane().getReservationPanel().getTotalPriceTF().setText(totalPrice+"");
-		 
-		 theView.getTabsPane().getReservationPanel().getEndReservation().setEnabled(true);
-		 theView.getTabsPane().getReservationPanel().getNewButton().setEnabled(true);
-	}	
+		@Override
+		public void valueChanged(ListSelectionEvent e) {
+
+			if (theView.getTabsPane().getReservationPanel().getList().getSelectedValue()!=null)	
+				docketSelected = theView.getTabsPane().getReservationPanel().getList().getSelectedValue().toString();
+
+			ArrayList<ReservedItem> myList=new ArrayList<ReservedItem>();
+			myList=theModel.getReservedItems();
+			int size=myList.size();
+			for (int i=0;i<size;i++)
+				if (myList.get(i).getDocketNo().equals(docketSelected) )			
+				{
+					int itemID=myList.get(i).getItemID();
+
+
+					item=theModel.getItemByID(itemID).getBrand()+" "+theModel.getItemByID(itemID).getModel();
+					totalPrice=theModel.getItemByID(itemID).getPrice();
+					deposit=myList.get(i).getDeposit();
+
+				}
+
+			theView.getTabsPane().getReservationPanel().getDocketNoTF().setText(docketSelected);
+			theView.getTabsPane().getReservationPanel().getBrandModelTF().setText(item);
+			theView.getTabsPane().getReservationPanel().getCurrentDepositTF().setText(deposit+"");
+			theView.getTabsPane().getReservationPanel().getTotalPriceTF().setText(totalPrice+"");
+
+			theView.getTabsPane().getReservationPanel().getEndReservation().setEnabled(true);
+			theView.getTabsPane().getReservationPanel().getNewButton().setEnabled(true);
+		}	
 	}
-			
+
 	//Class for listening the button to Update a Reservation
-	 
+
 	class UpdateBtn implements ActionListener
 	{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-		
+
 			double newDeposit;
 			ReservedItem reserved;
-			
+
 			reserved=new ReservedItem();
-			
-		
-			
+
+
+
 			String docket=theView.getTabsPane().getReservationPanel().getDocketNoTF().getText();			
 			String newDepositString=theView.getTabsPane().getReservationPanel().getupdateDepositTF().getText();
 			try
 			{
-			newDeposit = Double.parseDouble(newDepositString);		    					
-			reserved.setDeposit(newDeposit);
-			double price=Double.parseDouble(theView.getTabsPane().getReservationPanel().getTotalPriceTF().getText());
-			
-			if (newDeposit>price-1)  theView.getTabsPane().getReservationPanel().warnUpdate();
-			else 	
+				newDeposit = Double.parseDouble(newDepositString);		    					
+				reserved.setDeposit(newDeposit);
+				double price=Double.parseDouble(theView.getTabsPane().getReservationPanel().getTotalPriceTF().getText());
+
+				if (newDeposit>price-1)  theView.getTabsPane().getReservationPanel().warnUpdate();
+				else 	
 				{theModel.updateReservedItem(docket,newDeposit);
-			theView.getTabsPane().getReservationPanel().getCurrentDepositTF().setText(newDeposit+"");		
+				theView.getTabsPane().getReservationPanel().getCurrentDepositTF().setText(newDeposit+"");		
+				}
 			}
+
+
+			catch (Exception io) {
+				theView.getTabsPane().getReservationPanel().warnUpdateNull();	
 			}
-			
-		
-		catch (Exception io) {
-			theView.getTabsPane().getReservationPanel().warnUpdateNull();	
 		}
-		}
-		
-		
+
+
 	}
-		//Class to remove a Reservation  
+	//Class to remove a Reservation  
 	class RemoveBtn implements ActionListener
 	{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {				
-						
+
 			String docket=theView.getTabsPane().getReservationPanel().getDocketNoTF().getText();
-			
-		     theModel.removeReservedItem(docket);
-			 theView.getTabsPane().getReservationPanel().getDocketNoTF().setText("");
-			 theView.getTabsPane().getReservationPanel().getBrandModelTF().setText("");
-			 theView.getTabsPane().getReservationPanel().getCurrentDepositTF().setText("");
-			 theView.getTabsPane().getReservationPanel().getTotalPriceTF().setText("");		
-			 populateList();
+
+			theModel.removeReservedItem(docket);
+			theView.getTabsPane().getReservationPanel().getDocketNoTF().setText("");
+			theView.getTabsPane().getReservationPanel().getBrandModelTF().setText("");
+			theView.getTabsPane().getReservationPanel().getCurrentDepositTF().setText("");
+			theView.getTabsPane().getReservationPanel().getTotalPriceTF().setText("");		
+			populateList();
 		}
-		
+
 	}
-	
+
 	//the scope of this class is to create a new ReservationItem in the database.
 	// For this I need five parameters ,to use the method InsertNewReservation
 	class ReserveBtn implements ActionListener
-		{
-        
+	{
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
-		String docket="",depositString="";
-		double deposit=0;
-		int accountID=0,itemID=0;	
-		 
-		
-		//get docket
-		docket=theView.getTabsPane().getReservationPanel().getEnterDocketNoTF().getText();
-		if (docket.equals(""))
-		
-		theView.getTabsPane().getReservationPanel().warnDocketNull();
-		//get deposit			
-		try
-		{ 
-			 depositString=theView.getTabsPane().getReservationPanel().getDepositTF().getText();
-			deposit = Double.parseDouble(depositString);								
-		}
-		catch (Exception io) //warning if the deposit field is null or not a number
-		{
-			theView.getTabsPane().getReservationPanel().warnUpdateNull();
-		}
-		
-		
-	//	getting the account name and password using the LoginPanel 
-		String username=theView.getUsernameLoginString();
-		String pass=theView.getPasswordLoginString();
-		
-		//getting the AccountID
-		ArrayList<Account> myList=theModel.getAllAccounts();
-		for (int i=0;i<myList.size();i++)
-		{
-		if (myList.get(i).getAccountName().equals(username))
-		if(		 myList.get(i).getPassword().equals(pass) )  
-				accountID=myList.get(i).getAccountID();
-		}
-		
-		//Getting current date
-		 Calendar calendar = Calendar.getInstance();
-		 java.sql.Date date = new java.sql.Date(calendar.getTime().getTime());
-		 
-		 
-		 //getting the itemID
-		 
-	    int index=theView.getTabsPane().getReservationPanel().getTableIndex();
-	    if  (index==-1) 
-	    	     theView.getTabsPane().getReservationPanel().warnItemNull();
-	    else	    	
-	    {
-	    	itemID=theView.getTabsPane().getReservationPanel().getItemID();    
-	    } 
-	    
-	    if (index>-1 && !(depositString.equals("")) && !(docket.equals(""))  )
-	    {
-	    theModel.insertNewReservation(accountID, docket, date, deposit, itemID);	
-	    theView.getTabsPane().getReservationPanel().success();
-	    theView.getTabsPane().getReservationPanel().getDepositTF().setText("");
-	    theView.getTabsPane().getReservationPanel().getEnterDocketNoTF().setText("");
-	    
-	   
-	    //update Available Stock Level for the designated item
-	    int itemID1=theView.getTabsPane().getReservationPanel().getItemID();
-	    int Stock=theView.getTabsPane().getReservationPanel().getAvailableStock();	    
-	   	theModel.updateItemAvailableStock(itemID1,Stock-1);
-	   	//repopulate Table
-	    populateTable();
-	    //repopulate the List in the FindReservation Panel
-	  
-	    populateList();
-	    }
+			String docket="",depositString="";
+			double deposit=0;
+			int accountID=0,itemID=0;	
+
+
+			//get docket
+			docket=theView.getTabsPane().getReservationPanel().getEnterDocketNoTF().getText();
+			if (docket.equals(""))
+
+				theView.getTabsPane().getReservationPanel().warnDocketNull();
+			//get deposit			
+			try
+			{ 
+				depositString=theView.getTabsPane().getReservationPanel().getDepositTF().getText();
+				deposit = Double.parseDouble(depositString);								
+			}
+			catch (Exception io) //warning if the deposit field is null or not a number
+			{
+				theView.getTabsPane().getReservationPanel().warnUpdateNull();
+			}
+
+
+			//	getting the account name and password using the LoginPanel 
+			String username=theView.getUsernameLoginString();
+			String pass=theView.getPasswordLoginString();
+
+			//getting the AccountID
+			ArrayList<Account> myList=theModel.getAllAccounts();
+			for (int i=0;i<myList.size();i++)
+			{
+				if (myList.get(i).getAccountName().equals(username))
+					if(		 myList.get(i).getPassword().equals(pass) )  
+						accountID=myList.get(i).getAccountID();
+			}
+
+			//Getting current date
+			Calendar calendar = Calendar.getInstance();
+			java.sql.Date date = new java.sql.Date(calendar.getTime().getTime());
+
+
+			//getting the itemID
+
+			int index=theView.getTabsPane().getReservationPanel().getTableIndex();
+			if  (index==-1) 
+				theView.getTabsPane().getReservationPanel().warnItemNull();
+			else	    	
+			{
+				itemID=theView.getTabsPane().getReservationPanel().getItemID();    
+			} 
+
+			if (index>-1 && !(depositString.equals("")) && !(docket.equals(""))  )
+			{
+				theModel.insertNewReservation(accountID, docket, date, deposit, itemID);	
+				theView.getTabsPane().getReservationPanel().success();
+				theView.getTabsPane().getReservationPanel().getDepositTF().setText("");
+				theView.getTabsPane().getReservationPanel().getEnterDocketNoTF().setText("");
+
+
+				//update Available Stock Level for the designated item
+				int itemID1=theView.getTabsPane().getReservationPanel().getItemID();
+				int Stock=theView.getTabsPane().getReservationPanel().getAvailableStock();	    
+				theModel.updateItemAvailableStock(itemID1,Stock-1);
+				//repopulate Table
+				populateTable();
+				//repopulate the List in the FindReservation Panel
+
+				populateList();
+			}
 		}	
-		}                                                               
+	}                                                               
 	/******************************************************************/
-	
-		public void  populateList()
-		{
-			  theView.getTabsPane().getReservationPanel().removeList();
-		 ArrayList<ReservedItem> List=new ArrayList <ReservedItem>();    
-		 ArrayList<ReservedItem> EmptyList=new ArrayList <ReservedItem>();   
-	     List=theModel.getReservedItems(); 
-	   	 theView.getTabsPane().getReservationPanel().setListModel(List);
-		}
-		
-	
+
+	public void  populateList()
+	{
+		theView.getTabsPane().getReservationPanel().removeList();
+		ArrayList<ReservedItem> List=new ArrayList <ReservedItem>();    
+		ArrayList<ReservedItem> EmptyList=new ArrayList <ReservedItem>();   
+		List=theModel.getReservedItems(); 
+		theView.getTabsPane().getReservationPanel().setListModel(List);
+	}
+
+
 
 	class ComboBoxListener implements ActionListener{
 
@@ -504,76 +506,106 @@ public class Controller implements CategoryListener{
 		}
 	}
 	//Inner Class that listens for the Confirm Item Changes Button
+
+
+
+
+
+
+
+
 	class ConfirmItemChangesBtn implements ActionListener{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			String itemSubCat=null;
-			String itemSelection=null;
-			String changeBrand=null;
-			String changeModel=null;
-			double changePrice=0;
-			String changeSubCatSelection=null;
+			
+			if(e.getSource().equals(getMaintainPanel().getBtnConfirmItemChanges())){
+				System.out.println("I have recognized buttton");
+			
+			
+			ArrayList<String> errorMessages = new ArrayList<String>();
+			String selectedSubCategory=null;
+			String selectedItem=null;
 
-			//read the values (item, editBrand, editModel, editPrice, changeOfSubCategory) from the view
+			String brand=null;
+			String model=null;
+			double price=0;
+			String[] getItem;
+			String brandsplit = null;
+			String modelsplit = null;
+			int itemSubCatID;
 			try{
-				itemSubCat=theView.getTabsPane().getMaintainPanel().getItemToEditSubCatComboBox().getSelectedItem().toString();
-				itemSelection=theView.getTabsPane().getMaintainPanel().getItemToEditComboBox().getSelectedItem().toString();
-				changeBrand= theView.getTabsPane().getMaintainPanel().getEditBrandTF();
-				changeModel= theView.getTabsPane().getMaintainPanel().getEditModelTF();
-				changePrice= Double.parseDouble(theView.getTabsPane().getMaintainPanel().getEditPriceTF());
-				changeSubCatSelection=theView.getTabsPane().getMaintainPanel().getItemMoveSubCatComboBox().getSelectedItem().toString();
+
+				if(theView.getTabsPane().getMaintainPanel().getEditCategoryComboBox().getSelectedIndex()==-1){
+					errorMessages.add("Category Selection");
+				}
+
+				if(theView.getTabsPane().getMaintainPanel().getItemToEditSubCatComboBox().getSelectedIndex()==-1){
+					errorMessages.add("Sub-Cat Selection");
+				}else{
+					selectedSubCategory=theView.getTabsPane().getMaintainPanel().getItemToEditSubCatComboBox().getSelectedItem().toString();
+				}
+
+				brand= theView.getTabsPane().getMaintainPanel().getEditBrandTF();
+				model= theView.getTabsPane().getMaintainPanel().getEditModelTF();
+				price= Double.parseDouble(theView.getTabsPane().getMaintainPanel().getEditPriceTF());
+
 			}catch(Exception ex){
 				System.out.println("Problem reading input fron Edit Existing Item Form");
 			}
 			//Now validate the data and add errors to errorMessages
-			ArrayList<String> errorMessages = new ArrayList<String>();
-			if(itemSelection==null){
+
+			if(getMaintainPanel().getItemToEditComboBox().getSelectedIndex()==-1){
 				errorMessages.add("Item Selection");
 			}
-			if(changeBrand.isEmpty()){
+			else{
+				selectedItem=getMaintainPanel().getItemToEditComboBox().getSelectedItem().toString();
+				getItem=selectedItem.split("\\s");
+				brandsplit=getItem[0];
+				modelsplit=getItem[1];
+			}
+			if(brand.isEmpty()){
 				errorMessages.add("Brand Name");
 			}
-			if(changeModel.isEmpty()){
+			if(model.isEmpty()){
 				errorMessages.add("Model Name");
 			}
-			if(!(changePrice>0)){
+			if(!(price>0)){
 				errorMessages.add("Price");
 			}
-			if(changeSubCatSelection==null){
-				errorMessages.add("Move Sub Category");
-			}
+
 			//If there is no errors then we can go ahead and edit the item accordingly
 			if(errorMessages.isEmpty()){
 				//First we get the Item based on the string that was selected (contains "Brand Model")
-				Item item = theModel.getItemByName(itemSelection);
+				Item item = theModel.getItemByName(brandsplit, modelsplit);
+				item.setBrand(brand);
+				item.setModel(model);
+				item.setPrice(price);
 
-				//Now we check if there was any change in the Brand, Model, and Price entered by the user
-				if(!(item.getBrand().equals(changeBrand))){
-					item.setBrand(changeBrand);
+				//if move sub-cat is not selected use sub-category selected 
+				if(theView.getTabsPane().getMaintainPanel().getItemMoveSubCatComboBox().getSelectedIndex()!=-1){
+					selectedSubCategory=theView.getTabsPane().getMaintainPanel().getItemMoveSubCatComboBox().getSelectedItem().toString();
 				}
-				if(!(item.getModel().equals(changeModel))){
-					item.setModel(changeModel);
-				}
-				if(item.getPrice() != changePrice){
-					item.setPrice(changePrice);
-				}
-				//Now i need the items existing subCatID and the changeSubCatID selected by user
-				int itemSubCatID = theModel.getSubCatIdFromName(itemSubCat);
-				int changeSubCatID = theModel.getSubCatIdFromName(changeSubCatSelection);
-				//check if the user selected a change for SubCat and then give the changed ID to itemSubCatID
-				if(itemSubCatID != changeSubCatID){
-					itemSubCatID = changeSubCatID;
-				}
+
+				itemSubCatID = theModel.getSubCatIdFromName(selectedSubCategory);
+
+
 				theModel.updateItem(item, itemSubCatID);
-				//Testing Prints
-				System.out.println();
+
 				//Now that data processing is complete, clear the GUI form
 				theView.getTabsPane().getMaintainPanel().clearEditItemForm();
+				theView.getTabsPane().getMaintainPanel().setCategoryModels(theModel.getCategoryNames());	
 			}
 			//Now handle the error Messages if there was any by sending the errors list to the view to be displayed
 			else{
 				theView.getTabsPane().getMaintainPanel().warnEditItemFormErrors(errorMessages);
+			}
+			
+			}
+			else if(e.getSource().equals(getMaintainPanel().getBtnRemoveItem())){
+				System.out.println("Move here class class RemoveItemBtn implements ActionListener{");
+				
+				
 			}
 		}
 	}
@@ -596,8 +628,7 @@ public class Controller implements CategoryListener{
 			}
 
 			if(errorMessages.isEmpty()){
-				Item item = theModel.getItemByName(itemSelection);
-				theModel.removeItem(item);
+				
 				System.out.println("Remove Item successful");
 				//Now that data processing is complete, clear the GUI form
 				theView.getTabsPane().getMaintainPanel().clearEditItemForm();
@@ -1097,7 +1128,7 @@ public class Controller implements CategoryListener{
 	}*/
 
 
-		}	
+}	
 /***********************MAINTAIN CATEGORIES END*******************************/
 
 
