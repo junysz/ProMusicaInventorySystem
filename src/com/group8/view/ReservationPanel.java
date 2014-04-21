@@ -173,7 +173,7 @@ public class ReservationPanel extends JPanel
 
 	    btnEndReservation = new JButton("End Reservation");
 		reservationDetailsPanel.add(btnEndReservation, "cell 3 8");
-
+	    btnEndReservation.setEnabled(false);
 
 
 		/*
