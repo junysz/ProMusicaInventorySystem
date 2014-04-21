@@ -531,7 +531,13 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	//Creates the Add New Item Button Listener
 	public void addCreateItemBtn(ActionListener listen){
 		btnCreateNewItem.addActionListener(listen);
+		btnConfirmItemChanges.addActionListener(listen);
 	}
+	public JButton getBtnCreateNewItem() {
+		return btnCreateNewItem;
+	}
+
+
 	//Create the Edit Item Button Listener
 	public void addEditItemBtn(ActionListener listen){
 		btnConfirmChanges.addActionListener(listen);
@@ -545,7 +551,9 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		btnCreateAccount.addActionListener(listen);
 	}
 
-
+	/*public void addConfirmItemChangesBtn(ActionListener listen){
+		btnConfirmItemChanges.addActionListener(listen);
+	}*/
 
 
 	/* METHOD: setCategoryModels is for Category Combo BOxes
@@ -931,6 +939,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	public void clearEditItemForm(){
 		List<String>clearSubCat= new ArrayList<>();
 		setSubCategoryModels(clearSubCat);
+		setItemModle(clearSubCat);
 		editBrandTF.setText("");
 		editModelTF.setText("");
 		editPriceTF.setText("");

@@ -4,6 +4,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JButton;
+
 import com.group8.model.*;
 import com.group8.view.CategoryFormEvent;
 import com.group8.view.CategoryListener;
@@ -55,6 +57,10 @@ public class Controller implements CategoryListener {
 		update();
 
 
+		
+		
+		//theView.getTabsPane().getMaintainPanel().addConfirmItemChangesBtn(new MIeditItemBTN());
+		
 
 		//ACTIVATE MAINTENACE PANEL BUTTON LISTENERS
 
@@ -195,6 +201,13 @@ public class Controller implements CategoryListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			JButton btnClicked=getMaintainPanel().getBtnCreateNewItem();
+			if(e.getSource().equals(btnClicked)){
+				System.out.println("yes tes teset");
+			}
+			else{
+				System.out.println(e.getSource().toString());
+			}
 			String subCatSelection=null;
 			String itemBrand=null;
 			String itemModel=null;
@@ -586,6 +599,22 @@ public class Controller implements CategoryListener {
 
 
 
+	
+	class MIeditItemBTN implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+			
+			
+			
+			
+			
+			
+		}
+		
+	}
+	
 
 
 
