@@ -92,11 +92,7 @@ public class Controller implements CategoryListener{
 		/********************************************/
 
 
-		theView.getTabsPane().getReservationPanel().addTableListener(new PopulateTableListener());
-		theView.getTabsPane().getReservationPanel().addComboBoxCatListener(new ComboBoxListener());
-		theView.getTabsPane().getReservationPanel().addComboBoxSubCatListener(new ComboBoxSubCatListener());
-
-
+		
 		populateCategoryReservPanel();
 
 
@@ -130,29 +126,44 @@ public class Controller implements CategoryListener{
 		theView.getTabsPane().getReportPanel().addTableListener(new PopulateTable2Listener());
 
 	}
-	
+	//method to Populate the table in the Reservation Panel
   public void populateTable()
   {
-		
-		String subCat = null;
+		String keyword="";
+		int size=0;
+		keyword= theView.getTabsPane().getReservationPanel().getSearchKeywordTF().getText();//get value of the keyword
 		ArrayList<Item> tempList = new ArrayList<Item>();
+		ArrayList<Item>newList =   new ArrayList<Item>();
 	
-	if ( theView.getTabsPane().getReservationPanel().getSelectSubcategoryCBox().getSelectedItem()!=null)
-		{ 
-		 subCat=	theView.getTabsPane().getReservationPanel().getSelectSubcategoryCBox().getSelectedItem().toString();
-		 temItemList=theModel.getItemsInSubcategory(subCat); 
-		 for (int i=0;i<temItemList.size();i++)
-			 if (temItemList.get(i).getAvailableStockLevel()>0)			 tempList.add(temItemList.get(i));
-		 theView.getTabsPane().getReservationPanel().setTableModel(tempList);
-		 theView.getTabsPane().getReservationPanel().getBtnReserveItem().setEnabled(true);	
-		}
-	else 
+	if (!(keyword.equals("")))   //if the selection is made by the keyword
 	{
-		theView.getTabsPane().getReservationPanel().warnSubCategoryNull();
-		
-	}	
-  }
-	
+		 newList=theModel.getItemsByKeyword(keyword); //get all the items with keyword
+		 size=newList.size();
+		 	}
+	else //if selection is made using Subcategories and categories
+	{
+				String subCat = null;
+			    if ( theView.getTabsPane().getReservationPanel().getSelectSubcategoryCBox().getSelectedItem()!=null)//if subcategory is selected
+					{ 
+					 subCat=	theView.getTabsPane().getReservationPanel().getSelectSubcategoryCBox().getSelectedItem().toString();
+					 newList=theModel.getItemsInSubcategory(subCat); //get all items in subcategory
+					 size=newList.size();
+					}
+					
+			    else 
+			          {
+			          	theView.getTabsPane().getReservationPanel().warnSubCategoryNull();
+			          }	
+				
+		     	}
+	     				
+
+	    	 for (int i=0;i<size;i++)
+	    		 if (newList.get(i).getAvailableStockLevel()>0)			
+			     tempList.add(newList.get(i));//check  if AvailableStock>0
+			 theView.getTabsPane().getReservationPanel().setTableModel(tempList);//populate table
+			 theView.getTabsPane().getReservationPanel().getBtnReserveItem().setEnabled(true);	//enable the reserve button 
+           }
 
 	class PopulateTableListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
@@ -291,20 +302,25 @@ public class Controller implements CategoryListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 		String docket="",depositString="";
-		double deposit=0;
+		double price=0,deposit=0;
 		int accountID=0,itemID=0;	
 		 
 		
 		//get docket
 		docket=theView.getTabsPane().getReservationPanel().getEnterDocketNoTF().getText();
-		if (docket.equals(""))
-		
-		theView.getTabsPane().getReservationPanel().warnDocketNull();
+		if (docket.equals(""))		theView.getTabsPane().getReservationPanel().warnDocketNull();
 		//get deposit			
 		try
 		{ 
 			 depositString=theView.getTabsPane().getReservationPanel().getDepositTF().getText();
-			deposit = Double.parseDouble(depositString);								
+			deposit = Double.parseDouble(depositString);
+			
+			price =  theView.getTabsPane().getReservationPanel().getPrice();
+			if (deposit>price)
+				theView.getTabsPane().getReservationPanel().warnUpdate();	
+			if (deposit==0)
+				theView.getTabsPane().getReservationPanel().warnUpdateNull();
+			
 		}
 		catch (Exception io) //warning if the deposit field is null or not a number
 		{
@@ -312,7 +328,7 @@ public class Controller implements CategoryListener{
 		}
 		
 		
-	//	getting the account name and password using the LoginPanel 
+		//name and password using the LoginPanel 
 		String username=theView.getUsernameLoginString();
 		String pass=theView.getPasswordLoginString();
 		
@@ -340,7 +356,7 @@ public class Controller implements CategoryListener{
 	    	itemID=theView.getTabsPane().getReservationPanel().getItemID();    
 	    } 
 	    
-	    if (index>-1 && !(depositString.equals("")) && !(docket.equals(""))  )
+	    if (index>-1 && !(depositString.equals("")) && !(docket.equals("")) && deposit>0 && deposit<price )
 	    {
 	    theModel.insertNewReservation(accountID, docket, date, deposit, itemID);	
 	    theView.getTabsPane().getReservationPanel().success();

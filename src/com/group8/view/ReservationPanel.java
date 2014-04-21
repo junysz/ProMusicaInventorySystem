@@ -274,7 +274,11 @@ public class ReservationPanel extends JPanel
 		int row=getTableIndex();
 		return  (int) tableItemsRevervation.getValueAt(row,4);		
 	}
-	
+	public double getPrice()
+	{		
+		int row=getTableIndex();
+		return  (double) tableItemsRevervation.getValueAt(row,5);		
+	}
 	
 	
 	public JComboBox<String> getSelectCategoryCBox() {
@@ -318,7 +322,10 @@ public class ReservationPanel extends JPanel
 	{
 		return btnReserveItem;
 	}
-	
+	public JTextField getSearchKeywordTF()
+	{
+		return searchKeywordTF;
+	}
 	public JTextField getDocketTF()
 	{
 		return enterDocketNoTF;
