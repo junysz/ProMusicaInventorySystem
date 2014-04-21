@@ -101,15 +101,6 @@ public class Controller implements CategoryListener {
 
 
 
-
-
-
-
-
-
-
-
-
 	class PopulateTableListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			String subCat = null;
@@ -195,12 +186,6 @@ public class Controller implements CategoryListener {
 		}
 
 	}
-
-
-
-
-
-
 
 
 
