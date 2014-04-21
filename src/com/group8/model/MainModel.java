@@ -79,9 +79,9 @@ public class MainModel {
 	{
 		inserts.insertNewItemSold(i, s, itemSalePrice);
 	}
-	public void addNewReservation(ReservedItem r, Account a, Item i)
+	public void insertNewReservation(int accountID,String docketNo,Date reservationDate,double deposit,int itemID)
 	{
-		inserts.insertNewReservation(r, a, i);
+		inserts.insertNewReservation( accountID,docketNo,reservationDate,deposit, itemID);
 	}
 	public void addNewAccount(Account a)
 	{
@@ -115,7 +115,14 @@ public class MainModel {
 	{
 		updates.removeReservedItem(docket);
 	}
-/*
+
+	public  void updateItemAvailableStock(int ItemID,int Stock)
+	{
+		updates.updateItem(ItemID, Stock);
+	}
+	
+	
+	/*
 	//queries methods
 	public List<Item> getMeSomeItems(){
 		return someItems.getMeSomeItems();

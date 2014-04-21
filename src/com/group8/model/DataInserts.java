@@ -1,6 +1,8 @@
 package com.group8.model;
 
 import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.ArrayList;
 /*
@@ -126,13 +128,13 @@ public class DataInserts {
             e.printStackTrace();
         }
 	}
-	protected void insertNewReservation(ReservedItem r, Account a, Item i)
+	/*protected void insertNewReservation(int accountID,String docketNo,Date reservationDe,double deposit,int itemID)
 	{
 		try
 		{
 			statement = con.createStatement();
 			//Structure for inserting a new tuple in the Reservation table
-			String insert = "Insert into Reservation (accountID,docketNo, reservationDate, depositPlaced,flag,itemID) values (" + a.getAccountID() + "','"+r.getDocketNo() + "','" + r.getDate() + "','" + r.getDeposit() +  ", 1," + i.getItemID() + ")";
+			String insert = "Insert into ReservedItem (accountID,docketNo, reservationDate, depositPlaced,flag,itemID) values ?,?,?,?,?)";
 			int res = statement.executeUpdate(insert); //writes to Reservation table
 	
 			statement.close();
@@ -143,5 +145,40 @@ public class DataInserts {
             e.printStackTrace();
         }
 	}
+	*/
+	protected void insertNewReservation(int accountID,String docketNo,Date reservationDate,double deposit,int itemID)
+	{ 
+		try
+		{
+
+			PreparedStatement preparedStatement = con.prepareStatement("Insert into ReservedItem (accountID,docketNo, reservationDate, depositPlaced,flag,itemID) values (?,?,?,?,?,?)");
+
+			preparedStatement.setInt(1,accountID);
+
+			preparedStatement.setString(2,docketNo);			
+			
+			preparedStatement.setDate(3,reservationDate);
+
+			preparedStatement.setDouble(4,deposit);	
+			
+			preparedStatement.setInt(5,1);
+			
+			preparedStatement.setInt(6,itemID);
+
+		
+
+			int    res = preparedStatement.executeUpdate(); //updates name for category
+			preparedStatement.close();
+
+
+		}
+		catch(Exception e)
+		{
+			System.out.println("Insert Reservation Failed");
+			 e.printStackTrace();
+		}
+	}
+	
+	
 	
 }

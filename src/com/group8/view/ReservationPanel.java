@@ -176,11 +176,6 @@ public class ReservationPanel extends JPanel
 		btnEndReservation.setEnabled(false);
 
 
-
-
-
-
-
 		/*
 		 * MakeNewReservationPanel STUFF
 		 */
@@ -248,6 +243,7 @@ public class ReservationPanel extends JPanel
 		euroLabel = new JLabel("\u20AC");
 		euroLabel.setForeground(Color.GRAY);
 		btnReserveItem = new JButton("Reserve Item");	
+		btnReserveItem.setEnabled(false);
 		makeNewErrorLabel = new JLabel("");
 		makeNewErrorLabel.setForeground(Color.RED);
 
@@ -261,8 +257,26 @@ public class ReservationPanel extends JPanel
 		southPanelReservation.add(makeNewErrorLabel, "cell 0 2");
 	}
 
+    public int getTableIndex()
+    {
+    	return tableItemsRevervation.getSelectedRow();
+    }
 
-
+	public int getItemID()
+	{
+		
+		int row=getTableIndex();
+		return  (int) tableItemsRevervation.getValueAt(row,0);
+		
+	}
+	public int getAvailableStock()
+	{		
+		int row=getTableIndex();
+		return  (int) tableItemsRevervation.getValueAt(row,4);		
+	}
+	
+	
+	
 	public JComboBox<String> getSelectCategoryCBox() {
 		return selectCategoryCBox;
 	}
@@ -300,8 +314,24 @@ public class ReservationPanel extends JPanel
 		return btnEndReservation;
 	}
 	
-
-
+	public JButton getBtnReserveItem()
+	{
+		return btnReserveItem;
+	}
+	
+	public JTextField getDocketTF()
+	{
+		return enterDocketNoTF;
+	}
+	public JTextField getDepositTF()
+	{
+		return depositTF;
+	}
+	
+	public JTextField  getEnterDocketNoTF()
+	{
+		return enterDocketNoTF;
+	}
 	/*******************
 	 * ADDING LISTENERS*
 	 *******************/
@@ -339,7 +369,10 @@ public class ReservationPanel extends JPanel
 		list.addListSelectionListener(liste);
 	}
    
-	
+	public void removeList()
+	{
+		model.removeAllElements();
+	}
    
 
 	/*
@@ -359,6 +392,10 @@ public class ReservationPanel extends JPanel
 		btnEndReservation.addActionListener(listenFor);
 	}
 	
+	public void addReserveListener(ActionListener listenFor)
+	{
+		btnReserveItem.addActionListener(listenFor);
+	}
 	
 	public void addTableListener(ActionListener listenForFindButton)
 	{
@@ -389,13 +426,27 @@ public class ReservationPanel extends JPanel
 	   model.addElement(list.get(i).getDocketNo());
    }
 		
-   
-	}
+   	}
 	
 	public void warnUpdateNull(){
 
 		JOptionPane.showMessageDialog(null,
 				"Please enter a number for updating the deposit",
+				"Warning",
+				JOptionPane.WARNING_MESSAGE);
+	}
+	
+	public void warnUpdate(){
+
+		JOptionPane.showMessageDialog(null,
+				"The deposit is too big",
+				"Warning",
+				JOptionPane.WARNING_MESSAGE);
+	}
+	public void warnDocketNull(){
+
+		JOptionPane.showMessageDialog(null,
+				"Please enter the Docket Number",
 				"Warning",
 				JOptionPane.WARNING_MESSAGE);
 	}
@@ -408,5 +459,20 @@ public class ReservationPanel extends JPanel
 				JOptionPane.WARNING_MESSAGE);
 
 	}
+	public void warnItemNull(){
 
+		JOptionPane.showMessageDialog(null,
+				"Please make a selection for an item",
+				"Warning",
+				JOptionPane.WARNING_MESSAGE);
+
+	}
+	public void success(){
+
+		JOptionPane.showMessageDialog(null,
+				"Reservation made with success",
+				"Warning",
+				JOptionPane.INFORMATION_MESSAGE);
+
+	}
 }
