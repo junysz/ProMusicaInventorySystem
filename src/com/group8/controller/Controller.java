@@ -129,12 +129,6 @@ public class Controller implements CategoryListener{
 	    theView.getTabsPane().getReservationPanel().addReserveListener(new ReserveBtn());
 		theView.getTabsPane().getReportPanel().addTableListener(new PopulateTable2Listener());
 
-
-		//Populate List in ReservePanel
-
-		ArrayList<ReservedItem> List=new ArrayList <ReservedItem>();     		       
-		List=theModel.getReservedItems(); //query database for Sales between the two dates	
-		theView.getTabsPane().getReservationPanel().setListModel(List);
 	}
 	
   public void populateTable()
@@ -370,7 +364,7 @@ public class Controller implements CategoryListener{
 	
 		public void  populateList()
 		{
-			  theView.getTabsPane().getReservationPanel().removeList();
+		 theView.getTabsPane().getReservationPanel().removeList();
 		 ArrayList<ReservedItem> List=new ArrayList <ReservedItem>();    
 		 ArrayList<ReservedItem> EmptyList=new ArrayList <ReservedItem>();   
 	     List=theModel.getReservedItems(); 
