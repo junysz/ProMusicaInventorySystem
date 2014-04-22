@@ -111,7 +111,7 @@ public class DataInserts {
             e.printStackTrace();
         }
 	}
-	protected void insertNewAccount(String username,String password1,String accountTypeSelection, int status)
+	protected void insertNewAccount(String username,String password1,String accountTypeSelection)
 	{
 		try
 		{
