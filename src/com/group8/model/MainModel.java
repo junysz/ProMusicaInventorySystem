@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.sql.DriverManager;
 import java.util.ArrayList;
 
-import java.util.List;
 
 
 /*
@@ -38,9 +37,9 @@ public class MainModel {
 				e.printStackTrace();
 				System.out.println("Driver not found");
 			}
-			String conURL="jdbc:mysql://localhost:3306/mydb";
+			String conURL="jdbc:mysql://localhost:8889/mydb";
 			//establish the connection when the MainModel is created
-			mainConnection = DriverManager.getConnection(conURL,"root","");
+			mainConnection = DriverManager.getConnection(conURL,"root","root");
 
 			inserts = new DataInserts(mainConnection);
 			queries = new DataQueries(mainConnection);
@@ -83,9 +82,9 @@ public class MainModel {
 	{
 		inserts.insertNewReservation( accountID,docketNo,reservationDate,deposit, itemID);
 	}
-	public void addNewAccount(Account a)
+	public void addNewAccount(String username,String password1,String accountTypeSelection)
 	{
-		inserts.insertNewAccount(a);
+		inserts.insertNewAccount( username, password1, accountTypeSelection);
 	}
 
 
@@ -178,7 +177,7 @@ public class MainModel {
 		return id;
 	}
 	//This method will return an item using a string containing the brand and model separated by a space
-	public Item getItemByName(String itemName)
+	/*public Item getItemByName(String itemName)
 	{
 		int space =itemName.indexOf(" ");
 		String brand = itemName.substring(0, space); //gets brand from the first part of the string up to 1 before the space
@@ -186,8 +185,13 @@ public class MainModel {
 		Item i = queries.getItemByName(brand, model); //gets item based on brand and model
 		return i; //returns the item
 		
-	}
+	}*/
 	//the method will return all Sales objects between two dates
+	
+	public Item getItemByName(String brand, String model){
+		return queries.getItemByName(brand, model);
+	}
+	
 	public ArrayList<Sale>  getSalesByDate(Date date1,Date date2)
 	{
 	return queries.getSalesByDate(date1,date2);
@@ -206,6 +210,24 @@ public class MainModel {
 			 if (ID==myList.get(i).getItemID()) return myList.get(i);
 		 return null;
 	 }
+	 
+	 
+	
+	 
+	 
+	 
+	 public Account getAccount(String accName){
+
+			int i;
+			Account a = null;
+			 ArrayList<Account> Accounts=getAllAccounts();
+				for ( i=0;i<Accounts.size();i++)
+					if (Accounts.get(i).getAccountName().equals(accName))
+			       a=Accounts.get(i);
+			 return a;
+		 }
+
+	 
 }
 
 
