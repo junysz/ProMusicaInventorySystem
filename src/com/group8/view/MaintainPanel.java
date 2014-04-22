@@ -14,13 +14,13 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
-import com.group8.model.Account;
+
 
 
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.event.MouseListener;
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.border.LineBorder;
@@ -107,7 +107,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 
 	CategoryComboBoxModel subCategoryCbM2;
 	private CategoryComboBoxModel categoryComboBoxModel;
-	private JComboBox changeSubCatComboBox;
+	private JComboBox<String> changeSubCatComboBox;
 	private Label label;
 
 	//all components
@@ -136,19 +136,19 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		errorLabel3 = new JLabel("");
 		errorLabel3.setForeground(Color.RED);
 		createCategoryPanel.add(errorLabel3, "cell 3 1,alignx right");
-				
-						lblEnterName = new JLabel("Enter Category Name");
-						lblEnterName.setFont(new Font("Cambria", Font.BOLD, 13));
-						createCategoryPanel.add(lblEnterName, "cell 1 5");
-				
-						enterCategoryNameTF = new JTextField();
-						createCategoryPanel.add(enterCategoryNameTF, "cell 3 5,growx");
-						enterCategoryNameTF.setColumns(10);
-										
-												btnCreateCategory = new JButton("Create Category");
-												btnCreateCategory.setFont(new Font("Cambria", Font.BOLD, 13));
-												
-														createCategoryPanel.add(btnCreateCategory, "cell 3 8,aligny bottom");
+
+		lblEnterName = new JLabel("Enter Category Name");
+		lblEnterName.setFont(new Font("Cambria", Font.BOLD, 13));
+		createCategoryPanel.add(lblEnterName, "cell 1 5");
+
+		enterCategoryNameTF = new JTextField();
+		createCategoryPanel.add(enterCategoryNameTF, "cell 3 5,growx");
+		enterCategoryNameTF.setColumns(10);
+
+		btnCreateCategory = new JButton("Create Category");
+		btnCreateCategory.setFont(new Font("Cambria", Font.BOLD, 13));
+
+		createCategoryPanel.add(btnCreateCategory, "cell 3 8,aligny bottom");
 
 		createSubCatPanel = new JPanel();
 		MaintainCategoriesPanel.add(createSubCatPanel);
@@ -167,55 +167,55 @@ public class MaintainPanel extends JPanel implements ActionListener {
 
 		//SET MODEL FOR CATEGORY
 		categoryComboBoxModel= new CategoryComboBoxModel();
-																
-																		lblSelectCategory = new JLabel("Select Category");
-																		lblSelectCategory.setFont(new Font("Cambria", Font.BOLD, 13));
-																		createSubCatPanel.add(lblSelectCategory, "cell 1 7");
-														
-																selectCategoryForSubCatComboBox = new JComboBox<String>();
-																createSubCatPanel.add(selectCategoryForSubCatComboBox, "cell 3 7,growx");
-																selectCategoryForSubCatComboBox.setModel(categoryComboBoxModel);
-										
-												lblEnterSubcategoryName = new JLabel("Enter Sub-Category Name");
-												lblEnterSubcategoryName.setFont(new Font("Cambria", Font.BOLD, 13));
-												createSubCatPanel.add(lblEnterSubcategoryName, "cell 1 9");
-										
-												enterSubCatNameTF = new JTextField();
-												createSubCatPanel.add(enterSubCatNameTF, "cell 3 9,growx");
-												enterSubCatNameTF.setColumns(10);
-																
-																		btnCreateSubcategory = new JButton("Create Sub-Category");
-																		btnCreateSubcategory.setFont(new Font("Cambria", Font.BOLD, 13));
-																		createSubCatPanel.add(btnCreateSubcategory, "cell 3 13");
-		
-				lblSelectCategory_1 = new JLabel("Select Category");
-				lblSelectCategory_1.setFont(new Font("Cambria", Font.BOLD, 13));
-				editCategoryPanel.add(lblSelectCategory_1, "cell 1 2");
+
+		lblSelectCategory = new JLabel("Select Category");
+		lblSelectCategory.setFont(new Font("Cambria", Font.BOLD, 13));
+		createSubCatPanel.add(lblSelectCategory, "cell 1 7");
+
+		selectCategoryForSubCatComboBox = new JComboBox<String>();
+		createSubCatPanel.add(selectCategoryForSubCatComboBox, "cell 3 7,growx");
+		selectCategoryForSubCatComboBox.setModel(categoryComboBoxModel);
+
+		lblEnterSubcategoryName = new JLabel("Enter Sub-Category Name");
+		lblEnterSubcategoryName.setFont(new Font("Cambria", Font.BOLD, 13));
+		createSubCatPanel.add(lblEnterSubcategoryName, "cell 1 9");
+
+		enterSubCatNameTF = new JTextField();
+		createSubCatPanel.add(enterSubCatNameTF, "cell 3 9,growx");
+		enterSubCatNameTF.setColumns(10);
+
+		btnCreateSubcategory = new JButton("Create Sub-Category");
+		btnCreateSubcategory.setFont(new Font("Cambria", Font.BOLD, 13));
+		createSubCatPanel.add(btnCreateSubcategory, "cell 3 13");
+
+		lblSelectCategory_1 = new JLabel("Select Category");
+		lblSelectCategory_1.setFont(new Font("Cambria", Font.BOLD, 13));
+		editCategoryPanel.add(lblSelectCategory_1, "cell 1 2");
 		selectCategoryToEditComboBox = new JComboBox<String>();
-		
-		
-				//SET MODEL COR SUB-CATEGORY
-		
-		
-		
-				editCategoryPanel.add(selectCategoryToEditComboBox, "cell 3 2,growx");
+
+
+		//SET MODEL COR SUB-CATEGORY
+
+
+
+		editCategoryPanel.add(selectCategoryToEditComboBox, "cell 3 2,growx");
 
 		errorLabel5 = new JLabel("");
 		errorLabel5.setForeground(Color.RED);
 		editCategoryPanel.add(errorLabel5, "cell 3 4");
-								
-										lblEditName = new JLabel("Edit Name");
-										lblEditName.setFont(new Font("Cambria", Font.BOLD, 13));
-										editCategoryPanel.add(lblEditName, "cell 1 5");
-						
-								editCategoryNameTF = new JTextField();
-								
-										editCategoryPanel.add(editCategoryNameTF, "cell 3 5,growx");
-										editCategoryNameTF.setColumns(10);
-						
-								btnConfirmChanges_2 = new JButton("Confirm Changes");
-								btnConfirmChanges_2.setFont(new Font("Cambria", Font.BOLD, 13));
-								editCategoryPanel.add(btnConfirmChanges_2, "cell 3 9");
+
+		lblEditName = new JLabel("Edit Name");
+		lblEditName.setFont(new Font("Cambria", Font.BOLD, 13));
+		editCategoryPanel.add(lblEditName, "cell 1 5");
+
+		editCategoryNameTF = new JTextField();
+
+		editCategoryPanel.add(editCategoryNameTF, "cell 3 5,growx");
+		editCategoryNameTF.setColumns(10);
+
+		btnConfirmChanges_2 = new JButton("Confirm Changes");
+		btnConfirmChanges_2.setFont(new Font("Cambria", Font.BOLD, 13));
+		editCategoryPanel.add(btnConfirmChanges_2, "cell 3 9");
 
 		editSubCatPanel = new JPanel();
 		MaintainCategoriesPanel.add(editSubCatPanel);
@@ -223,36 +223,36 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		editSubCatPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 1, true), "Edit Sub-Category", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 
 		editSubCatPanel.setLayout(new MigLayout("", "[][][][grow]", "[50][][][][][][][][][][][]"));
-		
-				lblSelectCategory_2 = new JLabel("Select Category");
-				lblSelectCategory_2.setFont(new Font("Cambria", Font.BOLD, 13));
-				editSubCatPanel.add(lblSelectCategory_2, "cell 1 4");
+
+		lblSelectCategory_2 = new JLabel("Select Category");
+		lblSelectCategory_2.setFont(new Font("Cambria", Font.BOLD, 13));
+		editSubCatPanel.add(lblSelectCategory_2, "cell 1 4");
 
 		errorLabel6 = new JLabel("");
 		errorLabel6.setForeground(Color.RED);
 		editSubCatPanel.add(errorLabel6, "flowx,cell 3 4");
-												
-														lblSelectSubcategory_1 = new JLabel("Select Sub-Category");
-														lblSelectSubcategory_1.setFont(new Font("Cambria", Font.BOLD, 13));
-														editSubCatPanel.add(lblSelectSubcategory_1, "cell 1 6");
-										
-												selectSubCatToEditComboBox = new JComboBox<String>();
-												editSubCatPanel.add(selectSubCatToEditComboBox, "cell 3 6,growx");
-										
-												lblEditName_1 = new JLabel("Edit Name");
-												lblEditName_1.setFont(new Font("Cambria", Font.BOLD, 13));
-												editSubCatPanel.add(lblEditName_1, "cell 1 8");
-								
-										editSubCatNameTF = new JTextField();
-										editSubCatPanel.add(editSubCatNameTF, "cell 3 8,growx");
-										editSubCatNameTF.setColumns(10);
-						
-								btnConfirmChanges_3 = new JButton("Confirm Changes");
-								btnConfirmChanges_3.setFont(new Font("Cambria", Font.BOLD, 13));
-								editSubCatPanel.add(btnConfirmChanges_3, "cell 3 11");
-								
-										findCatForSubCatToEditComboBox = new JComboBox<String>();
-										editSubCatPanel.add(findCatForSubCatToEditComboBox, "cell 3 4,growx");
+
+		lblSelectSubcategory_1 = new JLabel("Select Sub-Category");
+		lblSelectSubcategory_1.setFont(new Font("Cambria", Font.BOLD, 13));
+		editSubCatPanel.add(lblSelectSubcategory_1, "cell 1 6");
+
+		selectSubCatToEditComboBox = new JComboBox<String>();
+		editSubCatPanel.add(selectSubCatToEditComboBox, "cell 3 6,growx");
+
+		lblEditName_1 = new JLabel("Edit Name");
+		lblEditName_1.setFont(new Font("Cambria", Font.BOLD, 13));
+		editSubCatPanel.add(lblEditName_1, "cell 1 8");
+
+		editSubCatNameTF = new JTextField();
+		editSubCatPanel.add(editSubCatNameTF, "cell 3 8,growx");
+		editSubCatNameTF.setColumns(10);
+
+		btnConfirmChanges_3 = new JButton("Confirm Changes");
+		btnConfirmChanges_3.setFont(new Font("Cambria", Font.BOLD, 13));
+		editSubCatPanel.add(btnConfirmChanges_3, "cell 3 11");
+
+		findCatForSubCatToEditComboBox = new JComboBox<String>();
+		editSubCatPanel.add(findCatForSubCatToEditComboBox, "cell 3 4,growx");
 
 		MaintainItemPanel = new JPanel();
 		MaintainItemPanel.setBorder(new LineBorder(new Color(0, 0, 0), 0, true));
@@ -321,10 +321,10 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		errorLabel7 = new JLabel("");
 		errorLabel7.setForeground(Color.RED);
 		createItemPanel.add(errorLabel7, "cell 3 7 2 1");
-				
-						btnCreateNewItem = new JButton("Create Item");
-						btnCreateNewItem.setFont(new Font("Cambria", Font.BOLD, 13));
-						createItemPanel.add(btnCreateNewItem, "cell 3 9");
+
+		btnCreateNewItem = new JButton("Create Item");
+		btnCreateNewItem.setFont(new Font("Cambria", Font.BOLD, 13));
+		createItemPanel.add(btnCreateNewItem, "cell 3 9");
 
 
 		editItemPanel = new JPanel();
@@ -380,26 +380,26 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		errorLabel8 = new JLabel("");
 		errorLabel8.setForeground(Color.RED);
 		editItemPanel.add(errorLabel8, "flowx,cell 3 8 2 1");
-						
-						label = new Label("Move SubCategory");
-						label.setFont(new Font("Cambria", Font.BOLD, 13));
-						editItemPanel.add(label, "cell 1 9");
-						
-						changeSubCatComboBox = new JComboBox();
-						editItemPanel.add(changeSubCatComboBox, "cell 3 9,growx");
-				
-						btnConfirmItemChanges = new JButton("Confirm Changes");
-						btnConfirmItemChanges.setFont(new Font("Cambria", Font.BOLD, 13));
-						editItemPanel.add(btnConfirmItemChanges, "cell 3 10");
-		
-				btnRemoveItem = new JButton("Remove Item");
-				btnRemoveItem.setForeground(new Color(255, 0, 0));
-				btnRemoveItem.setFont(new Font("Cambria", Font.BOLD, 13));
-				editItemPanel.add(btnRemoveItem, "cell 3 14,growx");
-				
-						lblNewLabel = new JLabel("\u20AC");
-						lblNewLabel.setForeground(Color.GRAY);
-						editItemPanel.add(lblNewLabel, "cell 3 6");
+
+		label = new Label("Move SubCategory");
+		label.setFont(new Font("Cambria", Font.BOLD, 13));
+		editItemPanel.add(label, "cell 1 9");
+
+		changeSubCatComboBox = new JComboBox<String>();
+		editItemPanel.add(changeSubCatComboBox, "cell 3 9,growx");
+
+		btnConfirmItemChanges = new JButton("Confirm Changes");
+		btnConfirmItemChanges.setFont(new Font("Cambria", Font.BOLD, 13));
+		editItemPanel.add(btnConfirmItemChanges, "cell 3 10");
+
+		btnRemoveItem = new JButton("Remove Item");
+		btnRemoveItem.setForeground(new Color(255, 0, 0));
+		btnRemoveItem.setFont(new Font("Cambria", Font.BOLD, 13));
+		editItemPanel.add(btnRemoveItem, "cell 3 14,growx");
+
+		lblNewLabel = new JLabel("\u20AC");
+		lblNewLabel.setForeground(Color.GRAY);
+		editItemPanel.add(lblNewLabel, "cell 3 6");
 
 		MaintainAccountPanel = new JPanel();
 		MaintainAccountPanel.setBorder(new LineBorder(new Color(0, 0, 0), 0, true));
@@ -447,10 +447,10 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		errorLabel1.setForeground(Color.RED);
 		newAccountPanel.add(errorLabel1, "cell 3 5");
 		errorLabel1.setVisible(false);
-		
-				btnCreateAccount = new JButton("Create Account");
-				btnCreateAccount.setFont(new Font("Cambria", Font.BOLD, 13));
-				newAccountPanel.add(btnCreateAccount, "cell 3 6");
+
+		btnCreateAccount = new JButton("Create Account");
+		btnCreateAccount.setFont(new Font("Cambria", Font.BOLD, 13));
+		newAccountPanel.add(btnCreateAccount, "cell 3 6");
 
 		editAccountPanel = new JPanel();
 		MaintainAccountPanel.add(editAccountPanel);
@@ -537,21 +537,21 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		return editCategoryNameTF;
 	}
 
- 
+
 	public void setEditCategoryNameTF(String editCategoryNameTF) {
 
 		this.editCategoryNameTF.setText(editCategoryNameTF);
 	}
-	
-	 public JTextField getEditUsername() {
+
+	public JTextField getEditUsername() {
 		return editUsernameTF;
 	}
 
-	  public JComboBox   getSelectAccountTypeCB() {
-			return  selectAccountTypeComboBox;
-		}
+	public JComboBox<String>   getSelectAccountTypeCB() {
+		return  selectAccountTypeComboBox;
+	}
 
-	  public MaintainPanel() {
+	public MaintainPanel() {
 
 		init();
 		addAccountTypeToComboBox();   
@@ -701,7 +701,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		selectItemModel.setComboBoxList(comboBoxList);
 		selectItemToEditComboBox.setModel(selectItemModel);
 	}
-	
+
 	public void setAccountModel(List<String> accountNames) {
 		CategoryComboBoxModel selectItemModel= new CategoryComboBoxModel();
 		selectItemModel.setComboBoxList(accountNames);
@@ -727,10 +727,10 @@ public class MaintainPanel extends JPanel implements ActionListener {
 
 
 	//EDIT ITEM PANEL - Picks SubCat for Items to be display
-	public void addFindItemsInSubCatListener( MouseListener listen){
+	/*public void addFindItemsInSubCatListener( MouseListener listen){
 		selectItemSubCatComboBox.addMouseListener(listen);
 
-	}
+	}*/
 
 	//Edit sub-category picks sub-category and set it on text area for editing 
 	public void addEditSubCategory(ActionListener listen){
@@ -897,7 +897,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		editAccountTypeComboBox.addItem("Manager");
 		editAccountTypeComboBox.addItem("Sales Staff");
 	}
-	
+
 
 	/*
 	 * ***************METHODS FOR GETTING GUI ITEMS********************
@@ -1077,7 +1077,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		return rdbtnEnableAccount;
 	}
 
-    
+
 	public JTextField getEditAccountPasswordTF() {
 		return editAccountPasswordTF;
 	}
@@ -1107,6 +1107,6 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	}
 
 
-	
+
 
 }
