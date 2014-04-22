@@ -201,6 +201,33 @@ public class DataUpdates {
 			e.printStackTrace();
 		}
 	}
+
+	//This method updates item after Edit Item button is triggered
+	protected void updateAccount(int ID,String name,String pass,String type,int flag)
+	{
+		try
+		{
+
+			PreparedStatement preparedStatement = con.prepareStatement("UPDATE Account SET accountName=?,password=?,accountType=?,flag=? WHERE accountID = ?");
+
+			//Set the variables in the prepared statement
+			preparedStatement.setString(1,name);
+			preparedStatement.setString(2,pass);
+			preparedStatement.setString(3,type);
+			preparedStatement.setInt(4,flag);
+			preparedStatement.setInt(5,ID);
+			
+			int    res = preparedStatement.executeUpdate(); //updates name for category
+			preparedStatement.close();
+
+
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
 	
 }
 

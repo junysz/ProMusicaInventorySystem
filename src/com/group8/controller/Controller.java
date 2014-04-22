@@ -66,7 +66,7 @@ public class Controller implements CategoryListener{
 		//update all comboBoxes
 		update();
 		updteAccounts();
-
+		theView.getTabsPane().getMaintainPanel().getEditAccountTypeComboBox().setSelectedIndex(-1);
 		theView.getTabsPane().getMaintainPanel().addConfirmItemChangesBtn(new ConfirmItemChangesBtn());
 
 		//ACTIVATE MAINTENANCE PANEL BUTTON LISTENERS
@@ -753,6 +753,7 @@ class EditAccountBtn implements ActionListener {
 	String passwd=null;
 	boolean enabled;
 	boolean disabled;
+	int flag=0;
 	ArrayList<String> errorMessages;
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -766,8 +767,9 @@ class EditAccountBtn implements ActionListener {
 			accType= theView.getTabsPane().getMaintainPanel().getEditAccountTypeComboBox().getSelectedItem().toString();
 			passwd=theView.getTabsPane().getMaintainPanel().getEditAccountPasswordTF().getText();
 			enabled=theView.getTabsPane().getMaintainPanel().getRdbtnEnableAccount().isSelected();
-			disabled=theView.getTabsPane().getMaintainPanel().getRdbtnDisableAccount().isSelected();
-			System.out.println("GGGGGG: "+enabled+" "+disabled);
+			//disabled=theView.getTabsPane().getMaintainPanel().getRdbtnDisableAccount().isSelected();
+			if (enabled) flag=1;
+			
 		}catch(NullPointerException ex){
 			errorMessages.add("Select Account");
 		}
@@ -780,10 +782,22 @@ class EditAccountBtn implements ActionListener {
 		}
 		if(errorMessages.isEmpty()){
 			
-			//HERE WE NEED TO USE UPDATE ACCOUNT QUERY
+			
+		    if  (enabled) flag=0;	  
+		   String accountName=theView.getTabsPane().getMaintainPanel().getSelectAccountToEditComboBox().getSelectedItem().toString();
+		    Account a=theModel.getAccount(accountName);
+		    int accountID=a.getAccountID();
+		    
+		    theModel.updateAccount(accountID, userName, passwd, accType, flag);
+		    		
+			
+			
 			
 			//Now that data processing is complete, clear the GUI form
 			theView.getTabsPane().getMaintainPanel().clearNewAccountForm();
+			theView.getTabsPane().getMaintainPanel().getEditUsername().setText(null);
+			theView.getTabsPane().getMaintainPanel().getEditAccountPasswordTF().setText(null);
+			theView.getTabsPane().getMaintainPanel().getEditAccountTypeComboBox().setSelectedIndex(-1);			
 			
 			updteAccounts();
 		}
@@ -804,48 +818,22 @@ class  EditAccountCB implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		
 		accountName=theView.getTabsPane().getMaintainPanel().getSelectAccountToEditComboBox().getSelectedItem().toString();
-		System.out.println(accountName);
-		
+			
 		Account a=theModel.getAccount(accountName);
-		if (a!=null)
-		System.out.println(" i am the password Mr Pawel!="+a.getPassword());
-		
-
 	
+
 		
-		a.getAccountID();
 		theView.getTabsPane().getMaintainPanel().setEditUsernameTF(a.getAccountName());
 		theView.getTabsPane().getMaintainPanel().getEditAccountTypeComboBox().setSelectedItem(a.getType());
 		
 		theView.getTabsPane().getMaintainPanel().setEdditPasswordTF(a.getPassword());
 		
-		
 	
-
 		
 		
 	}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	/*this is method implemented from CategoryListener Interface 
-	 *Category object is passed form view 
-	 *??we can pass it to the model from here??
-	 */
 
 
 	/*
@@ -1020,7 +1008,6 @@ class  EditAccountCB implements ActionListener {
 
 
 
-
 public void updteAccounts(){
 	ArrayList<String>accountNames= new ArrayList<String>();
 	
@@ -1032,11 +1019,8 @@ public void updteAccounts(){
 	}
 	
 	theView.getTabsPane().getMaintainPanel().setAccountModel(accountNames);
-	
 }
-
-
-
+}
 
 
 
@@ -1237,7 +1221,7 @@ public void updteAccounts(){
 	}*/
 
 
-}	
+
 /***********************MAINTAIN CATEGORIES END*******************************/
 
 
