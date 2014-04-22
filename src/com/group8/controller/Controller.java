@@ -775,18 +775,20 @@ class EditAccountBtn implements ActionListener {
 
 
 class  EditAccountCB implements ActionListener {
-	String account=null;
+	String accountName=null;Account a;int i;
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		account=theView.getTabsPane().getMaintainPanel().getSelectAccountToEditComboBox().getSelectedItem().toString();
-		System.out.println(account);
+		accountName=theView.getTabsPane().getMaintainPanel().getSelectAccountToEditComboBox().getSelectedItem().toString();
+		System.out.println(accountName);
 		
-		Account a = new Account();
-		a=theModel.getAccount(account);
-		int noID=a.getAccountID();
-		
-		//System.out.println("is this right account???? "+a.getPassword());
+		ArrayList<Account> Accounts=theModel.getAllAccounts();
+		for ( i=0;i<Accounts.size();i++)
+			if (Accounts.get(i).getAccountName().equals(accountName))
+	       a=Accounts.get(i);
+	      System.out.println("I am the Account Name Pawel! = "+a.getAccountName());
+	   
+	    
 		
 		
 	}
