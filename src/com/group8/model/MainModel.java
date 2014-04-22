@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.sql.DriverManager;
 import java.util.ArrayList;
 
-import java.util.List;
 
 
 /*
@@ -211,6 +210,13 @@ public class MainModel {
 			 if (ID==myList.get(i).getItemID()) return myList.get(i);
 		 return null;
 	 }
+	 
+	 
+	 public Account getAccount(String accName){
+		return queries.getAccount(accName);
+		 
+	 }
+	 
 }
 
 

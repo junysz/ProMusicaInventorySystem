@@ -470,6 +470,16 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	}
 
 
+	public ButtonGroup getStatusGroup() {
+		return statusGroup;
+	}
+
+
+	public JComboBox<String> getSelectAccountToEditComboBox() {
+		return selectAccountToEditComboBox;
+	}
+
+
 	public JTextField getEditCategoryNameTF() {
 		return editCategoryNameTF;
 	}
@@ -491,7 +501,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		//a parameter to the CategoryListener Interface
 
 		btnCreateCategory.addActionListener(this);
-		btnConfirmChanges.addActionListener(this);
+		//btnConfirmChanges.addActionListener(this);
 
 	}
 
@@ -538,11 +548,8 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		return btnCreateNewItem;
 	}
 
-
-	//Create the Edit Item Button Listener
-	public void addEditItemBtn(ActionListener listen){
+	public void addConfirmChangesAccount(ActionListener listen){
 		btnConfirmChanges.addActionListener(listen);
-		btnRemoveItem.addActionListener(listen);
 	}
 	//Create the Remove Item Button Listener
 	/*public void addRemoveItemBtn(ActionListener listen){
@@ -710,7 +717,9 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	 * *********************************************************************
 	 */
 
-	
+	public void addSelectAccountToEditComboBox(ActionListener listen){
+		selectAccountToEditComboBox.addActionListener(listen);
+	}
 
 
 
@@ -996,6 +1005,31 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		editAccountPasswordTF.setText("");
 		rdbtnEnableAccount.setSelected(false);
 		rdbtnDisableAccount.setSelected(false);
+	}
+
+
+	public JRadioButton getRdbtnDisableAccount() {
+		return rdbtnDisableAccount;
+	}
+
+
+	public JRadioButton getRdbtnEnableAccount() {
+		return rdbtnEnableAccount;
+	}
+
+
+	public JTextField getEditAccountPasswordTF() {
+		return editAccountPasswordTF;
+	}
+
+
+	public JComboBox<String> getEditAccountTypeComboBox() {
+		return editAccountTypeComboBox;
+	}
+
+
+	public JTextField getEditUsernameTF() {
+		return editUsernameTF;
 	}
 
 

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import java.util.Collections;
 
+import com.sun.org.apache.regexp.internal.RE;
+
 
 public class DataQueries {
 
@@ -244,6 +246,35 @@ public class DataQueries {
 		}  
 	}
 
+	public Account getAccount(String accN){
+		Account account=new Account();
+		try{
+			
+			String query = "Select accountName From Account where accN = ? ";
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1,accN); //sets the subCategoryName for the statement query
+			ResultSet rs = pstmt.executeQuery(); //executes query and puts the SubCategory ID into rs
+			
+			while( rs.next()) { 
+				Integer	accId = rs.getInt("accountID");	// sets the subCat ID  
+				String accName=rs.getString("accountName");
+				String accPasswd=rs.getString("password");
+				String accType=	rs.getString("accountType");
+				Integer accFlag=	rs.getInt("flag");
+				account = new Account(accId,accName,accPasswd,accType,accFlag);
+			}
+			rs.close(); //close result set
+			pstmt.close(); //close prepared statement
+			return account;
+		}
+		catch(Exception e)
+		{
+			return null;
+		}
+		
+		
+	}
+	
 	public ArrayList<Sale>  getSalesByDate(Date date1,Date date2)
 	{
 		Sale sale;
