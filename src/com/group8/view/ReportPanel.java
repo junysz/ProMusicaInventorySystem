@@ -20,6 +20,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
+import java.awt.event.ActionEvent;
+import java.awt.Font;
+import java.awt.Color;
+import java.awt.SystemColor;
+import java.awt.Component;
+import javax.swing.border.LineBorder;
+import java.awt.Cursor;
 
 
 public class ReportPanel extends JPanel {
@@ -29,35 +36,53 @@ public class ReportPanel extends JPanel {
 	JDateChooser date1;
 	private JDateChooser date2;
 	private JLabel date1Label,date2Label;
+	private JButton exitButtonReport;
 	
 	public ReportPanel() {
-		setLayout(new MigLayout("", "[24.00][][][grow][][][grow][][][][grow][][][][][][][][][][][][][][][][][][][][][][][]", "[][][][][][][34.00][][][grow][]"));
+		setAlignmentX(23.0f);
+		setFont(new Font("Tahoma", Font.BOLD, 12));
+		setLayout(new MigLayout("", "[95.00][24.00][][][grow][][][grow][][][][grow][][][][][][grow][][]", "[][][][][][][][34.00][][][100px:250:400px,grow][90][1.00]"));
 		
 	    date1Label = new JLabel("Start Date");
-		add(date1Label, "cell 1 5");
+	    date1Label.setFont(new Font("Cambria", Font.BOLD, 13));
+		add(date1Label, "cell 2 6");
 		
 	    date1 = new JDateChooser();
-		add(date1, "cell 2 5,grow");
+		add(date1, "cell 3 6,grow");
 		
 		date2Label = new JLabel("End Date");
-		add(date2Label, "cell 4 5");
+		date2Label.setFont(new Font("Cambria", Font.BOLD, 13));
+		add(date2Label, "cell 5 6");
 		
 		 date2 = new JDateChooser();
-		add(date2, "cell 5 5,grow");
+		add(date2, "cell 6 6,grow");
 		
 	    btnReport = new JButton("Get report");  //Button to generate the reports
-		add(btnReport, "cell 9 5");
+	    btnReport.setFont(new Font("Cambria", Font.BOLD, 13));
+	    add(btnReport, "cell 12 6");
 	
 	
 		
 		JScrollPane scrollPane = new JScrollPane();
-		add(scrollPane, "cell 0 9 32 1,grow");
+		scrollPane.setForeground(SystemColor.text);
+		scrollPane.setBorder(new LineBorder(new Color(130, 135, 144), 2, true));
+		add(scrollPane, "cell 1 10 13 1,grow");
 		
 		ReportTableModel= new ReportTableModel();
-		tableReport = new JTable();		
+		tableReport = new JTable();
+		tableReport.setForeground(Color.BLACK);
+		tableReport.setBackground(SystemColor.text);
+		tableReport.setRowSelectionAllowed(false);
+		tableReport.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		tableReport.setModel(ReportTableModel);//set model for table
 		
-		scrollPane.setViewportView(tableReport);		
+		scrollPane.setViewportView(tableReport);
+		
+		exitButtonReport = new JButton("Exit");
+		exitButtonReport.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+		exitButtonReport.setForeground(new Color(255, 0, 0));
+		exitButtonReport.setFont(new Font("Cambria", Font.BOLD, 14));
+		add(exitButtonReport, "cell 18 11,aligny bottom");
 			
 				
 

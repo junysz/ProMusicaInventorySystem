@@ -22,7 +22,10 @@ public class LoginListener implements ActionListener {
 	
 	private MainFrame theView;
 	private MainModel theModel;
-	private String usrName=new String(""), usrPass=new String("");
+	private String name,pass;
+	private String name1="" ,pass1="";
+	boolean valid=false;
+	boolean flag=true;
 	
 	public LoginListener(MainFrame v, MainModel m)
 	{
@@ -32,38 +35,47 @@ public class LoginListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		usrName = theView.getUsernameLoginString();
-		usrPass = theView.getPasswordLoginString();
-		System.out.println("Logging in as: "+theView.getUsernameLoginString() + " with password: "+theView.getPasswordLoginString());
-		boolean valid = false;
+		name = theView.getUsernameLoginString();
+		pass = theView.getPasswordLoginString();		
 		
-		if(usrName.equals("") || usrPass.equals(""))
-		{
-			JOptionPane.showMessageDialog(theView, "One of th fields is empty! \nPlease try again.", "Error!", 0);
-			theView.displayLoginView(usrName);
-		}
-		else
-		{
-			for(int i = 0 ; i < theModel.getAllAccounts().size() ; i++){
 				
-			
-				if(usrName.equals(theModel.getAllAccounts().get(i).getAccountName())&&usrPass.equals(theModel.getAllAccounts().get(i).getPassword()))
-				{
-	
-					
-					theView.displayMainView();
-					valid = true;
-					
-				}
-			}
-			if(!valid)
-			{
-				JOptionPane.showMessageDialog(theView, "One of the fields is invalid! \nPlease try again.", "Incorrect Information!", 0);
-				theView.displayLoginView(usrName);
-			}
-		}
-
+		 for(int i = 0 ; i < theModel.getAllAccounts().size() ; i++)				
+		 {
+			 name1=theModel.getAllAccounts().get(i).getAccountName();
+			 
+			 if (name.equals(name1)) 
+				 {   valid=true;
+				     pass1=theModel.getAllAccounts().get(i).getPassword();	
+				     flag=theModel.getAllAccounts().get(i).getFlag();
+				 }
+			 
+		 }
+		 
+			if (name.equals("")) {	
+			            	JOptionPane.showMessageDialog(null,	"Please enter an username","Warning",JOptionPane.WARNING_MESSAGE);
+				            theView.displayLoginView(name);
+			                }
+			else if (pass.equals("")) {	
+				            JOptionPane.showMessageDialog(null,	"Please enter a password","Warning",JOptionPane.WARNING_MESSAGE);
+	                        theView.displayLoginView(name);
+                            }
+	    		else	if (!(valid))   {	
+				            JOptionPane.showMessageDialog(null,	"Username not found in the system","Warning",JOptionPane.WARNING_MESSAGE);
+	                        theView.displayLoginView(name);
+                            }
+	    		       else        if (!(pass.equals(pass1))) {	
+				                                               JOptionPane.showMessageDialog(null,"Password not matching account","Warning",JOptionPane.WARNING_MESSAGE);
+                                                               theView.displayLoginView(name);
+                                                               }
+	    		                              else if (!flag) 
+	    		                                 {	
+	                                               JOptionPane.showMessageDialog(null,"Your account has been disabled","Warning",JOptionPane.WARNING_MESSAGE);
+                                                   theView.displayLoginView(name);
+                                                  }
+	    		                            	  
+	    		                              else	theView.displayMainView();
 		
 	}
-	
 }
+	
+

@@ -10,6 +10,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JLabel;
 
 import net.miginfocom.swing.MigLayout;
+import java.awt.Label;
+import java.awt.Font;
 
 public class LoginPanel extends JPanel {
 	/**
@@ -21,6 +23,8 @@ public class LoginPanel extends JPanel {
 	private JPasswordField usrPassPF;
 	private JLabel lblUsername;
 	private JLabel lblPassword;
+	private Label label;
+	private Label label_1;
 
 	/**
 	 * Create the panel.
@@ -29,25 +33,36 @@ public class LoginPanel extends JPanel {
 		
 		//set panel properties and add objects
 		
-		setLayout(new MigLayout("", "[200px][]", "[100px][][][]"));
-		setSize(309, 226);
+		setLayout(new MigLayout("", "[320px][][]", "[160px][][][][35][][76.00][][][][][][][][][][220]"));
+		setSize(1048, 738);
+		
+		label = new Label("ProMusica Inventory System ");
+		label.setFont(new Font("Cambria", Font.BOLD, 25));
+		add(label, "cell 1 0 2 1");
 		
 		lblUsername = new JLabel("USERNAME : ");
-		add(lblUsername, "cell 0 1,alignx trailing");
+		lblUsername.setFont(new Font("Cambria", Font.BOLD, 13));
+		add(lblUsername, "flowx,cell 1 3,alignx trailing");
 		
 		usrNameTF = new JTextField();
-		add(usrNameTF, "cell 1 1,alignx left");
+		add(usrNameTF, "cell 1 3,alignx center");
 		usrNameTF.setColumns(15);
 		
 		lblPassword = new JLabel("PASSWORD: ");
-		add(lblPassword, "cell 0 2,alignx trailing");
+		lblPassword.setFont(new Font("Cambria", Font.BOLD, 13));
+		add(lblPassword, "flowx,cell 1 5,alignx trailing");
 		
 		usrPassPF = new JPasswordField();
 		usrPassPF.setColumns(15);
-		add(usrPassPF, "cell 1 2,alignx left");
+		add(usrPassPF, "cell 1 5,alignx center");
 		
 		btnLogin = new JButton("Login");
-		add(btnLogin, "cell 1 3,growx");
+		btnLogin.setFont(new Font("Cambria", Font.BOLD, 14));
+		add(btnLogin, "cell 1 7,alignx right");
+		
+		label_1 = new Label("Developed by Group8");
+		label_1.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
+		add(label_1, "cell 0 16,alignx center");
 
 	}
 	/*

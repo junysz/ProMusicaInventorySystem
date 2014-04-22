@@ -162,7 +162,7 @@ public class DataQueries {
 				item=new Item(brand,model,level,price,level2);//creating a new object with some of the attributes
 				item.setItemID(id);
 				item.setFlag(flag);   //set flag for the item
-				listItems.add(item);   //add newly created object item to the list to be returned
+			if (flag==true) 	listItems.add(item);   //add newly created object item to the list to be returned
 
 			}      
 
@@ -200,7 +200,7 @@ public class DataQueries {
 
 				item=new Item(id,price,brand,model,level,level2, flag); //create new object item
 
-				listItems.add(item);       //add the item to a list
+				if (flag==true) listItems.add(item);       //add the item to a list
 			}      
 			rs.close(); //close result set
 			pstmt.close(); //close prepared statement
@@ -272,8 +272,13 @@ public class DataQueries {
 				double price = rs.getDouble("totalSalePrice");                    
 				int accountID =rs.getInt("accountID");
 
+				
+				
+				sale=new Sale(SaleID,saleDate,price,accountID," "); //create new object sale
+
 
 				sale=new Sale(SaleID,saleDate,price,accountID,"GoPlanet"); //create new object sale
+
 				if (sale.getDate().after(date1) && sale.getDate().before(date2))
 				{
 					for (int i=0;i<size;i++)
@@ -384,7 +389,7 @@ public class DataQueries {
 				boolean flag   =rs.getBoolean("flag"); 
 
 				ReservedItem reservedItem=new ReservedItem(date,deposit,docketNo,itemID,accountID,flag);//create a new object reservedItem
-				list.add(reservedItem);  //add object to the list
+			if (flag==true)	list.add(reservedItem);  //add object to the list
 
 			}  
 

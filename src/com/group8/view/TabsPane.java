@@ -11,18 +11,18 @@ public class TabsPane extends JTabbedPane {
 
 	private ReservationPanel reservationPanel;
 	private MaintainPanel maintainPanel;
-	private StockBrowserPanel stockBrowsingPanel;
+	private SalesPanel salesPanel;
 	private ReportPanel reportsPanel;
 
 	public TabsPane() {
 		setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 		
-		stockBrowsingPanel = new StockBrowserPanel();
+		salesPanel = new SalesPanel();
 		reservationPanel=new ReservationPanel();
 		maintainPanel= new MaintainPanel();
 		reportsPanel=new ReportPanel();
 		
-		add("Stock Browsing",stockBrowsingPanel);
+		add("Sales",salesPanel);
 		add("Reservation",reservationPanel);
 		add("Maintenance",maintainPanel);
 		add("Reports",reportsPanel);

@@ -37,9 +37,9 @@ public class MainModel {
 				e.printStackTrace();
 				System.out.println("Driver not found");
 			}
-			String conURL="jdbc:mysql://localhost:8889/mydb";
+			String conURL="jdbc:mysql://localhost:3306/mydb";
 			//establish the connection when the MainModel is created
-			mainConnection = DriverManager.getConnection(conURL,"root","root");
+			mainConnection = DriverManager.getConnection(conURL,"root","");
 
 			inserts = new DataInserts(mainConnection);
 			queries = new DataQueries(mainConnection);
@@ -120,6 +120,10 @@ public class MainModel {
 		updates.updateItem(ItemID, Stock);
 	}
 	
+	public void updateAccount(int ID,String name,String pass,String type,int flag)
+	{
+		updates.updateAccount(ID, name, pass, type, flag);
+	}
 	
 	/*
 	//queries methods
