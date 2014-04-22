@@ -233,7 +233,7 @@ public class DataQueries {
 				account=new Account(type,username,password);//create a new object account
 				account.setAccountID(id);
 				account.setFlag(flag);  //set attributes for account
-			if (flag==true) 	listAccounts.add(account);  //add object to the list
+				listAccounts.add(account);  //add object to the list
 
 			}      
 
