@@ -246,7 +246,7 @@ public class DataQueries {
 		}  
 	}
 
-	public Account getAccount(String accN){
+	/*public Account getAccount(String accN){
 		Account account=new Account();
 		try{
 			
@@ -273,7 +273,7 @@ public class DataQueries {
 		}
 		
 		
-	}
+	}*/
 	
 	public ArrayList<Sale>  getSalesByDate(Date date1,Date date2)
 	{

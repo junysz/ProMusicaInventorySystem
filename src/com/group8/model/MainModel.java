@@ -212,10 +212,19 @@ public class MainModel {
 	 }
 	 
 	 
+	
+	 
+	 
+	 
 	 public Account getAccount(String accName){
-		return queries.getAccount(accName);
-		 
-	 }
+			int i;
+			Account a = null;
+			 ArrayList<Account> Accounts=getAllAccounts();
+				for ( i=0;i<Accounts.size();i++)
+					if (Accounts.get(i).getAccountName().equals(accName))
+			       a=Accounts.get(i);
+			 return a;
+		 }
 	 
 }
 
