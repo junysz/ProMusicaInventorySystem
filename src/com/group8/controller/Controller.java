@@ -777,13 +777,21 @@ class EditAccountBtn implements ActionListener {
 
 
 class  EditAccountCB implements ActionListener {
-	String account=null;
+	String accountName=null;Account a;int i;
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		account=theView.getTabsPane().getMaintainPanel().getSelectAccountToEditComboBox().getSelectedItem().toString();
-		System.out.println(account);
+		accountName=theView.getTabsPane().getMaintainPanel().getSelectAccountToEditComboBox().getSelectedItem().toString();
+		System.out.println(accountName);
 		
+		Account a=theModel.getAccount(accountName);
+		if (a!=null)
+		System.out.println(" i am the password Mr Pawel!="+a.getPassword());
+		
+<<<<<<< HEAD
+		
+	    
+=======
 		Account a = new Account();
 		a=theModel.getAccount(account);
 		a.getAccountID();
@@ -794,6 +802,13 @@ class  EditAccountCB implements ActionListener {
 		
 		
 	
+<<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 30cf39684c91542d0a6e8da6a09889b5e86d079b
+=======
+>>>>>>> 30cf39684c91542d0a6e8da6a09889b5e86d079b
+=======
+>>>>>>> 30cf39684c91542d0a6e8da6a09889b5e86d079b
 		
 		
 	}

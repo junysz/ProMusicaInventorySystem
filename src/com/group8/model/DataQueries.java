@@ -242,16 +242,44 @@ public class DataQueries {
 			return listAccounts;
 		}
 		catch (Exception io) {
+			
 			return null;
 		}  
+	
 	}
 
+<<<<<<< HEAD
 	/*public Account getAccount(String accN){
 		Account account=new Account();
+=======
+	public Account getAccount(String accN){
+		Account account;
+>>>>>>> FETCH_HEAD
 		try{
 			
-			String query = "Select * From Account where accountName = ? ";
+			String query = "Select * From Account where accountName=?";
 			pstmt = con.prepareStatement(query);
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+			pstmt.setString(1,accN); //sets the subCategoryName for the statement query
+			ResultSet rs = pstmt.executeQuery(query); 
+			{
+				Integer    id   = rs.getInt("accountID");	     
+				String password = rs.getString("password");  //get attributes from Account table
+				String type     = rs.getString("accountType");
+				boolean flag   =rs.getBoolean("flag"); 
+				
+
+				account=new Account(type,accN,password);//create a new object account
+				account.setAccountID(id);
+				account.setFlag(flag);  //set attributes for account
+                	
+=======
+=======
+>>>>>>> 30cf39684c91542d0a6e8da6a09889b5e86d079b
+=======
+>>>>>>> 30cf39684c91542d0a6e8da6a09889b5e86d079b
 			pstmt.setString(1,accN); //sets the Account for the statement query
 			ResultSet rs = pstmt.executeQuery(); 
 			
@@ -262,6 +290,7 @@ public class DataQueries {
 				String accType=	rs.getString("accountType");
 				Integer accFlag=	rs.getInt("flag");
 				account = new Account(accId,accName,accPasswd,accType,accFlag);
+>>>>>>> 30cf39684c91542d0a6e8da6a09889b5e86d079b
 			}
 			rs.close(); //close result set
 			pstmt.close(); //close prepared statement
@@ -424,6 +453,7 @@ public class DataQueries {
 
 
 	}
+
 
 }
 
