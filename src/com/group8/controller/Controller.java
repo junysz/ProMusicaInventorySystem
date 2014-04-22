@@ -757,7 +757,9 @@ class EditAccountBtn implements ActionListener {
 			errorMessages.add("Enter New Password");
 		}
 		if(errorMessages.isEmpty()){
-			theModel.addNewAccount(userName,passwd,accType);
+			
+			//HERE WE NEED TO USE UPDATE ACCOUNT QUERY
+			
 			//Now that data processing is complete, clear the GUI form
 			theView.getTabsPane().getMaintainPanel().clearNewAccountForm();
 			
@@ -791,7 +793,7 @@ class  EditAccountCB implements ActionListener {
 		theView.getTabsPane().getMaintainPanel().setEdditPasswordTF(a.getPassword());
 		
 		
-		System.out.println("is this right account???? "+a.getPassword());
+	
 		
 		
 	}
