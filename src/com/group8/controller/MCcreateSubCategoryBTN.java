@@ -34,7 +34,7 @@ class MCcreateSubCategoryBTN implements ActionListener{
 		subCatTF= theView.getTabsPane().getMaintainPanel().getEnterSubCatNameTF();
 		errorMessages = new ArrayList<String>();
 		if(slectedCombo==-1){
-			errorMessages.add("CategorySelction");
+			errorMessages.add("CategorySelection");
 		}
 		else{
 			categorySelection=theView.getTabsPane().getMaintainPanel().getSelectCategorycomboBox().getSelectedItem().toString();

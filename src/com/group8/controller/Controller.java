@@ -784,7 +784,7 @@ class  EditAccountCB implements ActionListener {
 		
 		Account a = new Account();
 		a=theModel.getAccount(account);
-		a.getAccountID();
+		int noID=a.getAccountID();
 		
 		//System.out.println("is this right account???? "+a.getPassword());
 		
