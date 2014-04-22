@@ -256,6 +256,7 @@ public class DataQueries {
 			pstmt = con.prepareStatement(query);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 			pstmt.setString(1,accN); //sets the subCategoryName for the statement query
 			ResultSet rs = pstmt.executeQuery(query); 
 			{
@@ -270,6 +271,8 @@ public class DataQueries {
 				account.setFlag(flag);  //set attributes for account
                 	
 =======
+=======
+>>>>>>> 30cf39684c91542d0a6e8da6a09889b5e86d079b
 =======
 >>>>>>> 30cf39684c91542d0a6e8da6a09889b5e86d079b
 			pstmt.setString(1,accN); //sets the Account for the statement query
