@@ -122,12 +122,12 @@ public class DataInserts {
 			con.commit();
 			statement.close();*/
 			
-			String sql= "Insert into Account(username, password1, accountTypeSelection,  status) values(?,?,?,?)";
+			String sql= "Insert into Account(accountName,password,accountType) values(?,?,?)";
 			PreparedStatement preparedStatement = con.prepareStatement(sql);
 			preparedStatement.setString(1, username);
 			preparedStatement.setString(2, password1);
 			preparedStatement.setString(3, accountTypeSelection);
-			preparedStatement.setInt(4, status);
+			
 			
 			preparedStatement.executeQuery();
 			preparedStatement.close();
