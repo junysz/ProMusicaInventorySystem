@@ -250,13 +250,13 @@ public class DataQueries {
 		Account account=new Account();
 		try{
 			
-			String query = "Select accountName From Account where accN = ? ";
+			String query = "Select * From Account where accountName = ? ";
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1,accN); //sets the subCategoryName for the statement query
-			ResultSet rs = pstmt.executeQuery(); //executes query and puts the SubCategory ID into rs
+			pstmt.setString(1,accN); //sets the Account for the statement query
+			ResultSet rs = pstmt.executeQuery(); 
 			
 			while( rs.next()) { 
-				Integer	accId = rs.getInt("accountID");	// sets the subCat ID  
+				Integer	accId = rs.getInt("accountID");	  
 				String accName=rs.getString("accountName");
 				String accPasswd=rs.getString("password");
 				String accType=	rs.getString("accountType");

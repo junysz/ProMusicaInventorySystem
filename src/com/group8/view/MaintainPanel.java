@@ -453,6 +453,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		editAccountPanel.add(lblStatus, "cell 1 6");
 
 		rdbtnEnableAccount = new JRadioButton("Enabled");
+		rdbtnEnableAccount.setSelected(true);
 		editAccountPanel.add(rdbtnEnableAccount, "cell 3 6");
 		statusGroup.add(rdbtnEnableAccount);
 
@@ -1021,6 +1022,9 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	public JTextField getEditAccountPasswordTF() {
 		return editAccountPasswordTF;
 	}
+	public void setEdditPasswordTF(String passwd){
+		this.editAccountPasswordTF.setText(passwd);
+	}
 
 
 	public JComboBox<String> getEditAccountTypeComboBox() {
@@ -1030,6 +1034,11 @@ public class MaintainPanel extends JPanel implements ActionListener {
 
 	public JTextField getEditUsernameTF() {
 		return editUsernameTF;
+	}
+
+
+	public void setEditUsernameTF(String editUsernameTF) {
+		this.editUsernameTF.setText(editUsernameTF);
 	}
 
 

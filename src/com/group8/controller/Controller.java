@@ -757,7 +757,7 @@ class EditAccountBtn implements ActionListener {
 			errorMessages.add("Enter New Password");
 		}
 		if(errorMessages.isEmpty()){
-			//theModel.addNewAccount(username,password1,accountTypeSelection);
+			theModel.addNewAccount(userName,passwd,accType);
 			//Now that data processing is complete, clear the GUI form
 			theView.getTabsPane().getMaintainPanel().clearNewAccountForm();
 			
@@ -785,8 +785,13 @@ class  EditAccountCB implements ActionListener {
 		Account a = new Account();
 		a=theModel.getAccount(account);
 		a.getAccountID();
+		theView.getTabsPane().getMaintainPanel().setEditUsernameTF(a.getAccountName());
+		theView.getTabsPane().getMaintainPanel().getEditAccountTypeComboBox().setSelectedItem(a.getType());
 		
-		//System.out.println("is this right account???? "+a.getPassword());
+		theView.getTabsPane().getMaintainPanel().setEdditPasswordTF(a.getPassword());
+		
+		
+		System.out.println("is this right account???? "+a.getPassword());
 		
 		
 	}
