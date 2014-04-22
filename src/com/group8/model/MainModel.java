@@ -85,7 +85,7 @@ public class MainModel {
 	}
 	public void addNewAccount(String username,String password1,String accountTypeSelection, int status)
 	{
-		inserts.insertNewAccount( username, password1, accountTypeSelection,  status);
+		inserts.insertNewAccount( username, password1, accountTypeSelection);
 	}
 
 
