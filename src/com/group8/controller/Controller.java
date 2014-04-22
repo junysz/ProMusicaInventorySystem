@@ -130,7 +130,7 @@ public class Controller implements CategoryListener{
 		theView.getTabsPane().getReportPanel().addTableListener(new PopulateTable2Listener());
 
 	}
-<<<<<<< HEAD
+
 	//method to Populate the table in the Reservation Panel
   public void populateTable()
   {
@@ -169,31 +169,6 @@ public class Controller implements CategoryListener{
 			 theView.getTabsPane().getReservationPanel().setTableModel(tempList);//populate table
 			 theView.getTabsPane().getReservationPanel().getBtnReserveItem().setEnabled(true);	//enable the reserve button 
            }
-=======
-
-	public void populateTable()
-	{
-
-		String subCat = null;
-		ArrayList<Item> tempList = new ArrayList<Item>();
-
-		if ( theView.getTabsPane().getReservationPanel().getSelectSubcategoryCBox().getSelectedItem()!=null)
-		{ 
-			subCat=	theView.getTabsPane().getReservationPanel().getSelectSubcategoryCBox().getSelectedItem().toString();
-			temItemList=theModel.getItemsInSubcategory(subCat); 
-			for (int i=0;i<temItemList.size();i++)
-				if (temItemList.get(i).getAvailableStockLevel()>0)			 tempList.add(temItemList.get(i));
-			theView.getTabsPane().getReservationPanel().setTableModel(tempList);
-			theView.getTabsPane().getReservationPanel().getBtnReserveItem().setEnabled(true);	
-		}
-		else 
-		{
-			theView.getTabsPane().getReservationPanel().warnSubCategoryNull();
-
-		}	
-	}
-
->>>>>>> PawelNew
 
 	class PopulateTableListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
@@ -331,7 +306,7 @@ public class Controller implements CategoryListener{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-<<<<<<< HEAD
+
 		String docket="",depositString="";
 		double price=0,deposit=0;
 		int accountID=0,itemID=0;	
@@ -405,93 +380,14 @@ public class Controller implements CategoryListener{
 	  
 	    populateList();
 	    }
-=======
-			String docket="",depositString="";
-			double deposit=0;
-			int accountID=0,itemID=0;	
 
-
-			//get docket
-			docket=theView.getTabsPane().getReservationPanel().getEnterDocketNoTF().getText();
-			if (docket.equals(""))
-
-				theView.getTabsPane().getReservationPanel().warnDocketNull();
-			//get deposit			
-			try
-			{ 
-				depositString=theView.getTabsPane().getReservationPanel().getDepositTF().getText();
-				deposit = Double.parseDouble(depositString);								
-			}
-			catch (Exception io) //warning if the deposit field is null or not a number
-			{
-				theView.getTabsPane().getReservationPanel().warnUpdateNull();
-			}
-
-
-			//	getting the account name and password using the LoginPanel 
-			String username=theView.getUsernameLoginString();
-			String pass=theView.getPasswordLoginString();
-
-			//getting the AccountID
-			ArrayList<Account> myList=theModel.getAllAccounts();
-			for (int i=0;i<myList.size();i++)
-			{
-				if (myList.get(i).getAccountName().equals(username))
-					if(		 myList.get(i).getPassword().equals(pass) )  
-						accountID=myList.get(i).getAccountID();
-			}
-
-			//Getting current date
-			Calendar calendar = Calendar.getInstance();
-			java.sql.Date date = new java.sql.Date(calendar.getTime().getTime());
-
-
-			//getting the itemID
-
-			int index=theView.getTabsPane().getReservationPanel().getTableIndex();
-			if  (index==-1) 
-				theView.getTabsPane().getReservationPanel().warnItemNull();
-			else	    	
-			{
-				itemID=theView.getTabsPane().getReservationPanel().getItemID();    
-			} 
-
-			if (index>-1 && !(depositString.equals("")) && !(docket.equals(""))  )
-			{
-				theModel.insertNewReservation(accountID, docket, date, deposit, itemID);	
-				theView.getTabsPane().getReservationPanel().success();
-				theView.getTabsPane().getReservationPanel().getDepositTF().setText("");
-				theView.getTabsPane().getReservationPanel().getEnterDocketNoTF().setText("");
-
-
-				//update Available Stock Level for the designated item
-				int itemID1=theView.getTabsPane().getReservationPanel().getItemID();
-				int Stock=theView.getTabsPane().getReservationPanel().getAvailableStock();	    
-				theModel.updateItemAvailableStock(itemID1,Stock-1);
-				//repopulate Table
-				populateTable();
-				//repopulate the List in the FindReservation Panel
-
-				populateList();
-			}
->>>>>>> PawelNew
+			
 		}	
 	}                                                               
 	/******************************************************************/
-<<<<<<< HEAD
-	
-		public void  populateList()
-		{
-		 theView.getTabsPane().getReservationPanel().removeList();
-		 ArrayList<ReservedItem> List=new ArrayList <ReservedItem>();    
-		 ArrayList<ReservedItem> EmptyList=new ArrayList <ReservedItem>();   
-	     List=theModel.getReservedItems(); 
-	   	 theView.getTabsPane().getReservationPanel().setListModel(List);
-		}
-		
-	
-=======
 
+	
+	
 	public void  populateList()
 	{
 		theView.getTabsPane().getReservationPanel().removeList();
@@ -502,7 +398,6 @@ public class Controller implements CategoryListener{
 	}
 
 
->>>>>>> PawelNew
 
 	class ComboBoxListener implements ActionListener{
 

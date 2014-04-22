@@ -498,13 +498,13 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		editAccountPanel.add(lblStatus, "cell 1 6");
 
 		rdbtnEnableAccount = new JRadioButton("Enabled");
-<<<<<<< HEAD
+
 		rdbtnEnableAccount.setFont(new Font("Cambria", Font.BOLD, 12));
 		editAccountPanel.add(rdbtnEnableAccount, "cell 3 6,alignx center");
-=======
+
 		rdbtnEnableAccount.setSelected(true);
 		editAccountPanel.add(rdbtnEnableAccount, "cell 3 6");
->>>>>>> PawelNew
+
 		statusGroup.add(rdbtnEnableAccount);
 
 		rdbtnDisableAccount = new JRadioButton("Disabled");
