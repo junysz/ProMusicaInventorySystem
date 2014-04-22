@@ -217,7 +217,7 @@ public class MainModel {
 	 
 	 
 	 public Account getAccount(String accName){
-<<<<<<< HEAD
+
 			int i;
 			Account a = null;
 			 ArrayList<Account> Accounts=getAllAccounts();
@@ -226,15 +226,7 @@ public class MainModel {
 			       a=Accounts.get(i);
 			 return a;
 		 }
-=======
-		int i;Account a = null;
-		 ArrayList<Account> Accounts=getAllAccounts();
-			for ( i=0;i<Accounts.size();i++)
-				if (Accounts.get(i).getAccountName().equals(accName))
-		       a=Accounts.get(i);
-		 return a;
-	 }
->>>>>>> FETCH_HEAD
+
 	 
 }
 

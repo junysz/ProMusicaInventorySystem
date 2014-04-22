@@ -788,12 +788,9 @@ class  EditAccountCB implements ActionListener {
 		if (a!=null)
 		System.out.println(" i am the password Mr Pawel!="+a.getPassword());
 		
-<<<<<<< HEAD
+
+	
 		
-	    
-=======
-		Account a = new Account();
-		a=theModel.getAccount(account);
 		a.getAccountID();
 		theView.getTabsPane().getMaintainPanel().setEditUsernameTF(a.getAccountName());
 		theView.getTabsPane().getMaintainPanel().getEditAccountTypeComboBox().setSelectedItem(a.getType());
@@ -802,13 +799,7 @@ class  EditAccountCB implements ActionListener {
 		
 		
 	
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 30cf39684c91542d0a6e8da6a09889b5e86d079b
-=======
->>>>>>> 30cf39684c91542d0a6e8da6a09889b5e86d079b
-=======
->>>>>>> 30cf39684c91542d0a6e8da6a09889b5e86d079b
+
 		
 		
 	}
