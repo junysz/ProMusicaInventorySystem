@@ -14,6 +14,8 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
+import com.group8.model.Account;
+
 
 import java.awt.Color;
 import java.awt.event.ActionListener;
@@ -631,9 +633,12 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		CategoryComboBoxModel selectItemModel= new CategoryComboBoxModel();
 		selectItemModel.setComboBoxList(comboBoxList);
 		selectItemToEditComboBox.setModel(selectItemModel);
-
-
-
+	}
+	
+	public void setAccountModel(List<String> accountNames) {
+		CategoryComboBoxModel selectItemModel= new CategoryComboBoxModel();
+		selectItemModel.setComboBoxList(accountNames);
+		selectAccountToEditComboBox.setModel(selectItemModel);
 	}
 
 
@@ -820,7 +825,10 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	public void addAccountTypeToComboBox(){
 		selectAccountTypeComboBox.addItem("Manager");
 		selectAccountTypeComboBox.addItem("Sales Staff");
+		editAccountTypeComboBox.addItem("Manager");
+		editAccountTypeComboBox.addItem("Sales Staff");
 	}
+	
 
 	/*
 	 * ***************METHODS FOR GETTING GUI ITEMS********************
@@ -995,5 +1003,8 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		editSubCatNameTF.setText(subCategoryEdit);
 
 	}
+
+
+	
 
 }

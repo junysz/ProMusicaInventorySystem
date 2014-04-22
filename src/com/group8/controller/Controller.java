@@ -65,7 +65,7 @@ public class Controller implements CategoryListener{
 
 		//update all comboBoxes
 		update();
-
+		updteAccounts();
 
 		theView.getTabsPane().getMaintainPanel().addConfirmItemChangesBtn(new ConfirmItemChangesBtn());
 
@@ -496,6 +496,7 @@ public class Controller implements CategoryListener{
 
 
 				update();
+				updteAccounts();
 
 			}
 			//Now handle the error Messages if there was any by sending the errors list to the view to be displayed
@@ -640,26 +641,34 @@ public class Controller implements CategoryListener{
 
 		}
 	}
+	
+	//ACCOUNT BUTTON>>CREATE ACCOUNT 
+	
 	//Inner Class that listens for the Create Account Button
 	class CreateAccountBtn implements ActionListener{
-		@Override
-		public void actionPerformed(ActionEvent e) {
+		
 			String username=null;
 			String password1=null;
 			String password2=null;
 			String accountTypeSelection=null;
-
+			ArrayList<String> errorMessages;
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+		
+			errorMessages=new ArrayList<String>();
 			//read the values (username, enterPassword, confirmPassword, accountType) from the view
 			try{
 				username=theView.getTabsPane().getMaintainPanel().getEnterUsernameTF();
 				password1=theView.getTabsPane().getMaintainPanel().getEnterPasswordTF();
 				password2= theView.getTabsPane().getMaintainPanel().getConfirmPasswordTF();
 				accountTypeSelection=theView.getTabsPane().getMaintainPanel().getSelectAccountTypeComboBox().getSelectedItem().toString();
+				checkIfAccountExitst();
 			}catch(Exception ex){
 				System.out.println("Problem reading input fron Create New Account Form");
 			}
 			//Now validate the data and add errors to errorMessages
-			ArrayList<String> errorMessages = new ArrayList<String>();
+			
 			if(username.isEmpty()){
 				errorMessages.add("Username");
 			}
@@ -674,16 +683,34 @@ public class Controller implements CategoryListener{
 			}
 
 			if(errorMessages.isEmpty()){
-				theModel.addNewAccount(username,password1,accountTypeSelection,1);
+				theModel.addNewAccount(username,password1,accountTypeSelection);
 				//Now that data processing is complete, clear the GUI form
 				theView.getTabsPane().getMaintainPanel().clearNewAccountForm();
+				
+				updteAccounts();
 			}
 			else{
 				theView.getTabsPane().getMaintainPanel().warnCreateAccountFormErrors(errorMessages);
+				theView.getTabsPane().getMaintainPanel().clearNewAccountForm();
 			}
 
 
 
+		}
+		
+		
+		
+		void checkIfAccountExitst(){
+			for(int i=0;i<theModel.getAllAccounts().size();i++){
+				
+				String accN=theModel.getAllAccounts().get(i).getAccountName();
+				
+				if(accN.equalsIgnoreCase(username)){
+					errorMessages.add("Account Already Exitst");
+					System.out.println(accN +"="+ username);
+					break;	
+				}
+			}
 		}
 	}
 
@@ -889,7 +916,19 @@ public class Controller implements CategoryListener{
 
 
 
-
+public void updteAccounts(){
+	ArrayList<String>accountNames= new ArrayList<String>();
+	
+	for(int i=0;i<theModel.getAllAccounts().size();i++){
+		
+		String accN=theModel.getAllAccounts().get(i).getAccountName();
+		accountNames.add(accN);
+		System.out.println(accN);
+	}
+	
+	theView.getTabsPane().getMaintainPanel().setAccountModel(accountNames);
+	
+}
 
 
 
