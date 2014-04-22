@@ -507,6 +507,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 
 
 		btnConfirmChanges = new JButton("Confirm Changes");
+		btnConfirmChanges.setFont(new Font("Cambria", Font.BOLD, 13));
 		editAccountPanel.add(btnConfirmChanges, "cell 3 8,alignx center");
 
 
