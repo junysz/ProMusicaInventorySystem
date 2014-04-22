@@ -403,7 +403,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 
 		MaintainAccountPanel = new JPanel();
 		MaintainAccountPanel.setBorder(new LineBorder(new Color(0, 0, 0), 0, true));
-		tabbedPane.addTab("Maintan Accounts", null, MaintainAccountPanel, null);
+		tabbedPane.addTab("Maintain Accounts", null, MaintainAccountPanel, null);
 		MaintainAccountPanel.setLayout(new GridLayout(1, 2, 10, 10));
 
 		newAccountPanel = new JPanel();
