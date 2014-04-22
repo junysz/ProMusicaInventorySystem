@@ -11,39 +11,23 @@ import javax.swing.JComboBox;
 import javax.swing.border.TitledBorder;
 import javax.swing.JTable;
 import java.awt.Font;
+import java.awt.Label;
+import java.awt.Color;
 
 @SuppressWarnings("serial")
-public class StockBrowserPanel extends JPanel {
-	private JTextField searchTF;
+public class SalesPanel extends JPanel {
 	private JTable table;
 
 	/**
 	 * Create the panel.
 	 */
-	public StockBrowserPanel() {
+	public SalesPanel() {
 		setLayout(new MigLayout("", "[grow]", "[][51.00][grow]"));
 		
-		searchTF = new JTextField();
-		searchTF.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		add(searchTF, "flowx,cell 0 0,alignx left");
-		searchTF.setColumns(15);
-		
-		JButton btnSearch = new JButton("Search");
-		add(btnSearch, "cell 0 0,growy");
-		
-		JPanel filterByPanel = new JPanel();
-		filterByPanel.setBorder(new TitledBorder(null, "Filter Results By:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		add(filterByPanel, "cell 0 1,grow");
-		filterByPanel.setLayout(new MigLayout("", "[grow]", "[][]"));
-		
-		JComboBox priceCB = new JComboBox();
-		filterByPanel.add(priceCB, "flowx,cell 0 0");
-		
-		JComboBox inStockCB = new JComboBox();
-		filterByPanel.add(inStockCB, "cell 0 0");
-		
-		JComboBox categoryCB = new JComboBox();
-		filterByPanel.add(categoryCB, "cell 0 0,alignx left");
+		Label label = new Label("Under Construction ");
+		label.setForeground(Color.RED);
+		label.setFont(new Font("Cambria", Font.BOLD, 19));
+		add(label, "flowy,cell 0 2,alignx center");
 		
 		table = new JTable();
 		add(table, "cell 0 2,grow");
