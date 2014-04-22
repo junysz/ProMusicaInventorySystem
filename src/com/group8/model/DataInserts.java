@@ -129,7 +129,7 @@ public class DataInserts {
 			preparedStatement.setString(3, accountTypeSelection);
 			
 			
-			preparedStatement.executeQuery();
+			preparedStatement.executeUpdate();
 			preparedStatement.close();
 			
 			
