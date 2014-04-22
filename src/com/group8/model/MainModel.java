@@ -83,9 +83,9 @@ public class MainModel {
 	{
 		inserts.insertNewReservation( accountID,docketNo,reservationDate,deposit, itemID);
 	}
-	public void addNewAccount(Account a)
+	public void addNewAccount(String username,String password1,String accountTypeSelection, int status)
 	{
-		inserts.insertNewAccount(a);
+		inserts.insertNewAccount( username, password1, accountTypeSelection,  status);
 	}
 
 

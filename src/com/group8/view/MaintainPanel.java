@@ -544,7 +544,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	}
 	//Create the Remove Item Button Listener
 	/*public void addRemoveItemBtn(ActionListener listen){
-		
+
 	}*/
 	public JButton getBtnRemoveItem() {
 		return btnRemoveItem;
@@ -564,6 +564,9 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	public JButton getBtnConfirmItemChanges() {
 		return btnConfirmItemChanges;
 	}
+
+
+
 
 
 	/* METHOD: setCategoryModels is for Category Combo BOxes
@@ -615,12 +618,12 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		subCategoryCbM3.setComboBoxList(comboBoxList);
 		editSubCatComboBox.setModel(subCategoryCbM3);
 		changeSubCatComboBox.setModel(subCategoryCbM3);
-		
+
 		CategoryComboBoxModel subCategoryCbM4= new CategoryComboBoxModel();
 		subCategoryCbM4.setComboBoxList(comboBoxList);
 		changeSubCatComboBox.setModel(subCategoryCbM4);
-		
-		
+
+
 	}
 
 	//set list on Maintain Items for select item combo box
@@ -628,9 +631,9 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		CategoryComboBoxModel selectItemModel= new CategoryComboBoxModel();
 		selectItemModel.setComboBoxList(comboBoxList);
 		selectItemToEditComboBox.setModel(selectItemModel);
-		
-		
-	
+
+
+
 	}
 
 
@@ -667,7 +670,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 
 	//WIERD CATEGORY LISTENERS
 	public void setCategoryListenr(CategoryListener categoryListenr) {
-		
+
 		this.categoryListenr = categoryListenr;
 	}
 
@@ -696,9 +699,13 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	}
 
 
+	/*
+	 * *********************************************************************
+	 * MAINTAIN Accounts
+	 * *********************************************************************
+	 */
 
-
-
+	
 
 
 
@@ -803,7 +810,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 				"Go away warning",
 				JOptionPane.WARNING_MESSAGE);
 	}
-	
+
 
 
 	/************************WORKER METHODS**********************************/
@@ -874,10 +881,10 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		editModelTF.setText(model);
 	}
 	public void setEditPriceTF(String price){
-		
+
 		editPriceTF.setText(price);
 	}
-	
+
 	public String getEditModelTF() {
 		return editModelTF.getText();
 	}
@@ -915,7 +922,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		//selectCategoryToEditComboBox.setSelectedIndex(0);
 		editCategoryNameTF.setText("");
 	}
-	
+
 	public void clearAllSub_CatComboBoxes(){
 		List<String>clearSubCat= new ArrayList<>();
 		setSubCategoryModels(clearSubCat);
@@ -953,7 +960,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		//clear sub-Category comboBox
 		setCategoryModels(clearSubCat);
 		setItemModle(clearSubCat);
-		
+
 		enterBrandTF.setText("");
 		enterModelTF.setText("");
 		enterPriceTF.setText("");
@@ -962,7 +969,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	public void clearEditItemForm(){
 		List<String>clearSubCat= new ArrayList<>();
 		setSubCategoryModelItems2(clearSubCat);
-	
+
 		setItemModle(clearSubCat);
 		editBrandTF.setText("");
 		editModelTF.setText("");
@@ -977,7 +984,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	public void clearEditAccountForm(){
 		//selectAccountToEditComboBox.setSelectedItem(0);
 		editUsernameTF.setText("");
-	//	editAccountTypeComboBox.setSelectedItem(0);
+		//	editAccountTypeComboBox.setSelectedItem(0);
 		editAccountPasswordTF.setText("");
 		rdbtnEnableAccount.setSelected(false);
 		rdbtnDisableAccount.setSelected(false);

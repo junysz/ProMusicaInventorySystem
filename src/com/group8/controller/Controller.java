@@ -674,13 +674,7 @@ public class Controller implements CategoryListener{
 			}
 
 			if(errorMessages.isEmpty()){
-				Account a = new Account();
-				a.setAccountName(username);
-				a.setPassword(password1);
-				a.setType(accountTypeSelection);
-
-				theModel.addNewAccount(a);
-				System.out.println("Account Added successful");
+				theModel.addNewAccount(username,password1,accountTypeSelection,1);
 				//Now that data processing is complete, clear the GUI form
 				theView.getTabsPane().getMaintainPanel().clearNewAccountForm();
 			}

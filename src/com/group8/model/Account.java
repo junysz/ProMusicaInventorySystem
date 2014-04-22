@@ -23,6 +23,7 @@ public class Account {
 	//Constructor that accepts Type, User name, and Password as arguments
 	public Account(String t, String u, String p)
 	{
+		
 		setType(t);
 		setAccountName(u);
 		setPassword(p);

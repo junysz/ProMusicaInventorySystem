@@ -111,16 +111,28 @@ public class DataInserts {
             e.printStackTrace();
         }
 	}
-	protected void insertNewAccount(Account a)
+	protected void insertNewAccount(String username,String password1,String accountTypeSelection, int status)
 	{
 		try
 		{
-			statement = con.createStatement();
+			/*statement = con.createStatement();
 			//Structure for inserting a new tuple in the Account table
 			String insert = "Insert into Account (accountName, password, accountType, flag ) values ('" + a.getAccountName() + "','" + a.getPassword() + "','" + a.getType()+",1)";
 			int res = statement.executeUpdate(insert); //writes to Item SOld table
 			con.commit();
-			statement.close();
+			statement.close();*/
+			
+			String sql= "Insert into Account(username, password1, accountTypeSelection,  status) values(?,?,?,?)";
+			PreparedStatement preparedStatement = con.prepareStatement(sql);
+			preparedStatement.setString(1, username);
+			preparedStatement.setString(2, password1);
+			preparedStatement.setString(3, accountTypeSelection);
+			preparedStatement.setInt(4, status);
+			
+			preparedStatement.executeQuery();
+			preparedStatement.close();
+			
+			
 		}
 		catch(Exception e)
         {
