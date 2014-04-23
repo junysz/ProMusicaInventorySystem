@@ -31,7 +31,7 @@ public class Controller implements CategoryListener{
 		theView.setCategoryListener(this);
 		/*******************Maintain Panel*/
 		theView.getTabsPane().getMaintainPanel().getEditAccountTypeComboBox().setSelectedIndex(-1);
-		categoriesController= new CategoriesController(theView, theModel);
+		categoriesController= new CategoriesController(this);
 		itemsController= new ItemsController(theView, theModel);
 		accountsController= new AccountsController(theView, theModel);		
 		update();//comboBoxes
@@ -126,6 +126,13 @@ public class Controller implements CategoryListener{
 		getMaintainPanel().clearNewSubCatForm();
 	}
 
+	public MainFrame getView(){
+		return theView;
+	}
+	public MainModel getModel(){
+		return theModel;
+	}
+	
 	public MaintainPanel getMaintainPanel(){
 		return theView.getTabsPane().getMaintainPanel();
 	}
