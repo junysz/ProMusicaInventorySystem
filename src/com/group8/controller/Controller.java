@@ -2,11 +2,6 @@ package com.group8.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import com.group8.model.*;
 import com.group8.view.CategoryFormEvent;
 import com.group8.view.CategoryListener;
@@ -14,6 +9,7 @@ import com.group8.view.MainFrame;
 import com.group8.view.MaintainPanel;
 
 public class Controller implements CategoryListener{
+	
 	private MainFrame theView;  	
 	private MainModel theModel;	
 	protected CategoriesController categoriesController;
@@ -21,21 +17,18 @@ public class Controller implements CategoryListener{
 	protected AccountsController accountsController;
 	protected ReserveController reserveController;
 	protected ReportController reportController;
-	
-	private List<String> test;
-	
-	
+
+
+
+
 
 	public Controller(MainFrame theView, MainModel theModel )
 	{
 		this.theView=theView;
 		this.theModel=theModel;
-		
-	    /**********Login Panel******** */
+		/*******************Login Panel******** */
 		theView.addLoginListener(new LoginListener(theView, theModel));
 		theView.setCategoryListener(this);
-		
-		
 		/*******************Maintain Panel*/
 		theView.getTabsPane().getMaintainPanel().getEditAccountTypeComboBox().setSelectedIndex(-1);
 		categoriesController= new CategoriesController(theView, theModel);
@@ -43,61 +36,27 @@ public class Controller implements CategoryListener{
 		accountsController= new AccountsController(theView, theModel);		
 		update();//comboBoxes
 		updteAccounts();		
-		
-
-		/***********RESERVE PANEL*****************/ 
+		/*******************RESERVE PANEL*****************/ 
 		reserveController= new ReserveController(theView, theModel);
-		theView.getTabsPane().getReservationPanel().addComboBoxCatListener(new ComboBoxListener());
-		theView.getTabsPane().getReservationPanel().addComboBoxSubCatListener(new ComboBoxSubCatListener());
-		
-		
-		/***********REPORT PANEL*****************/ 		 
+		/*******************REPORT PANEL*****************/ 		 
 		reportController= new ReportController(theView, theModel);
-
 	}
 
 
 
-	
-	class ComboBoxListener implements ActionListener{
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			String selectedCategory=theView.getTabsPane().getReservationPanel().getSelectCategoryCBox().getSelectedItem().toString();
-			System.out.println("ComboBox Category changed to: "+selectedCategory);
-			//now populate all sub-categories ....
-			test=theModel.getSubCategories(selectedCategory);
-			theView.getTabsPane().getReservationPanel().setComboBoxSubCategoryModel(test);
-		}
-	}
-	
-	
-	class ComboBoxSubCatListener implements ActionListener{
-		@Override
-		public void actionPerformed(ActionEvent e) {
 
-			try{
-				String subCat=	theView.getTabsPane().getReservationPanel().getSelectSubcategoryCBox().getSelectedItem().toString();
-			
-			}catch(Exception exception)
-			{
-				exception.printStackTrace();
-						}
-				}
-      	}
 
-	
 	//Inner Class that listens for the Create Account Button
 	class RemoveItemBtn implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String itemSelection=null;
-
 			//read the values (itemSelection) from the view
 			try{
 				itemSelection=theView.getTabsPane().getMaintainPanel().getItemToEditComboBox().getSelectedItem().toString();
 			}catch(Exception ex){
-				
+
 			}
 			//Now validate the data and add errors to errorMessages
 			ArrayList<String> errorMessages = new ArrayList<String>();
@@ -117,8 +76,8 @@ public class Controller implements CategoryListener{
 		}
 	}
 
-	
-	
+
+
 
 
 	public void categoryAddedPerformed(CategoryFormEvent catFormEvent) 
@@ -156,8 +115,8 @@ public class Controller implements CategoryListener{
 		theView.getTabsPane().getMaintainPanel().clearNewCategoryForm();
 	}
 
-	
-	
+
+
 
 	//MaintainPanel: populates all ComboBoxes:SelectCategory
 	public void update() {
