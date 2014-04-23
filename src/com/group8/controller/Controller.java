@@ -1,6 +1,4 @@
 package com.group8.controller;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import com.group8.model.*;
 import com.group8.view.CategoryFormEvent;
