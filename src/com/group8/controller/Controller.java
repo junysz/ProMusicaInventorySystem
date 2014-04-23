@@ -47,7 +47,8 @@ public class Controller implements CategoryListener{
 
 		/***********RESERVE PANEL*****************/ 
 		reserveController= new ReserveController(theView, theModel);
-		
+		theView.getTabsPane().getReservationPanel().addComboBoxCatListener(new ComboBoxListener());
+		theView.getTabsPane().getReservationPanel().addComboBoxSubCatListener(new ComboBoxSubCatListener());
 		
 		
 		/***********REPORT PANEL*****************/ 		 

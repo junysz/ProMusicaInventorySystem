@@ -29,8 +29,8 @@ public class ReserveController {
 		this.theModel=theModel;
 		
 		theView.getTabsPane().getReservationPanel().addTableListener(new PopulateTableListener());
-		theView.getTabsPane().getReservationPanel().addComboBoxCatListener(new ComboBoxListener());
-		theView.getTabsPane().getReservationPanel().addComboBoxSubCatListener(new ComboBoxSubCatListener());		
+		
+				
 		populateCategoryReservPanel();	
 		theView.getTabsPane().getReservationPanel().addListListener(new myListListener());		
 		populateList();   
