@@ -38,9 +38,7 @@ public class Controller implements CategoryListener{
 	}
 
 
-<<<<<<< HEAD
-	//Inner Class that listens for the Create Account Button
-=======
+
 
 
 
