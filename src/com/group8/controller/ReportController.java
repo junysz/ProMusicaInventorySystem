@@ -9,39 +9,46 @@ import com.group8.model.Sale;
 import com.group8.view.MainFrame;
 
 public class ReportController {
-	private MainFrame theView;  	
-	private MainModel theModel;	
-
-	public ReportController(MainFrame theView, MainModel theModel){
-		this.theView=theView;
-		this.theModel=theModel;
-		theView.getTabsPane().getReportPanel().addTableListener(new PopulateTable2Listener());
-		
-    }
 	
+	private Controller controller;  	
+
+	public ReportController(Controller controller){
+		this.controller=controller;
+
+		getView().getTabsPane().getReportPanel().addTableListener(new PopulateTable2Listener());
+
+	}
+
+
 	class PopulateTable2Listener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 
 
-
 			ArrayList<Sale> saleList=new ArrayList <Sale>();		        		    
 
-			java.sql.Date date1=  theView.getTabsPane().getReportPanel().getDate1();//get first date from the ReportPanel
-			java.sql.Date date2=	theView.getTabsPane().getReportPanel().getDate2();	//get the second date			
-			saleList=theModel.getSalesByDate(date1,date2); //query database for Sales between the two dates
+			java.sql.Date date1=  getView().getTabsPane().getReportPanel().getDate1();//get first date from the ReportPanel
+			java.sql.Date date2=	getView().getTabsPane().getReportPanel().getDate2();	//get the second date			
+			saleList=getModel().getSalesByDate(date1,date2); //query database for Sales between the two dates
 			if (date1!=null && date2!=null)
 			{
-				theView.getTabsPane().getReportPanel().setTableModel(saleList);	//set the table if dates are not null
+				getView().getTabsPane().getReportPanel().setTableModel(saleList);	//set the table if dates are not null
 				if (date1.after(date2))
 				{
-					theView.getTabsPane().getReportPanel().warnDateAfter();//if first date after second warn user
+					getView().getTabsPane().getReportPanel().warnDateAfter();//if first date after second warn user
 				}
 			}
 			else 
-			{  theView.getTabsPane().getReportPanel().warnDateNull(); //if any date null warn user
+			{  getView().getTabsPane().getReportPanel().warnDateNull(); //if any date null warn user
 			}
 		}
 	}
-	
-	
+
+
+	public MainFrame getView(){
+		return controller.getView();
+	}
+	public MainModel getModel(){
+		return controller.getModel();
+	}
+
 }

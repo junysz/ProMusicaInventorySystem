@@ -14,27 +14,26 @@ import com.group8.view.MaintainPanel;
 
 public class ItemsController {
 
-	private MainFrame theView;  	
-	private MainModel theModel;	
+	
+	private Controller controller;	
 
-	public ItemsController(MainFrame theView, MainModel theModel){
-		this.theView=theView;
-		this.theModel=theModel;
+	public ItemsController(Controller controller){
+		this.controller=controller;
+		
 		getMaintainPanel().addCategoryListnerCreateItem(new MICategoryCB1());
-		theView.getTabsPane().getMaintainPanel().addCreateItemBtn(new MICreateBTN1());
+		getMaintainPanel().addCreateItemBtn(new MICreateBTN1());
 		getMaintainPanel().addEditCategoryComboBoxItem(new MICategoryCB2());
 		getMaintainPanel().addEditSubCatComboBox(new MIsubCategoryCB2());
 		getMaintainPanel().addSelectItemToEditComboBox(new MImoveSubCatCB2());
-		theView.getTabsPane().getMaintainPanel().addConfirmItemChangesBtn(new MIconfirmBTN2());
+		getMaintainPanel().addConfirmItemChangesBtn(new MIconfirmBTN2());
 	}
-
 
 
 	class MICategoryCB1 implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String catSelected=getMaintainPanel().getNewItemCategoryComboBox().getSelectedItem().toString();
-			getMaintainPanel().setSubCategoryModelItems(theModel.getSubCategories(catSelected));
+			getMaintainPanel().setSubCategoryModelItems(controller.getModel().getSubCategories(catSelected));
 		}
 	}
 
@@ -76,7 +75,7 @@ public class ItemsController {
 			//If there is no errors then we can go ahead and make sub category
 			if(errorMessages.isEmpty()){
 				//first we get the SubCategory id based on the name that was selected
-				int subCatID = theModel.getSubCatIdFromName(subCatSelection);
+				int subCatID = getModel().getSubCatIdFromName(subCatSelection);
 				//then we create the SubCategory Object to pass to the model
 				SubCategory s=new SubCategory(subCatID, subCatSelection);
 				Item i = new Item();
@@ -86,14 +85,14 @@ public class ItemsController {
 				i.setStockLevel(stockLevel);
 				i.setAvailableStockLevel(stockLevel);
 				//send both object to the model to handle the database insert
-				theModel.addNewItem(i,s);
+				getModel().addNewItem(i,s);
 				//Testing Prints
 				System.out.println("Test if works: ItemName: "+ i.getBrand()+" " +i.getModel() +"\n Price: "+i.getPrice());
 				//Now that data processing is complete, clear the GUI form
 				getMaintainPanel().clearNewItemForm();
 				//update sub-cat
 				getMaintainPanel().clearEditItemForm();
-				getMaintainPanel().setCategoryModels(theModel.getCategoryNames());	
+				getMaintainPanel().setCategoryModels(getModel().getCategoryNames());	
 				update();
 				updteAccounts();
 			}
@@ -107,8 +106,8 @@ public class ItemsController {
 	class MICategoryCB2 implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			String catSelected=theView.getTabsPane().getMaintainPanel().getEditCategoryComboBox().getSelectedItem().toString();
-			getMaintainPanel().setSubCategoryModelItems2(theModel.getSubCategories(catSelected));
+			String catSelected=getMaintainPanel().getEditCategoryComboBox().getSelectedItem().toString();
+			getMaintainPanel().setSubCategoryModelItems2(getModel().getSubCategories(catSelected));
 		}
 	}
 
@@ -119,7 +118,7 @@ public class ItemsController {
 			String subCatSelected= getMaintainPanel().getItemToEditSubCatComboBox().getSelectedItem().toString();
 			System.out.println("Testing subCat "+subCatSelected);
 			List<Item> listItems= new ArrayList<>();
-			listItems=theModel.getItemsInSubcategory(subCatSelected);
+			listItems=getModel().getItemsInSubcategory(subCatSelected);
 			List<String>listItemBrands= new ArrayList<>();
 			String brandModel=null;
 			for(int i=0;i<listItems.size();i++){
@@ -146,7 +145,7 @@ public class ItemsController {
 			//create list with all items for selected sub-category
 			List<Item>itemsInSubCat= new ArrayList<Item>();
 			//use query itemsInSubCategory
-			itemsInSubCat=theModel.getItemsInSubcategory(selectedSubCategory);
+			itemsInSubCat=getModel().getItemsInSubcategory(selectedSubCategory);
 
 			for(int i=0;i<itemsInSubCat.size();i++){
 
@@ -180,17 +179,17 @@ public class ItemsController {
 				String modelsplit = null;
 				int itemSubCatID;
 				try{
-					if(theView.getTabsPane().getMaintainPanel().getEditCategoryComboBox().getSelectedIndex()==-1){
+					if(getMaintainPanel().getEditCategoryComboBox().getSelectedIndex()==-1){
 						errorMessages.add("Category Selection");
 					}
-					if(theView.getTabsPane().getMaintainPanel().getItemToEditSubCatComboBox().getSelectedIndex()==-1){
+					if(getMaintainPanel().getItemToEditSubCatComboBox().getSelectedIndex()==-1){
 						errorMessages.add("Sub-Cat Selection");
 					}else{
-						selectedSubCategory=theView.getTabsPane().getMaintainPanel().getItemToEditSubCatComboBox().getSelectedItem().toString();
+						selectedSubCategory=getMaintainPanel().getItemToEditSubCatComboBox().getSelectedItem().toString();
 					}
-					brand= theView.getTabsPane().getMaintainPanel().getEditBrandTF();
-					model= theView.getTabsPane().getMaintainPanel().getEditModelTF();
-					price= Double.parseDouble(theView.getTabsPane().getMaintainPanel().getEditPriceTF());
+					brand= getMaintainPanel().getEditBrandTF();
+					model= getMaintainPanel().getEditModelTF();
+					price= Double.parseDouble(getMaintainPanel().getEditPriceTF());
 				}catch(Exception ex){
 					System.out.println("Problem reading input fron Edit Existing Item Form");
 				}
@@ -216,23 +215,23 @@ public class ItemsController {
 				//If there is no errors then we can go ahead and edit the item accordingly
 				if(errorMessages.isEmpty()){
 					//First we get the Item based on the string that was selected (contains "Brand Model")
-					Item item = theModel.getItemByName(brandsplit, modelsplit);
+					Item item = getModel().getItemByName(brandsplit, modelsplit);
 					item.setBrand(brand);
 					item.setModel(model);
 					item.setPrice(price);
 					//if move sub-cat is not selected use sub-category selected 
-					if(theView.getTabsPane().getMaintainPanel().getItemMoveSubCatComboBox().getSelectedIndex()!=-1){
-						selectedSubCategory=theView.getTabsPane().getMaintainPanel().getItemMoveSubCatComboBox().getSelectedItem().toString();
+					if(getMaintainPanel().getItemMoveSubCatComboBox().getSelectedIndex()!=-1){
+						selectedSubCategory=getMaintainPanel().getItemMoveSubCatComboBox().getSelectedItem().toString();
 					}
-					itemSubCatID = theModel.getSubCatIdFromName(selectedSubCategory);
-					theModel.updateItem(item, itemSubCatID);
+					itemSubCatID = getModel().getSubCatIdFromName(selectedSubCategory);
+					getModel().updateItem(item, itemSubCatID);
 					//Now that data processing is complete, clear the GUI form
-					theView.getTabsPane().getMaintainPanel().clearEditItemForm();
-					theView.getTabsPane().getMaintainPanel().setCategoryModels(theModel.getCategoryNames());	
+					getMaintainPanel().clearEditItemForm();
+					getMaintainPanel().setCategoryModels(getModel().getCategoryNames());	
 				}
 				//Now handle the error Messages if there was any by sending the errors list to the view to be displayed
 				else{
-					theView.getTabsPane().getMaintainPanel().warnEditItemFormErrors(errorMessages);
+					getMaintainPanel().warnEditItemFormErrors(errorMessages);
 				}
 			}
 			else if(e.getSource().equals(getMaintainPanel().getBtnRemoveItem())){
@@ -246,26 +245,29 @@ public class ItemsController {
 	public void updteAccounts(){
 		ArrayList<String>accountNames= new ArrayList<String>();
 
-		for(int i=0;i<theModel.getAllAccounts().size();i++){
+		for(int i=0;i<getModel().getAllAccounts().size();i++){
 
-			String accN=theModel.getAllAccounts().get(i).getAccountName();
+			String accN=getModel().getAllAccounts().get(i).getAccountName();
 			accountNames.add(accN);
 			System.out.println(accN);
 		}
 
-		theView.getTabsPane().getMaintainPanel().setAccountModel(accountNames);
+		getMaintainPanel().setAccountModel(accountNames);
 	}
 
 	public void update() {
 
 		//sets the model for all the category combo boxes in maintain panel
-		theView.getTabsPane().getMaintainPanel().setCategoryModels(theModel.getCategoryNames());	
+		getMaintainPanel().setCategoryModels(getModel().getCategoryNames());	
 		getMaintainPanel().clearNewSubCatForm();
 	}
 
-
 	public MaintainPanel getMaintainPanel(){
-		return theView.getTabsPane().getMaintainPanel();
+		return controller.getView().getTabsPane().getMaintainPanel();
 	}
+	public MainModel getModel(){
+		return controller.getModel();
+	}
+	
 
 }

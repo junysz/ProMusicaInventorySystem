@@ -1,6 +1,4 @@
 package com.group8.controller;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import com.group8.model.*;
 import com.group8.view.CategoryFormEvent;
@@ -28,19 +26,27 @@ public class Controller implements CategoryListener{
 		theView.setCategoryListener(this);
 		/*******************Maintain Panel*/
 		theView.getTabsPane().getMaintainPanel().getEditAccountTypeComboBox().setSelectedIndex(-1);
-		categoriesController= new CategoriesController(theView, theModel);
-		itemsController= new ItemsController(theView, theModel);
-		accountsController= new AccountsController(theView, theModel);		
+		categoriesController= new CategoriesController(this);
+		itemsController= new ItemsController(this);
+		accountsController= new AccountsController(this);		
 		update();//comboBoxes
 		updteAccounts();		
 		/*******************RESERVE PANEL*****************/ 
-		reserveController= new ReserveController(theView, theModel);
+		reserveController= new ReserveController(this);
 		/*******************REPORT PANEL*****************/ 		 
-		reportController= new ReportController(theView, theModel);
+		reportController= new ReportController(this);
 	}
 
 
+<<<<<<< HEAD
 	//Inner Class that listens for the Create Account Button
+=======
+
+
+
+
+	/*//Inner Class that listens for the Create Account Button
+>>>>>>> Pawel
 	class RemoveItemBtn implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -67,7 +73,7 @@ public class Controller implements CategoryListener{
 				theView.getTabsPane().getMaintainPanel().warnEditItemFormErrors(errorMessages);
 			}
 		}
-	}
+	}*/
 
 	public void categoryAddedPerformed(CategoryFormEvent catFormEvent) 
 	{	
@@ -112,6 +118,13 @@ public class Controller implements CategoryListener{
 		getMaintainPanel().clearNewSubCatForm();
 	}
 
+	public MainFrame getView(){
+		return theView;
+	}
+	public MainModel getModel(){
+		return theModel;
+	}
+	
 	public MaintainPanel getMaintainPanel(){
 		return theView.getTabsPane().getMaintainPanel();
 	}
