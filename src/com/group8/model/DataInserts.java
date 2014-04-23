@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
-import java.util.ArrayList;
 /*
  * This class will receive an already established Database Connection from another class
  * This class is then responsible for inserting new tables to the Database

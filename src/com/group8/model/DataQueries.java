@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import java.util.Collections;
 
-import com.sun.org.apache.regexp.internal.RE;
 
 
 public class DataQueries {

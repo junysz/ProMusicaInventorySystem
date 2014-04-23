@@ -1,8 +1,5 @@
 package com.group8.model;
 
-import java.util.ArrayList;
-
-
 
 /*The Concept of a Category is represented by this class.
  * Category on our system will be linked to Sub Categories which will be linked
