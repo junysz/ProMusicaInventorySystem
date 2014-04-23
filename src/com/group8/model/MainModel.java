@@ -19,7 +19,7 @@ import java.util.ArrayList;
  * Each of these instances use a reference to the same connection established here in the Constructor.
  */
 public class MainModel {
-	TemporaryDataBaseClass someItems = new TemporaryDataBaseClass();
+	
 	private Connection mainConnection; //this holds the database connection when the class is created
 	private DataInserts inserts;
 	private DataQueries queries;
