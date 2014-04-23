@@ -9,8 +9,7 @@ import java.util.List;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import com.group8.controller.Controller.ComboBoxListener;
-import com.group8.controller.Controller.ComboBoxSubCatListener;
+
 import com.group8.model.Account;
 import com.group8.model.Item;
 import com.group8.model.MainModel;
@@ -37,6 +36,8 @@ public class ReserveController {
 		theView.getTabsPane().getReservationPanel().addUpdateListener(new UpdateBtn());
 		theView.getTabsPane().getReservationPanel().addRemoveListener(new RemoveBtn());
 		theView.getTabsPane().getReservationPanel().addReserveListener(new ReserveBtn());
+		theView.getTabsPane().getReservationPanel().addComboBoxCatListener(new ComboBoxListener());
+		theView.getTabsPane().getReservationPanel().addComboBoxSubCatListener(new ComboBoxSubCatListener());
 	
 
 }
@@ -214,6 +215,36 @@ public class ReserveController {
 					}
 				}	
 			}                                                               
+			
+		
+			class ComboBoxListener implements ActionListener{
+				private List<String> test;
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					String selectedCategory=theView.getTabsPane().getReservationPanel().getSelectCategoryCBox().getSelectedItem().toString();
+					System.out.println("ComboBox Category changed to: "+selectedCategory);
+					//now populate all sub-categories ....
+					test=theModel.getSubCategories(selectedCategory);
+					theView.getTabsPane().getReservationPanel().setComboBoxSubCategoryModel(test);
+				}
+			}
+
+
+			class ComboBoxSubCatListener implements ActionListener{
+				@Override
+				public void actionPerformed(ActionEvent e) {
+
+					try{
+						String subCat=	theView.getTabsPane().getReservationPanel().getSelectSubcategoryCBox().getSelectedItem().toString();
+
+					}catch(Exception exception)
+					{
+						exception.printStackTrace();
+					}
+				}
+			}
+
+			
 			
 			
 			//when program starts categories are loaded into the combo-boxes
