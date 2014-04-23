@@ -19,9 +19,6 @@ public class Controller implements CategoryListener{
 	protected ReportController reportController;
 
 
-
-
-
 	public Controller(MainFrame theView, MainModel theModel )
 	{
 		this.theView=theView;
@@ -41,10 +38,6 @@ public class Controller implements CategoryListener{
 		/*******************REPORT PANEL*****************/ 		 
 		reportController= new ReportController(theView, theModel);
 	}
-
-
-
-
 
 
 	//Inner Class that listens for the Create Account Button
@@ -75,10 +68,6 @@ public class Controller implements CategoryListener{
 			}
 		}
 	}
-
-
-
-
 
 	public void categoryAddedPerformed(CategoryFormEvent catFormEvent) 
 	{	
@@ -114,9 +103,6 @@ public class Controller implements CategoryListener{
 		}
 		theView.getTabsPane().getMaintainPanel().clearNewCategoryForm();
 	}
-
-
-
 
 	//MaintainPanel: populates all ComboBoxes:SelectCategory
 	public void update() {
