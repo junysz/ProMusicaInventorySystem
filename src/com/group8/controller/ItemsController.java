@@ -11,12 +11,12 @@ import com.group8.model.SubCategory;
 import com.group8.view.MainFrame;
 import com.group8.view.MaintainPanel;
 
-public class MaintainItems {
+public class ItemsController {
 
 	private MainFrame theView;  	
 	private MainModel theModel;	
 
-	public MaintainItems(MainFrame theView, MainModel theModel){
+	public ItemsController(MainFrame theView, MainModel theModel){
 		this.theView=theView;
 		this.theModel=theModel;
 

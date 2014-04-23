@@ -9,13 +9,13 @@ import com.group8.model.Account;
 import com.group8.model.MainModel;
 import com.group8.view.MainFrame;
 
-public class MaintainAccounts {
+public class AccountsController {
 
 	private MainFrame theView;  	
 	private MainModel theModel;	
 
 
-	public MaintainAccounts(MainFrame theView, MainModel theModel){
+	public AccountsController(MainFrame theView, MainModel theModel){
 		this.theView=theView;
 		this.theModel=theModel;
 
