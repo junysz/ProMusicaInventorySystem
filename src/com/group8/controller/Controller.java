@@ -32,14 +32,14 @@ public class Controller implements CategoryListener{
 		/*******************Maintain Panel*/
 		theView.getTabsPane().getMaintainPanel().getEditAccountTypeComboBox().setSelectedIndex(-1);
 		categoriesController= new CategoriesController(this);
-		itemsController= new ItemsController(theView, theModel);
-		accountsController= new AccountsController(theView, theModel);		
+		itemsController= new ItemsController(this);
+		accountsController= new AccountsController(this);		
 		update();//comboBoxes
 		updteAccounts();		
 		/*******************RESERVE PANEL*****************/ 
-		reserveController= new ReserveController(theView, theModel);
+		reserveController= new ReserveController(this);
 		/*******************REPORT PANEL*****************/ 		 
-		reportController= new ReportController(theView, theModel);
+		reportController= new ReportController(this);
 	}
 
 
@@ -47,7 +47,7 @@ public class Controller implements CategoryListener{
 
 
 
-	//Inner Class that listens for the Create Account Button
+	/*//Inner Class that listens for the Create Account Button
 	class RemoveItemBtn implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -74,7 +74,7 @@ public class Controller implements CategoryListener{
 				theView.getTabsPane().getMaintainPanel().warnEditItemFormErrors(errorMessages);
 			}
 		}
-	}
+	}*/
 
 
 

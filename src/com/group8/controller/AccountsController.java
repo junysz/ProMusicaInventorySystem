@@ -3,22 +3,20 @@ package com.group8.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
-
 import com.group8.model.Account;
 import com.group8.model.MainModel;
-import com.group8.view.MainFrame;
+
 import com.group8.view.MaintainPanel;
 
 public class AccountsController {
 
-	private MainFrame theView;  	
-	private MainModel theModel;	
+	private Controller controller; 	
+	
 
 
-	public AccountsController(MainFrame theView, MainModel theModel){
-		this.theView=theView;
-		this.theModel=theModel;
+	public AccountsController(Controller controller){
+		this.controller=controller;
+	
 		getMaintainPanel().addCreateAccountBtn(new MAcreateBTN1());
 		getMaintainPanel().addConfirmChangesAccount(new MAconfirmChangeBTN2());
 		getMaintainPanel().addSelectAccountToEditComboBox(new MAselectAccCB());
@@ -62,7 +60,7 @@ public class AccountsController {
 				errorMessages.add("Account Type");
 			}
 			if(errorMessages.isEmpty()){
-				theModel.addNewAccount(username,password1,accountTypeSelection);
+				getModel().addNewAccount(username,password1,accountTypeSelection);
 				//Now that data processing is complete, clear the GUI form
 				getMaintainPanel().clearNewAccountForm();
 				updteAccounts();
@@ -74,9 +72,9 @@ public class AccountsController {
 		}
 
 		void checkIfAccountExitst(){
-			for(int i=0;i<theModel.getAllAccounts().size();i++){
+			for(int i=0;i<getModel().getAllAccounts().size();i++){
 
-				String accN=theModel.getAllAccounts().get(i).getAccountName();
+				String accN=getModel().getAllAccounts().get(i).getAccountName();
 
 				if(accN.equalsIgnoreCase(username)){
 					errorMessages.add("Account Already Exitst");
@@ -125,9 +123,9 @@ public class AccountsController {
 			{
 				if  (enabled) flag=0;	  
 				String accountName=getMaintainPanel().getSelectAccountToEditComboBox().getSelectedItem().toString();
-				Account a=theModel.getAccount(accountName);
+				Account a=getModel().getAccount(accountName);
 				int accountID=a.getAccountID();
-				theModel.updateAccount(accountID, userName, passwd, accType, flag);
+				getModel().updateAccount(accountID, userName, passwd, accType, flag);
 				//Now that data processing is complete, clear the GUI form
 				getMaintainPanel().clearNewAccountForm();
 				getMaintainPanel().getEditUsername().setText(null);
@@ -150,7 +148,7 @@ public class AccountsController {
 		public void actionPerformed(ActionEvent e) {
 
 			accountName=getMaintainPanel().getSelectAccountToEditComboBox().getSelectedItem().toString();
-			a=theModel.getAccount(accountName);
+			a=getModel().getAccount(accountName);
 
 			getMaintainPanel().setEditUsernameTF(a.getAccountName());
 			getMaintainPanel().getEditAccountTypeComboBox().setSelectedItem(a.getType());
@@ -163,16 +161,19 @@ public class AccountsController {
 	public void updteAccounts(){
 		ArrayList<String>accountNames= new ArrayList<String>();
 
-		for(int i=0;i<theModel.getAllAccounts().size();i++){
+		for(int i=0;i<getModel().getAllAccounts().size();i++){
 
-			String accN=theModel.getAllAccounts().get(i).getAccountName();
+			String accN=getModel().getAllAccounts().get(i).getAccountName();
 			accountNames.add(accN);
 			System.out.println(accN);
 		}
 
-		theView.getTabsPane().getMaintainPanel().setAccountModel(accountNames);
+		getMaintainPanel().setAccountModel(accountNames);
 	}
 	public MaintainPanel getMaintainPanel(){
-		return theView.getTabsPane().getMaintainPanel();
+		return controller.getView().getTabsPane().getMaintainPanel();
+	}
+	public MainModel getModel(){
+		return controller.getModel();
 	}
 }
