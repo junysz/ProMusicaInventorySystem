@@ -11,7 +11,7 @@ import com.group8.view.MainFrame;
 
 
 
-public class LoginListener implements ActionListener {
+public class LoginController implements ActionListener {
 /*
  * (non-Javadoc)
  * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
@@ -27,7 +27,7 @@ public class LoginListener implements ActionListener {
 	boolean valid=false;
 	boolean flag=true;
 	
-	public LoginListener(MainFrame v, MainModel m)
+	public LoginController(MainFrame v, MainModel m)
 	{
 		theView = v;
 		theModel = m;
