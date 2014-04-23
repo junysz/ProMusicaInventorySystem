@@ -14,28 +14,30 @@ import com.group8.view.MaintainPanel;
 public class CategoriesController {
 	private MainFrame theView;  	
 	private MainModel theModel;	
-<<<<<<< HEAD:src/com/group8/controller/MaintainCategories.java
-
-	public MaintainCategories(MainFrame theView, MainModel theModel){
-=======
 	
 	public CategoriesController(MainFrame theView, MainModel theModel){
->>>>>>> FETCH_HEAD:src/com/group8/controller/CategoriesController.java
 		this.theView=theView;
 		this.theModel=theModel;
-
+		
 		theView.getTabsPane().getMaintainPanel().addselectCategoryToEditcomboBoxListener(new MCeditCategoryCB());
+		
 		theView.getTabsPane().getMaintainPanel().addEditCategoryBtn(new MCeditCategoryBTN());
+		
+		
 		getMaintainPanel().addCreateSubCategoryBtn(new MCcreateSubCategoryBTN());
 		getMaintainPanel().addSelectCategoryForSubCatComboBoxListener(new MCcreateSubCategoryCB());
 		getMaintainPanel().addSubmitSubCategoryBtn(new MCeditSubCategoryBTN());
 		getMaintainPanel().addfindCatForSubCatToEditComboBoxListener(new MCeditSubCategoryCB1());
 		getMaintainPanel().addEditSubCategory(new MCeditSubCategoryCB2());
+		
 	}
-
-
+	
+	
 
 	class MCeditCategoryCB implements ActionListener{
+		
+		
+		
 		//Responsible for listening on the Select Category Combo-Box(EDIT CATEGORY) 
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -58,9 +60,13 @@ public class CategoriesController {
 			theView.getTabsPane().getMaintainPanel().setEditCategoryNameTF(getToTextField);
 		}
 	}
-
+	
+	
 	class MCeditCategoryBTN implements ActionListener{
 		//Updates Category that has been edited by the user
+		
+		
+		
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			ArrayList<String> errorMessages = new ArrayList<String>();  //think about interface for error message 
@@ -89,10 +95,15 @@ public class CategoriesController {
 				theView.getTabsPane().getMaintainPanel().warnCreateSubCatFormErrors(errorMessages);
 			}
 		}
+		
+
 	}
 
+	
 	class MCcreateSubCategoryBTN implements ActionListener{
 		//Inner Class that listens for the Create SubCategory Button
+		
+		
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String categorySelection=null;
@@ -149,18 +160,38 @@ public class CategoriesController {
 				theView.getTabsPane().getMaintainPanel().warnCreateSubCatFormErrors(errorMessages);
 			}
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
-
+	
+	
 	class MCcreateSubCategoryCB implements ActionListener{
-
+		
 		//Class Responsible for listening to the Select Category Combo Box on the Create SubCategory Panel
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			theView.getTabsPane().getMaintainPanel().getSelectCategorycomboBox().getSelectedItem().toString();
 		}
+
+
 	}
 
+	
+	
+	
 	class MCeditSubCategoryBTN implements ActionListener{
+		
+		
 		//Confirm changes butn edit sub-category
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -197,8 +228,14 @@ public class CategoriesController {
 				theView.getTabsPane().getMaintainPanel().warnCreateSubCatFormErrors(errorMessages);
 			}
 		}
-
+		
+		
+		
+		
+		
+		
 		public void update() {
+
 			//sets the model for all the category combo boxes in maintain panel
 			theView.getTabsPane().getMaintainPanel().setCategoryModels(theModel.getCategoryNames());	
 			getMaintainPanel().clearNewSubCatForm();
@@ -206,9 +243,13 @@ public class CategoriesController {
 		public MaintainPanel getMaintainPanel(){
 			return theView.getTabsPane().getMaintainPanel();
 		}
+		
 	}
 
+	
 	class MCeditSubCategoryCB1 implements ActionListener{
+		
+		
 		//Gets string from bomboBox
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -217,7 +258,12 @@ public class CategoriesController {
 		}
 	}
 
+
+
+
 	class MCeditSubCategoryCB2 implements ActionListener{
+
+		
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
@@ -234,24 +280,24 @@ public class CategoriesController {
 			theView.getTabsPane().getMaintainPanel().setSelectSubCatToEditComboBox(subCategoryEdit);
 		}
 	}
-
-
-
-
-
-
-
+	
+		
+	
+	
+	
+	
+	
 	public void update() {
 
-		//sets the model for all the category combo boxes in maintain panel
-		theView.getTabsPane().getMaintainPanel().setCategoryModels(theModel.getCategoryNames());	
-		getMaintainPanel().clearNewSubCatForm();
-	}
+			//sets the model for all the category combo boxes in maintain panel
+			theView.getTabsPane().getMaintainPanel().setCategoryModels(theModel.getCategoryNames());	
+			getMaintainPanel().clearNewSubCatForm();
+		}
 
-	public MaintainPanel getMaintainPanel(){
-		return theView.getTabsPane().getMaintainPanel();
-	}
-
-
-
+		public MaintainPanel getMaintainPanel(){
+			return theView.getTabsPane().getMaintainPanel();
+		}
+	
+	
+	
 }
