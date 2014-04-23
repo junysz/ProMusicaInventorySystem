@@ -44,6 +44,7 @@ public class Controller implements CategoryListener{
 		theView.getTabsPane().getMaintainPanel().getEditAccountTypeComboBox().setSelectedIndex(-1);
 		
 
+<<<<<<< HEAD
 		populateCategoryReservPanel();
 
 
@@ -68,6 +69,16 @@ public class Controller implements CategoryListener{
 		theView.getTabsPane().getReservationPanel().addRemoveListener(new RemoveBtn());
 		theView.getTabsPane().getReservationPanel().addReserveListener(new ReserveBtn());
 		theView.getTabsPane().getReportPanel().addTableListener(new PopulateTable2Listener());
+=======
+		/***********RESERVE PANEL*****************/ 
+		reserveController= new ReserveController(theView, theModel);
+		theView.getTabsPane().getReservationPanel().addComboBoxCatListener(new ComboBoxListener());
+		theView.getTabsPane().getReservationPanel().addComboBoxSubCatListener(new ComboBoxSubCatListener());
+		
+		
+		/***********REPORT PANEL*****************/ 		 
+		reportController= new ReportController(theView, theModel);
+>>>>>>> FETCH_HEAD
 
 	}
 
