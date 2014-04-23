@@ -9,7 +9,6 @@ import java.util.List;
 import com.group8.model.Item;
 import com.group8.model.MainModel;
 import com.group8.model.SubCategory;
-import com.group8.view.MainFrame;
 import com.group8.view.MaintainPanel;
 
 public class ItemsController {

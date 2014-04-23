@@ -4,11 +4,6 @@ package com.group8.view;
 
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JComboBox;
-import javax.swing.border.TitledBorder;
 import javax.swing.JTable;
 import java.awt.Font;
 import java.awt.Label;
