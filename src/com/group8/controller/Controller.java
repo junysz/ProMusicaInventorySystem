@@ -1,8 +1,11 @@
 package com.group8.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.security.Key;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,11 +13,24 @@ import java.util.List;
 import javax.swing.JComboBox;
 
 
+
+
+
+
+
+
+
+import javax.swing.JOptionPane;
+
 import com.group8.model.*;
+import com.group8.view.CategoryComboBoxModel;
 import com.group8.view.CategoryFormEvent;
 import com.group8.view.CategoryListener;
+import com.group8.view.CheckoutTableModel;
+import com.group8.view.ItemTableModel;
 import com.group8.view.MainFrame;
 import com.group8.view.MaintainPanel;
+import com.group8.view.PopupSaleDialog;
 
 public class Controller implements CategoryListener {
 
@@ -23,12 +39,16 @@ public class Controller implements CategoryListener {
 	private List<String> categories;
 	private List<String> test;
 	private MainFrame theView;  	
-	private MainModel theModel;											
+	private MainModel theModel;	
+	private PopupSaleDialog pSale;
+	private ArrayList<Item> saleItems = new ArrayList<Item>();
+	private ArrayList<Integer> quantities = new ArrayList<Integer>();
 
 	public Controller(MainFrame theView, MainModel theModel )
 	{
 		this.theView=theView;
 		this.theModel=theModel;
+		pSale = new PopupSaleDialog();
 
 
 		//LOGIN LISTENER
@@ -56,6 +76,8 @@ public class Controller implements CategoryListener {
 		theView.getTabsPane().getMaintainPanel().addselectCategoryToEditcomboBoxListener(new SelectCategoryToEditcomboBoxListener());
 
 		theView.getTabsPane().getMaintainPanel().addEditSubCategory(new EditSubCategoryMaintainP());
+		
+		
 
 		//update all comboBoxes
 		update();
@@ -69,7 +91,16 @@ public class Controller implements CategoryListener {
 		theView.getTabsPane().getMaintainPanel().addRemoveItemBtn(new RemoveItemBtn());
 		theView.getTabsPane().getMaintainPanel().addCreateAccountBtn(new CreateAccountBtn());
 		theView.getTabsPane().getMaintainPanel().addSubmitSubCategoryBtn(new ConfirmSubCatChangesBtn());
-
+		
+		//ACTIVATE MAKE SALE PANEL LISTENERS
+		
+		theView.getTabsPane().getMakeSalePanel().addCheckoutButtonListener(new SaleListener());
+		theView.getTabsPane().getMakeSalePanel().addClearCartButtonListener(new SaleListener());
+		theView.getTabsPane().getMakeSalePanel().addAddToCartButtonListener(new SaleListener());
+		theView.getTabsPane().getMakeSalePanel().addCategoryBoxListener(new SaleListener());
+		theView.getTabsPane().getMakeSalePanel().addSubCategoryListener(new SaleListener());
+		theView.getTabsPane().getMakeSalePanel().addKeyListenerToSerchTextBox(new SearchListener());
+		theView.getTabsPane().getMakeSalePanel().setSelectCategoryCBModel(new CategoryComboBoxModel(), theModel.getCategoryNames());
 
 
 
@@ -765,6 +796,7 @@ public class Controller implements CategoryListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			
+			@SuppressWarnings("unused")
 			String selectedItem=getMaintainPanel().getItemToEditComboBox().getSelectedItem().toString();
 			
 			
@@ -831,6 +863,163 @@ public class Controller implements CategoryListener {
 	
 
 	// *************************End maintain item panel************************
+	
+	//**************************Sale panel and popup buttons*******************
+	
+
+	class SaleListener implements ActionListener{
+
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+					if(e.getSource()==theView.getTabsPane().getMakeSalePanel().getBtnAddToCart())
+					{
+						int row =theView.getTabsPane().getMakeSalePanel().getTable().getSelectedRow();
+						if (row!=-1)
+						{
+							String testQuantity="0";
+							int validQuantity=0;
+							
+							boolean validNumber = false;
+							
+							/*
+							 * Enter quantity required
+							 */
+							
+							while(!validNumber){
+								testQuantity = (String) JOptionPane.showInputDialog(pSale, "Quantity Required:", "Please Enter Quantity", 1, null, null, "1");
+
+								//Check if entered number is positive an int
+								
+								if (testQuantity.matches("^[\\d+$]"))
+								{
+								validQuantity = Integer.parseInt(testQuantity);
+								
+								if(theModel.getItemByName(theView.getTabsPane().getMakeSalePanel().getTable().getValueAt(row, 1)+" "+theView.getTabsPane().getMakeSalePanel().getTable().getValueAt(row, 2)).getAvailableStockLevel()<validQuantity)
+								{
+									JOptionPane.showMessageDialog(pSale, "Quantity exceeded availible stock level.", "Correct required quantity!", 2);
+								}
+								else
+								{
+									Item added = new Item();
+									added.setItemID((int) theView.getTabsPane().getMakeSalePanel().getTable().getValueAt(row, 0));
+									added.setBrand((String) theView.getTabsPane().getMakeSalePanel().getTable().getValueAt(row, 1));
+									added.setModel((String) theView.getTabsPane().getMakeSalePanel().getTable().getValueAt(row, 2));
+									added.setStockLevel((int) theView.getTabsPane().getMakeSalePanel().getTable().getValueAt(row, 3));
+									added.setAvailableStockLevel((int) theView.getTabsPane().getMakeSalePanel().getTable().getValueAt(row, 4));
+									added.setPrice((double) theView.getTabsPane().getMakeSalePanel().getTable().getValueAt(row, 5));
+									
+									/*
+									 * Check if item is in the basket already
+									 */
+									
+									if(saleItems.contains(added))
+									{
+										quantities.add(saleItems.indexOf(added), validQuantity);
+									}
+									else
+									{
+										saleItems.add(added);
+										quantities.add(saleItems.indexOf(added), validQuantity);
+									}
+
+									JOptionPane.showMessageDialog(pSale, "Item added to the basket!", "Success", 1);
+								}
+								validNumber=true;
+								}
+							else
+							{
+								JOptionPane.showMessageDialog(pSale, "Enter Valid Quantity", "Invalid entry!", 2);
+							}
+							
+							}
+							
+							/*
+							 * End entering quantity
+							 */
+							
+							
+							//check if quantity for sale does not exceeds availible quantity
+						
+							
+						}
+						else
+						{
+							JOptionPane.showMessageDialog(pSale, "Please make sure one item is selected!", "No Selection Made!", 2);
+						}
+					}
+					else if(e.getSource()==theView.getTabsPane().getMakeSalePanel().getBtnCheckout())
+					{
+						/*
+						 * Make popup visible if it's not, and refresh table with the items
+						 */
+						if(!pSale.isVisible())
+						{
+						pSale.setAlwaysOnTop(true);
+						pSale.setVisible(true);
+						}
+						CheckoutTableModel ctm = new CheckoutTableModel();
+						ctm.setTableModel(saleItems, quantities);
+						pSale.setSaleTableModel(ctm);
+						//Debugging code next
+						System.out.println("Checkout pressed!!");
+					}
+					else if(e.getSource()==theView.getTabsPane().getMakeSalePanel().getBtnClearCart())
+					{
+						int option = JOptionPane.showConfirmDialog(pSale, "Are you sure you want to delete all items in the basket?", "Please Confirm", 0);
+						if(option==0)
+						{
+						saleItems = new ArrayList<Item>();
+						JOptionPane.showMessageDialog(pSale, "Basket has been successfully cleared!", "Success!", 1);
+						}
+					}
+					else if(e.getSource()==theView.getTabsPane().getMakeSalePanel().getSelectCategoryCB())
+					{
+						System.out.println("Category box clicked!");
+						theView.getTabsPane().getMakeSalePanel().
+						setSelectSubCategoryCBModel(new CategoryComboBoxModel(), theModel.
+						getSubCategories(theView.getTabsPane().getMakeSalePanel().getSelectCategoryCB().getSelectedItem().toString()));
+						theView.getTabsPane().getMakeSalePanel().getSearchTF().setText("");
+					}
+					else if(e.getSource()==theView.getTabsPane().getMakeSalePanel().getSelectSubCategoryCB())
+					{
+						String subCatName = theView.getTabsPane().getMakeSalePanel().getSelectSubCategoryCB().getSelectedItem().toString();
+						theView.getTabsPane().getMakeSalePanel().setTableModel(new ItemTableModel(), theModel.getItemsInSubcategory(subCatName));
+						theView.getTabsPane().getMakeSalePanel().getSearchTF().setText("");
+					}
+		}
+
+
+
+	}
+	class SearchListener implements KeyListener	{
+
+		@Override
+		public void keyTyped(KeyEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void keyPressed(KeyEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void keyReleased(KeyEvent e) {
+			String searchterm = theView.getTabsPane().getMakeSalePanel().getSearchTF().getText();
+			
+
+			theView.getTabsPane().getMakeSalePanel().setTableModel(new ItemTableModel(), theModel.getItemsByKeyword(searchterm));
+			
+		}
+		
+	}
+
+	//**************************End Sale panel and popup buttons****************
+	
+	
 
 
 	public void categoryAddedPerformed(CategoryFormEvent catFormEvent) 
