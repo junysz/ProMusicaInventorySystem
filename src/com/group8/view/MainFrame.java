@@ -20,7 +20,7 @@ public class MainFrame extends JFrame
 	private JPanel contentPane;
 	private LoginPanel loginPanel;
 	private TabsPane tabbedPane;
-	//private MakeSalePanel stockBrowsingPanel;
+	//private StockBrowserPanel stockBrowsingPanel;
 
 
 
@@ -68,7 +68,6 @@ public class MainFrame extends JFrame
 
 			loginPanel.setVisible(false);
 			tabbedPane.setVisible(true);
-			
 			
 		}
 		
