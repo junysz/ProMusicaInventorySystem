@@ -9,34 +9,10 @@ import java.security.Key;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JComboBox;
-
-
-
-
-
-
-
-
-
 import javax.swing.JOptionPane;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
-=======
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
-=======
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
-
 import com.group8.model.*;
 import com.group8.view.CategoryComboBoxModel;
 import com.group8.view.CategoryFormEvent;
@@ -115,18 +91,12 @@ public class Controller implements CategoryListener {
 		theView.getTabsPane().getMakeSalePanel().addCategoryBoxListener(new SaleListener());
 		theView.getTabsPane().getMakeSalePanel().addSubCategoryListener(new SaleListener());
 		theView.getTabsPane().getMakeSalePanel().addKeyListenerToSerchTextBox(new SearchListener());
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
+
+
+
+
 		pSale.addTableModelListener(new QuantityChangeListener());
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
-=======
-		pSale.addTableModelListener(new QuantityChangeListener());
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
-=======
-		pSale.addTableModelListener(new QuantityChangeListener());
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
+
 		theView.getTabsPane().getMakeSalePanel().setSelectCategoryCBModel(new CategoryComboBoxModel(), theModel.getCategoryNames());
 
 
@@ -895,27 +865,13 @@ public class Controller implements CategoryListener {
 	
 
 	class SaleListener implements ActionListener{
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
-=======
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
-=======
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
 		
 
 		boolean contains=false;
 		int addingIndex=-1;
 		Item added = new Item();
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
-=======
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
-=======
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
+
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -937,9 +893,7 @@ public class Controller implements CategoryListener {
 								testQuantity = (String) JOptionPane.showInputDialog(pSale, "Quantity Required:", "Please Enter Quantity", 1, null, null, "1");
 
 								//Check if entered number is positive an int
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 								
 								if (testQuantity.matches("^[\\d+$]"))
 								{
@@ -958,11 +912,11 @@ public class Controller implements CategoryListener {
 									added.setStockLevel((int) theView.getTabsPane().getMakeSalePanel().getTable().getValueAt(row, 3));
 									added.setAvailableStockLevel((int) theView.getTabsPane().getMakeSalePanel().getTable().getValueAt(row, 4));
 									added.setPrice((double) theView.getTabsPane().getMakeSalePanel().getTable().getValueAt(row, 5));
-=======
-=======
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
-=======
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
+
+									
+									
+									
+									
 								if (testQuantity.matches("^[\\d+$]"))
 								{
 									validQuantity = Integer.parseInt(testQuantity);
@@ -975,29 +929,16 @@ public class Controller implements CategoryListener {
 
 									added=theModel.getItemByName((String) theView.getTabsPane().getMakeSalePanel().getTable().getValueAt(row, 1)+" "+(String) theView.getTabsPane().getMakeSalePanel().getTable().getValueAt(row, 2));
 									
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
-=======
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
-=======
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
-									
+
 									/*
 									 * Check if item is in the basket already
 									 */
 									
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 									if(saleItems.contains(added))
 									{
 										quantities.add(saleItems.indexOf(added), validQuantity);
-=======
-=======
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
-=======
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
+
 									for (int i = 0 ; i < saleItems.size() ; i++)
 									{
 										if(added.getItemID()==(saleItems.get(i).getItemID()))
@@ -1029,32 +970,20 @@ public class Controller implements CategoryListener {
 											{}
 										}
 											
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
-=======
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
-=======
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
+
 									}
 									else
 									{
 										saleItems.add(added);
 										quantities.add(saleItems.indexOf(added), validQuantity);
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 									}
 
 									JOptionPane.showMessageDialog(pSale, "Item added to the basket!", "Success", 1);
 								}
 								validNumber=true;
 								}
-=======
-=======
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
-=======
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
+
 										JOptionPane.showMessageDialog(pSale, "Item added to the basket!", "Success", 1);
 									}
 									System.out.println(saleItems.get(0).getModel());
@@ -1063,13 +992,7 @@ public class Controller implements CategoryListener {
 
 									validNumber=true;
 							}
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
-=======
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
-=======
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
+
 							else
 							{
 								JOptionPane.showMessageDialog(pSale, "Enter Valid Quantity", "Invalid entry!", 2);
@@ -1101,17 +1024,11 @@ public class Controller implements CategoryListener {
 						pSale.setAlwaysOnTop(true);
 						pSale.setVisible(true);
 						}
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-						CheckoutTableModel ctm = new CheckoutTableModel();
+
+						CheckoutTableModel ctm = new CheckoutTableModel(temItemList, quantities);
 						ctm.setTableModel(saleItems, quantities);
 						pSale.setSaleTableModel(ctm);
-=======
-=======
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
-=======
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
+
 						double total=0;
 						for(int i = 0 ; i < saleItems.size() ; i++ )
 						{
@@ -1119,13 +1036,7 @@ public class Controller implements CategoryListener {
 						}
 						pSale.setTotal(total);
 						pSale.setSaleTableModel(new CheckoutTableModel(saleItems, quantities));
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
-=======
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
-=======
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
+
 						//Debugging code next
 						System.out.println("Checkout pressed!!");
 					}
@@ -1181,14 +1092,7 @@ public class Controller implements CategoryListener {
 		}
 		
 	}
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
-=======
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
+
 	class QuantityChangeListener implements TableModelListener{
 
 		@Override
@@ -1199,13 +1103,7 @@ public class Controller implements CategoryListener {
 		}
 		
 	}
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
-=======
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
-=======
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
+
 
 	//**************************End Sale panel and popup buttons****************
 	

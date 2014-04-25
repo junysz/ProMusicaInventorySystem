@@ -3,49 +3,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
 import javax.swing.table.DefaultTableModel;
 
 import com.group8.model.CheckoutItem;
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
-=======
-import javax.swing.table.DefaultTableModel;
-
-import com.group8.model.CheckoutItem;
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
 import com.group8.model.Item;
 /*
  * This is wrapper class that sets model  the table form REserveationPanel class 
  * 
  */
 @SuppressWarnings("serial")
-<<<<<<< HEAD
-<<<<<<< HEAD
-public class CheckoutTableModel extends AbstractTableModel {
-	
-	private ArrayList<CheckoutItem> checkoutItems;
-	
-	private String[] columnNames= {"Id","Brand","Model","Price","Quantity","Total Price"};
-	
-	public CheckoutTableModel()
-	{	
-		checkoutItems= new ArrayList<CheckoutItem>();
-	}
-	//method used by ItemTableModel in the ReservationPanel class
-	public void setTableModel(List<Item>db, ArrayList<Integer>quantity){
-		for(int i = 0 ; i<db.size() ; i++)
-		{
-			checkoutItems.add(new CheckoutItem().init(db.get(i).getItemID(), db.get(i).getBrand(), db.get(i).getModel(), db.get(i).getPrice(), quantity.get(i)));
-		}
-	}
-	public int getRowCount() {
-		return checkoutItems.size();
-=======
-=======
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
 public class CheckoutTableModel extends DefaultTableModel {
 	
 	private List<CheckoutItem> checkoutItems;
@@ -77,10 +43,6 @@ public class CheckoutTableModel extends DefaultTableModel {
 			return checkoutItems.size();
 		else
 			return 0;
-<<<<<<< HEAD
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
-=======
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
 	}
 	public int getColumnCount() {
 		return 6;
@@ -97,49 +59,13 @@ public class CheckoutTableModel extends DefaultTableModel {
 		super.setValueAt(aValue, row, column);
 	}*/
 	
-<<<<<<< HEAD
-<<<<<<< HEAD
-	/*public void setValueAt(List<Item> value, int row, int col) {
-	    db= value;
-	    fireTableCellUpdated(row, col);
-	}*/
-	class CheckoutItem{
-		String  brand, model;
-		double price;
-		double totalprice;
-		int id, quantity;
-		public CheckoutItem init(int id, String brand, String model, double price, int quantity)
-		{
-			this.id=id;
-			this.brand=brand;
-			this.model=model;
-			this.price=price;
-			this.quantity=quantity;
-			totalprice = price*((double) quantity);
-			return this;
-		}
-		
-=======
 	public void setValueAt(List<CheckoutItem> value, int row, int col) {
 	    checkoutItems = value;
 	    fireTableCellUpdated(row, col);
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
-=======
-	public void setValueAt(List<CheckoutItem> value, int row, int col) {
-	    checkoutItems = value;
-	    fireTableCellUpdated(row, col);
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
 	}
 
 
 	@Override
-<<<<<<< HEAD
-<<<<<<< HEAD
-	public Object getValueAt(int rowIndex, int columnIndex) {
-		// TODO Auto-generated method stub
-=======
-=======
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
 public Object getValueAt(int row, int column) {
 		
 		CheckoutItem item =checkoutItems.get(row);
@@ -159,10 +85,6 @@ public Object getValueAt(int row, int column) {
 		case 5:	
 			return item.getTotalPrice();
 		}
-<<<<<<< HEAD
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
-=======
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
 		return null;
 	}
 }

@@ -10,18 +10,7 @@ import javax.swing.JPanel;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 import javax.swing.event.TableModelListener;
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
-=======
-import javax.swing.event.TableModelListener;
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
-=======
-import javax.swing.event.TableModelListener;
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
 import javax.swing.table.TableModel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -75,15 +64,6 @@ public class PopupSaleDialog extends JFrame {
 	public void setSaleTableModel(TableModel m)
 	{
 		saleItemsTable.setModel(m);
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-	}
-=======
-=======
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
-=======
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
 		
 	}
 	public void addTableModelListener(TableModelListener tml)
@@ -96,12 +76,5 @@ public class PopupSaleDialog extends JFrame {
 		
 	}
 	
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
-=======
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
-=======
->>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
 
 }
