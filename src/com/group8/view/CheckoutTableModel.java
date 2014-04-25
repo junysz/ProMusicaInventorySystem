@@ -4,7 +4,13 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+import javax.swing.table.DefaultTableModel;
+
+import com.group8.model.CheckoutItem;
+>>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
 =======
 import javax.swing.table.DefaultTableModel;
 
@@ -16,6 +22,7 @@ import com.group8.model.Item;
  * 
  */
 @SuppressWarnings("serial")
+<<<<<<< HEAD
 <<<<<<< HEAD
 public class CheckoutTableModel extends AbstractTableModel {
 	
@@ -37,6 +44,8 @@ public class CheckoutTableModel extends AbstractTableModel {
 	public int getRowCount() {
 		return checkoutItems.size();
 =======
+=======
+>>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
 public class CheckoutTableModel extends DefaultTableModel {
 	
 	private List<CheckoutItem> checkoutItems;
@@ -68,6 +77,9 @@ public class CheckoutTableModel extends DefaultTableModel {
 			return checkoutItems.size();
 		else
 			return 0;
+<<<<<<< HEAD
+>>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
+=======
 >>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
 	}
 	public int getColumnCount() {
@@ -85,6 +97,7 @@ public class CheckoutTableModel extends DefaultTableModel {
 		super.setValueAt(aValue, row, column);
 	}*/
 	
+<<<<<<< HEAD
 <<<<<<< HEAD
 	/*public void setValueAt(List<Item> value, int row, int col) {
 	    db= value;
@@ -111,14 +124,22 @@ public class CheckoutTableModel extends DefaultTableModel {
 	    checkoutItems = value;
 	    fireTableCellUpdated(row, col);
 >>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
+=======
+	public void setValueAt(List<CheckoutItem> value, int row, int col) {
+	    checkoutItems = value;
+	    fireTableCellUpdated(row, col);
+>>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
 	}
 
 
 	@Override
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		// TODO Auto-generated method stub
 =======
+=======
+>>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
 public Object getValueAt(int row, int column) {
 		
 		CheckoutItem item =checkoutItems.get(row);
@@ -138,6 +159,9 @@ public Object getValueAt(int row, int column) {
 		case 5:	
 			return item.getTotalPrice();
 		}
+<<<<<<< HEAD
+>>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
+=======
 >>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
 		return null;
 	}

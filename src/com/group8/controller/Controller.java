@@ -23,6 +23,11 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
+>>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
 =======
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
@@ -112,6 +117,10 @@ public class Controller implements CategoryListener {
 		theView.getTabsPane().getMakeSalePanel().addKeyListenerToSerchTextBox(new SearchListener());
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+		pSale.addTableModelListener(new QuantityChangeListener());
+>>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
 =======
 		pSale.addTableModelListener(new QuantityChangeListener());
 >>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
@@ -888,8 +897,11 @@ public class Controller implements CategoryListener {
 	class SaleListener implements ActionListener{
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
+=======
+>>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
 =======
 >>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
 		
@@ -898,6 +910,9 @@ public class Controller implements CategoryListener {
 		int addingIndex=-1;
 		Item added = new Item();
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
+=======
 >>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
 =======
 >>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
@@ -924,6 +939,7 @@ public class Controller implements CategoryListener {
 								//Check if entered number is positive an int
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 								
 								if (testQuantity.matches("^[\\d+$]"))
 								{
@@ -945,6 +961,8 @@ public class Controller implements CategoryListener {
 =======
 =======
 >>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
+=======
+>>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
 								if (testQuantity.matches("^[\\d+$]"))
 								{
 									validQuantity = Integer.parseInt(testQuantity);
@@ -958,6 +976,9 @@ public class Controller implements CategoryListener {
 									added=theModel.getItemByName((String) theView.getTabsPane().getMakeSalePanel().getTable().getValueAt(row, 1)+" "+(String) theView.getTabsPane().getMakeSalePanel().getTable().getValueAt(row, 2));
 									
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
+=======
 >>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
 =======
 >>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
@@ -968,10 +989,13 @@ public class Controller implements CategoryListener {
 									
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 									if(saleItems.contains(added))
 									{
 										quantities.add(saleItems.indexOf(added), validQuantity);
 =======
+=======
+>>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
 =======
 >>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
 									for (int i = 0 ; i < saleItems.size() ; i++)
@@ -1006,6 +1030,9 @@ public class Controller implements CategoryListener {
 										}
 											
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
+=======
 >>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
 =======
 >>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
@@ -1014,6 +1041,7 @@ public class Controller implements CategoryListener {
 									{
 										saleItems.add(added);
 										quantities.add(saleItems.indexOf(added), validQuantity);
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 									}
@@ -1025,6 +1053,8 @@ public class Controller implements CategoryListener {
 =======
 =======
 >>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
+=======
+>>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
 										JOptionPane.showMessageDialog(pSale, "Item added to the basket!", "Success", 1);
 									}
 									System.out.println(saleItems.get(0).getModel());
@@ -1034,6 +1064,9 @@ public class Controller implements CategoryListener {
 									validNumber=true;
 							}
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
+=======
 >>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
 =======
 >>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
@@ -1070,10 +1103,13 @@ public class Controller implements CategoryListener {
 						}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 						CheckoutTableModel ctm = new CheckoutTableModel();
 						ctm.setTableModel(saleItems, quantities);
 						pSale.setSaleTableModel(ctm);
 =======
+=======
+>>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
 =======
 >>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
 						double total=0;
@@ -1084,6 +1120,9 @@ public class Controller implements CategoryListener {
 						pSale.setTotal(total);
 						pSale.setSaleTableModel(new CheckoutTableModel(saleItems, quantities));
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
+=======
 >>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
 =======
 >>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
@@ -1144,7 +1183,10 @@ public class Controller implements CategoryListener {
 	}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
 =======
 >>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
 	class QuantityChangeListener implements TableModelListener{
@@ -1158,6 +1200,9 @@ public class Controller implements CategoryListener {
 		
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
+=======
 >>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
 =======
 >>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae

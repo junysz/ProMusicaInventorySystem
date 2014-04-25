@@ -12,6 +12,10 @@ import java.awt.FlowLayout;
 import javax.swing.JButton;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+import javax.swing.event.TableModelListener;
+>>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
 =======
 import javax.swing.event.TableModelListener;
 >>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
@@ -73,8 +77,11 @@ public class PopupSaleDialog extends JFrame {
 		saleItemsTable.setModel(m);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	}
 =======
+=======
+>>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
 =======
 >>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
 		
@@ -90,6 +97,9 @@ public class PopupSaleDialog extends JFrame {
 	}
 	
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
+=======
 >>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
 =======
 >>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
