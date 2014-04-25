@@ -21,6 +21,8 @@ import javax.swing.JComboBox;
 
 
 import javax.swing.JOptionPane;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 
 import com.group8.model.*;
 import com.group8.view.CategoryComboBoxModel;
@@ -100,6 +102,7 @@ public class Controller implements CategoryListener {
 		theView.getTabsPane().getMakeSalePanel().addCategoryBoxListener(new SaleListener());
 		theView.getTabsPane().getMakeSalePanel().addSubCategoryListener(new SaleListener());
 		theView.getTabsPane().getMakeSalePanel().addKeyListenerToSerchTextBox(new SearchListener());
+		pSale.addTableModelListener(new QuantityChangeListener());
 		theView.getTabsPane().getMakeSalePanel().setSelectCategoryCBModel(new CategoryComboBoxModel(), theModel.getCategoryNames());
 
 
@@ -868,7 +871,11 @@ public class Controller implements CategoryListener {
 	
 
 	class SaleListener implements ActionListener{
+		
 
+		boolean contains=false;
+		int addingIndex=-1;
+		Item added = new Item();
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -890,43 +897,67 @@ public class Controller implements CategoryListener {
 								testQuantity = (String) JOptionPane.showInputDialog(pSale, "Quantity Required:", "Please Enter Quantity", 1, null, null, "1");
 
 								//Check if entered number is positive an int
-								
 								if (testQuantity.matches("^[\\d+$]"))
 								{
-								validQuantity = Integer.parseInt(testQuantity);
-								
-								if(theModel.getItemByName(theView.getTabsPane().getMakeSalePanel().getTable().getValueAt(row, 1)+" "+theView.getTabsPane().getMakeSalePanel().getTable().getValueAt(row, 2)).getAvailableStockLevel()<validQuantity)
-								{
-									JOptionPane.showMessageDialog(pSale, "Quantity exceeded availible stock level.", "Correct required quantity!", 2);
-								}
+									validQuantity = Integer.parseInt(testQuantity);
+									if(theModel.getItemByName(theView.getTabsPane().getMakeSalePanel().getTable().getValueAt(row, 1)+" "+theView.getTabsPane().getMakeSalePanel().getTable().getValueAt(row, 2)).getAvailableStockLevel()<validQuantity)
+									{
+										JOptionPane.showMessageDialog(pSale, "Quantity exceeded availible stock level.", "Correct required quantity!", 2);
+									}
 								else
 								{
-									Item added = new Item();
-									added.setItemID((int) theView.getTabsPane().getMakeSalePanel().getTable().getValueAt(row, 0));
-									added.setBrand((String) theView.getTabsPane().getMakeSalePanel().getTable().getValueAt(row, 1));
-									added.setModel((String) theView.getTabsPane().getMakeSalePanel().getTable().getValueAt(row, 2));
-									added.setStockLevel((int) theView.getTabsPane().getMakeSalePanel().getTable().getValueAt(row, 3));
-									added.setAvailableStockLevel((int) theView.getTabsPane().getMakeSalePanel().getTable().getValueAt(row, 4));
-									added.setPrice((double) theView.getTabsPane().getMakeSalePanel().getTable().getValueAt(row, 5));
+
+									added=theModel.getItemByName((String) theView.getTabsPane().getMakeSalePanel().getTable().getValueAt(row, 1)+" "+(String) theView.getTabsPane().getMakeSalePanel().getTable().getValueAt(row, 2));
+									
 									
 									/*
 									 * Check if item is in the basket already
 									 */
 									
-									if(saleItems.contains(added))
+									for (int i = 0 ; i < saleItems.size() ; i++)
 									{
-										quantities.add(saleItems.indexOf(added), validQuantity);
+										if(added.getItemID()==(saleItems.get(i).getItemID()))
+										{
+												contains = true;
+												addingIndex=i;
+												break;
+										}
+									
+									}
+
+									if(contains)
+									{
+										if(theModel.getItemByName(theView.getTabsPane().getMakeSalePanel().getTable().getValueAt(row, 1)
+												+" "+theView.getTabsPane().getMakeSalePanel().getTable().getValueAt(row, 2)).getAvailableStockLevel()
+												<validQuantity+quantities.get(addingIndex))
+										{
+												JOptionPane.showMessageDialog(pSale, "Quantity exceeded availible stock level.", "Correct required quantity!", 2);
+										}
+										else{
+											
+											try
+											{
+												quantities.add(addingIndex, quantities.get(addingIndex)+validQuantity);
+
+												JOptionPane.showMessageDialog(pSale, "Item added to the basket!", "Success", 1);
+											}
+											catch (IndexOutOfBoundsException e1)
+											{}
+										}
+											
 									}
 									else
 									{
 										saleItems.add(added);
 										quantities.add(saleItems.indexOf(added), validQuantity);
+										JOptionPane.showMessageDialog(pSale, "Item added to the basket!", "Success", 1);
 									}
+									System.out.println(saleItems.get(0).getModel());
+										
+								}
 
-									JOptionPane.showMessageDialog(pSale, "Item added to the basket!", "Success", 1);
-								}
-								validNumber=true;
-								}
+									validNumber=true;
+							}
 							else
 							{
 								JOptionPane.showMessageDialog(pSale, "Enter Valid Quantity", "Invalid entry!", 2);
@@ -958,9 +989,13 @@ public class Controller implements CategoryListener {
 						pSale.setAlwaysOnTop(true);
 						pSale.setVisible(true);
 						}
-						CheckoutTableModel ctm = new CheckoutTableModel();
-						ctm.setTableModel(saleItems, quantities);
-						pSale.setSaleTableModel(ctm);
+						double total=0;
+						for(int i = 0 ; i < saleItems.size() ; i++ )
+						{
+							total+=(saleItems.get(i).getPrice()*quantities.get(i));
+						}
+						pSale.setTotal(total);
+						pSale.setSaleTableModel(new CheckoutTableModel(saleItems, quantities));
 						//Debugging code next
 						System.out.println("Checkout pressed!!");
 					}
@@ -1012,6 +1047,16 @@ public class Controller implements CategoryListener {
 			
 
 			theView.getTabsPane().getMakeSalePanel().setTableModel(new ItemTableModel(), theModel.getItemsByKeyword(searchterm));
+			
+		}
+		
+	}
+	class QuantityChangeListener implements TableModelListener{
+
+		@Override
+		public void tableChanged(TableModelEvent e) {
+			
+			
 			
 		}
 		

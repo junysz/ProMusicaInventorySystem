@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -63,6 +64,17 @@ public class PopupSaleDialog extends JFrame {
 	public void setSaleTableModel(TableModel m)
 	{
 		saleItemsTable.setModel(m);
+		
 	}
+	public void addTableModelListener(TableModelListener tml)
+	{
+		saleItemsTable.getModel().addTableModelListener(tml);
+	}
+	public void setTotal(double total)
+	{
+		totalTF.setText(""+total);
+		
+	}
+	
 
 }
