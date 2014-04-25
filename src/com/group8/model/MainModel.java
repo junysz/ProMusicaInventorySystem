@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.sql.DriverManager;
 import java.util.ArrayList;
 
-import java.util.List;
 
 
 /*
@@ -20,7 +19,7 @@ import java.util.List;
  * Each of these instances use a reference to the same connection established here in the Constructor.
  */
 public class MainModel {
-	TemporaryDataBaseClass someItems = new TemporaryDataBaseClass();
+	
 	private Connection mainConnection; //this holds the database connection when the class is created
 	private DataInserts inserts;
 	private DataQueries queries;
@@ -79,13 +78,13 @@ public class MainModel {
 	{
 		inserts.insertNewItemSold(i, s, itemSalePrice);
 	}
-	public void addNewReservation(ReservedItem r, Account a, Item i)
+	public void insertNewReservation(int accountID,String docketNo,Date reservationDate,double deposit,int itemID)
 	{
-		inserts.insertNewReservation(r, a, i);
+		inserts.insertNewReservation( accountID,docketNo,reservationDate,deposit, itemID);
 	}
-	public void addNewAccount(Account a)
+	public void addNewAccount(String username,String password1,String accountTypeSelection)
 	{
-		inserts.insertNewAccount(a);
+		inserts.insertNewAccount( username, password1, accountTypeSelection);
 	}
 
 
@@ -104,8 +103,29 @@ public class MainModel {
 	public void removeItem(Item i){
 		updates.removeItem(i);
 	}
+   
+	//method to update the deposit associated with the docket number
+	public void updateReservedItem(String docket,double deposit)
+	{
+	updates.updateReservedItem(docket,deposit);
+    }
+	//method to "remove" the deposit associated with the docket number
+	public void removeReservedItem(String docket)
+	{
+		updates.removeReservedItem(docket);
+	}
 
-
+	public  void updateItemAvailableStock(int ItemID,int Stock)
+	{
+		updates.updateItem(ItemID, Stock);
+	}
+	
+	public void updateAccount(int ID,String name,String pass,String type,int flag)
+	{
+		updates.updateAccount(ID, name, pass, type, flag);
+	}
+	
+	/*
 	//queries methods
 	public List<Item> getMeSomeItems(){
 		return someItems.getMeSomeItems();
@@ -116,6 +136,7 @@ public class MainModel {
 	public List<String>getMeSomeSubCategories(){
 		return someItems.getMeSomeSubCategories();
 	}
+	*/
 
 	public ArrayList<String>  getCategoryNames()
 	{
@@ -160,7 +181,7 @@ public class MainModel {
 		return id;
 	}
 	//This method will return an item using a string containing the brand and model separated by a space
-	public Item getItemByName(String itemName)
+	/*public Item getItemByName(String itemName)
 	{
 		int space =itemName.indexOf(" ");
 		String brand = itemName.substring(0, space); //gets brand from the first part of the string up to 1 before the space
@@ -168,18 +189,50 @@ public class MainModel {
 		Item i = queries.getItemByName(brand, model); //gets item based on brand and model
 		return i; //returns the item
 		
-	}
+	}*/
 	//the method will return all Sales objects between two dates
+	
+	public Item getItemByName(String brand, String model){
+		return queries.getItemByName(brand, model);
+	}
+	
 	public ArrayList<Sale>  getSalesByDate(Date date1,Date date2)
 	{
 	return queries.getSalesByDate(date1,date2);
 
 	}
-	
+	//method that returns all the ReservedItems
 	 public ArrayList<ReservedItem >getReservedItems()
 	 {
 	 return queries.getReservedItems();
 	 }
+	 //method that will return an item based on the itemID
+	 public Item getItemByID(int ID)
+	 {
+		 ArrayList<Item> myList=queries.getItemsByKeyword("");
+		 for (int i=0;i<myList.size();i++)
+			 if (ID==myList.get(i).getItemID()) return myList.get(i);
+		 return null;
+	 }
+	 
+	 
+	
+	 
+	 
+	 
+	 public Account getAccount(String accName){
+
+			int i;
+			Account a = null;
+			 ArrayList<Account> Accounts=getAllAccounts();
+				for ( i=0;i<Accounts.size();i++)
+					if (Accounts.get(i).getAccountName().equals(accName))
+			       a=Accounts.get(i);
+			 return a;
+		 }
+
+	 
 }
+
 
 

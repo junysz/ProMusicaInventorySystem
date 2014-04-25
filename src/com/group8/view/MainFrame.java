@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JOptionPane;
 
-import com.group8.controller.LoginListener;
+import com.group8.controller.LoginController;
 
 
 
@@ -20,7 +20,7 @@ public class MainFrame extends JFrame
 	private JPanel contentPane;
 	private LoginPanel loginPanel;
 	private TabsPane tabbedPane;
-	//private MakeSalePanel stockBrowsingPanel;
+	//private StockBrowserPanel stockBrowsingPanel;
 
 
 
@@ -69,7 +69,6 @@ public class MainFrame extends JFrame
 			loginPanel.setVisible(false);
 			tabbedPane.setVisible(true);
 			
-			
 		}
 		
 		public void displayLoginView(String usrName)
@@ -90,7 +89,7 @@ public class MainFrame extends JFrame
 			return loginPanel.getPasswordFieldString();
 		}
 		
-		public void addLoginListener(LoginListener l)
+		public void addLoginListener(LoginController l)
 		{
 			loginPanel.addLoginButtonListener(l);
 			
