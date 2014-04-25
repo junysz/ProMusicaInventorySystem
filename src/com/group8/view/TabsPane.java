@@ -59,6 +59,12 @@ public class TabsPane extends JTabbedPane {
 		return makeSalePanel;
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 11a4d58f2e333db85011611addf9e951bc1f2dae
 =======
 
 
