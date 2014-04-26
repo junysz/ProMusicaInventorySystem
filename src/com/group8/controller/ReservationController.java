@@ -11,7 +11,7 @@ import javax.swing.event.ListSelectionListener;
 import com.group8.model.Account;
 import com.group8.model.Item;
 import com.group8.model.MainModel;
-import com.group8.model.ReservedItem;
+import com.group8.model.Reservation;
 import com.group8.view.MainFrame;
 
 
@@ -58,7 +58,7 @@ public class ReservationController {
 			if (getView().getTabsPane().getReservationPanel().getList().getSelectedValue()!=null)	
 				docketSelected = getView().getTabsPane().getReservationPanel().getList().getSelectedValue().toString();
 
-			ArrayList<ReservedItem> myList=new ArrayList<ReservedItem>();
+			ArrayList<Reservation> myList=new ArrayList<Reservation>();
 			myList=getModel().getReservedItems();
 			int size=myList.size();
 			for (int i=0;i<size;i++)
@@ -91,8 +91,8 @@ public class ReservationController {
 		public void actionPerformed(ActionEvent e) {
 
 			double newDeposit;
-			ReservedItem reserved;
-			reserved=new ReservedItem();
+			Reservation reserved;
+			reserved=new Reservation();
 			String docket=getView().getTabsPane().getReservationPanel().getDocketNoTF().getText();			
 			String newDepositString=getView().getTabsPane().getReservationPanel().getupdateDepositTF().getText();
 			try
@@ -260,8 +260,8 @@ public class ReservationController {
 	public void  populateList()
 	{
 		getView().getTabsPane().getReservationPanel().removeList();
-		ArrayList<ReservedItem> List=new ArrayList <ReservedItem>();    
-		ArrayList<ReservedItem> EmptyList=new ArrayList <ReservedItem>();   
+		ArrayList<Reservation> List=new ArrayList <Reservation>();    
+		ArrayList<Reservation> EmptyList=new ArrayList <Reservation>();   
 		List=getModel().getReservedItems(); 
 		getView().getTabsPane().getReservationPanel().setListModel(List);
 	}

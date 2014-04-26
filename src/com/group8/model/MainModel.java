@@ -202,7 +202,7 @@ public class MainModel {
 
 	}
 	//method that returns all the ReservedItems
-	 public ArrayList<ReservedItem >getReservedItems()
+	 public ArrayList<Reservation >getReservedItems()
 	 {
 	 return queries.getReservedItems();
 	 }

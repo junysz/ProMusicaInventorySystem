@@ -370,11 +370,11 @@ public class DataQueries {
 			return null;
 		}
 	}
-	protected ArrayList<ReservedItem >getReservedItems()
+	protected ArrayList<Reservation >getReservedItems()
 	{
 		try {
 
-			ArrayList<ReservedItem> list = new ArrayList<ReservedItem>(); //create a new arraylist type account
+			ArrayList<Reservation> list = new ArrayList<Reservation>(); //create a new arraylist type account
 			String query = "Select * from ReservedItem  where flag>0";  //create a new query 
 			pstmt = con.prepareStatement(query);
 			ResultSet rs =  pstmt.executeQuery(query);
@@ -387,7 +387,7 @@ public class DataQueries {
 				int itemID=rs.getInt("itemID");
 				boolean flag   =rs.getBoolean("flag"); 
 
-				ReservedItem reservedItem=new ReservedItem(date,deposit,docketNo,itemID,accountID,flag);//create a new object reservedItem
+				Reservation reservedItem=new Reservation(date,deposit,docketNo,itemID,accountID,flag);//create a new object reservedItem
 			if (flag==true)	list.add(reservedItem);  //add object to the list
 
 			}  

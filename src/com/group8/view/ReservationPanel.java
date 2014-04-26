@@ -18,7 +18,7 @@ import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionListener;
 import com.group8.model.Item;
-import com.group8.model.ReservedItem;
+import com.group8.model.Reservation;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
@@ -461,7 +461,7 @@ public class ReservationPanel extends JPanel
 		itemTableModel.fireTableDataChanged();
 
 	}
-	public void setListModel(List<ReservedItem> list)
+	public void setListModel(List<Reservation> list)
 	{
 
 		int size=list.size();

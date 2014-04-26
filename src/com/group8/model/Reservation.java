@@ -9,7 +9,7 @@ import java.sql.Date;
  * The depositPlaced is the deposit currently paid on the item
  * The docketNo is the number on the paper docket, the customer and the store keep a copy of this docket while the Reservation is still not paid off
  * */
-public class ReservedItem {
+public class Reservation {
 
 	//Attributes of a Reservation
 	private int reservationID;
@@ -21,12 +21,12 @@ public class ReservedItem {
 	private boolean flag;
 	
 	//Blank Constructor
-	public ReservedItem()
+	public Reservation()
 	{
 		
 	}
 	//Constructor that accepts the Date, Deposit, and DocketNo as arguments
-	public ReservedItem(Date date, double deposit, String docketNum,int itemID,int accountID,boolean flag)
+	public Reservation(Date date, double deposit, String docketNum,int itemID,int accountID,boolean flag)
 	{
 		setDate(date);
 		setDeposit(deposit);
