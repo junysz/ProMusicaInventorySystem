@@ -26,8 +26,8 @@ public class Controller implements CategoryListener{
 	protected CategoriesController categoriesController;
 	protected ItemsController itemsController;
 	protected AccountsController accountsController;
-	protected ReserveController reserveController;
-	protected ReportController reportController;
+	protected ReservationController reserveController;
+	protected ReportsController reportController;
 
 
 	//DANIEL.....
@@ -51,9 +51,9 @@ public class Controller implements CategoryListener{
 		update();//comboBoxes
 		updteAccounts();		
 		/*******************RESERVE PANEL*****************/ 
-		reserveController= new ReserveController(this);
+		reserveController= new ReservationController(this);
 		/*******************REPORT PANEL*****************/ 		 
-		reportController= new ReportController(this);
+		reportController= new ReportsController(this);
 		
 		
 		

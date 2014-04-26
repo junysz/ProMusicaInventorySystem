@@ -8,11 +8,11 @@ import com.group8.model.MainModel;
 import com.group8.model.Sale;
 import com.group8.view.MainFrame;
 
-public class ReportController {
+public class ReportsController {
 	
 	private Controller controller;  	
 
-	public ReportController(Controller controller){
+	public ReportsController(Controller controller){
 		this.controller=controller;
 
 		getView().getTabsPane().getReportPanel().addTableListener(new PopulateTable2Listener());

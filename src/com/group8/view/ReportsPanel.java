@@ -19,7 +19,7 @@ import java.awt.Cursor;
 
 
 @SuppressWarnings("serial")
-public class ReportPanel extends JPanel {
+public class ReportsPanel extends JPanel {
 	private JTable tableReport;   
 	private ReportTableModel 	ReportTableModel;
 	private 	JButton btnReport;	
@@ -28,7 +28,7 @@ public class ReportPanel extends JPanel {
 	private JLabel date1Label,date2Label;
 	private JButton exitButtonReport;
 
-	public ReportPanel() {
+	public ReportsPanel() {
 		setAlignmentX(23.0f);
 		setFont(new Font("Tahoma", Font.BOLD, 12));
 		setLayout(new MigLayout("", "[95.00][24.00][][][grow][][][grow][][][][grow][][][][][][grow][][]", "[][][][][][][][34.00][][][100px:250:400px,grow][90][1.00]"));

@@ -17,12 +17,12 @@ import com.group8.view.MainFrame;
 
 
 
-public class ReserveController {
+public class ReservationController {
 
 	private Controller controller;  	
 
 
-	public ReserveController(Controller controller){
+	public ReservationController(Controller controller){
 		this.controller= controller;
 
 		getView().getTabsPane().getReservationPanel().addTableListener(new PopulateTableListener());
