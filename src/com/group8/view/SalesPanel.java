@@ -23,7 +23,7 @@ import javax.swing.JScrollPane;
 
 import com.group8.model.Item;
 
-public class MakeSalePanel extends JPanel {
+public class SalesPanel extends JPanel {
 	private static final long serialVersionUID = -4601644025125134230L;
 	private JTextField searchTF;
 	private JTable table;
@@ -41,7 +41,7 @@ public class MakeSalePanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public MakeSalePanel() {
+	public SalesPanel() {
 		setLayout(new MigLayout("", "[grow]", "[][51.00][grow][grow]"));
 		
 		filterByPanel = new JPanel();

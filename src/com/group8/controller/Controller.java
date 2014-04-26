@@ -41,7 +41,7 @@ public class Controller implements CategoryListener{
 		this.theView=theView;
 		this.theModel=theModel;
 		/*******************Login Panel******** */
-		theView.addLoginListener(new LoginListener(theView, theModel));
+		theView.addLoginListener(new LoginController(theView, theModel));
 		theView.setCategoryListener(this);
 		/*******************Maintain Panel*/
 		theView.getTabsPane().getMaintainPanel().getEditAccountTypeComboBox().setSelectedIndex(-1);
