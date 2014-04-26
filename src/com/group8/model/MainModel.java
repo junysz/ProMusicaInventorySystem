@@ -37,9 +37,9 @@ public class MainModel {
 				e.printStackTrace();
 				System.out.println("Driver not found");
 			}
-			String conURL="jdbc:mysql://localhost:3306/mydb";
+			String conURL="jdbc:mysql://localhost:8889/mydb";
 			//establish the connection when the MainModel is created
-			mainConnection = DriverManager.getConnection(conURL,"root","");
+			mainConnection = DriverManager.getConnection(conURL,"root","root");
 
 			inserts = new DataInserts(mainConnection);
 			queries = new DataQueries(mainConnection);
@@ -230,6 +230,21 @@ public class MainModel {
 			       a=Accounts.get(i);
 			 return a;
 		 }
+	 
+	 
+	 //DANIEL
+	//This method will return an item using a string containing the brand and model separated by a space
+		public Item getItemByName(String itemName)
+		{
+			int space =itemName.indexOf(" ");
+			String brand = itemName.substring(0, space); //gets brand from the first part of the string up to 1 before the space
+			String model = itemName.substring(space).replace(" ", ""); //gets the model from the space to the end of the string and strips off the space after
+			Item i = queries.getItemByName(brand, model); //gets item based on brand and model
+			return i; //returns the item
+			
+		}
+	 
+	 
 
 	 
 }
