@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JOptionPane;
 
-import com.group8.controller.LoginController;
+import com.group8.controller.LoginListener;
 
 
 
@@ -89,7 +89,7 @@ public class MainFrame extends JFrame
 			return loginPanel.getPasswordFieldString();
 		}
 		
-		public void addLoginListener(LoginController l)
+		public void addLoginListener(LoginListener l)
 		{
 			loginPanel.addLoginButtonListener(l);
 			
