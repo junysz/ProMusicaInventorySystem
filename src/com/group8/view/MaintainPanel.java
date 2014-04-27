@@ -109,13 +109,15 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	private CategoryComboBoxModel categoryComboBoxModel;
 	private JComboBox<String> changeSubCatComboBox;
 	private Label label;
+	
 
 	//all components
 	void init(){
 
 		setLayout(new BorderLayout(0, 0));
-
+		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setFont(new Font("Cambria", Font.BOLD, 13));
 		tabbedPane.setBorder(new EmptyBorder(11, 5, 11, 5));
 		add(tabbedPane, BorderLayout.CENTER);
 

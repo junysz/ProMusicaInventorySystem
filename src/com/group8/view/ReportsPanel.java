@@ -67,10 +67,10 @@ public class ReportsPanel extends JPanel {
 
 		scrollPane.setViewportView(tableReport);
 
-		exitButtonReport = new JButton("Exit");
+		exitButtonReport = new JButton("Logout");
 		exitButtonReport.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
-		exitButtonReport.setForeground(new Color(255, 0, 0));
-		exitButtonReport.setFont(new Font("Cambria", Font.BOLD, 14));
+		exitButtonReport.setForeground(Color.BLACK);
+		exitButtonReport.setFont(new Font("Cambria", Font.BOLD, 13));
 		add(exitButtonReport, "cell 18 11,aligny bottom");
 
 

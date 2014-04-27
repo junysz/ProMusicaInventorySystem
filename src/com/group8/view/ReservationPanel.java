@@ -183,10 +183,10 @@ public class ReservationPanel extends JPanel
 		selectSubcategoryCBox.setModel(subCatComboBoxModel);
 		makeNewReservationPanel.add(selectSubcategoryCBox, "cell 2 2,growx");
 
-		exitButtonReservation1 = new JButton("Exit");
+		exitButtonReservation1 = new JButton("Logout");
 		makeNewReservationPanel.add(exitButtonReservation1, "cell 6 18,alignx right");
-		exitButtonReservation1.setForeground(new Color(255, 0, 0));
-		exitButtonReservation1.setFont(new Font("Cambria", Font.BOLD, 14));
+		exitButtonReservation1.setForeground(Color.BLACK);
+		exitButtonReservation1.setFont(new Font("Cambria", Font.BOLD, 13));
 
 		findReservationPanel = new JPanel();
 		tabbedPane.addTab("Find", null, findReservationPanel, null);
