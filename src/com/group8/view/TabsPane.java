@@ -1,5 +1,6 @@
 package com.group8.view;
 
+import javax.swing.JComboBox;
 import javax.swing.JTabbedPane;
 /*
  * 
@@ -56,6 +57,11 @@ public class TabsPane extends JTabbedPane {
 	public SalesPanel getMakeSalePanel()
 	{
 		return makeSalePanel;
+	}
+	public void emptyInputs()
+	{
+		makeSalePanel.getSearchTF().setText("");
+		makeSalePanel.getSelectCategoryCB().setSelectedIndex(0);
 	}
 	
 }

@@ -77,7 +77,11 @@ public class LoginController implements ActionListener {
 	    		                            	  
 	    		                             else  if (type.equals("Sales Staff"))  theView.displayMainViewStaff();
 	    		                                                                
-	    		                                   else   theView.displayMainView();
+	    		                                   else   
+	    		                                   {
+	    		                                	    theView.initPanels();
+	    		                                	   	theView.displayMainView();
+	    		                                   }
 	    		                                    	
 	
 	              }

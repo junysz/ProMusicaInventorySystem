@@ -115,6 +115,11 @@ public class MainFrame extends JFrame
 			//Set enter key for login button
 			loginPanel.getRootPane().setDefaultButton(loginPanel.getLoginBtn());
 		}
+		public void initPanels()
+		
+		{
+			tabbedPane.emptyInputs();
+		}
 		
 		
 }
