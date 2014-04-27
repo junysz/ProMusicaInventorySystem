@@ -6,8 +6,7 @@ public class CheckoutItem {
 	private double totalprice;
 	private int id, quantity;
 
-	public CheckoutItem(int id, String brand, String model, double price, int quantity){
-		this.id=id;
+	public CheckoutItem(String brand, String model, double price, int quantity){
 		this.brand=brand;
 		this.model=model;
 		this.price=price;

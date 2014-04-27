@@ -15,18 +15,22 @@ import com.group8.model.Item;
 public class CheckoutTableModel extends DefaultTableModel {
 	
 	private List<CheckoutItem> checkoutItems;
+	private List<Integer> id;
 	private boolean[][] editable_cells;
-	private String[] columnNames= {"Id","Brand","Model","Price","Quantity","Total Price"};
+	private String[] columnNames= {"Brand","Model","Price","Quantity","Total Price"};
 	
 	public CheckoutTableModel(List<Item>db, ArrayList<Integer>quantity){
-
+		id = new ArrayList<>();
         this.editable_cells = new boolean[db.size()][6];
 		checkoutItems= new ArrayList<>();
 		for(int i = 0 ; i<db.size() ; i++)
 		{
-			checkoutItems.add(new CheckoutItem(db.get(i).getItemID(), db.get(i).getBrand(), db.get(i).getModel(), db.get(i).getPrice(), quantity.get(i)));
-			editable_cells[i][5] = true; // set cell true/false
-	        fireTableCellUpdated(i, 5);
+			id.add(i, db.get(i).getItemID());
+			checkoutItems.add(new CheckoutItem(db.get(i).getBrand(), db.get(i).getModel(), db.get(i).getPrice(), quantity.get(i)));
+			editable_cells[i][2] = true; // set cell true/false
+	        fireTableCellUpdated(i, 2);
+			editable_cells[i][3] = true; // set cell true/false
+	        fireTableCellUpdated(i, 3);
 			}
 
 	}
@@ -34,7 +38,7 @@ public class CheckoutTableModel extends DefaultTableModel {
 	public void setTableModel(List<Item>db, ArrayList<Integer>quantity){
 		for(int i = 0 ; i<db.size() ; i++)
 		{
-			checkoutItems.add(new CheckoutItem(db.get(i).getItemID(), db.get(i).getBrand(), db.get(i).getModel(), db.get(i).getPrice(), quantity.get(i)));
+			checkoutItems.add(new CheckoutItem(db.get(i).getBrand(), db.get(i).getModel(), db.get(i).getPrice(), quantity.get(i)));
 
 		}
 	}
@@ -45,7 +49,7 @@ public class CheckoutTableModel extends DefaultTableModel {
 			return 0;
 	}
 	public int getColumnCount() {
-		return 6;
+		return 5;
 	}
 	public String getColumnName(int column) {
 		return columnNames[column];
@@ -72,17 +76,15 @@ public Object getValueAt(int row, int column) {
 		
 		switch(column)
 		{
-		case 0:
-			return item.getItemID();	
-		case 1:	
+		case 0:	
 			return item.getBrand();
-		case 2:
+		case 1:	
 			return item.getModel();
-		case 3:
+		case 2:
 			return item.getPrice();
-		case 4:
+		case 3:
 			return item.getQuantity();
-		case 5:	
+		case 4:
 			return item.getTotalPrice();
 		}
 		return null;
