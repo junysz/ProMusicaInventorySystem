@@ -5,7 +5,7 @@ import com.group8.controller.Controller;
 import com.group8.model.MainModel;
 import com.group8.view.*;
 
-public class mainClass {
+public class MainClass {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
