@@ -2,7 +2,6 @@ package com.group8.view;
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JLabel;
-import com.group8.model.Sale;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -89,7 +88,8 @@ public class ReportsPanel extends JPanel {
 	 * Model doesn't know about view
 	 * So the controller will set this. 
 	 */
-	public void setTableModel(List<Sale>listFormController)
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public void setTableModel(List listFormController)
 	{
 
 

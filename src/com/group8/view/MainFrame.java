@@ -70,6 +70,15 @@ public class MainFrame extends JFrame
 			tabbedPane.setVisible(true);
 			
 		}
+		public void displayMainViewStaff() {
+
+
+			loginPanel.setVisible(false);
+			tabbedPane.setVisible(true);
+			tabbedPane.remove(tabbedPane.getReportPanel());	
+			tabbedPane.remove(tabbedPane.getMaintainPanel());			
+			
+		}
 		
 		public void displayLoginView(String usrName)
 		{

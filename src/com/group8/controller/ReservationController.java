@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import javax.swing.DefaultListModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import com.group8.model.Account;
@@ -257,13 +259,26 @@ public class ReservationController {
 		}
 	}
 
+	
+	public void setListModel(List<Reservation> list)
+	{
+
+		int size=list.size();
+		for (int i=0;i<size;i++)
+		{
+			DefaultListModel<String>model=getView().getTabsPane().getReservationPanel().getModel();
+			list=getModel().getReservedItems();  		
+			model.addElement(list.get(i).getDocketNo());
+		}
+
+	}
 	public void  populateList()
 	{
 		getView().getTabsPane().getReservationPanel().removeList();
 		ArrayList<Reservation> List=new ArrayList <Reservation>();    
-		ArrayList<Reservation> EmptyList=new ArrayList <Reservation>();   
-		List=getModel().getReservedItems(); 
-		getView().getTabsPane().getReservationPanel().setListModel(List);
+	  
+		List=getModel().getReservedItems(); 		
+		setListModel(List);
 	}
 	//method to Populate the table in the Reservation Panel
 	public void populateTable()

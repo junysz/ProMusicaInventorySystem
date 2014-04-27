@@ -5,7 +5,6 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import javax.swing.JTabbedPane;
 import net.miginfocom.swing.MigLayout;
-
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
@@ -17,8 +16,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionListener;
-import com.group8.model.Item;
-import com.group8.model.Reservation;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +29,8 @@ import java.awt.SystemColor;
 @SuppressWarnings("serial")
 public class ReservationPanel extends JPanel 
 {
-	List<Item>dbItem= new ArrayList<>();
+	@SuppressWarnings("rawtypes")
+	List dbItem= new ArrayList<>();
 
 
 	private JTextField searchKeywordTF;
@@ -418,7 +416,7 @@ public class ReservationPanel extends JPanel
 		model.removeAllElements();
 	}
 
-
+  
 	/*
 	 * Provide the way to notify The Controller 
 	 * whenever button is clicked
@@ -452,7 +450,8 @@ public class ReservationPanel extends JPanel
 	 * Model doesn't know about view
 	 * So the controller will set this. 
 	 */
-	public void setTableModel(List<Item>listFormController)
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public void setTableModel(List listFormController)
 	{
 		System.out.println("I want to set table model");
 
@@ -461,17 +460,11 @@ public class ReservationPanel extends JPanel
 		itemTableModel.fireTableDataChanged();
 
 	}
-	public void setListModel(List<Reservation> list)
-	{
-
-		int size=list.size();
-		for (int i=0;i<size;i++)
-		{
-			model.addElement(list.get(i).getDocketNo());
-		}
-
-	}
-
+	
+  public DefaultListModel<String> getModel()
+  { 
+	  return model;
+  }
 	public void warnUpdateNull(){
 
 		JOptionPane.showMessageDialog(null,

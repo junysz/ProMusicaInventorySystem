@@ -23,7 +23,7 @@ public class LoginController implements ActionListener {
 	private MainFrame theView;
 	private MainModel theModel;
 	private String name,pass;
-	private String name1="" ,pass1="";
+	private String name1="" ,pass1="",type="";
 	boolean valid=false;
 	boolean flag=true;
 	
@@ -47,9 +47,11 @@ public class LoginController implements ActionListener {
 				 {   valid=true;
 				     pass1=theModel.getAllAccounts().get(i).getPassword();	
 				     flag=theModel.getAllAccounts().get(i).getFlag();
+				     type=theModel.getAllAccounts().get(i).getType();
 				 }
 			 
 		 }
+		 
 		 
 			if (name.equals("")) {	
 			            	JOptionPane.showMessageDialog(null,	"Please enter an username","Warning",JOptionPane.WARNING_MESSAGE);
@@ -73,9 +75,13 @@ public class LoginController implements ActionListener {
                                                    theView.displayLoginView(name);
                                                   }
 	    		                            	  
-	    		                              else	theView.displayMainView();
-		
-	}
-}
+	    		                             else  if (type.equals("Sales Staff"))  theView.displayMainViewStaff();
+	    		                                                                
+	    		                                   else   theView.displayMainView();
+	    		                                    	
+	
+	              }
+	
+                }
 	
 
