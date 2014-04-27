@@ -55,24 +55,24 @@ public class LoginController implements ActionListener {
 		 
 			if (name.equals("")) {	
 			            	JOptionPane.showMessageDialog(null,	"Please enter an username","Warning",JOptionPane.WARNING_MESSAGE);
-				            theView.displayLoginView(name);
+				            theView.displayLoginView();
 			                }
 			else if (pass.equals("")) {	
 				            JOptionPane.showMessageDialog(null,	"Please enter a password","Warning",JOptionPane.WARNING_MESSAGE);
-	                        theView.displayLoginView(name);
+	                        theView.displayLoginView();
                             }
 	    		else	if (!(valid))   {	
 				            JOptionPane.showMessageDialog(null,	"Username not found in the system","Warning",JOptionPane.WARNING_MESSAGE);
-	                        theView.displayLoginView(name);
+	                        theView.displayLoginView();
                             }
 	    		       else        if (!(pass.equals(pass1))) {	
 				                                               JOptionPane.showMessageDialog(null,"Password not matching account","Warning",JOptionPane.WARNING_MESSAGE);
-                                                               theView.displayLoginView(name);
+                                                               theView.displayLoginView();
                                                                }
 	    		                              else if (!flag) 
 	    		                                 {	
 	                                               JOptionPane.showMessageDialog(null,"Your account has been disabled","Warning",JOptionPane.WARNING_MESSAGE);
-                                                   theView.displayLoginView(name);
+                                                   theView.displayLoginView();
                                                   }
 	    		                            	  
 	    		                             else  if (type.equals("Sales Staff"))  theView.displayMainViewStaff();

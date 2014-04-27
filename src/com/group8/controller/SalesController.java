@@ -30,11 +30,13 @@ public class SalesController {
 	public SalesController(Controller controller)
 	{
 //ACTIVATE MAKE SALE PANEL LISTENERS
+
 theView=controller.getView();
 theModel=controller.getModel();
 theView.getTabsPane().getMakeSalePanel().addCheckoutButtonListener(new SaleListener());
 theView.getTabsPane().getMakeSalePanel().addClearCartButtonListener(new SaleListener());
 theView.getTabsPane().getMakeSalePanel().addAddToCartButtonListener(new SaleListener());
+theView.getTabsPane().getMakeSalePanel().addLogoutButtonListener(new SaleListener());
 theView.getTabsPane().getMakeSalePanel().addCategoryBoxListener(new SaleListener());
 theView.getTabsPane().getMakeSalePanel().addSubCategoryListener(new SaleListener());
 theView.getTabsPane().getMakeSalePanel().addKeyListenerToSerchTextBox(new SearchListener());
@@ -84,7 +86,7 @@ if (row!=-1)
 			validQuantity = Integer.parseInt(testQuantity);
 			if(theModel.getItemByName(theView.getTabsPane().getMakeSalePanel().getTable().getValueAt(row, 1)+" "+theView.getTabsPane().getMakeSalePanel().getTable().getValueAt(row, 2)).getAvailableStockLevel()<validQuantity)
 			{
-				JOptionPane.showMessageDialog(pSale, "Quantity exceeded availible stock level.", "Correct required quantity!", 2);
+				JOptionPane.showMessageDialog(pSale, "Available Stock Level insufficient!.", "Correct required quantity!", 2);
 			}
 		else
 		{
@@ -205,9 +207,9 @@ theView.getTabsPane().getMakeSalePanel().setTableModel(new ItemTableModel(), the
 theView.getTabsPane().getMakeSalePanel().getSearchTF().setText("");
 }
 
-else if(e.getSource()==theView.getTabsPane().getMakeSalePanel().getBtnCheckout())
+else if(e.getSource()==theView.getTabsPane().getMakeSalePanel().getLogoutButton())
 {
-
+	theView.logout();
 }
 
 

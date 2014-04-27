@@ -18,6 +18,7 @@ import com.group8.view.ItemTableModel;
 import com.group8.view.MainFrame;
 import com.group8.view.MaintainPanel;
 import com.group8.view.PopupSaleDialog;
+import com.group8.view.TabsPane;
 
 public class Controller implements CategoryListener{
 	
@@ -163,4 +164,5 @@ public class Controller implements CategoryListener{
 
 		theView.getTabsPane().getMaintainPanel().setAccountModel(accountNames);
 	}
+
 }

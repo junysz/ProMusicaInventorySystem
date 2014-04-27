@@ -38,6 +38,8 @@ public class ReservationController {
 		getView().getTabsPane().getReservationPanel().addReserveListener(new ReserveBtn());
 		getView().getTabsPane().getReservationPanel().addComboBoxCatListener(new ComboBoxListener());
 		getView().getTabsPane().getReservationPanel().addComboBoxSubCatListener(new ComboBoxSubCatListener());
+		getView().getTabsPane().getReservationPanel().logoutButtonListener(new logoutButtonListener());
+		getView().getTabsPane().getReservationPanel().logoutButtonListener2(new logoutButtonListener2());
 
 
 	}
@@ -317,9 +319,33 @@ public class ReservationController {
 		getView().getTabsPane().getReservationPanel().getBtnReserveItem().setEnabled(true);	//enable the reserve button 
 	}
 
+	class logoutButtonListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
 
+			try{
+				getView().logout();
 
+			}catch(Exception exception)
+			{
+				exception.printStackTrace();
+			}
+		}
+	}
+	class logoutButtonListener2 implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
 
+			try{
+				getView().logout();
+
+			}catch(Exception exception)
+			{
+				exception.printStackTrace();
+			}
+		}
+	}
+	
 	public MainFrame getView(){
 		return controller.getView();
 	}

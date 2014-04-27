@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import com.group8.controller.ReservationController.logoutButtonListener;
 import com.group8.model.MainModel;
 import com.group8.model.Sale;
 import com.group8.view.MainFrame;
@@ -16,6 +17,7 @@ public class ReportsController {
 		this.controller=controller;
 
 		getView().getTabsPane().getReportPanel().addTableListener(new PopulateTable2Listener());
+		getView().getTabsPane().getReportPanel().logoutButtonListener(new logoutButtonListener());
 
 	}
 
@@ -43,7 +45,19 @@ public class ReportsController {
 		}
 	}
 
+	class logoutButtonListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
 
+			try{
+				getView().logout();
+
+			}catch(Exception exception)
+			{
+				exception.printStackTrace();
+			}
+		}
+	}
 	public MainFrame getView(){
 		return controller.getView();
 	}

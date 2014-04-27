@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JOptionPane;
 
 import com.group8.controller.LoginController;
+import com.group8.model.MainModel;
 
 
 
@@ -20,7 +21,6 @@ public class MainFrame extends JFrame
 	private JPanel contentPane;
 	private LoginPanel loginPanel;
 	private TabsPane tabbedPane;
-	//private StockBrowserPanel stockBrowsingPanel;
 
 
 
@@ -43,7 +43,7 @@ public class MainFrame extends JFrame
 		tabbedPane.setVisible(false);
 		contentPane.add(loginPanel);
 		
-		displayLoginView("");
+		displayLoginView();
 		
 	
 	}
@@ -68,6 +68,10 @@ public class MainFrame extends JFrame
 
 			loginPanel.setVisible(false);
 			tabbedPane.setVisible(true);
+			tabbedPane.add("Maintenance",tabbedPane.getMaintainPanel());	
+			tabbedPane.add("Reports",tabbedPane.getReportPanel());
+			
+		
 			
 		}
 		public void displayMainViewStaff() {
@@ -80,15 +84,21 @@ public class MainFrame extends JFrame
 			
 		}
 		
-		public void displayLoginView(String usrName)
+		public void displayLoginView()
 		{
 			loginPanel.setVisible(true);
 			tabbedPane.setVisible(false);
-			loginPanel.setUserField(usrName);
+			loginPanel.setUserField("");
 			loginPanel.setPassField("");
 			loginPanel.getUsernameField().grabFocus();
 			loginPanel.getUsernameField().selectAll();
 		}
+		 public void logout()
+		 {
+						
+			displayLoginView();
+			
+		 }
 
 		public String getUsernameLoginString() {
 			return loginPanel.getUsernameFieldString();

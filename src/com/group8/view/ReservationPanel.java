@@ -78,11 +78,12 @@ public class ReservationPanel extends JPanel
 	private JButton btnEndReservation;
 	private JButton btnNewButton;
 	private JLabel makeNewErrorLabel;
-	private JButton exitButtonReserve2;
+	private JButton Logout2;
 	private Label label;
 	private Label label_2;
 	private JTextField textField;
-	private JButton exitButtonReservation1;
+	private JButton logoutButton;
+	private JButton logoutButton2;
 
 
 
@@ -183,10 +184,10 @@ public class ReservationPanel extends JPanel
 		selectSubcategoryCBox.setModel(subCatComboBoxModel);
 		makeNewReservationPanel.add(selectSubcategoryCBox, "cell 2 2,growx");
 
-		exitButtonReservation1 = new JButton("Logout");
-		makeNewReservationPanel.add(exitButtonReservation1, "cell 6 18,alignx right");
-		exitButtonReservation1.setForeground(Color.BLACK);
-		exitButtonReservation1.setFont(new Font("Cambria", Font.BOLD, 13));
+		logoutButton = new JButton("Logout");
+		makeNewReservationPanel.add(logoutButton, "cell 6 18,alignx right");
+		logoutButton.setForeground(Color.BLACK);
+		logoutButton.setFont(new Font("Cambria", Font.BOLD, 13));
 
 		findReservationPanel = new JPanel();
 		tabbedPane.addTab("Find", null, findReservationPanel, null);
@@ -285,11 +286,11 @@ public class ReservationPanel extends JPanel
 		btnEndReservation.setFont(new Font("Cambria", Font.BOLD, 13));
 		btnEndReservation.setEnabled(false);
 
-		exitButtonReserve2 = new JButton("Exit");
-		exitButtonReserve2.setFont(new Font("Cambria", Font.BOLD, 14));
+		logoutButton2 = new JButton("Logout");
+		logoutButton2.setFont(new Font("Cambria", Font.BOLD, 13));
 
-		exitButtonReserve2.setForeground(new Color(255, 0, 0));
-		findReservationPanel.add(exitButtonReserve2, "cell 7 5,alignx left,aligny bottom");																																		    	    	    	    
+		logoutButton2.setForeground(Color.BLACK);
+		findReservationPanel.add(logoutButton2, "cell 7 5,alignx left,aligny bottom");																																		    	    	    	    
 	}
 
 	public int getTableIndex()
@@ -353,6 +354,14 @@ public class ReservationPanel extends JPanel
 		return btnEndReservation;
 	}
 
+	public JButton getlogoutButton()
+	{
+		return logoutButton;
+	}
+	public JButton getlogoutButton2()
+	{
+		return logoutButton2;
+	}
 	public JButton getBtnReserveItem()
 	{
 		return btnReserveItem;
@@ -443,7 +452,14 @@ public class ReservationPanel extends JPanel
 	{
 		btnFindItems.addActionListener(listenForFindButton);
 	}
-
+	public void logoutButtonListener(ActionListener listenFor)
+	{
+		logoutButton.addActionListener(listenFor);
+	}
+	public void logoutButtonListener2(ActionListener listenFor)
+	{
+		logoutButton2.addActionListener(listenFor);
+	}
 	/*
 	 * I want to set Table Model
 	 * This will come from Model

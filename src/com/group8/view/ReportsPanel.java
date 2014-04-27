@@ -25,12 +25,14 @@ public class ReportsPanel extends JPanel {
 	JDateChooser date1;
 	private JDateChooser date2;
 	private JLabel date1Label,date2Label;
-	private JButton exitButtonReport;
+	private JButton logoutButton;
+	private JButton btnNewButton;
+	private JButton btnNewButton_1;
 
 	public ReportsPanel() {
 		setAlignmentX(23.0f);
 		setFont(new Font("Tahoma", Font.BOLD, 12));
-		setLayout(new MigLayout("", "[95.00][24.00][][][grow][][][grow][][][][grow][][][][][][grow][][]", "[][][][][][][][34.00][][][100px:250:400px,grow][90][1.00]"));
+		setLayout(new MigLayout("", "[95.00][24.00][][][grow][][][grow][][][][grow][][][grow][][]", "[][][][][][][][34.00][][][100px:250:400px,grow][90][1.00]"));
 
 		date1Label = new JLabel("Start Date");
 		date1Label.setFont(new Font("Cambria", Font.BOLD, 13));
@@ -55,7 +57,7 @@ public class ReportsPanel extends JPanel {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setForeground(SystemColor.text);
 		scrollPane.setBorder(new LineBorder(new Color(130, 135, 144), 2, true));
-		add(scrollPane, "cell 1 10 13 1,grow");
+		add(scrollPane, "cell 1 10 12 1,grow");
 
 		ReportTableModel= new ReportTableModel();
 		tableReport = new JTable();
@@ -66,12 +68,20 @@ public class ReportsPanel extends JPanel {
 		tableReport.setModel(ReportTableModel);//set model for table
 
 		scrollPane.setViewportView(tableReport);
+		
+		btnNewButton_1 = new JButton("Print");
+		btnNewButton_1.setFont(new Font("Cambria", Font.BOLD, 13));
+		add(btnNewButton_1, "cell 5 11");
+		
+		btnNewButton = new JButton("Save");
+		btnNewButton.setFont(new Font("Cambria", Font.BOLD, 13));
+		add(btnNewButton, "cell 6 11");
 
-		exitButtonReport = new JButton("Logout");
-		exitButtonReport.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
-		exitButtonReport.setForeground(Color.BLACK);
-		exitButtonReport.setFont(new Font("Cambria", Font.BOLD, 13));
-		add(exitButtonReport, "cell 18 11,aligny bottom");
+		logoutButton = new JButton("Logout");
+		logoutButton.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+		logoutButton.setForeground(Color.BLACK);
+		logoutButton.setFont(new Font("Cambria", Font.BOLD, 13));
+		add(logoutButton, "cell 15 11,aligny bottom");
 
 
 
@@ -97,6 +107,10 @@ public class ReportsPanel extends JPanel {
 		tableReport.setModel(ReportTableModel);
 		ReportTableModel.fireTableDataChanged();
 
+	}
+	public JButton getlogoutButton()
+	{
+		return logoutButton;
 	}
 
 	public Date getDate1()   //get first date from the JDateChooser
@@ -127,7 +141,10 @@ public class ReportsPanel extends JPanel {
 		}  
 	}
 
-
+	public void logoutButtonListener(ActionListener listenFor)
+	{
+		logoutButton.addActionListener(listenFor);
+	}
 	public void warnDateNull(){
 
 		JOptionPane.showMessageDialog(null,
@@ -145,7 +162,9 @@ public class ReportsPanel extends JPanel {
 				JOptionPane.WARNING_MESSAGE);
 	}
 
-
+	public JButton getLogoutButton() {
+		return logoutButton;
+	}
 }
 
 

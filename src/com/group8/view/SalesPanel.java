@@ -159,7 +159,7 @@ public class SalesPanel extends JPanel {
 	public JButton getBtnCheckout() {
 		return btnCheckout;
 	}
-	public JButton getBtnLogout() {
+	public JButton getLogoutButton() {
 		return logoutButton;
 	}
 	public void setBtnCheckout(JButton btnCheckout) {
