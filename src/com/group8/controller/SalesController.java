@@ -285,6 +285,8 @@ String searchterm = theView.getTabsPane().getMakeSalePanel().getSearchTF().getTe
 
 
 theView.getTabsPane().getMakeSalePanel().setTableModel(new ItemTableModel(), theModel.getItemsByKeyword(searchterm));
+theView.getTabsPane().getMakeSalePanel().getSelectCategoryCB().setSelectedIndex(-1);
+theView.getTabsPane().getMakeSalePanel().getSearchTF().setText(searchterm);
 }
 
 }
