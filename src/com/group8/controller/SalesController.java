@@ -77,23 +77,32 @@ if(e.getSource()==pSale.getGoBckButton())
 }
 else if(e.getSource()==pSale.getCompleteSaleButton())
 {
+	//calculate total
 	for(int i = 0 ; saleItems.size()>i ; i++)
 	{
 		total+=saleItems.get(i).getPrice()*quantities.get(i);
 	}
+	//stoer account that makes sale
 	Account addingAccount = new Account();
 	addingAccount.setAccountID(theModel.getLoggedID());
 	addingAccount.setAccountName(theModel.getLoggedName());
+	//get current date
 	Calendar now = Calendar.getInstance();
 	int year = now.get(Calendar.YEAR);
 	int month = now.get(Calendar.MONTH); // Note: zero based!
 	int day = now.get(Calendar.DAY_OF_MONTH);
+	//init sale
 	Sale thisSale = new Sale(0, new Date(year, month, day) , total, theModel.getLoggedID(), theModel.getLoggedName());
 	theModel.addNewSale(thisSale, addingAccount);
+	int saleID = theModel.getLastSaleID();
+	thisSale.setSaleID(saleID);
+	//add sol items to itemsold table
 	for(int i = 0  ; i<saleItems.size();i++)
 	{
-		System.out.println(""+pSale.getCheckoutTable().getValueAt(i, 2));
 		theModel.addNewItemSold(saleItems.get(i), thisSale, (double) pSale.getCheckoutTable().getValueAt(i, 2));
+		Item updatingItem = saleItems.get(i);
+		theModel.updateItemLevels(updatingItem, quantities.get(i));
+		theModel.updateItem(updatingItem	, theModel.getItemSubCatID(updatingItem.getItemID()));
 		if (quantities.get(i)>1)
 		{
 			for(int j = 0 ; j<quantities.get(i);)
@@ -220,6 +229,7 @@ if(!pSale.isVisible())
 {
 pSale.setAlwaysOnTop(true);
 pSale.setVisible(true);
+pSale.getCheckoutTable().setModel(new CheckoutTableModel(saleItems, quantities));
 }
 double total=0;
 for(int i = 0 ; i < saleItems.size() ; i++ )
@@ -290,17 +300,19 @@ theView.getTabsPane().getMakeSalePanel().getSearchTF().setText(searchterm);
 }
 
 }
-class QuantityChangeListener implements TableModelListener{
-
-
-
-@Override
-public void tableChanged(TableModelEvent e) {
-// TODO Auto-generated method stub
-
-}
-
-}
+	class QuantityChangeListener implements TableModelListener{
+	
+	
+	
+	@Override
+		public void tableChanged(TableModelEvent e) {
+		// TODO Auto-generated method stub
+			System.out.println("Table is listening");
+			System.out.println(e.getSource());
+		}
+	
+	}
+	
 
 }
 
