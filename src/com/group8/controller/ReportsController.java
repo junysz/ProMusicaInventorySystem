@@ -145,7 +145,7 @@ public class ReportsController {
 	for (int i=0;i<tempList2.size();i++)
 	{
 	int ID=tempList2.get(i);
-	System.out.println("EDD:  " +ID);
+
 	Item item=getModel().getItemByID(ID);
 	saleItems.add(item);
     
