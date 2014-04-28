@@ -28,6 +28,7 @@ public class ReportsPanel extends JPanel {
 	private JButton logoutButton;
 	private JButton btnNewButton;
 	private JButton btnNewButton_1;
+	private JButton CheckSelected;
 
 	public ReportsPanel() {
 		setAlignmentX(23.0f);
@@ -63,11 +64,14 @@ public class ReportsPanel extends JPanel {
 		tableReport = new JTable();
 		tableReport.setForeground(Color.BLACK);
 		tableReport.setBackground(SystemColor.text);
-		tableReport.setRowSelectionAllowed(false);
 		tableReport.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		tableReport.setModel(ReportTableModel);//set model for table
 
 		scrollPane.setViewportView(tableReport);
+		
+		CheckSelected = new JButton("Check selected sale");
+		CheckSelected.setFont(new Font("Cambria", Font.BOLD, 13));
+		add(CheckSelected, "cell 13 10 4 1");
 		
 		btnNewButton_1 = new JButton("Print");
 		btnNewButton_1.setFont(new Font("Cambria", Font.BOLD, 13));
@@ -90,7 +94,11 @@ public class ReportsPanel extends JPanel {
 	{
 		btnReport.addActionListener(listenForBtnReport);
 	}
-
+   
+	public void CheckSelectedListener	(ActionListener listenForBtnReport)
+	{
+		CheckSelected.addActionListener(listenForBtnReport);
+	}
 
 	/*
 	 * I want to set Table Model
@@ -98,6 +106,7 @@ public class ReportsPanel extends JPanel {
 	 * Model doesn't know about view
 	 * So the controller will set this. 
 	 */
+		
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void setTableModel(List listFormController)
 	{
@@ -107,6 +116,10 @@ public class ReportsPanel extends JPanel {
 		tableReport.setModel(ReportTableModel);
 		ReportTableModel.fireTableDataChanged();
 
+	}
+	public int getIndexRow()
+	{
+		return tableReport.getSelectedRow();
 	}
 	public JButton getlogoutButton()
 	{

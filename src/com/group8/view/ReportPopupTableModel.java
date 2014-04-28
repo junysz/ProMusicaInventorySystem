@@ -6,28 +6,28 @@ import javax.swing.table.AbstractTableModel;
 
 import com.group8.model.Item;
 /*
- * This is wrapper class that sets model  the table form REserveationPanel class 
+ * 
  * 
  */
 @SuppressWarnings("serial")
-public class ItemTableModel extends AbstractTableModel {
+public class ReportPopupTableModel extends AbstractTableModel {
 	
 	private List<Item> db;
-	private String[] columnNames= {"Id","Brand","Model","Stock Level","Available Stock Level","Price",};
+	private List<Integer> db2;
+	private String[] columnNames= {"Brand","Model","Quantity sold",};
 	
-	public ItemTableModel()
+	public ReportPopupTableModel()
 	{	
 		db=new ArrayList<>();
+		db2=new ArrayList<>();		
 	}
 	//method used by ItemTableModel in the ReservationPanel class
-	public void setTableModel(List<Item>db){
+	public void setTableModel(List<Item>db,List<Integer> db2){
 		this.db=db;
-	}
-	public int getRowCount() {
-		return db.size();
+		this.db2=db2;
 	}
 	public int getColumnCount() {
-		return 6;
+		return 3;
 	}
 	public String getColumnName(int column) {
 		return columnNames[column];
@@ -36,23 +36,23 @@ public class ItemTableModel extends AbstractTableModel {
 	public Object getValueAt(int row, int column) {
 		
 		Item item =db.get(row);
+		int i=db2.get(row);
 		
 		switch(column)
 		{
-		case 0:
-			return item.getItemID();	
-		case 1:	
+			case 0:	
 			return item.getBrand();
-		case 2:
+		case 1:
 			return item.getModel();
-		case 3:
-			return item.getStockLevel();
-		case 4:
-			return item.getAvailableStockLevel();
-		case 5:
-			return item.getPrice();	 
+		case 2:
+			return i;
 		}
 		return null;
+	}
+	@Override
+	public int getRowCount() {
+		// TODO Auto-generated method stub
+		return db.size();
 	}
 	
 }

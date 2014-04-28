@@ -51,14 +51,6 @@ public class CheckoutTableModel extends DefaultTableModel {
 		return columnNames[column];
 	}
 	
-	
-	//this will update tableModel with new data
-	/*@Override
-	public void setValueAt(Object aValue, int row, int column) {
-		// TODO Auto-generated method stub
-		super.setValueAt(aValue, row, column);
-	}*/
-	
 	public void setValueAt(List<CheckoutItem> value, int row, int col) {
 	    checkoutItems = value;
 	    fireTableCellUpdated(row, col);

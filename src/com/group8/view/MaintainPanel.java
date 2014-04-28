@@ -395,9 +395,9 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		editItemPanel.add(btnConfirmItemChanges, "cell 3 10");
 
 		btnRemoveItem = new JButton("Remove Item");
-		btnRemoveItem.setForeground(new Color(255, 0, 0));
+		btnRemoveItem.setForeground(Color.BLACK);
 		btnRemoveItem.setFont(new Font("Cambria", Font.BOLD, 13));
-		editItemPanel.add(btnRemoveItem, "cell 3 14,growx");
+		editItemPanel.add(btnRemoveItem, "cell 3 14,alignx left");
 
 		lblNewLabel = new JLabel("\u20AC");
 		lblNewLabel.setForeground(Color.GRAY);

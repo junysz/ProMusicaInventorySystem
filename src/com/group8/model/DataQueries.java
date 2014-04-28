@@ -404,6 +404,30 @@ public class DataQueries {
 	}
 
 
-}
+		protected ArrayList<Integer>  getItemsSold(int saleID){
+			ArrayList<Integer> list = new ArrayList<Integer>(); //create a new arraylist type int
+			try{
+				String query = "Select * From ItemSold where saleID = ? ";
+				pstmt = con.prepareStatement(query);
+				pstmt.setInt(1,saleID); //sets the subCategoryName for the statement query
+				ResultSet rs = pstmt.executeQuery(); //executes query and puts the SubCategory ID into rs
+				
+				while( rs.next()) { 
+					int ID = rs.getInt("itemID");
+					list.add(ID);
+				}
+				rs.close(); //close result set
+				pstmt.close(); //close prepared statement
+				return list;
+			}
+			catch(Exception e)
+			{
+				
+				System.out.println("Muie din nou");
+				return  null;
+		}
+		}
+	}
+
 
 

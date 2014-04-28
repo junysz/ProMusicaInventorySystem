@@ -244,7 +244,10 @@ public class MainModel {
 			
 		}
 	 
-	 
+		public  ArrayList<Integer>getItemsSold(int saleID)
+		 {
+			 return queries.getItemsSold(saleID);
+		 }
 
 	 
 }
