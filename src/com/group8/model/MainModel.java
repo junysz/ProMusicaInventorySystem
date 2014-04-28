@@ -24,6 +24,8 @@ public class MainModel {
 	private DataInserts inserts;
 	private DataQueries queries;
 	private DataUpdates updates;
+	private int loggedID;
+	private String loggedName;
 
 	//Constructor initializes the DatabaseConnection and sets up Database Interaction classes
 	public MainModel()
@@ -242,6 +244,18 @@ public class MainModel {
 			Item i = queries.getItemByName(brand, model); //gets item based on brand and model
 			return i; //returns the item
 			
+		}
+		public int getLoggedID() {
+			return loggedID;
+		}
+		public void setLoggedID(int loggedID) {
+			this.loggedID = loggedID;
+		}
+		public String getLoggedName() {
+			return loggedName;
+		}
+		public void setLoggedName(String loggedName) {
+			this.loggedName = loggedName;
 		}
 	 
 	 

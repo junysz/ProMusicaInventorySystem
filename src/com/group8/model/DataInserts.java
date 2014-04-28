@@ -82,7 +82,7 @@ public class DataInserts {
 		{
 			statement = con.createStatement();
 			//Structure for inserting a new tuple in Sale table
-			String insert = "Insert into Sale (saleDate, totalSalePrice, saleAccountID) values ( '" + s.getDate() + "', " + s.getTotalPrice() + "," + a.getAccountID() + ")";
+			String insert = "Insert into Sale (saleDate, totalSalePrice, accountID) values ( '" + s.getDate() + "', " + s.getTotalPrice() + "," + a.getAccountID() + ")";
 			int res = statement.executeUpdate(insert); //writes to Sale table
 
 			statement.close();

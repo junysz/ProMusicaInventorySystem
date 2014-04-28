@@ -8,6 +8,7 @@ import javax.swing.JTable;
 import javax.swing.JPanel;
 
 import java.awt.FlowLayout;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.event.TableModelListener;
@@ -27,7 +28,7 @@ public class PopupSaleDialog extends JFrame {
 	private JTextField totalTF;
 
 	public PopupSaleDialog() {
-
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(new MigLayout("", "[grow]", "[grow][grow]"));
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -66,6 +67,11 @@ public class PopupSaleDialog extends JFrame {
 		saleItemsTable.setModel(m);
 		
 	}
+	public void addPopupButtonsListener(ActionListener a)
+	{
+		btnGoBack.addActionListener(a);
+		btnCompleteSale.addActionListener(a);
+	}
 	public void addTableModelListener(TableModelListener tml)
 	{
 		saleItemsTable.getModel().addTableModelListener(tml);
@@ -74,6 +80,18 @@ public class PopupSaleDialog extends JFrame {
 	{
 		totalTF.setText(""+total);
 		
+	}
+	public JButton getGoBckButton()
+	{
+		return btnGoBack;
+	}
+	public JButton getCompleteSaleButton()
+	{
+		return btnCompleteSale;
+	}
+	public JTable getCheckoutTable()
+	{
+		return saleItemsTable;
 	}
 	
 

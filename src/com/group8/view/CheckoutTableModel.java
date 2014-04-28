@@ -21,16 +21,22 @@ public class CheckoutTableModel extends DefaultTableModel {
 	
 	public CheckoutTableModel(List<Item>db, ArrayList<Integer>quantity){
 		id = new ArrayList<>();
-        this.editable_cells = new boolean[db.size()][6];
+        this.editable_cells = new boolean[db.size()][5];
 		checkoutItems= new ArrayList<>();
 		for(int i = 0 ; i<db.size() ; i++)
 		{
 			id.add(i, db.get(i).getItemID());
 			checkoutItems.add(new CheckoutItem(db.get(i).getBrand(), db.get(i).getModel(), db.get(i).getPrice(), quantity.get(i)));
+			editable_cells[i][0] = false; // set cell true/false
+			editable_cells[i][1] = false; // set cell true/false
 			editable_cells[i][2] = true; // set cell true/false
-	        fireTableCellUpdated(i, 2);
 			editable_cells[i][3] = true; // set cell true/false
+			editable_cells[i][4] = false; // set cell true/false
+	        fireTableCellUpdated(i, 0);
+	        fireTableCellUpdated(i, 1);
+	        fireTableCellUpdated(i, 2);
 	        fireTableCellUpdated(i, 3);
+	        fireTableCellUpdated(i, 4);
 			}
 
 	}
@@ -67,7 +73,18 @@ public class CheckoutTableModel extends DefaultTableModel {
 	    checkoutItems = value;
 	    fireTableCellUpdated(row, col);
 	}
+	private void refreshTable() {
 
+		   int rowCount= getRowCount();
+
+		  // System.out.println(rowCount);
+
+		   for(int i=0;i<rowCount;i++ ){
+		        removeRow(0);
+		        //System.out.println(i);
+		   }
+
+		}
 
 	@Override
 public Object getValueAt(int row, int column) {

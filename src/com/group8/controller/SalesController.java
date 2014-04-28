@@ -4,13 +4,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import javax.swing.JOptionPane;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
+
+import com.group8.model.Account;
 import com.group8.model.Item;
 import com.group8.model.MainModel;
+import com.group8.model.Sale;
 import com.group8.view.CategoryComboBoxModel;
 import com.group8.view.CheckoutTableModel;
 import com.group8.view.ItemTableModel;
@@ -26,6 +31,8 @@ public class SalesController {
 	private ArrayList<Integer> quantities = new ArrayList<Integer>();
 	private MainFrame theView;
 	public MainModel theModel;
+	double total = 0;
+	private Date dateOfSale;
 	
 	public SalesController(Controller controller)
 	{
@@ -41,6 +48,7 @@ theView.getTabsPane().getMakeSalePanel().addCategoryBoxListener(new SaleListener
 theView.getTabsPane().getMakeSalePanel().addSubCategoryListener(new SaleListener());
 theView.getTabsPane().getMakeSalePanel().addKeyListenerToSerchTextBox(new SearchListener());
 pSale = new PopupSaleDialog();
+pSale.addPopupButtonsListener(new SaleListener());
 pSale.addTableModelListener(new QuantityChangeListener());
 theView.getTabsPane().getMakeSalePanel().setSelectCategoryCBModel(new CategoryComboBoxModel(), theModel.getCategoryNames());
 
@@ -59,11 +67,45 @@ Item added = new Item();
 	
 
 
+@SuppressWarnings("deprecation")
 @Override
 public void actionPerformed(ActionEvent e) {
 
-
-if(e.getSource()==theView.getTabsPane().getMakeSalePanel().getBtnAddToCart())
+if(e.getSource()==pSale.getGoBckButton())
+{
+	pSale.dispose();
+}
+else if(e.getSource()==pSale.getCompleteSaleButton())
+{
+	for(int i = 0 ; saleItems.size()>i ; i++)
+	{
+		total+=saleItems.get(i).getPrice()*quantities.get(i);
+	}
+	Account addingAccount = new Account();
+	addingAccount.setAccountID(theModel.getLoggedID());
+	addingAccount.setAccountName(theModel.getLoggedName());
+	Calendar now = Calendar.getInstance();
+	int year = now.get(Calendar.YEAR);
+	int month = now.get(Calendar.MONTH); // Note: zero based!
+	int day = now.get(Calendar.DAY_OF_MONTH);
+	Sale thisSale = new Sale(0, new Date(year, month, day) , total, theModel.getLoggedID(), theModel.getLoggedName());
+	theModel.addNewSale(thisSale, addingAccount);
+	for(int i = 0  ; i<saleItems.size();i++)
+	{
+		System.out.println(""+pSale.getCheckoutTable().getValueAt(i, 2));
+		theModel.addNewItemSold(saleItems.get(i), thisSale, (double) pSale.getCheckoutTable().getValueAt(i, 2));
+		if (quantities.get(i)>1)
+		{
+			for(int j = 0 ; j<quantities.get(i);)
+			{
+				theModel.addNewItemSold(saleItems.get(i), thisSale, Double.parseDouble((String) pSale.getCheckoutTable().getValueAt(i, 2)));
+			}
+		i++;
+		}
+		
+	}
+}
+else if(e.getSource()==theView.getTabsPane().getMakeSalePanel().getBtnAddToCart())
 {
 int row =theView.getTabsPane().getMakeSalePanel().getTable().getSelectedRow();
 if (row!=-1)
