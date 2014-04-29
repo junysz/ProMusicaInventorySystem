@@ -2,6 +2,7 @@ package com.group8.view;
 
 import net.miginfocom.swing.MigLayout;
 
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -9,6 +10,7 @@ import javax.swing.JPanel;
 
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeListener;
 
 import javax.swing.JButton;
 import javax.swing.event.TableModelListener;
@@ -17,10 +19,10 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
-public class PopupSaleDialog extends JFrame {
+public class PopupSaleDialog extends JDialog {
 
 	private static final long serialVersionUID = -1595401629009100854L;
-	private JTable saleItemsTable;
+	private JTable saleItemsTable = new JTable();
 	private JPanel panel;
 	private JButton btnGoBack;
 	private JButton btnCompleteSale;
@@ -32,8 +34,13 @@ public class PopupSaleDialog extends JFrame {
 		getContentPane().setLayout(new MigLayout("", "[grow]", "[grow][grow]"));
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scrollPane.scrollRectToVisible(getBounds());
+		scrollPane.setBounds(10, 119, 975, 300);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        add(scrollPane);
+        
+        saleItemsTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        scrollPane.setViewportView(saleItemsTable);
 		getContentPane().add(scrollPane, "cell 0 0,grow");
 		setSize(400, 400);
 		
@@ -72,9 +79,9 @@ public class PopupSaleDialog extends JFrame {
 		btnGoBack.addActionListener(a);
 		btnCompleteSale.addActionListener(a);
 	}
-	public void addTableModelListener(TableModelListener tml)
+	public void addTableModelListener(PropertyChangeListener tml)
 	{
-		saleItemsTable.getModel().addTableModelListener(tml);
+		saleItemsTable.addPropertyChangeListener(tml);;
 	}
 	public void setTotal(double total)
 	{

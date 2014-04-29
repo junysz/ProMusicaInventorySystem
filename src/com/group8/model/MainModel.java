@@ -75,6 +75,7 @@ public class MainModel {
 	public void addNewSale(Sale s, Account a)
 	{
 		inserts.insertNewSale(s, a);
+		
 	}
 	public void addNewItemSold(Item i, Sale s, double itemSalePrice)
 	{
@@ -126,7 +127,10 @@ public class MainModel {
 	{
 		updates.updateAccount(ID, name, pass, type, flag);
 	}
-	
+	public void updateItemLevels(Item item, int by)
+	{
+		updates.updateItemStockLevels(item, by);
+	}
 	/*
 	//queries methods
 	public List<Item> getMeSomeItems(){
@@ -139,7 +143,14 @@ public class MainModel {
 		return someItems.getMeSomeSubCategories();
 	}
 	*/
-
+	public int getItemSubCatID(int id)
+	{
+		return queries.getItemSubCatID(id);
+	}
+	public int getLastSaleID()
+	{
+		return queries.getLastSaleID();
+	}
 	public ArrayList<String>  getCategoryNames()
 	{
 		return queries.getCategoryNames();
