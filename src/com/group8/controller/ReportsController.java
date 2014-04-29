@@ -114,10 +114,10 @@ public class ReportsController {
 	}
 	
 	public void calculateItems()
-	{
+	{int index1;
 	index=getView().getTabsPane().getReportPanel().getIndexRow();
 	
-	index=saleList.get(index).getSaleID();
+	index1=saleList.get(index).getSaleID();
 	total=saleList.get(index).getTotalPrice();
 
 	ArrayList<Integer> tempList=new ArrayList<Integer>();
