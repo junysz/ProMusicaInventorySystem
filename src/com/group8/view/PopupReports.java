@@ -2,6 +2,7 @@ package com.group8.view;
 
 import net.miginfocom.swing.MigLayout;
 
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -16,11 +17,12 @@ import javax.swing.table.TableModel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
+
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class PopupReports extends JFrame {
+public class PopupReports extends JDialog {
 
 	private static final long serialVersionUID = -1595401629009100854L;
 	private JTable saleItemsTable;
@@ -68,7 +70,6 @@ public class PopupReports extends JFrame {
 
 		PopupTableModel.setTableModel(list1,list2);
 		saleItemsTable.setModel(PopupTableModel);
-		PopupTableModel.fireTableDataChanged();
 
 	}
 	public void addTableModelListener(TableModelListener tml)

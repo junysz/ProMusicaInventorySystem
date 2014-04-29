@@ -111,7 +111,7 @@ public class ReportsPanel extends JPanel {
 	public void setTableModel(List listFormController)
 	{
 
-
+		System.out.println("Setting table model...");
 		ReportTableModel.setTableModel(listFormController);
 		tableReport.setModel(ReportTableModel);
 		ReportTableModel.fireTableDataChanged();

@@ -213,3 +213,6 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+src/com/group8/view/ReportsPanel.java
+src/com/group8/view/PopupReports.java
+src/com/group8/controller/ReportsController.java

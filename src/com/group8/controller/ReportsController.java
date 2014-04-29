@@ -42,12 +42,13 @@ public class ReportsController {
 
 
 				        		    
-
+			System.out.println("Updating the table...");
 			java.sql.Date date1=  getView().getTabsPane().getReportPanel().getDate1();//get first date from the ReportPanel
 			java.sql.Date date2=	getView().getTabsPane().getReportPanel().getDate2();	//get the second date			
 			saleList=getModel().getSalesByDate(date1,date2); //query database for Sales between the two dates
 			if (date1!=null && date2!=null)
 			{
+				System.out.println("Dates are valid...");
 				getView().getTabsPane().getReportPanel().setTableModel(saleList);	//set the table if dates are not null
 				
 				if (date1.after(date2))
@@ -94,7 +95,6 @@ public class ReportsController {
 					calculateItems();
 					if (index>-1)
 					{
-					ReportPopupTableModel model=new ReportPopupTableModel();
 					popup.setTableModel(saleItems,listq);
 					popup.setTotal(total);
 					popup.setName(name);
@@ -114,10 +114,9 @@ public class ReportsController {
 	}
 	
 	public void calculateItems()
-	{int index1;
+	{
 	index=getView().getTabsPane().getReportPanel().getIndexRow();
 	
-	index1=saleList.get(index).getSaleID();
 	total=saleList.get(index).getTotalPrice();
 
 	ArrayList<Integer> tempList=new ArrayList<Integer>();

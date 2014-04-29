@@ -84,11 +84,9 @@ else if(e.getSource()==theView.getTabsPane().getMakeSalePanel().getpSale().getCo
 	addingAccount.setAccountName(theModel.getLoggedName());
 	//get current date
 	Calendar now = Calendar.getInstance();
-	int year = now.get(Calendar.YEAR);
-	int month = now.get(Calendar.MONTH); // Note: zero based!
-	int day = now.get(Calendar.DAY_OF_MONTH);
+	java.sql.Date date = new java.sql.Date(now.getTime().getTime());
 	//init sale
-	Sale thisSale = new Sale(0, new Date(year, month, day) , total, theModel.getLoggedID(), theModel.getLoggedName());
+	Sale thisSale = new Sale(0, date , total, theModel.getLoggedID(), theModel.getLoggedName());
 	theModel.addNewSale(thisSale, addingAccount);
 	int saleID = theModel.getLastSaleID();
 	thisSale.setSaleID(saleID);
