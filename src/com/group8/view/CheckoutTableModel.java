@@ -37,16 +37,21 @@ public class CheckoutTableModel extends DefaultTableModel {
 	{
 		switch(column)
 		{
-		case 1:	
+		case 0:	
 			basketItems.get(row).setBrand((String)value);
-		case 2:
+			break;
+		case 1:
 			basketItems.get(row).setModel((String)value);
-		case 3:
+			break;
+		case 2:
 			basketItems.get(row).setPrice((double)value);
+			break;
+		case 3:
+			basketItems.get(row).setQuantity((int)value);
+			break;
 		case 4:
-			basketItems.get(row).setQuantity(Integer.parseInt((String) value));
-		case 5:
-			basketItems.get(row).setTotalPrice(Double.parseDouble((String) value));
+			basketItems.get(row).setTotalPrice((double)value);
+			break;
 		}
 	}
 	public int getRowCount() {
