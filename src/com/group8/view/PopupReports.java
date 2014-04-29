@@ -60,14 +60,11 @@ public class PopupReports extends JDialog {
 		PopupTableModel= new ReportPopupTableModel();
 		// TODO Auto-generated constructor stub
 	}
-	public void setSaleTableModel(TableModel m)
-	{
-		saleItemsTable.setModel(m);
-		
-	}
+	
 	public void setTableModel(List list1,List list2)
-	{
-
+	{   
+		
+		PopupTableModel.fireTableDataChanged();
 		PopupTableModel.setTableModel(list1,list2);
 		saleItemsTable.setModel(PopupTableModel);
 
@@ -81,6 +78,9 @@ public class PopupReports extends JDialog {
 		totalTF.setText(""+total);
 		
 	}
-	
+	public JTable getTable()
+	{
+		return saleItemsTable;
+	}
 
 }

@@ -110,11 +110,11 @@ public class ReportsPanel extends JPanel {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void setTableModel(List listFormController)
 	{
-
+		ReportTableModel.fireTableDataChanged();
 		System.out.println("Setting table model...");
 		ReportTableModel.setTableModel(listFormController);
 		tableReport.setModel(ReportTableModel);
-		ReportTableModel.fireTableDataChanged();
+		
 
 	}
 	public int getIndexRow()

@@ -16,6 +16,7 @@ import com.group8.view.MainFrame;
 import com.group8.view.PopupReports;
 import com.group8.view.PopupSaleDialog;
 import com.group8.view.ReportPopupTableModel;
+import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 
 public class ReportsController {
 	
@@ -76,6 +77,8 @@ public class ReportsController {
 		}
 	}
 	
+	
+	
 	class CheckSelectedListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -90,11 +93,12 @@ public class ReportsController {
 					{
 					popup.setAlwaysOnTop(true);
 					popup.setVisible(true);
-					
+				
 					}
+					
 					calculateItems();
 					if (index>-1)
-					{
+					{popup.getTable().revalidate();
 					popup.setTableModel(saleItems,listq);
 					popup.setTotal(total);
 					popup.setName(name);
@@ -113,34 +117,37 @@ public class ReportsController {
 		}
 	}
 	
+	//Calculate what items should be placed in the popup table
 	public void calculateItems()
-	{
+	{//getting the index of the selected row in the table of sales
 	index=getView().getTabsPane().getReportPanel().getIndexRow();
-	
+	//Getting the total for the specified sale
 	total=saleList.get(index).getTotalPrice();
-
+  //a temporary list to hold all the Id-s of the sold items
 	ArrayList<Integer> tempList=new ArrayList<Integer>();
-     tempList=getModel().getItemsSold(index);
+	int index1=saleList.get(index).getSaleID();  //index1 holds the saleId of the sale selected in the table
+	
+     tempList=getModel().getItemsSold(index1);//get the array of id-s from quering the Sale table
+    
+     //a second temporary list to extract the unique Id-s of items
 	ArrayList<Integer> tempList2=new ArrayList<Integer>();
 	 
 	
 	for( int i=0;i<tempList.size();i++)
 	    {
 		int counter=1;
+		tempList2.add(tempList.get(i));
 		for (int j=i+1;j<tempList.size();j++)
 			if (tempList.get(j)==tempList.get(i))				
 												{  
 													counter++;
-													tempList.remove(j);				
+													 tempList.remove(j);				
 												}
-	 	tempList2.add(tempList.get(i));
+	 
 		 listq.add(counter);
 		 
 		}
-	
-	
-	 
-	 
+			 	 
 	for (int i=0;i<tempList2.size();i++)
 	{
 	int ID=tempList2.get(i);
@@ -150,6 +157,8 @@ public class ReportsController {
     
 	}
 	  	  	}
+	
+	
 		
 	public MainFrame getView(){
 		return controller.getView();
