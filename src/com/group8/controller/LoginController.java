@@ -26,6 +26,7 @@ public class LoginController implements ActionListener {
 	private String name1="" ,pass1="",type="";
 	boolean valid=false;
 	boolean flag=true;
+	int id;
 	
 	public LoginController(MainFrame v, MainModel m)
 	{
@@ -48,6 +49,7 @@ public class LoginController implements ActionListener {
 				     pass1=theModel.getAllAccounts().get(i).getPassword();	
 				     flag=theModel.getAllAccounts().get(i).getFlag();
 				     type=theModel.getAllAccounts().get(i).getType();
+				     id=theModel.getAllAccounts().get(i).getAccountID();
 				 }
 			 
 		 }
@@ -77,7 +79,14 @@ public class LoginController implements ActionListener {
 	    		                            	  
 	    		                             else  if (type.equals("Sales Staff"))  theView.displayMainViewStaff();
 	    		                                                                
-	    		                                   else   theView.displayMainView();
+	    		                                   else   
+	    		                                   {
+	    		                                	   
+	    		                                	    theModel.setLoggedID(id);
+	    		                                	    theModel.setLoggedName(name1);
+	    		                                	    theView.initPanels();
+	    		                                	   	theView.displayMainView();
+	    		                                   }
 	    		                                    	
 	
 	              }

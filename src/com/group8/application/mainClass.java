@@ -1,6 +1,8 @@
 package com.group8.application;
 import java.awt.EventQueue;
 
+import javax.swing.WindowConstants;
+
 import com.group8.controller.Controller;
 import com.group8.model.MainModel;
 import com.group8.view.*;
@@ -12,7 +14,12 @@ public class mainClass {
 				try {
 					MainFrame theView= new MainFrame();
 					MainModel theModel= new MainModel();
-					Controller theController= new Controller(theView,theModel);		
+					
+					/*this line closes javaw.exe process in system processes
+					 * Without this line when closing program javaw process stays in memory
+					 */
+					theView.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+					new Controller(theView,theModel);		
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
