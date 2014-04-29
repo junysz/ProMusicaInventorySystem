@@ -1,6 +1,7 @@
 package com.group8.model;
 import java.sql.*;
 import java.util.ArrayList;
+
 import java.util.Collections;
 
 
@@ -400,47 +401,6 @@ public class DataQueries {
 		}  
 
 
-	}
-	protected int getItemSubCatID(int itemID)
-	{
-		try{
-			String query = "SELECT `item`.`subCatID` FROM `mydb`.`item`where `itemID` = ? ";
-			pstmt = con.prepareStatement(query);
-			pstmt.setString(1,Integer.toString(itemID)); //sets the categoryName for the statement query
-			ResultSet rs = pstmt.executeQuery(); //executes query and puts the category ID into rs
-			int catID = -1; //initialize the variable to hold the catID we get back from DB
-			while( rs.next()) { 
-				catID = rs.getInt("subCatID");	// sets the cat ID  
-			}
-			rs.close(); //close result set
-			pstmt.close(); //close prepared statement
-			return catID;
-		}
-		catch(Exception e)
-		{
-			return (Integer) null;
-		}
-	}
-	protected int getLastSaleID()
-	{
-		try{
-			String query = "SELECT`saleID` FROM `mydb`.`sale` ORDER BY saleID DESC LIMIT 0, 1 ";
-			pstmt = con.prepareStatement(query);
-			ResultSet rs = pstmt.executeQuery(); //executes query and puts the category ID into rs
-			int catID = 0; //initialize the variable to hold the catID we get back from DB
-			while( rs.next()) { 
-				System.out.println("Executing last sale id query.");
-				catID = rs.getInt("saleID");	// sets the cat ID  
-			}
-			rs.close(); //close result set
-			pstmt.close(); //close prepared statement
-			return catID;
-		}
-		catch(Exception e)
-		{
-			System.out.println("The message is: "+ e.getMessage());
-			return (Integer) null;
-		}
 	}
 
 

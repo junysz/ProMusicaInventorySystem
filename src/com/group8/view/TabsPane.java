@@ -61,7 +61,7 @@ public class TabsPane extends JTabbedPane {
 	public void emptyInputs()
 	{
 		makeSalePanel.getSearchTF().setText("");
-		makeSalePanel.getSelectCategoryCB().setSelectedIndex(-1);
+		makeSalePanel.getSelectCategoryCB().setSelectedIndex(0);
 	}
 	
 }

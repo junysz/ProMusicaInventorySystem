@@ -1,66 +1,58 @@
 package com.group8.view;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 
 import com.group8.model.CheckoutItem;
 import com.group8.model.Item;
-import com.group8.model.Sale;
-
+/*
+ * This is wrapper class that sets model  the table form REserveationPanel class 
+ * 
+ */
+@SuppressWarnings("serial")
 public class CheckoutTableModel extends DefaultTableModel {
 	
-	private String[] columnNames= {"Brand","Model","Price","Quantity","Total Price"};
+	private List<CheckoutItem> checkoutItems;
 	private List<Integer> id;
-	private List<CheckoutItem> basketItems;
-	private static final long serialVersionUID = 7944308974044321712L;
-
+	private boolean[][] editable_cells;
+	private String[] columnNames= {"Brand","Model","Price","Quantity","Total Price"};
 	
-	public CheckoutTableModel()
-	{
-		id=new ArrayList<>();
-		basketItems=new ArrayList<>();
-	}
-	public CheckoutTableModel(List<Item>db, ArrayList<Integer>quantity)
-	{
-		id=new ArrayList<>();
-		basketItems=new ArrayList<>();
-		for (int i = 0 ; i < db.size() ; i++)
+	public CheckoutTableModel(List<Item>db, ArrayList<Integer>quantity){
+		id = new ArrayList<>();
+        this.editable_cells = new boolean[db.size()][5];
+		checkoutItems= new ArrayList<>();
+		for(int i = 0 ; i<db.size() ; i++)
 		{
-			basketItems.add(new CheckoutItem(db.get(i).getBrand(), db.get(i).getModel(), db.get(i).getPrice(), quantity.get(i)));
-		}
+			id.add(i, db.get(i).getItemID());
+			checkoutItems.add(new CheckoutItem(db.get(i).getBrand(), db.get(i).getModel(), db.get(i).getPrice(), quantity.get(i)));
+			editable_cells[i][0] = false; // set cell true/false
+			editable_cells[i][1] = false; // set cell true/false
+			editable_cells[i][2] = true; // set cell true/false
+			editable_cells[i][3] = true; // set cell true/false
+			editable_cells[i][4] = false; // set cell true/false
+	        fireTableCellUpdated(i, 0);
+	        fireTableCellUpdated(i, 1);
+	        fireTableCellUpdated(i, 2);
+	        fireTableCellUpdated(i, 3);
+	        fireTableCellUpdated(i, 4);
+			}
+
 	}
-	public void setValueAt(Object value, int row, int column)
-	{
-		switch(column)
+
+	public void setTableModel(List<Item>db, ArrayList<Integer>quantity){
+		for(int i = 0 ; i<db.size() ; i++)
 		{
-		case 0:	
-			basketItems.get(row).setBrand((String)value);
-			break;
-		case 1:
-			basketItems.get(row).setModel((String)value);
-			break;
-		case 2:
-			basketItems.get(row).setPrice((double)value);
-			break;
-		case 3:
-			basketItems.get(row).setQuantity((int)value);
-			break;
-		case 4:
-			basketItems.get(row).setTotalPrice((double)value);
-			break;
+			checkoutItems.add(new CheckoutItem(db.get(i).getBrand(), db.get(i).getModel(), db.get(i).getPrice(), quantity.get(i)));
+
 		}
 	}
 	public int getRowCount() {
-		if(basketItems==null)
-		{
-			return 0;
-		}
+		if(checkoutItems!=null)
+			return checkoutItems.size();
 		else
-		return basketItems.size();
+			return 0;
 	}
 	public int getColumnCount() {
 		return 5;
@@ -68,50 +60,50 @@ public class CheckoutTableModel extends DefaultTableModel {
 	public String getColumnName(int column) {
 		return columnNames[column];
 	}
-	public Object getValueAt(int row, int column) {  //set values of cells
+	
+	
+	//this will update tableModel with new data
+	/*@Override
+	public void setValueAt(Object aValue, int row, int column) {
+		// TODO Auto-generated method stub
+		super.setValueAt(aValue, row, column);
+	}*/
+	
+	public void setValueAt(List<CheckoutItem> value, int row, int col) {
+	    checkoutItems = value;
+	    fireTableCellUpdated(row, col);
+	}
+	private void refreshTable() {
+
+		   int rowCount= getRowCount();
+
+		  // System.out.println(rowCount);
+
+		   for(int i=0;i<rowCount;i++ ){
+		        removeRow(0);
+		        //System.out.println(i);
+		   }
+
+		}
+
+	@Override
+public Object getValueAt(int row, int column) {
+		
+		CheckoutItem item =checkoutItems.get(row);
+		
 		switch(column)
 		{
 		case 0:	
-			return basketItems.get(row).getBrand();
-		case 1:
-			return basketItems.get(row).getModel();
+			return item.getBrand();
+		case 1:	
+			return item.getModel();
 		case 2:
-			return basketItems.get(row).getPrice();
+			return item.getPrice();
 		case 3:
-			return basketItems.get(row).getQuantity();
+			return item.getQuantity();
 		case 4:
-			return basketItems.get(row).getTotalPrice();
+			return item.getTotalPrice();
 		}
 		return null;
 	}
-	public void setTableModel(List<Item>db, List<Integer>quantities){
-		id=new ArrayList<>();
-		basketItems=new ArrayList<>();
-		for (int i = 0 ; i < db.size() ; i++)
-		{
-			basketItems.add(new CheckoutItem(db.get(i).getBrand(), db.get(i).getModel(), db.get(i).getPrice(), quantities.get(i)));
-		}
-	}
-		public boolean isCellEditable(int row,int column)  
-        {
-			switch(column){             
-        
-           case 0:  // select the cell you want make it not editable 
-             return false; 
-           case 1:  // select the cell you want make it not editable 
-               return false;
-           case 2:
-        	   return true;
-           case 3:
-        	   return true;
-           case 4:
-        	   return false;
-         default: return false;}  
-        }
-		@SuppressWarnings("unchecked")
-		public Class getColumnClass(int column) {
-            return getValueAt(0, column).getClass();
-        }
-		
-	
 }

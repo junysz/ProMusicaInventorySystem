@@ -25,14 +25,12 @@ public class DataUpdates {
 	{
 		try
 		{
-			PreparedStatement preparedStatement = con.prepareStatement("Update Item Set stockLevel=?, availableStockLevel=? Where itemID=?;");
-			
-			
-			preparedStatement.setString(1,Integer.toString(i.getStockLevel()-newItems));
-			preparedStatement.setString(2,Integer.toString(i.getAvailableStockLevel()-newItems));
-			preparedStatement.setString(3,Integer.toString(i.getItemID()));
-			preparedStatement.executeUpdate(); 
-			preparedStatement.close();
+			Statement statement = con.createStatement();
+			//Structure for updating the stock level and available stock level of an item
+			String update = "Update Item Set stockLevel=" + (i.getStockLevel() +newItems) + ", availableStockLevel=" + (i.getAvailableStockLevel()+newItems) + " Where itemID=" + i.getItemID() + "";
+			int res = statement.executeUpdate(update); //updates stock level and available stock level on Item
+			con.commit();
+			statement.close();
 		}
 		catch(Exception e)
 		{

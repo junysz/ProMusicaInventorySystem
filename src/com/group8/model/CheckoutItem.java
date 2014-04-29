@@ -3,8 +3,8 @@ package com.group8.model;
 public class CheckoutItem {
 	private String  brand, model;
 	private double price;
-	private int  quantity;
 	private double totalprice;
+	private int id, quantity;
 
 	public CheckoutItem(String brand, String model, double price, int quantity){
 		this.brand=brand;
@@ -14,36 +14,23 @@ public class CheckoutItem {
 		totalprice = price*((double) quantity);
 
 	}
+	public String getItemID() {
+		return Integer.toString(id);
+	}
 	public String getBrand() {
 		return brand;
 	}
 	public String getModel() {
 		return model;
 	}
-	public int getQuantity() {
-		return (quantity);
+	public String getQuantity() {
+		return Integer.toString(quantity);
 	}
-	public double getTotalPrice() {
-		return (totalprice);
+	public String getTotalPrice() {
+		return Double.toString(totalprice);
 	}
-	public double getPrice() {
-		return (price);
+	public String getPrice() {
+		return Double.toString(price);
 	}
-	public void setBrand(String brand) {
-		this.brand = brand;
-	}
-	public void setModel(String model) {
-		this.model = model;
-	}
-	public void setPrice(double price) {
-		this.price = price;
-	}
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
-	public void setTotalPrice(double totalPrice)
-	{
-		this.totalprice=totalPrice;
-	}
-	
+
 }
