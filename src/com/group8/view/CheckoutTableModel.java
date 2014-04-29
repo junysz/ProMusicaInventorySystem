@@ -68,22 +68,8 @@ public class CheckoutTableModel extends DefaultTableModel {
 	public String getColumnName(int column) {
 		return columnNames[column];
 	}
-<<<<<<< HEAD
-	
-	public void setValueAt(List<CheckoutItem> value, int row, int col) {
-	    checkoutItems = value;
-	    fireTableCellUpdated(row, col);
-	}
 
-
-	@Override
-public Object getValueAt(int row, int column) {
-		
-		CheckoutItem item =checkoutItems.get(row);
-		
-=======
 	public Object getValueAt(int row, int column) {  //set values of cells
->>>>>>> origin/danielPopupWork
 		switch(column)
 		{
 		case 0:	
