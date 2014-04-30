@@ -82,8 +82,9 @@ public class DataInserts {
 		{
 			statement = con.createStatement();
 			//Structure for inserting a new tuple in Sale table
-			String insert = "Insert into Sale (saleDate, totalSalePrice, accountID) values ( '" + s.getDate() + "', " + s.getTotalPrice() + "," + a.getAccountID() + ")";
+			String insert = "Insert into Sale (saleDate, totalSalePrice, saleAccountID) values ( '" + s.getDate() + "', " + s.getTotalPrice() + "," + a.getAccountID() + ")";
 			int res = statement.executeUpdate(insert); //writes to Sale table
+
 			statement.close();
 		}
 		catch(Exception e)
@@ -98,7 +99,7 @@ public class DataInserts {
 		{
 			statement = con.createStatement();
 			//Structure for inserting a new tuple in the Item Sold table
-			String insert = "Insert into ItemSold (itemID, saleID, itemSalePrice) values (" + i.getItemID() + "," + s.getSaleID() + ", " + itemSalePrice + ")";
+			String insert = "Insert into ItemSold (itemSoldID, saleID, itemSalePrice) values (" + i.getItemID() + "," + s.getSaleID() + ", " + itemSalePrice + ")";
 			int res = statement.executeUpdate(insert); //writes to Item Sold table
 	
 			statement.close();
