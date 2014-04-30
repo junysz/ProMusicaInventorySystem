@@ -1,19 +1,28 @@
 package com.group8.view;
 import javax.swing.JPanel;
+
 import net.miginfocom.swing.MigLayout;
+
 import javax.swing.JLabel;
+
 import com.toedter.calendar.JDateChooser;
+
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+
 import java.awt.event.ActionListener;
 import java.sql.Date;
 import java.util.List;
+
 import javax.swing.JButton;
+
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.SystemColor;
+
 import javax.swing.border.LineBorder;
+
 import java.awt.Cursor;
 
 
@@ -28,9 +37,14 @@ public class ReportsPanel extends JPanel {
 	private JButton logoutButton;
 	private JButton btnNewButton;
 	private JButton btnNewButton_1;
-	private JButton CheckSelected;
+	private JButton CheckSelected;;  
+	private PopupReports popup;
 
 	public ReportsPanel() {
+		
+		
+		popup = new PopupReports();
+		popup.setModal(true);
 		setAlignmentX(23.0f);
 		setFont(new Font("Tahoma", Font.BOLD, 12));
 		setLayout(new MigLayout("", "[95.00][24.00][][][grow][][][grow][][][][grow][][][grow][][]", "[][][][][][][][34.00][][][100px:250:400px,grow][90][1.00]"));
@@ -177,6 +191,12 @@ public class ReportsPanel extends JPanel {
 
 	public JButton getLogoutButton() {
 		return logoutButton;
+	}
+	public PopupReports getPopup() {
+		return popup;
+	}
+	public void setPopup(PopupReports popup) {
+		this.popup = popup;
 	}
 }
 

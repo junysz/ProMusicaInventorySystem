@@ -20,8 +20,7 @@ import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 
 public class ReportsController {
 	
-	private Controller controller;  
-	private PopupReports popup;
+	private Controller controller;
 	ArrayList<Sale> saleList=new ArrayList <Sale>();	
 	private ArrayList<Item> saleItems = new ArrayList<Item>();
 	private ArrayList<Integer> listq = new ArrayList<Integer>();
@@ -33,7 +32,6 @@ public class ReportsController {
 		getView().getTabsPane().getReportPanel().addTableListener(new PopulateTable2Listener());
 		getView().getTabsPane().getReportPanel().logoutButtonListener(new logoutButtonListener());
 		getView().getTabsPane().getReportPanel().CheckSelectedListener(new CheckSelectedListener());
-		popup = new PopupReports();
 		
 	}
 
@@ -47,6 +45,7 @@ public class ReportsController {
 			java.sql.Date date1=  getView().getTabsPane().getReportPanel().getDate1();//get first date from the ReportPanel
 			java.sql.Date date2=	getView().getTabsPane().getReportPanel().getDate2();	//get the second date			
 			saleList=getModel().getSalesByDate(date1,date2); //query database for Sales between the two dates
+			System.out.println(saleList.get(0).getName());
 			if (date1!=null && date2!=null)
 			{
 				System.out.println("Dates are valid...");
@@ -89,19 +88,19 @@ public class ReportsController {
 					/*
 					 * Make popup visible if it's not, and refresh table with the items
 					 */
-					if(!popup.isVisible())
+					if(!getView().getTabsPane().getReportPanel().getPopup().isVisible())
 					{
-					popup.setAlwaysOnTop(true);
-					popup.setVisible(true);
+						getView().getTabsPane().getReportPanel().getPopup().setAlwaysOnTop(true);
+						getView().getTabsPane().getReportPanel().getPopup().setVisible(true);
 				
 					}
 					
 					calculateItems();
 					if (index>-1)
-					{popup.getTable().revalidate();
-					popup.setTableModel(saleItems,listq);
-					popup.setTotal(total);
-					popup.setName(name);
+					{getView().getTabsPane().getReportPanel().getPopup().getTable().revalidate();
+					getView().getTabsPane().getReportPanel().getPopup().setTableModel(saleItems,listq);
+					getView().getTabsPane().getReportPanel().getPopup().setTotal(total);
+					getView().getTabsPane().getReportPanel().getPopup().setName(name);
 					
 					}		
 					else JOptionPane.showMessageDialog(null,
