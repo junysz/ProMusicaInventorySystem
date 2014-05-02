@@ -14,7 +14,9 @@ import javax.swing.border.TitledBorder;
 import javax.swing.JTable;
 
 import java.awt.Dialog;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
@@ -53,6 +55,8 @@ public class SalesPanel extends JPanel {
 	public SalesPanel() {
 		setLayout(new MigLayout("", "[grow][]", "[][51.00][grow][grow]"));
 		setpSale(new PopupSaleDialog());
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		pSale.setLocation(dim.width/2-pSale.getSize().width/2, dim.height/2-pSale.getSize().height/2);
 		pSale.setModal(true);
 		filterByPanel = new JPanel();
 		filterByPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 1, true), "Filter Results By:", TitledBorder.CENTER, TitledBorder.TOP, null, null));

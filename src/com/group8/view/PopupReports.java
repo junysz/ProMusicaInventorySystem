@@ -64,15 +64,12 @@ public class PopupReports extends JDialog {
 	public void setTableModel(List list1,List list2)
 	{   
 		
-		PopupTableModel.fireTableDataChanged();
+		
 		PopupTableModel.setTableModel(list1,list2);
 		saleItemsTable.setModel(PopupTableModel);
-
+		PopupTableModel.fireTableDataChanged();
 	}
-	public void addTableModelListener(TableModelListener tml)
-	{
-		saleItemsTable.getModel().addTableModelListener(tml);
-	}
+	
 	public void setTotal(double total)
 	{
 		totalTF.setText(""+total);

@@ -3,26 +3,18 @@ package com.group8.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
 import javax.swing.JOptionPane;
-
-import com.group8.controller.ReservationController.logoutButtonListener;
-import com.group8.controller.SalesController.QuantityChangeListener;
 import com.group8.model.Item;
 import com.group8.model.MainModel;
 import com.group8.model.Sale;
-import com.group8.view.CheckoutTableModel;
 import com.group8.view.MainFrame;
-import com.group8.view.PopupReports;
-import com.group8.view.PopupSaleDialog;
-import com.group8.view.ReportPopupTableModel;
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
+
 
 public class ReportsController {
 	
 	private Controller controller;
 	ArrayList<Sale> saleList=new ArrayList <Sale>();	
-	private ArrayList<Item> saleItems = new ArrayList<Item>();
+	private ArrayList<Item> itemsSold = new ArrayList<Item>();
 	private ArrayList<Integer> listq = new ArrayList<Integer>();
 	int index=-1; double total=0; String name="";
 
@@ -45,10 +37,9 @@ public class ReportsController {
 			java.sql.Date date1=  getView().getTabsPane().getReportPanel().getDate1();//get first date from the ReportPanel
 			java.sql.Date date2=	getView().getTabsPane().getReportPanel().getDate2();	//get the second date			
 			saleList=getModel().getSalesByDate(date1,date2); //query database for Sales between the two dates
-			System.out.println(saleList.get(0).getName());
 			if (date1!=null && date2!=null)
 			{
-				System.out.println("Dates are valid...");
+				
 				getView().getTabsPane().getReportPanel().setTableModel(saleList);	//set the table if dates are not null
 				
 				if (date1.after(date2))
@@ -81,40 +72,27 @@ public class ReportsController {
 	class CheckSelectedListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-
-			try{
 				
-				{
-					/*
-					 * Make popup visible if it's not, and refresh table with the items
-					 */
-					if(!getView().getTabsPane().getReportPanel().getPopup().isVisible())
-					{
-						getView().getTabsPane().getReportPanel().getPopup().setAlwaysOnTop(true);
-						getView().getTabsPane().getReportPanel().getPopup().setVisible(true);
-				
-					}
 					
+					listq.clear();
 					calculateItems();
 					if (index>-1)
-					{getView().getTabsPane().getReportPanel().getPopup().getTable().revalidate();
-					getView().getTabsPane().getReportPanel().getPopup().setTableModel(saleItems,listq);
+					{
+					System.out.println("Number of elements of list is:  "+listq.size());
+			
+					getView().getTabsPane().getReportPanel().getPopup().setTableModel(itemsSold,listq);
 					getView().getTabsPane().getReportPanel().getPopup().setTotal(total);
-					getView().getTabsPane().getReportPanel().getPopup().setName(name);
+					getView().getTabsPane().getReportPanel().getPopup().setAlwaysOnTop(true);
+					getView().getTabsPane().getReportPanel().getPopup().setVisible(true);
+					
 					
 					}		
 					else JOptionPane.showMessageDialog(null,
 							"Please select a row of table first",
 							"Warning",
-							JOptionPane.WARNING_MESSAGE);
-					}
-
-			}catch(Exception exception)
-			{
-				exception.printStackTrace();
-			}
-		}
-	}
+							JOptionPane.WARNING_MESSAGE);			
+		           }
+	          }
 	
 	//Calculate what items should be placed in the popup table
 	public void calculateItems()
@@ -146,17 +124,19 @@ public class ReportsController {
 		 listq.add(counter);
 		 
 		}
-			 	 
+	
+	//Clear the list of items to be displayed before constructing another model 
+     itemsSold.clear();
+   
+	//Adding items to the list to be put in the table model
 	for (int i=0;i<tempList2.size();i++)
 	{
 	int ID=tempList2.get(i);
-
 	Item item=getModel().getItemByID(ID);
-	saleItems.add(item);
+	itemsSold.add(item);
     
 	}
 	  	  	}
-	
 	
 		
 	public MainFrame getView(){

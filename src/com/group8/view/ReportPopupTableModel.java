@@ -23,7 +23,7 @@ public class ReportPopupTableModel extends AbstractTableModel {
 	}
 	//method used by ItemTableModel in the ReservationPanel class
 	public void setTableModel(List<Item>db,List<Integer> db2){
-		fireTableDataChanged();
+	//	fireTableDataChanged();
 		this.db=db;
 		this.db2=db2;
 	}

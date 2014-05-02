@@ -17,9 +17,11 @@ import java.util.List;
 
 import javax.swing.JButton;
 
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.SystemColor;
+import java.awt.Toolkit;
 
 import javax.swing.border.LineBorder;
 
@@ -44,6 +46,8 @@ public class ReportsPanel extends JPanel {
 		
 		
 		popup = new PopupReports();
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		popup.setLocation(dim.width/2-popup.getSize().width/2, dim.height/2-popup.getSize().height/2);
 		popup.setModal(true);
 		setAlignmentX(23.0f);
 		setFont(new Font("Tahoma", Font.BOLD, 12));
