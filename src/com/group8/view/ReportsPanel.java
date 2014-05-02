@@ -26,6 +26,7 @@ import java.awt.Toolkit;
 import javax.swing.border.LineBorder;
 
 import java.awt.Cursor;
+import java.awt.event.ActionEvent;
 
 
 @SuppressWarnings("serial")
@@ -37,8 +38,8 @@ public class ReportsPanel extends JPanel {
 	private JDateChooser date2;
 	private JLabel date1Label,date2Label;
 	private JButton logoutButton;
-	private JButton btnNewButton;
-	private JButton btnNewButton_1;
+	private JButton saveButton;
+	private JButton printButton;
 	private JButton CheckSelected;;  
 	private PopupReports popup;
 
@@ -70,6 +71,7 @@ public class ReportsPanel extends JPanel {
 		btnReport = new JButton("Get report");  //Button to generate the reports
 		btnReport.setFont(new Font("Cambria", Font.BOLD, 13));
 		add(btnReport, "cell 12 6");
+		
 
 
 
@@ -90,22 +92,27 @@ public class ReportsPanel extends JPanel {
 		CheckSelected = new JButton("Check selected sale");
 		CheckSelected.setFont(new Font("Cambria", Font.BOLD, 13));
 		add(CheckSelected, "cell 13 10 4 1");
+		CheckSelected.setEnabled(false);
 		
-		btnNewButton_1 = new JButton("Print");
-		btnNewButton_1.setFont(new Font("Cambria", Font.BOLD, 13));
-		add(btnNewButton_1, "cell 5 11");
+		printButton = new JButton("Print");
+		printButton.setFont(new Font("Cambria", Font.BOLD, 13));
+		add(printButton, "cell 5 11");
 		
-		btnNewButton = new JButton("Save");
-		btnNewButton.setFont(new Font("Cambria", Font.BOLD, 13));
-		add(btnNewButton, "cell 6 11");
+		saveButton = new JButton("Save");
+		saveButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		saveButton.setFont(new Font("Cambria", Font.BOLD, 13));
+		add(saveButton, "cell 6 11");
 
 		logoutButton = new JButton("Logout");
 		logoutButton.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
 		logoutButton.setForeground(Color.BLACK);
 		logoutButton.setFont(new Font("Cambria", Font.BOLD, 13));
 		add(logoutButton, "cell 15 11,aligny bottom");
-
-
+        
+       
 
 	}
 	public void addTableListener(ActionListener listenForBtnReport)
@@ -196,13 +203,43 @@ public class ReportsPanel extends JPanel {
 	public JButton getLogoutButton() {
 		return logoutButton;
 	}
+	public JButton getCheckReport() {
+		return CheckSelected;
+	}
 	public PopupReports getPopup() {
 		return popup;
 	}
 	public void setPopup(PopupReports popup) {
 		this.popup = popup;
 	}
+	
+	public void clearDates()
+	{
+		
+		 date1.setDate(null);
+		 date2.setDate(null);
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

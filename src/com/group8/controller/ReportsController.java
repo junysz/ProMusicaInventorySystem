@@ -20,7 +20,6 @@ public class ReportsController {
 
 	public ReportsController(Controller controller){
 		this.controller=controller;
-
 		getView().getTabsPane().getReportPanel().addTableListener(new PopulateTable2Listener());
 		getView().getTabsPane().getReportPanel().logoutButtonListener(new logoutButtonListener());
 		getView().getTabsPane().getReportPanel().CheckSelectedListener(new CheckSelectedListener());
@@ -31,8 +30,7 @@ public class ReportsController {
 	class PopulateTable2Listener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 
-
-				        		    
+			getView().getTabsPane().getReportPanel().getCheckReport().setEnabled(true);	        		    
 			System.out.println("Updating the table...");
 			java.sql.Date date1=  getView().getTabsPane().getReportPanel().getDate1();//get first date from the ReportPanel
 			java.sql.Date date2=	getView().getTabsPane().getReportPanel().getDate2();	//get the second date			
@@ -50,6 +48,7 @@ public class ReportsController {
 			else 
 			{  getView().getTabsPane().getReportPanel().warnDateNull(); //if any date null warn user
 			}
+			getView().getTabsPane().getReportPanel().clearDates();	
 		}
 	}
 
@@ -78,8 +77,8 @@ public class ReportsController {
 					calculateItems();
 					if (index>-1)
 					{
-					System.out.println("Number of elements of list is:  "+listq.size());
-			
+						
+					System.out.println("Number of elements of list is:  "+listq.size());			
 					getView().getTabsPane().getReportPanel().getPopup().setTableModel(itemsSold,listq);
 					getView().getTabsPane().getReportPanel().getPopup().setTotal(total);
 					getView().getTabsPane().getReportPanel().getPopup().setAlwaysOnTop(true);
@@ -99,45 +98,43 @@ public class ReportsController {
 	{//getting the index of the selected row in the table of sales
 	index=getView().getTabsPane().getReportPanel().getIndexRow();
 	//Getting the total for the specified sale
-	total=saleList.get(index).getTotalPrice();
-  //a temporary list to hold all the Id-s of the sold items
-	ArrayList<Integer> tempList=new ArrayList<Integer>();
-	int index1=saleList.get(index).getSaleID();  //index1 holds the saleId of the sale selected in the table
-	
-     tempList=getModel().getItemsSold(index1);//get the array of id-s from quering the Sale table
+	if (index>-1)   {
+		               total=saleList.get(index).getTotalPrice();
+                       //a temporary list to hold all the Id-s of the sold items
+	                   ArrayList<Integer> tempList=new ArrayList<Integer>();
+	                   int index1=saleList.get(index).getSaleID();  //index1 holds the saleId of the sale selected in the table	
+                        tempList=getModel().getItemsSold(index1);//get the array of id-s from quering the Sale table
     
-     //a second temporary list to extract the unique Id-s of items
-	ArrayList<Integer> tempList2=new ArrayList<Integer>();
-	 
+                         //a second temporary list to extract the unique Id-s of items
+	                    ArrayList<Integer> tempList2=new ArrayList<Integer>(); 
 	
-	for( int i=0;i<tempList.size();i++)
-	    {
-		int counter=1;
-		tempList2.add(tempList.get(i));
-		for (int j=i+1;j<tempList.size();j++)
-			if (tempList.get(j)==tempList.get(i))				
+	                     for( int i=0;i<tempList.size();i++)
+					    {
+						 int counter=1;
+						 tempList2.add(tempList.get(i));
+						 for (int j=i+1;j<tempList.size();j++)
+							if (tempList.get(j)==tempList.get(i))				
 												{  
 													counter++;
 													 tempList.remove(j);				
-												}
-	 
-		 listq.add(counter);
-		 
-		}
+												}	 
+		                  listq.add(counter);
+					     }
+		
 	
-	//Clear the list of items to be displayed before constructing another model 
-     itemsSold.clear();
-   
-	//Adding items to the list to be put in the table model
-	for (int i=0;i<tempList2.size();i++)
-	{
-	int ID=tempList2.get(i);
-	Item item=getModel().getItemByID(ID);
-	itemsSold.add(item);
-    
-	}
+						//Clear the list of items to be displayed before constructing another model 
+					     itemsSold.clear();
+					   
+						//Adding items to the list to be put in the table model
+						   for (int i=0;i<tempList2.size();i++)
+						    {
+								int ID=tempList2.get(i);
+								Item item=getModel().getItemByID(ID);
+								itemsSold.add(item);
+					    
+						   }
 	  	  	}
-	
+	  }
 		
 	public MainFrame getView(){
 		return controller.getView();
