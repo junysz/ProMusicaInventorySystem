@@ -533,4 +533,21 @@ public class ReservationPanel extends JPanel
 				JOptionPane.INFORMATION_MESSAGE);
 
 	}
+	public void successful(){
+
+		JOptionPane.showMessageDialog(null,
+				"Reservation updated",
+				"Warning",
+				JOptionPane.INFORMATION_MESSAGE);
+
+	}
+	public void successfuly(){
+
+		JOptionPane.showMessageDialog(null,
+				"Reservation terminated",
+				" ",
+				JOptionPane.INFORMATION_MESSAGE);
+
+	}
 }
+

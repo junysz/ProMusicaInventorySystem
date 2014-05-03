@@ -98,21 +98,27 @@ public class ReservationController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
-			double newDeposit;
+			double newDeposit,oldDeposit;
 			Reservation reserved;
+			
 			reserved=new Reservation();
 			String docket=getView().getTabsPane().getReservationPanel().getDocketNoTF().getText();			
 			String newDepositString=getView().getTabsPane().getReservationPanel().getupdateDepositTF().getText();
+			String oldDepositString=getView().getTabsPane().getReservationPanel().getCurrentDepositTF().getText();
 			try
 			{
-				newDeposit = Double.parseDouble(newDepositString);		    					
-				reserved.setDeposit(newDeposit);
+				newDeposit = Double.parseDouble(newDepositString);	
+				oldDeposit= Double.parseDouble(oldDepositString);
+				reserved.setDeposit(newDeposit+oldDeposit);
 				double price=Double.parseDouble(getView().getTabsPane().getReservationPanel().getTotalPriceTF().getText());
 
-				if (newDeposit>price-1)  getView().getTabsPane().getReservationPanel().warnUpdate();
+				if (newDeposit+oldDeposit>price-1)  getView().getTabsPane().getReservationPanel().warnUpdate();
 				else 	
-				{getModel().updateReservedItem(docket,newDeposit);
-				getView().getTabsPane().getReservationPanel().getCurrentDepositTF().setText(newDeposit+"");		
+				{
+				getModel().updateReservedItem(docket,newDeposit+oldDeposit);
+				getView().getTabsPane().getReservationPanel().getCurrentDepositTF().setText((newDeposit+oldDeposit)+"");	
+				getView().getTabsPane().getReservationPanel().successful();
+				getView().getTabsPane().getReservationPanel().getupdateDepositTF().setText("");				
 				}
 			}
 			catch (Exception io) {
@@ -125,18 +131,19 @@ public class ReservationController {
 	//Class to remove a Reservation  
 	class RemoveBtn implements ActionListener
 	{
-
 		@Override
 		public void actionPerformed(ActionEvent e) {				
 
 			String docket=getView().getTabsPane().getReservationPanel().getDocketNoTF().getText();
-
 			getModel().removeReservedItem(docket);
+			populateList();
 			getView().getTabsPane().getReservationPanel().getDocketNoTF().setText("");
 			getView().getTabsPane().getReservationPanel().getBrandModelTF().setText("");
 			getView().getTabsPane().getReservationPanel().getCurrentDepositTF().setText("");
-			getView().getTabsPane().getReservationPanel().getTotalPriceTF().setText("");		
-			populateList();
+			getView().getTabsPane().getReservationPanel().getTotalPriceTF().setText("");
+			getView().getTabsPane().getReservationPanel().getDateTF().setText("");
+			getView().getTabsPane().getReservationPanel().successfuly();
+			
 		}
 
 	}
