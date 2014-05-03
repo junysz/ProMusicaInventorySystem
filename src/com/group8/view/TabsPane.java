@@ -1,6 +1,8 @@
 package com.group8.view;
 
+import javax.swing.JComboBox;
 import javax.swing.JTabbedPane;
+import java.awt.Font;
 /*
  * 
  *  RELEVANT INFORMATION ON HOW TO USE TABBED PANES IN THE LINK BELOW:
@@ -16,6 +18,7 @@ public class TabsPane extends JTabbedPane {
 	
 
 	public TabsPane() {
+		setFont(new Font("Cambria", Font.BOLD, 15));
 		setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 		
 		makeSalePanel = new SalesPanel();
@@ -56,6 +59,11 @@ public class TabsPane extends JTabbedPane {
 	public SalesPanel getMakeSalePanel()
 	{
 		return makeSalePanel;
+	}
+	public void emptyInputs()
+	{
+		makeSalePanel.getSearchTF().setText("");
+		makeSalePanel.getSelectCategoryCB().setSelectedIndex(-1);
 	}
 	
 }

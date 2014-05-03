@@ -3,6 +3,7 @@ package com.group8.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -56,6 +57,7 @@ public class ReservationController {
 		private String item;
 		private double totalPrice,deposit;
 		private String docketSelected;
+		Date date;
 		@Override
 		public void valueChanged(ListSelectionEvent e) {
 
@@ -74,6 +76,7 @@ public class ReservationController {
 					item=getModel().getItemByID(itemID).getBrand()+" "+getModel().getItemByID(itemID).getModel();
 					totalPrice=getModel().getItemByID(itemID).getPrice();
 					deposit=myList.get(i).getDeposit();
+					date = myList.get(i).getDate();
 
 				}
 
@@ -81,6 +84,7 @@ public class ReservationController {
 			getView().getTabsPane().getReservationPanel().getBrandModelTF().setText(item);
 			getView().getTabsPane().getReservationPanel().getCurrentDepositTF().setText(deposit+"");
 			getView().getTabsPane().getReservationPanel().getTotalPriceTF().setText(totalPrice+"");
+			getView().getTabsPane().getReservationPanel().getDateTF().setText(""+ date);
 
 			getView().getTabsPane().getReservationPanel().getEndReservation().setEnabled(true);
 			getView().getTabsPane().getReservationPanel().getNewButton().setEnabled(true);

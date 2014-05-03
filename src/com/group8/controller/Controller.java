@@ -1,4 +1,6 @@
 package com.group8.controller;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -25,11 +27,11 @@ public class Controller implements CategoryListener{
 	private MainFrame theView;  	
 	private MainModel theModel;	
 	protected SalesController salesController;
-	protected ReservationController reserveController;
-	protected ReportsController reportController;
 	protected CategoriesController categoriesController;
 	protected ItemsController itemsController;
 	protected AccountsController accountsController;
+	protected ReservationController reserveController;
+	protected ReportsController reportController;
 
 
 	
@@ -38,25 +40,23 @@ public class Controller implements CategoryListener{
 	{
 		this.theView=theView;
 		this.theModel=theModel;
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		theView.setLocation(dim.width/2-theView.getSize().width/2, dim.height/2-theView.getSize().height/2);
 		
-		/*******************Login Panel********************/
+		/***************SalesPanel******************/
+		salesController= new SalesController(this);
+		/*******************Login Panel******** */
 		theView.addLoginListener(new LoginController(theView, theModel));
 		theView.setCategoryListener(this);
-		
-		/***************SalesPanel************************/
-		salesController= new SalesController(this);
-
-		/*******************RESERVE PANEL*****************/ 
-		reserveController= new ReservationController(this);
-		
-		/*******************Maintain Panel****************/
+		/*******************Maintain Panel*/
 		theView.getTabsPane().getMaintainPanel().getEditAccountTypeComboBox().setSelectedIndex(-1);
 		categoriesController= new CategoriesController(this);
 		itemsController= new ItemsController(this);
 		accountsController= new AccountsController(this);		
 		update();//comboBoxes
-		updteAccounts();	
-		
+		updteAccounts();		
+		/*******************RESERVE PANEL*****************/ 
+		reserveController= new ReservationController(this);
 		/*******************REPORT PANEL*****************/ 		 
 		reportController= new ReportsController(this);
 		
@@ -168,5 +168,11 @@ public class Controller implements CategoryListener{
 
 		theView.getTabsPane().getMaintainPanel().setAccountModel(accountNames);
 	}
+
+
+
+
+
+
 
 }

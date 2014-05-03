@@ -7,6 +7,8 @@ import java.util.List;
 import javax.swing.ComboBoxModel;
 import javax.swing.event.ListDataListener;
 
+import com.sun.org.apache.bcel.internal.generic.NEW;
+
 public class CategoryComboBoxModel  implements ComboBoxModel<String> {
 
 	  
@@ -45,7 +47,12 @@ public class CategoryComboBoxModel  implements ComboBoxModel<String> {
 
 	@Override
 	public void setSelectedItem(Object anItem) {
-		selectedCategory=anItem.toString();
+		if(anItem==null)
+		{
+			selectedCategory = new String("");
+		}
+		else
+			selectedCategory=anItem.toString();
 		
 	}
 

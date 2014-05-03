@@ -24,6 +24,8 @@ public class MainModel {
 	private DataInserts inserts;
 	private DataQueries queries;
 	private DataUpdates updates;
+	private int loggedID;
+	private String loggedName;
 
 	//Constructor initializes the DatabaseConnection and sets up Database Interaction classes
 	public MainModel()
@@ -73,6 +75,7 @@ public class MainModel {
 	public void addNewSale(Sale s, Account a)
 	{
 		inserts.insertNewSale(s, a);
+		
 	}
 	public void addNewItemSold(Item i, Sale s, double itemSalePrice)
 	{
@@ -124,7 +127,10 @@ public class MainModel {
 	{
 		updates.updateAccount(ID, name, pass, type, flag);
 	}
-	
+	public void updateItemLevels(Item item, int by)
+	{
+		updates.updateItemStockLevels(item, by);
+	}
 	/*
 	//queries methods
 	public List<Item> getMeSomeItems(){
@@ -137,7 +143,14 @@ public class MainModel {
 		return someItems.getMeSomeSubCategories();
 	}
 	*/
-
+	public int getItemSubCatID(int id)
+	{
+		return queries.getItemSubCatID(id);
+	}
+	public int getLastSaleID()
+	{
+		return queries.getLastSaleID();
+	}
 	public ArrayList<String>  getCategoryNames()
 	{
 		return queries.getCategoryNames();
@@ -243,8 +256,23 @@ public class MainModel {
 			return i; //returns the item
 			
 		}
+		public int getLoggedID() {
+			return loggedID;
+		}
+		public void setLoggedID(int loggedID) {
+			this.loggedID = loggedID;
+		}
+		public String getLoggedName() {
+			return loggedName;
+		}
+		public void setLoggedName(String loggedName) {
+			this.loggedName = loggedName;
+		}
 	 
-	 
+		public  ArrayList<Integer>getItemsSold(int saleID)
+		 {
+			 return queries.getItemsSold(saleID);
+		 }
 
 	 
 }

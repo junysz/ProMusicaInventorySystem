@@ -1,7 +1,11 @@
 package com.group8.controller;
 
+import java.awt.Dimension;
+import java.awt.GraphicsDevice;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.EOFException;
 
 import javax.swing.JOptionPane;
 
@@ -26,6 +30,9 @@ public class LoginController implements ActionListener {
 	private String name1="" ,pass1="",type="";
 	boolean valid=false;
 	boolean flag=true;
+	int id;
+	Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+	GraphicsDevice myDevice = java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 	
 	public LoginController(MainFrame v, MainModel m)
 	{
@@ -48,6 +55,7 @@ public class LoginController implements ActionListener {
 				     pass1=theModel.getAllAccounts().get(i).getPassword();	
 				     flag=theModel.getAllAccounts().get(i).getFlag();
 				     type=theModel.getAllAccounts().get(i).getType();
+				     id=theModel.getAllAccounts().get(i).getAccountID();
 				 }
 			 
 		 }
@@ -77,7 +85,16 @@ public class LoginController implements ActionListener {
 	    		                            	  
 	    		                             else  if (type.equals("Sales Staff"))  theView.displayMainViewStaff();
 	    		                                                                
-	    		                                   else   theView.displayMainView();
+	    		                                   else   
+	    		                                   {
+	    		                                	   	theView.setResizable(true);
+	    		                                	    theModel.setLoggedID(id);
+	    		                                	    theModel.setLoggedName(name1);
+	    		                                	    theView.initPanels();
+	    		                                	   	theView.displayMainView();
+	    		                                	   	theView.setSize(1250, 700);
+	    		                                		theView.setLocation(dim.width/2-theView.getSize().width/2, dim.height/2-theView.getSize().height/2);
+	    		                                   }
 	    		                                    	
 	
 	              }

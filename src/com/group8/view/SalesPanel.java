@@ -13,7 +13,10 @@ import javax.swing.JComboBox;
 import javax.swing.border.TitledBorder;
 import javax.swing.JTable;
 
+import java.awt.Dialog;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
@@ -22,8 +25,11 @@ import java.util.List;
 import javax.swing.JScrollPane;
 
 import com.group8.model.Item;
+
 import java.awt.event.ActionEvent;
+
 import javax.swing.border.LineBorder;
+
 import java.awt.Color;
 
 public class SalesPanel extends JPanel {
@@ -42,12 +48,16 @@ public class SalesPanel extends JPanel {
 	private JButton btnAddToCart;
 	private JButton btnClearCart;
 	private JButton logoutButton;
+	private PopupSaleDialog pSale;
 	/**
 	 * Create the panel.
 	 */
 	public SalesPanel() {
 		setLayout(new MigLayout("", "[grow][]", "[][51.00][grow][grow]"));
-		
+		setpSale(new PopupSaleDialog());
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		pSale.setLocation(dim.width/2-pSale.getSize().width/2, dim.height/2-pSale.getSize().height/2);
+		pSale.setModal(true);
 		filterByPanel = new JPanel();
 		filterByPanel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 1, true), "Filter Results By:", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		add(filterByPanel, "cell 0 1,grow");
@@ -196,5 +206,11 @@ public class SalesPanel extends JPanel {
 	public void addKeyListenerToSerchTextBox(KeyListener k)
 	{
 		searchTF.addKeyListener(k);
+	}
+	public PopupSaleDialog getpSale() {
+		return pSale;
+	}
+	public void setpSale(PopupSaleDialog pSale) {
+		this.pSale = pSale;
 	}
 }

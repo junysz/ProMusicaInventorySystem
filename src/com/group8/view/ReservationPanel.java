@@ -81,7 +81,7 @@ public class ReservationPanel extends JPanel
 	private JButton Logout2;
 	private Label label;
 	private Label label_2;
-	private JTextField textField;
+	private JTextField DateTF;
 	private JButton logoutButton;
 	private JButton logoutButton2;
 
@@ -194,7 +194,7 @@ public class ReservationPanel extends JPanel
 		findReservationPanel.setLayout(new MigLayout("", "[10.00][13.00,grow][395.00,grow,left][grow][][][][][][]", "[][269.00][79.00][51.00][98.00][48.00,grow]"));
 		list = new JList<String>(model);
 		list.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
-		list.setBackground(SystemColor.inactiveCaptionBorder);
+		list.setBackground(new Color(255, 255, 255));
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list.setFont(new Font("Cambria", Font.PLAIN, 13));
 		JScrollPane scrollPane = new JScrollPane(list);
@@ -270,11 +270,12 @@ public class ReservationPanel extends JPanel
 		label_2.setFont(new Font("Cambria", Font.BOLD, 13));
 		reservationDetailsPanel.add(label_2, "cell 21 25,alignx right");
 
-		textField = new JTextField();
-		textField.setEnabled(false);
-		textField.setEditable(false);
-		reservationDetailsPanel.add(textField, "cell 22 25 2 1,growx");
-		textField.setColumns(10);
+		DateTF = new JTextField();
+		DateTF.setFont(new Font("Cambria", Font.BOLD, 13));
+		DateTF.setEnabled(false);
+		DateTF.setEditable(false);
+		reservationDetailsPanel.add(DateTF, "cell 22 25 2 1,growx");
+		DateTF.setColumns(10);
 
 		btnNewButton = new JButton("Update Reservation");
 		findReservationPanel.add(btnNewButton, "cell 2 2,alignx center");
@@ -339,6 +340,10 @@ public class ReservationPanel extends JPanel
 	public JTextField getupdateDepositTF()
 	{
 		return updateDepositTF;
+	}
+	public JTextField getDateTF()
+	{
+		return DateTF;
 	}
 	public JList<String> getList()
 	{

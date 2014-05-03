@@ -55,15 +55,4 @@ public class ItemTableModel extends AbstractTableModel {
 		return null;
 	}
 	
-	//this will update tableModel with new data
-	/*@Override
-	public void setValueAt(Object aValue, int row, int column) {
-		// TODO Auto-generated method stub
-		super.setValueAt(aValue, row, column);
-	}*/
-	
-	/*public void setValueAt(List<Item> value, int row, int col) {
-	    db= value;
-	    fireTableCellUpdated(row, col);
-	}*/
 }
