@@ -1,6 +1,8 @@
 package com.group8.controller;
 
+import java.awt.Dimension;
 import java.awt.GraphicsDevice;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.EOFException;
@@ -29,6 +31,7 @@ public class LoginController implements ActionListener {
 	boolean valid=false;
 	boolean flag=true;
 	int id;
+	Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 	GraphicsDevice myDevice = java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 	
 	public LoginController(MainFrame v, MainModel m)
@@ -89,7 +92,8 @@ public class LoginController implements ActionListener {
 	    		                                	    theModel.setLoggedName(name1);
 	    		                                	    theView.initPanels();
 	    		                                	   	theView.displayMainView();
-	    		                                	   	myDevice.setFullScreenWindow(theView);
+	    		                                	   	theView.setSize(1250, 700);
+	    		                                		theView.setLocation(dim.width/2-theView.getSize().width/2, dim.height/2-theView.getSize().height/2);
 	    		                                   }
 	    		                                    	
 	

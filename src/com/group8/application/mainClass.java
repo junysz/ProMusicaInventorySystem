@@ -22,7 +22,7 @@ public class mainClass {
 					/*this line closes javaw.exe process in system processes
 					 * Without this line when closing program javaw process stays in memory
 					 */
-					new Controller(theView,theModel).getView().setVisible(true);;	
+					new Controller(theView,theModel).getView().setVisible(true);	
 					
 				} catch (Exception e) {
 					e.printStackTrace();

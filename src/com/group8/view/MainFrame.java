@@ -3,6 +3,8 @@ package com.group8.view;
 
 
 import java.awt.CardLayout;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -21,6 +23,7 @@ public class MainFrame extends JFrame
 	private JPanel contentPane;
 	private LoginPanel loginPanel;
 	private TabsPane tabbedPane;
+	Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 
 
 
@@ -41,8 +44,6 @@ public class MainFrame extends JFrame
 		contentPane.add(loginPanel);
 		
 		displayLoginView();
-
-		setSize(1250, 700);
 		
 	
 	}
@@ -96,6 +97,8 @@ public class MainFrame extends JFrame
 		 {
 						
 			displayLoginView();
+			setSize(450, 560);
+    		setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 			
 		 }
 
