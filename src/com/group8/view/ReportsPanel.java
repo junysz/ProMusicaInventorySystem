@@ -38,10 +38,11 @@ public class ReportsPanel extends JPanel {
 	private JDateChooser date2;
 	private JLabel date1Label,date2Label;
 	private JButton logoutButton;
-	private JButton saveButton;
+	private JButton printItemsButton;
 	private JButton printButton;
 	private JButton CheckSelected;;  
 	private PopupReports popup;
+	private JButton saveButton;
 
 	public ReportsPanel() {
 		
@@ -52,7 +53,7 @@ public class ReportsPanel extends JPanel {
 		popup.setModal(true);
 		setAlignmentX(23.0f);
 		setFont(new Font("Tahoma", Font.BOLD, 12));
-		setLayout(new MigLayout("", "[95.00][24.00][][][grow][][][grow][][][][grow][][][grow][][]", "[][][][][][][][34.00][][][100px:250:400px,grow][90][1.00]"));
+		setLayout(new MigLayout("", "[95.00][24.00][][][][grow][][][][grow][][][][][][][][][][][grow][][][grow][][]", "[][][][][][][][34.00][][][100px:250:400px,grow][90][1.00]"));
 
 		date1Label = new JLabel("Start Date");
 		date1Label.setFont(new Font("Cambria", Font.BOLD, 13));
@@ -63,14 +64,14 @@ public class ReportsPanel extends JPanel {
 
 		date2Label = new JLabel("End Date");
 		date2Label.setFont(new Font("Cambria", Font.BOLD, 13));
-		add(date2Label, "cell 5 6");
+		add(date2Label, "cell 6 6");
 
 		date2 = new JDateChooser();
-		add(date2, "cell 6 6,grow");
+		add(date2, "cell 7 6,grow");
 
 		btnReport = new JButton("Get report");  //Button to generate the reports
 		btnReport.setFont(new Font("Cambria", Font.BOLD, 13));
-		add(btnReport, "cell 12 6");
+		add(btnReport, "cell 21 6");
 		
 
 
@@ -78,39 +79,41 @@ public class ReportsPanel extends JPanel {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setForeground(SystemColor.text);
 		scrollPane.setBorder(new LineBorder(new Color(130, 135, 144), 2, true));
-		add(scrollPane, "cell 1 10 12 1,grow");
+		add(scrollPane, "cell 1 10 21 1,grow");
 
 		ReportTableModel= new ReportTableModel();
 		tableReport = new JTable();
+		tableReport.getTableHeader().setFont( new Font( "Cambria" , Font.BOLD, 14 ));
 		tableReport.setForeground(Color.BLACK);
 		tableReport.setBackground(SystemColor.text);
-		tableReport.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		tableReport.setFont(new Font("Cambria", Font.BOLD, 13));
 		tableReport.setModel(ReportTableModel);//set model for table
 
 		scrollPane.setViewportView(tableReport);
 		
 		CheckSelected = new JButton("Check selected sale");
 		CheckSelected.setFont(new Font("Cambria", Font.BOLD, 13));
-		add(CheckSelected, "cell 13 10 4 1");
+		add(CheckSelected, "cell 22 10 4 1");
 		CheckSelected.setEnabled(false);
 		
-		printButton = new JButton("Print");
+		printItemsButton = new JButton("Print selected sale's items");
+		
+	
+		printButton = new JButton("Print all sales");
 		printButton.setFont(new Font("Cambria", Font.BOLD, 13));
-		add(printButton, "cell 5 11");
+		add(printButton, "cell 4 11");
+		printItemsButton.setFont(new Font("Cambria", Font.BOLD, 13));
+		add(printItemsButton, "cell 7 11");
 		
 		saveButton = new JButton("Save");
-		saveButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
 		saveButton.setFont(new Font("Cambria", Font.BOLD, 13));
-		add(saveButton, "cell 6 11");
+		add(saveButton, "cell 19 11");
 
 		logoutButton = new JButton("Logout");
 		logoutButton.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
 		logoutButton.setForeground(Color.BLACK);
 		logoutButton.setFont(new Font("Cambria", Font.BOLD, 13));
-		add(logoutButton, "cell 15 11,aligny bottom");
+		add(logoutButton, "cell 24 11,aligny bottom");
         
        
 
@@ -119,12 +122,23 @@ public class ReportsPanel extends JPanel {
 	{
 		btnReport.addActionListener(listenForBtnReport);
 	}
-   
+	public void printListener(ActionListener listen)
+	{
+		printButton.addActionListener(listen);
+	}
+	public void printListener2(ActionListener listen)
+	{
+		printItemsButton.addActionListener(listen);
+	}
 	public void CheckSelectedListener	(ActionListener listenForBtnReport)
 	{
 		CheckSelected.addActionListener(listenForBtnReport);
 	}
 
+	 public JTable getRableReport()
+	 {
+		 return tableReport;
+	 }
 	/*
 	 * I want to set Table Model
 	 * This will come from Model

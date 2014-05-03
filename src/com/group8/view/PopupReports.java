@@ -30,6 +30,7 @@ public class PopupReports extends JDialog {
 	private JLabel lblTotalSaleCost;
 	private JTextField totalTF;
 	ReportPopupTableModel	PopupTableModel;
+	private JButton okButton;
 	public PopupReports() {
 
 		getContentPane().setLayout(new MigLayout("", "[][grow]", "[grow][grow]"));
@@ -40,6 +41,8 @@ public class PopupReports extends JDialog {
 		setSize(500,400);
 		
 		saleItemsTable = new JTable();
+		saleItemsTable.getTableHeader().setFont( new Font( "Cambria" , Font.BOLD, 14 ));
+		saleItemsTable.setFont(new Font("Cambria", Font.BOLD, 13));
 		saleItemsTable.setCellSelectionEnabled(true);
 		saleItemsTable.setColumnSelectionAllowed(true);
 		scrollPane.setViewportView(saleItemsTable);
@@ -57,6 +60,10 @@ public class PopupReports extends JDialog {
 		totalTF.setText("00.00");
 		totalTF.setEditable(false);
 		totalTF.setColumns(8);
+		
+		okButton = new JButton("OK");
+		okButton.setFont(new Font("Cambria", Font.BOLD, 13));
+		panel.add(okButton);
 		PopupTableModel= new ReportPopupTableModel();
 		// TODO Auto-generated constructor stub
 	}
@@ -68,6 +75,10 @@ public class PopupReports extends JDialog {
 		PopupTableModel.setTableModel(list1,list2);
 		saleItemsTable.setModel(PopupTableModel);
 		PopupTableModel.fireTableDataChanged();
+	}
+	public void okButtonListener(ActionListener listenFor)
+	{
+		okButton.addActionListener(listenFor);
 	}
 	
 	public void setTotal(double total)

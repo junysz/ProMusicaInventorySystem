@@ -1,9 +1,11 @@
 package com.group8.controller;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.print.PrinterException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JTable.PrintMode;
 import com.group8.model.Item;
 import com.group8.model.MainModel;
 import com.group8.model.Sale;
@@ -16,14 +18,17 @@ public class ReportsController {
 	ArrayList<Sale> saleList=new ArrayList <Sale>();	
 	private ArrayList<Item> itemsSold = new ArrayList<Item>();
 	private ArrayList<Integer> listq = new ArrayList<Integer>();
-	int index=-1; double total=0; String name="";
+	int index=-1,index1; double total=0; String name="";
+	java.sql.Date date1,date2;
 
 	public ReportsController(Controller controller){
 		this.controller=controller;
 		getView().getTabsPane().getReportPanel().addTableListener(new PopulateTable2Listener());
 		getView().getTabsPane().getReportPanel().logoutButtonListener(new logoutButtonListener());
 		getView().getTabsPane().getReportPanel().CheckSelectedListener(new CheckSelectedListener());
-		
+		getView().getTabsPane().getReportPanel().printListener(new buttonPrinter());
+		getView().getTabsPane().getReportPanel().printListener2(new buttonItemsPrinter());
+		getView().getTabsPane().getReportPanel().getPopup().okButtonListener(new okButtonListener());
 	}
 
 
@@ -32,8 +37,8 @@ public class ReportsController {
 
 			getView().getTabsPane().getReportPanel().getCheckReport().setEnabled(true);	        		    
 			System.out.println("Updating the table...");
-			java.sql.Date date1=  getView().getTabsPane().getReportPanel().getDate1();//get first date from the ReportPanel
-			java.sql.Date date2=	getView().getTabsPane().getReportPanel().getDate2();	//get the second date			
+			 date1=  getView().getTabsPane().getReportPanel().getDate1();//get first date from the ReportPanel
+			 date2=	getView().getTabsPane().getReportPanel().getDate2();	//get the second date			
 			saleList=getModel().getSalesByDate(date1,date2); //query database for Sales between the two dates
 			if (date1!=null && date2!=null)
 			{
@@ -66,7 +71,19 @@ public class ReportsController {
 		}
 	}
 	
-	
+	class okButtonListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+
+			try{
+				getView().getTabsPane().getReportPanel().getPopup().dispose();
+
+			}catch(Exception exception)
+			{
+				exception.printStackTrace();
+			}
+		}
+	}
 	
 	class CheckSelectedListener implements ActionListener{
 		@Override
@@ -78,7 +95,7 @@ public class ReportsController {
 					if (index>-1)
 					{
 						
-					System.out.println("Number of elements of list is:  "+listq.size());			
+								
 					getView().getTabsPane().getReportPanel().getPopup().setTableModel(itemsSold,listq);
 					getView().getTabsPane().getReportPanel().getPopup().setTotal(total);
 					getView().getTabsPane().getReportPanel().getPopup().setAlwaysOnTop(true);
@@ -102,7 +119,7 @@ public class ReportsController {
 		               total=saleList.get(index).getTotalPrice();
                        //a temporary list to hold all the Id-s of the sold items
 	                   ArrayList<Integer> tempList=new ArrayList<Integer>();
-	                   int index1=saleList.get(index).getSaleID();  //index1 holds the saleId of the sale selected in the table	
+	                    index1=saleList.get(index).getSaleID();  //index1 holds the saleId of the sale selected in the table	
                         tempList=getModel().getItemsSold(index1);//get the array of id-s from quering the Sale table
     
                          //a second temporary list to extract the unique Id-s of items
@@ -131,8 +148,7 @@ public class ReportsController {
 								int ID=tempList2.get(i);
 								Item item=getModel().getItemByID(ID);
 								itemsSold.add(item);
-					    
-						   }
+					    						   }
 	  	  	}
 	  }
 		
@@ -142,5 +158,85 @@ public class ReportsController {
 	public MainModel getModel(){
 		return controller.getModel();
 	}
+	
+	
+	public class buttonPrinter implements ActionListener {
+				 
+	    public void actionPerformed(ActionEvent e) {
+	    	
+	    	 MessageFormat header = new MessageFormat("Sales from: "+date1.toString()+" to "+date2.toString() );
+	    	 MessageFormat footer = new MessageFormat("Page - {0}");
+	        
+	    	try {
+	    		 
+    	
+	    	    boolean complete = getView().getTabsPane().getReportPanel().getRableReport().print(PrintMode.FIT_WIDTH,header,footer);
+	    	    if (complete) {
+	    	       
+	    	       
+	    	    } else {
+	    	    	JOptionPane.showMessageDialog(null,
+		    				"Printing aborted by user",
+		    				"Warning",
+		    				JOptionPane.WARNING_MESSAGE);
+	    	     
+	    	    }
+	    	} catch (PrinterException pe) {
+	    		JOptionPane.showMessageDialog(null,
+	    				"Printing failed check if printer is connected.",
+	    				"Warning",
+	    				JOptionPane.WARNING_MESSAGE);
+	    	 
+	    	}
+	    }
+		
+	} 
+	    public class buttonItemsPrinter implements ActionListener {
+			 
+		    public void actionPerformed(ActionEvent e) {
+		    	
+		    	
+		    	
+		    	int row=getView().getTabsPane().getReportPanel().getRableReport().getSelectedRow();
+		    	 total=saleList.get(row).getTotalPrice();
+		    	 getView().getTabsPane().getReportPanel().getPopup().setTotal(total);		    	 
+		    	 MessageFormat header = new MessageFormat("Sale made by: "+saleList.get(row).getName()+"   Date: "+saleList.get(row).getDate().toString());   	 
+		    	
+		    	 MessageFormat footer = new MessageFormat("Page - {0}");
+		    	try {
+		    		 
+		    		listq.clear();
+					calculateItems();
+					if (index>-1)	
+					                  {
+						               getView().getTabsPane().getReportPanel().getPopup().setTableModel(itemsSold,listq);
+						             //  getView().getTabsPane().getReportPanel().getPopup().setAlwaysOnTop(true);
+									   getView().getTabsPane().getReportPanel().getPopup().setVisible(true);
+					                  }     
+					
+		    		MessageFormat footerFormat = new MessageFormat("Page - {0}");
+		    	    boolean complete = getView().getTabsPane().getReportPanel().getPopup().getTable().print(PrintMode.FIT_WIDTH,header,footer);
+		    	    if (complete) {
+		    	       
+		    	       
+		    	    } else {
+		    	    	JOptionPane.showMessageDialog(null,
+			    				"Printing aborted by user",
+			    				"Warning",
+			    				JOptionPane.WARNING_MESSAGE); 
+		    	     
+		    	    }
+		    	} catch (PrinterException pe) {
+		    		JOptionPane.showMessageDialog(null,
+		    				"Printing failed check if printer is connected.",
+		    				"Warning",
+		    				JOptionPane.WARNING_MESSAGE);
+		    	 
+		    	}
+		    }
+		}
+	}
+	
+		
 
-}
+
