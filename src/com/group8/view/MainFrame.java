@@ -5,14 +5,10 @@ package com.group8.view;
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JOptionPane;
-
 import com.group8.controller.LoginController;
-import com.group8.model.MainModel;
 
 
 
@@ -44,6 +40,7 @@ public class MainFrame extends JFrame
 		contentPane.add(loginPanel);
 		
 		displayLoginView();
+		
 		
 	
 	}

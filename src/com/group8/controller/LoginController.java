@@ -83,7 +83,14 @@ public class LoginController implements ActionListener {
                                                    theView.displayLoginView();
                                                   }
 	    		                            	  
-	    		                             else  if (type.equals("Sales Staff"))  theView.displayMainViewStaff();
+	    		                             else  if (type.equals("Sales Staff")) 
+	    		                            	{
+	    		                            	 theView.displayMainViewStaff();
+	    		                            	 theView.setResizable(true);
+ 		                                	   	theView.setSize(1250, 700);
+ 		                                		theView.setLocation(dim.width/2-theView.getSize().width/2, dim.height/2-theView.getSize().height/2);
+	    		                            	 }
+	    		                            	 
 	    		                                                                
 	    		                                   else   
 	    		                                   {
