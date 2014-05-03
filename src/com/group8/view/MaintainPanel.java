@@ -1069,7 +1069,15 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		rdbtnDisableAccount.setSelected(false);
 	}
 
+	public void setRdbtnDisableAccount(boolean b) {
+		rdbtnDisableAccount.setSelected(b);
+	}
 
+
+	public void setRdbtnEnableAccount(boolean b) {
+		rdbtnEnableAccount.setSelected(b);;
+	}
+	
 	public JRadioButton getRdbtnDisableAccount() {
 		return rdbtnDisableAccount;
 	}

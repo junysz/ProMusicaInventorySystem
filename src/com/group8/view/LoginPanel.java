@@ -91,8 +91,13 @@ public class LoginPanel extends JPanel {
 		add(labelMusica, "cell 0 0,alignx center,aligny center");
 		
 		label_2 = new Label("Powered by");
+<<<<<<< HEAD
 		label_2.setFont(new Font("Monotype Corsiva", Font.BOLD, 15));
 		add(label_2, "cell 0 23,alignx center");
+=======
+		label_2.setFont(new Font("Monotype Corsiva", Font.BOLD, 18));
+		add(label_2, "cell 2 24");
+>>>>>>> pawelNewS
 		JLabel labelGroup8 = new JLabel(new ImageIcon(wPic));
 		add(labelGroup8, "cell 0 24,alignx center,aligny center");
 		
