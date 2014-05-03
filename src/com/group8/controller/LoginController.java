@@ -1,7 +1,9 @@
 package com.group8.controller;
 
+import java.awt.GraphicsDevice;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.EOFException;
 
 import javax.swing.JOptionPane;
 
@@ -27,6 +29,7 @@ public class LoginController implements ActionListener {
 	boolean valid=false;
 	boolean flag=true;
 	int id;
+	GraphicsDevice myDevice = java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 	
 	public LoginController(MainFrame v, MainModel m)
 	{
@@ -81,11 +84,12 @@ public class LoginController implements ActionListener {
 	    		                                                                
 	    		                                   else   
 	    		                                   {
-	    		                                	   
+	    		                                	   	theView.setResizable(true);
 	    		                                	    theModel.setLoggedID(id);
 	    		                                	    theModel.setLoggedName(name1);
 	    		                                	    theView.initPanels();
 	    		                                	   	theView.displayMainView();
+	    		                                	   	myDevice.setFullScreenWindow(theView);
 	    		                                   }
 	    		                                    	
 	

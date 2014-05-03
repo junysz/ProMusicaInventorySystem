@@ -31,6 +31,7 @@ public class LoginPanel extends JPanel {
 	private Label label;
 	private Label musicaLabel;
 	private Label labelGoup8;
+	private Label label_1;
 	private Label label_2;
 
 	/**
@@ -40,8 +41,8 @@ public class LoginPanel extends JPanel {
 		
 		//set panel properties and add objects
 		
-		setLayout(new MigLayout("", "[][][99.00px][227.00][][][][][][76.00][261.00,fill]", "[160px][][][][35][][][][76.00][][][][][][][][][][][][][][][41.00][169.00][220]"));
-		setSize(1048, 738);
+		setLayout(new MigLayout("", "[]", "[160px][][][][35][][][][76.00][][][][][][][][][][][][][][][41.00][169.00][220]"));
+		setSize(450, 560);
 		
 		
 		BufferedImage wPic = null;
@@ -60,40 +61,40 @@ public class LoginPanel extends JPanel {
 			e.printStackTrace();
 		}
 		
-		JLabel musicaLabel_1 = new JLabel(new ImageIcon(Pic2) );
-		add(musicaLabel_1, "cell 3 0");
-		
 		label = new Label("Inventory System ");
 		label.setFont(new Font("Cambria", Font.BOLD, 25));
-		add(label, "cell 3 8,alignx center");
+		add(label, "cell 0 8,alignx center");
 		
 		lblUsername = new JLabel("USERNAME : ");
 		lblUsername.setFont(new Font("Cambria", Font.BOLD, 13));
-		add(lblUsername, "flowx,cell 3 9,alignx left");
+		add(lblUsername, "flowx,cell 0 9,alignx center");
 		
 		lblPassword = new JLabel("PASSWORD: ");
 		lblPassword.setFont(new Font("Cambria", Font.BOLD, 13));
-		add(lblPassword, "flowx,cell 3 13,alignx left");
+		add(lblPassword, "flowx,cell 0 13,alignx center");
 		
 		btnLogin = new JButton("Login");
 		btnLogin.setFont(new Font("Cambria", Font.BOLD, 14));
-		add(btnLogin, "cell 3 18,alignx center");
+		btnLogin.setSize(80, 15);
+		add(btnLogin, "cell 0 18,alignx center");
 		
-		
-		
-		label_2 = new Label("Powered by");
-		label_2.setFont(new Font("Monotype Corsiva", Font.BOLD, 15));
-		add(label_2, "cell 2 24");
-		JLabel labelGroup8 = new JLabel(new ImageIcon(wPic));
-		add(labelGroup8, "cell 3 24,alignx center,aligny center");
+		usrNameTF = new JTextField();
+		add(usrNameTF, "cell 0 9,alignx center");
+		usrNameTF.setColumns(15);
 		
 		usrPassPF = new JPasswordField();
 		usrPassPF.setColumns(15);
-		add(usrPassPF, "cell 3 13,alignx center");
+		add(usrPassPF, "cell 0 13,alignx center");
 		
-		usrNameTF = new JTextField();
-		add(usrNameTF, "cell 3 9,alignx center");
-		usrNameTF.setColumns(15);
+		
+		JLabel labelMusica = new JLabel(new ImageIcon(Pic2));
+		add(labelMusica, "cell 0 0,alignx center,aligny center");
+		
+		label_2 = new Label("Powered by");
+		label_2.setFont(new Font("Monotype Corsiva", Font.BOLD, 15));
+		add(label_2, "cell 0 23,alignx center");
+		JLabel labelGroup8 = new JLabel(new ImageIcon(wPic));
+		add(labelGroup8, "cell 0 24,alignx center,aligny center");
 		
 		
 	}

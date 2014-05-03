@@ -18,6 +18,8 @@ public class mainClass {
 					/*this line closes javaw.exe process in system processes
 					 * Without this line when closing program javaw process stays in memory
 					 */
+					theView.setSize(450, 560);
+					theView.setResizable(false);
 					theView.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 					new Controller(theView,theModel);		
 				} catch (Exception e) {
