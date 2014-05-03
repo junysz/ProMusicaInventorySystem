@@ -27,6 +27,7 @@ import javax.swing.border.LineBorder;
 
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
 
 
 @SuppressWarnings("serial")
@@ -53,7 +54,7 @@ public class ReportsPanel extends JPanel {
 		popup.setModal(true);
 		setAlignmentX(23.0f);
 		setFont(new Font("Tahoma", Font.BOLD, 12));
-		setLayout(new MigLayout("", "[95.00][24.00][][][][grow][][][][grow][][][][][][][][][][][grow][][][grow][][]", "[][][][][][][][34.00][][][100px:250:400px,grow][90][1.00]"));
+		setLayout(new MigLayout("", "[95.00][24.00][][][][grow][][][][grow][][][][][][][][][][][][grow][][][grow][][]", "[][][][][][][][34.00][][][100px:250:400px,grow][90][1.00]"));
 
 		date1Label = new JLabel("Start Date");
 		date1Label.setFont(new Font("Cambria", Font.BOLD, 13));
@@ -69,9 +70,10 @@ public class ReportsPanel extends JPanel {
 		date2 = new JDateChooser();
 		add(date2, "cell 7 6,grow");
 
-		btnReport = new JButton("Get report");  //Button to generate the reports
+		btnReport = new JButton("");  //Button to generate the reports
+		btnReport.setIcon(new ImageIcon("/Users/pawel/Copy/iMacProjectEclipse/ProMusicaInventorySystem/resources/Search.png"));
 		btnReport.setFont(new Font("Cambria", Font.BOLD, 13));
-		add(btnReport, "cell 21 6");
+		add(btnReport, "cell 20 6 4 1,growx");
 		
 
 
@@ -79,7 +81,7 @@ public class ReportsPanel extends JPanel {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setForeground(SystemColor.text);
 		scrollPane.setBorder(new LineBorder(new Color(130, 135, 144), 2, true));
-		add(scrollPane, "cell 1 10 21 1,grow");
+		add(scrollPane, "cell 1 10 22 1,grow");
 
 		ReportTableModel= new ReportTableModel();
 		tableReport = new JTable();
@@ -93,7 +95,7 @@ public class ReportsPanel extends JPanel {
 		
 		CheckSelected = new JButton("Check selected sale");
 		CheckSelected.setFont(new Font("Cambria", Font.BOLD, 13));
-		add(CheckSelected, "cell 22 10 4 1");
+		add(CheckSelected, "cell 23 10 4 1");
 		CheckSelected.setEnabled(false);
 		
 		printItemsButton = new JButton("Print selected sale's items");
@@ -107,13 +109,13 @@ public class ReportsPanel extends JPanel {
 		
 		saveButton = new JButton("Save");
 		saveButton.setFont(new Font("Cambria", Font.BOLD, 13));
-		add(saveButton, "cell 19 11");
+		add(saveButton, "cell 19 11 2 1");
 
 		logoutButton = new JButton("Logout");
 		logoutButton.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
 		logoutButton.setForeground(Color.BLACK);
 		logoutButton.setFont(new Font("Cambria", Font.BOLD, 13));
-		add(logoutButton, "cell 24 11,aligny bottom");
+		add(logoutButton, "cell 25 11,aligny bottom");
         
        
 

@@ -87,13 +87,12 @@ public class AccountsController {
 
 	class MAconfirmChangeBTN2 implements ActionListener {
 
-		String account=null;
 		String userName=null;
 		String accType=null;
 		String passwd=null;
 		boolean enabled;
 		boolean disabled;
-		int flag=0;
+		int flag;
 		ArrayList<String> errorMessages;
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -106,22 +105,21 @@ public class AccountsController {
 				accType= getMaintainPanel().getEditAccountTypeComboBox().getSelectedItem().toString();
 				passwd=getMaintainPanel().getEditAccountPasswordTF().getText();
 				enabled=getMaintainPanel().getRdbtnEnableAccount().isSelected();
-				//disabled=theView.getTabsPane().getMaintainPanel().getRdbtnDisableAccount().isSelected();
-				if (enabled) flag=1;
+				disabled=getMaintainPanel().getRdbtnEnableAccount().isSelected();
+				if (enabled) flag=1; else flag=0;
 
 			}catch(NullPointerException ex){
 				errorMessages.add("Select Account");
 			}
 
 			if(userName.isEmpty()){
-				errorMessages.add("Username");
+				errorMessages.add("Enter a Username");
 			}
 			if(passwd.isEmpty()){
-				errorMessages.add("Enter New Password");
+				errorMessages.add("Enter a Password");
 			}
 			if(errorMessages.isEmpty())
-			{
-				if  (enabled) flag=0;	  
+			{  
 				String accountName=getMaintainPanel().getSelectAccountToEditComboBox().getSelectedItem().toString();
 				Account a=getModel().getAccount(accountName);
 				int accountID=a.getAccountID();
@@ -153,6 +151,10 @@ public class AccountsController {
 			getMaintainPanel().setEditUsernameTF(a.getAccountName());
 			getMaintainPanel().getEditAccountTypeComboBox().setSelectedItem(a.getType());
 			getMaintainPanel().setEdditPasswordTF(a.getPassword());
+			boolean accEnabled = a.getFlag();
+			if(accEnabled) getMaintainPanel().setRdbtnEnableAccount(accEnabled);
+			else getMaintainPanel().setRdbtnDisableAccount(true);
+			
 		}
 	}
 

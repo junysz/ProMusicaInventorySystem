@@ -194,7 +194,7 @@ public class ReservationPanel extends JPanel
 		findReservationPanel.setLayout(new MigLayout("", "[10.00][13.00,grow][395.00,grow,left][grow][][][][][][]", "[][269.00][79.00][51.00][98.00][48.00,grow]"));
 		list = new JList<String>(model);
 		list.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
-		list.setBackground(SystemColor.inactiveCaptionBorder);
+		list.setBackground(new Color(255, 255, 255));
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list.setFont(new Font("Cambria", Font.PLAIN, 13));
 		JScrollPane scrollPane = new JScrollPane(list);

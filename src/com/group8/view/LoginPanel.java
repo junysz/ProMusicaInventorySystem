@@ -82,7 +82,7 @@ public class LoginPanel extends JPanel {
 		
 		
 		label_2 = new Label("Powered by");
-		label_2.setFont(new Font("Monotype Corsiva", Font.BOLD, 15));
+		label_2.setFont(new Font("Monotype Corsiva", Font.BOLD, 18));
 		add(label_2, "cell 2 24");
 		JLabel labelGroup8 = new JLabel(new ImageIcon(wPic));
 		add(labelGroup8, "cell 3 24");
