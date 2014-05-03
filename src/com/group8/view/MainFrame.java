@@ -25,13 +25,10 @@ public class MainFrame extends JFrame
 
 
 	public MainFrame() {
-		
+		setVisible(false);
 		loginPanel = new LoginPanel();
 		tabbedPane = new TabsPane();
-		setDefaultCloseOperation(JOptionPane.CANCEL_OPTION);
 		setBounds(100, 100, 650, 460);
-		setSize(1250, 700);
-		setVisible(true);
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -44,6 +41,8 @@ public class MainFrame extends JFrame
 		contentPane.add(loginPanel);
 		
 		displayLoginView();
+
+		setSize(1250, 700);
 		
 	
 	}
