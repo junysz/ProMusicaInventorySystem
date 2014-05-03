@@ -101,15 +101,15 @@ public class ReportsPanel extends JPanel {
 		printItemsButton = new JButton("Print selected sale's items");
 		
 	
-		printButton = new JButton("Print all sales");
+		printButton = new JButton("Print Report");
 		printButton.setFont(new Font("Cambria", Font.BOLD, 13));
-		add(printButton, "cell 4 11");
+		add(printButton, "cell 2 11");
+		
+		saveButton = new JButton("Save Report");
+		saveButton.setFont(new Font("Cambria", Font.BOLD, 13));
+		add(saveButton, "cell 3 11");
 		printItemsButton.setFont(new Font("Cambria", Font.BOLD, 13));
 		add(printItemsButton, "cell 7 11");
-		
-		saveButton = new JButton("Save");
-		saveButton.setFont(new Font("Cambria", Font.BOLD, 13));
-		add(saveButton, "cell 19 11 2 1");
 
 		logoutButton = new JButton("Logout");
 		logoutButton.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
