@@ -60,10 +60,7 @@ public class LoginPanel extends JPanel {
 		btnLogin.setFont(new Font("Cambria", Font.BOLD, 14));
 		add(btnLogin, "cell 1 7,alignx right");
 		
-		label_1 = new Label("Developed by Group8");
-		label_1.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
-		add(label_1, "cell 0 16,alignx center");
-
+		
 	}
 	/*
 	*  Setters and Getters for login panel
