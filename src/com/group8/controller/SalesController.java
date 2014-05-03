@@ -227,19 +227,19 @@ else if(e.getSource()==theView.getTabsPane().getMakeSalePanel().getBtnCheckout()
 	/*
 	 * Make popup visible if it's not, and refresh table with the items
 	 */
-		theView.getTabsPane().getMakeSalePanel().getpSale().setAlwaysOnTop(true);
-		theView.getTabsPane().getMakeSalePanel().getpSale().setVisible(true);
-		theView.getTabsPane().getMakeSalePanel().getpSale().getCheckoutTable().setModel(new CheckoutTableModel(saleItems, quantities));
-	double total=0;
-	for(int i = 0 ; i < saleItems.size() ; i++ )
-	{
-		total+=(saleItems.get(i).getPrice()*quantities.get(i));
-	}
 	theView.getTabsPane().getMakeSalePanel().getpSale().setTotal(total);
+		theView.getTabsPane().getMakeSalePanel().getpSale().getCheckoutTable().setModel(new CheckoutTableModel(saleItems, quantities));
+		double total=0;
+		for(int i = 0 ; i<saleItems.size();i++)
+		{
+			total+=saleItems.get(i).getPrice()*(int)quantities.get(i);
+		}
+		theView.getTabsPane().getMakeSalePanel().getpSale().setTotal(total);
 	theView.getTabsPane().getMakeSalePanel().getpSale().setSaleTableModel(new CheckoutTableModel(saleItems, quantities));
 	//Debugging code nextd
 	System.out.println("Checkout pressed!!");
-	theView.getTabsPane().getMakeSalePanel().getpSale().repaint();
+	theView.getTabsPane().getMakeSalePanel().getpSale().setAlwaysOnTop(true);
+	theView.getTabsPane().getMakeSalePanel().getpSale().setVisible(true);
 }
 else if(e.getSource()==theView.getTabsPane().getMakeSalePanel().getBtnClearCart())
 {

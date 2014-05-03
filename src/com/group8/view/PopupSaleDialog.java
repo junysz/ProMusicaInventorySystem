@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeListener;
+import java.text.DecimalFormat;
 
 import javax.swing.JButton;
 import javax.swing.event.TableModelListener;
@@ -85,7 +86,8 @@ public class PopupSaleDialog extends JDialog {
 	}
 	public void setTotal(double total)
 	{
-		totalTF.setText(""+total);
+        DecimalFormat df = new DecimalFormat("#.##");
+		totalTF.setText(""+df.format(total));
 		
 	}
 	public JButton getGoBckButton()
