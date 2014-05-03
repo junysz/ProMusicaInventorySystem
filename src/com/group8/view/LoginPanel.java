@@ -40,12 +40,8 @@ public class LoginPanel extends JPanel {
 		
 		//set panel properties and add objects
 		
-		setLayout(new MigLayout("", "[][][99.00px][138.00][][][][][][76.00][261.00,fill]", "[160px][][][][35][][][][76.00][][][][][][][][][][][][][][][41.00][169.00][220]"));
+		setLayout(new MigLayout("", "[][][99.00px][227.00][][][][][][76.00][261.00,fill]", "[160px][][][][35][][][][76.00][][][][][][][][][][][][][][][41.00][169.00][220]"));
 		setSize(1048, 738);
-		
-		label = new Label("ProMusica Inventory System ");
-		label.setFont(new Font("Cambria", Font.BOLD, 25));
-		add(label, "cell 3 0 2 1");
 		
 		
 		BufferedImage wPic = null;
@@ -64,8 +60,12 @@ public class LoginPanel extends JPanel {
 			e.printStackTrace();
 		}
 		
-		JLabel musicaLabel = new JLabel(new ImageIcon(Pic2) );
-		add(musicaLabel, "cell 5 1 6 24");
+		JLabel musicaLabel_1 = new JLabel(new ImageIcon(Pic2) );
+		add(musicaLabel_1, "cell 3 0");
+		
+		label = new Label("Inventory System ");
+		label.setFont(new Font("Cambria", Font.BOLD, 25));
+		add(label, "cell 3 8,alignx center");
 		
 		lblUsername = new JLabel("USERNAME : ");
 		lblUsername.setFont(new Font("Cambria", Font.BOLD, 13));
@@ -85,7 +85,7 @@ public class LoginPanel extends JPanel {
 		label_2.setFont(new Font("Monotype Corsiva", Font.BOLD, 15));
 		add(label_2, "cell 2 24");
 		JLabel labelGroup8 = new JLabel(new ImageIcon(wPic));
-		add(labelGroup8, "cell 3 24");
+		add(labelGroup8, "cell 3 24,alignx center,aligny center");
 		
 		usrPassPF = new JPasswordField();
 		usrPassPF.setColumns(15);
