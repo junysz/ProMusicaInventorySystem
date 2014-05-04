@@ -85,6 +85,7 @@ public class LoginController implements ActionListener {
 	    		                            	  
 	    		                             else  if (type.equals("Sales Staff")) 
 	    		                            	{
+	    		                            	 theView.setTitle("ProMusica Inventory System");
 	    		                            	 theView.displayMainViewStaff();
 	    		                            	 theView.setResizable(true);
  		                                	   	theView.setSize(1250, 700);
@@ -94,6 +95,7 @@ public class LoginController implements ActionListener {
 	    		                                                                
 	    		                                   else   
 	    		                                   {
+	  	    		                            	 theView.setTitle("ProMusica Inventory System");
 	    		                                	   	theView.setResizable(true);
 	    		                                	    theModel.setLoggedID(id);
 	    		                                	    theModel.setLoggedName(name1);
