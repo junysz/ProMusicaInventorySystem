@@ -2,6 +2,9 @@ package com.group8.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.PrinterException;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 
@@ -31,6 +34,7 @@ public class ReportsController {
 		getView().getTabsPane().getReportPanel().printListener(new buttonPrinter());
 		getView().getTabsPane().getReportPanel().getPopup().printListener2(new buttonItemsPrinter());
 		getView().getTabsPane().getReportPanel().getPopup().okButtonListener(new okButtonListener());
+		getView().getTabsPane().getReportPanel().saveListener(new saveButtonListener());
 	}
 
 
@@ -157,12 +161,52 @@ public class ReportsController {
 	  	  	}
 	  }
 		
-	public MainFrame getView(){
+
+	class saveButtonListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+
+			getView().getTabsPane().getReportPanel().getRableReport();
+			        try {
+			            File file = new File("Report from "+date1.toString()+" to "+date2.toString());
+			            PrintWriter os = new PrintWriter(file);
+			            os.println("");
+			            for (int col = 0; col < getView().getTabsPane().getReportPanel().getRableReport().getColumnCount(); col++) {
+			                os.print(getView().getTabsPane().getReportPanel().getRableReport().getColumnName(col) + "   \t\t");
+			               
+			            }
+
+			            os.println("");
+			            os.println("");
+
+			            for (int i = 0; i <getView().getTabsPane().getReportPanel().getRableReport().getRowCount(); i++) {
+			                for (int j = 0; j < getView().getTabsPane().getReportPanel().getRableReport().getColumnCount(); j++) {
+			                    os.print(getView().getTabsPane().getReportPanel().getRableReport().getValueAt(i, j).toString() + "\t\t\t");
+
+			                }
+			                os.println("");
+			            }
+			            os.close();
+			            JOptionPane.showMessageDialog(null,
+			    				"Report  saved to file ",
+			    				"Done",
+			    				JOptionPane.WARNING_MESSAGE);
+			        } catch (IOException f) {
+			            // TODO Auto-generated catch block
+			           
+			}
+		}
+	}
+	
+	
+		public MainFrame getView(){
 		return controller.getView();
 	}
 	public MainModel getModel(){
 		return controller.getModel();
 	}
+	
+	
 	
 	
 	public class buttonPrinter implements ActionListener {

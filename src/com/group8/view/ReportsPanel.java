@@ -124,7 +124,10 @@ public class ReportsPanel extends JPanel {
 	{
 		printButton.addActionListener(listen);
 	}
-	
+	public void saveListener(ActionListener listen)
+	{
+		saveButton.addActionListener(listen);
+	}
 	public void CheckSelectedListener	(ActionListener listenForBtnReport)
 	{
 		CheckSelected.addActionListener(listenForBtnReport);
