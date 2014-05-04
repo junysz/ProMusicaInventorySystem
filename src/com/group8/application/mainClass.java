@@ -22,7 +22,7 @@ public class mainClass {
 			public void run() {
 				try {
 					theView.setResizable(false);
-					theView.setSize(250, 320);
+					theView.setSize(250, 370);
 					theView.setTitle("Login");
 					theView.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 					/*this line closes javaw.exe process in system processes
@@ -36,7 +36,7 @@ public class mainClass {
 						    String ObjButtons[] = {"Yes","No"};
 						    int PromptResult = JOptionPane.showOptionDialog(null, 
 						        "Are you sure you want to exit?", "Pro Musica Inventory System", 
-						        JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, 
+						        -1, JOptionPane.WARNING_MESSAGE, null, 
 						        ObjButtons,ObjButtons[1]);
 						    if(PromptResult==0)
 						    {
