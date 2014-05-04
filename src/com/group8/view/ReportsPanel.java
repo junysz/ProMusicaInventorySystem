@@ -39,7 +39,6 @@ public class ReportsPanel extends JPanel {
 	private JDateChooser date2;
 	private JLabel date1Label,date2Label;
 	private JButton logoutButton;
-	private JButton printItemsButton;
 	private JButton printButton;
 	private JButton CheckSelected;;  
 	private PopupReports popup;
@@ -54,7 +53,7 @@ public class ReportsPanel extends JPanel {
 		popup.setModal(true);
 		setAlignmentX(23.0f);
 		setFont(new Font("Tahoma", Font.BOLD, 12));
-		setLayout(new MigLayout("", "[95.00][24.00][][][][grow][][][][grow][][][][][][][][][][][][grow][][][grow][][]", "[][][][][][][][34.00][][][100px:250:400px,grow][90][1.00]"));
+		setLayout(new MigLayout("", "[95.00][24.00][][][][grow][][][][grow][][][][][][][][][][][47.00][grow][][][grow][][]", "[][][][][][][][34.00][][][100px:250:400px,grow][90][1.00]"));
 
 		date1Label = new JLabel("Start Date");
 		date1Label.setFont(new Font("Cambria", Font.BOLD, 13));
@@ -70,10 +69,10 @@ public class ReportsPanel extends JPanel {
 		date2 = new JDateChooser();
 		add(date2, "cell 7 6,grow");
 
-		btnReport = new JButton("");  //Button to generate the reports
+		btnReport = new JButton("Get sales");  //Button to generate the reports
 		btnReport.setIcon(new ImageIcon("/Users/pawel/Copy/iMacProjectEclipse/ProMusicaInventorySystem/resources/Search.png"));
 		btnReport.setFont(new Font("Cambria", Font.BOLD, 13));
-		add(btnReport, "cell 20 6 4 1,growx");
+		add(btnReport, "cell 20 6 2 1,growx");
 		
 
 
@@ -93,23 +92,23 @@ public class ReportsPanel extends JPanel {
 
 		scrollPane.setViewportView(tableReport);
 		
+	
+		printButton = new JButton("Print report");
+		printButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		printButton.setFont(new Font("Cambria", Font.BOLD, 13));
+		add(printButton, "cell 3 11");
+		
 		CheckSelected = new JButton("Check selected sale");
 		CheckSelected.setFont(new Font("Cambria", Font.BOLD, 13));
-		add(CheckSelected, "cell 23 10 4 1");
+		add(CheckSelected, "cell 7 11");
 		CheckSelected.setEnabled(false);
 		
-		printItemsButton = new JButton("Print selected sale's items");
-		
-	
-		printButton = new JButton("Print Report");
-		printButton.setFont(new Font("Cambria", Font.BOLD, 13));
-		add(printButton, "cell 2 11");
-		
-		saveButton = new JButton("Save Report");
+		saveButton = new JButton("Save report");
 		saveButton.setFont(new Font("Cambria", Font.BOLD, 13));
-		add(saveButton, "cell 3 11");
-		printItemsButton.setFont(new Font("Cambria", Font.BOLD, 13));
-		add(printItemsButton, "cell 7 11");
+		add(saveButton, "cell 19 11 2 1");
 
 		logoutButton = new JButton("Logout");
 		logoutButton.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
@@ -128,15 +127,9 @@ public class ReportsPanel extends JPanel {
 	{
 		printButton.addActionListener(listen);
 	}
-<<<<<<< HEAD
 	public void saveListener(ActionListener listen)
 	{
 		saveButton.addActionListener(listen);
-=======
-	public void printListener2(ActionListener listen)
-	{
-		printItemsButton.addActionListener(listen);
->>>>>>> 33a0047eb7d0671f94ae9e65612f04ee7bbf93dc
 	}
 	public void CheckSelectedListener	(ActionListener listenForBtnReport)
 	{
@@ -227,6 +220,12 @@ public class ReportsPanel extends JPanel {
 	}
 	public JButton getCheckReport() {
 		return CheckSelected;
+	}
+	public JButton getprintButton() {
+		return printButton;
+	}
+	public JButton getsaveButton() {
+		return saveButton;
 	}
 	public PopupReports getPopup() {
 		return popup;
