@@ -29,10 +29,7 @@ public class LoginPanel extends JPanel {
 	private JLabel lblUsername;
 	private JLabel lblPassword;
 	private Label label;
-	private Label musicaLabel;
-	private Label labelGoup8;
-	private Label label_1;
-	private Label label_2;
+	private JLabel lblPoweredBy;
 
 	/**
 	 * Create the panel.
@@ -41,37 +38,21 @@ public class LoginPanel extends JPanel {
 		
 		//set panel properties and add objects
 		
-		setLayout(new MigLayout("", "[]", "[160px][][][][35][][][][76.00][][][][][][][][][][][][][][][41.00][169.00][220]"));
-		setSize(450, 560);
+		setLayout(new MigLayout("", "[190.00][][]", "[140.00px][21.00][][][35][][][][76.00][][][][][][][][][][][][][][][][41.00][]"));
+		setSize(250, 320);
 		
-		/*
-		BufferedImage wPic = null;
-		try {
-			wPic = ImageIO.read(this.getClass().getResource("/logo.jpg"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		BufferedImage Pic2 = null;
-		try {
-			Pic2 = ImageIO.read(this.getClass().getResource("/Musica.jpg"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		*/
+		
 		label = new Label("Inventory System ");
 		label.setFont(new Font("Cambria", Font.BOLD, 25));
 		add(label, "cell 0 8,alignx center");
 		
 		lblUsername = new JLabel("USERNAME : ");
 		lblUsername.setFont(new Font("Cambria", Font.BOLD, 13));
-		add(lblUsername, "flowx,cell 0 9,alignx center");
+		add(lblUsername, "flowx,cell 0 9,alignx right");
 		
 		lblPassword = new JLabel("PASSWORD: ");
 		lblPassword.setFont(new Font("Cambria", Font.BOLD, 13));
-		add(lblPassword, "flowx,cell 0 13,alignx center");
+		add(lblPassword, "flowx,cell 0 13,alignx right");
 		
 		btnLogin = new JButton("Login");
 		btnLogin.setFont(new Font("Cambria", Font.BOLD, 14));
@@ -79,24 +60,23 @@ public class LoginPanel extends JPanel {
 		add(btnLogin, "cell 0 18,alignx center");
 		
 		usrNameTF = new JTextField();
-		add(usrNameTF, "cell 0 9,alignx center");
+		add(usrNameTF, "cell 0 9,alignx right");
 		usrNameTF.setColumns(15);
 		
 		usrPassPF = new JPasswordField();
 		usrPassPF.setColumns(15);
-		add(usrPassPF, "cell 0 13,alignx center");
+		add(usrPassPF, "cell 0 13,alignx right");
 		
 		
-		//JLabel labelMusica = new JLabel(new ImageIcon(Pic2));
-		//add(labelMusica, "cell 0 0,alignx center,aligny center");
+		ImagePanel proMusicaLogo = new ImagePanel("/com/group8/images/musica.jpg");
+		add(proMusicaLogo, "cell 0 0 1 2,grow");
 		
-		label_2 = new Label("Powered by");
-		label_2.setFont(new Font("Monotype Corsiva", Font.BOLD, 15));
-		add(label_2, "cell 0 23,alignx center");
-		label_2.setFont(new Font("Monotype Corsiva", Font.BOLD, 18));
-		add(label_2, "cell 2 24");
-		//JLabel labelGroup8 = new JLabel(new ImageIcon(wPic));
-		//add(labelGroup8, "cell 0 24,alignx center,aligny center");
+		lblPoweredBy = new JLabel("Powered by:");
+		lblPoweredBy.setFont(new Font("Cambria", Font.PLAIN, 11));
+		add(lblPoweredBy, "flowx,cell 0 25,alignx right");
+		
+		ImagePanel group8Logo = new ImagePanel("/com/group8/images/logo.jpg");
+		add(group8Logo, "cell 0 25,grow");
 		
 		
 	}

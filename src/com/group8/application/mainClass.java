@@ -1,8 +1,10 @@
 package com.group8.application;
 import java.awt.EventQueue;
+import java.awt.Image;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
@@ -20,7 +22,8 @@ public class mainClass {
 			public void run() {
 				try {
 					theView.setResizable(false);
-					theView.setSize(450, 560);
+					theView.setSize(250, 320);
+					theView.setTitle("Login");
 					theView.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 					/*this line closes javaw.exe process in system processes
 					 * Without this line when closing program javaw process stays in memory
