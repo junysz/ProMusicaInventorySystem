@@ -45,7 +45,7 @@ public class ReservationController {
 
 	}
 
-	
+
 	class PopulateTableListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			populateTable();
@@ -100,7 +100,7 @@ public class ReservationController {
 
 			double newDeposit,oldDeposit;
 			Reservation reserved;
-			
+
 			reserved=new Reservation();
 			String docket=getView().getTabsPane().getReservationPanel().getDocketNoTF().getText();			
 			String newDepositString=getView().getTabsPane().getReservationPanel().getupdateDepositTF().getText();
@@ -115,10 +115,10 @@ public class ReservationController {
 				if (newDeposit+oldDeposit>price-1)  getView().getTabsPane().getReservationPanel().warnUpdate();
 				else 	
 				{
-				getModel().updateReservedItem(docket,newDeposit+oldDeposit);
-				getView().getTabsPane().getReservationPanel().getCurrentDepositTF().setText((newDeposit+oldDeposit)+"");	
-				getView().getTabsPane().getReservationPanel().successful();
-				getView().getTabsPane().getReservationPanel().getupdateDepositTF().setText("");				
+					getModel().updateReservedItem(docket,newDeposit+oldDeposit);
+					getView().getTabsPane().getReservationPanel().getCurrentDepositTF().setText((newDeposit+oldDeposit)+"");	
+					getView().getTabsPane().getReservationPanel().successful();
+					getView().getTabsPane().getReservationPanel().getupdateDepositTF().setText("");				
 				}
 			}
 			catch (Exception io) {
@@ -143,7 +143,7 @@ public class ReservationController {
 			getView().getTabsPane().getReservationPanel().getTotalPriceTF().setText("");
 			getView().getTabsPane().getReservationPanel().getDateTF().setText("");
 			getView().getTabsPane().getReservationPanel().successfuly();
-			
+
 		}
 
 	}
@@ -153,80 +153,107 @@ public class ReservationController {
 	// For this I need five parameters ,to use the method InsertNewReservation
 	class ReserveBtn implements ActionListener
 	{
+		String docket="";
+		String depositString="";
+		double price=0;
+		double deposit=0;
+		int accountID=0;
+		int itemID=0;
+		ArrayList<String> errorMessages;
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			String docket="",depositString="";
-			double price=0,deposit=0;
-			int accountID=0,itemID=0;	
-			//get docket
-			docket=getView().getTabsPane().getReservationPanel().getEnterDocketNoTF().getText();
-			if (docket.equals(""))		getView().getTabsPane().getReservationPanel().warnDocketNull();
-			//get deposit			
-			try
-			{ 
+
+			errorMessages = new ArrayList<String>();
+			//read the values (docketNo, deposit) from the Reservation Panel
+			try{
+				docket=getView().getTabsPane().getReservationPanel().getEnterDocketNoTF().getText();
 				depositString=getView().getTabsPane().getReservationPanel().getDepositTF().getText();
-				deposit = Double.parseDouble(depositString);
-
 				price =  getView().getTabsPane().getReservationPanel().getPrice();
-				if (deposit>price)
-					getView().getTabsPane().getReservationPanel().warnUpdate();	
-				if (deposit==0)
-					getView().getTabsPane().getReservationPanel().warnUpdateNull();
 
+			}catch(Exception ex){
+				System.out.println("Problem reading input from Make New Reservation form");
 			}
-			catch (Exception io) //warning if the deposit field is null or not a number
-			{
-				getView().getTabsPane().getReservationPanel().warnUpdateNull();
-			}
-
-
-			//name and password using the LoginPanel 
-			String username=getView().getUsernameLoginString();
-			String pass=getView().getPasswordLoginString();
-
-			//getting the AccountID
-			ArrayList<Account> myList=getModel().getAllAccounts();
-			for (int i=0;i<myList.size();i++)
-			{
-				if (myList.get(i).getAccountName().equals(username))
-					if(		 myList.get(i).getPassword().equals(pass) )  
-						accountID=myList.get(i).getAccountID();
-			}
-
-			//Getting current date
-			Calendar calendar = Calendar.getInstance();
-			java.sql.Date date = new java.sql.Date(calendar.getTime().getTime());
-
-
-			//getting the itemID
-
+			//get the item ID
 			int index=getView().getTabsPane().getReservationPanel().getTableIndex();
-			if  (index==-1) 
-				getView().getTabsPane().getReservationPanel().warnItemNull();
-			else	    	
-			{
-				itemID=getView().getTabsPane().getReservationPanel().getItemID();    
-			} 
+			//if nothing selected
+			if  (index==-1) {
+				errorMessages.add("Select an Item to Reserve");
+			}
+			//else we can set the item ID
+			else {
+				itemID=getView().getTabsPane().getReservationPanel().getItemID();
+			}
+			//if not docketNo entered
+			if (docket.isEmpty()){
+				errorMessages.add("Enter a Docket Number");
+			}
+			//if no deposit entered
+			if (depositString.isEmpty()){
+				errorMessages.add("Enter a Deposit");
+			}
+			//else assign the deposit
+			else{
+				deposit = Double.parseDouble(depositString);
+				//if it not greater than 0
+				if (deposit == 0){
+					errorMessages.add("Deposit must be greater than 0");
+				}
+				//if the deposit is greater than item price
+				if (deposit>price){
+					errorMessages.add("Deposit exceeds Item Price");	
+				}
+			}
 
-			if (index>-1 && !(depositString.equals("")) && !(docket.equals("")) && deposit>0 && deposit<price )
-			{
-				getModel().insertNewReservation(accountID, docket, date, deposit, itemID);	
-				getView().getTabsPane().getReservationPanel().success();
-				getView().getTabsPane().getReservationPanel().getDepositTF().setText("");
-				getView().getTabsPane().getReservationPanel().getEnterDocketNoTF().setText("");
+			/* If there were no errors with input, we can process the data 
+			 * from the reservation panel and make a new reservation
+			 */
+			if(errorMessages.isEmpty()){
+
+				//get account name and password using the LoginPanel 
+				String username=getView().getUsernameLoginString();
+				String pass=getView().getPasswordLoginString();
+
+				//getting the AccountID
+				ArrayList<Account> myList=getModel().getAllAccounts();
+				for (int i=0;i<myList.size();i++)
+				{
+					if (myList.get(i).getAccountName().equals(username))
+						if(		 myList.get(i).getPassword().equals(pass) )  
+							accountID=myList.get(i).getAccountID();
+				}
+
+				//Getting current date
+				Calendar calendar = Calendar.getInstance();
+				java.sql.Date date = new java.sql.Date(calendar.getTime().getTime());
 
 
+				//insert reservation tuple to database
+				getModel().insertNewReservation(accountID, docket, date, deposit, itemID);
 				//update Available Stock Level for the designated item
 				int itemID1=getView().getTabsPane().getReservationPanel().getItemID();
 				int Stock=getView().getTabsPane().getReservationPanel().getAvailableStock();	    
 				getModel().updateItemAvailableStock(itemID1,Stock-1);
-				//Repopulate Table
-				populateTable();
-				//repopulate the List in the FindReservation Panel
 
+				//print success message and clear fields
+				getView().getTabsPane().getReservationPanel().success();
+				getView().getTabsPane().getReservationPanel().getDepositTF().setText("");
+				getView().getTabsPane().getReservationPanel().getEnterDocketNoTF().setText("");
+
+				//Re-populate Table
+				populateTable();
+				//re-populate the List in the FindReservation Panel
 				populateList();
+
 			}
+			else{
+				getView().getTabsPane().getReservationPanel().warnNewReservationInput(errorMessages);
+			}
+
+
+
+
+
 		}	
 	}                                                               
 
@@ -272,7 +299,7 @@ public class ReservationController {
 		}
 	}
 
-	
+
 	public void setListModel(List<Reservation> list)
 	{
 
@@ -289,7 +316,7 @@ public class ReservationController {
 	{
 		getView().getTabsPane().getReservationPanel().removeList();
 		ArrayList<Reservation> List=new ArrayList <Reservation>();    
-	  
+
 		List=getModel().getReservedItems(); 		
 		setListModel(List);
 	}
@@ -356,7 +383,7 @@ public class ReservationController {
 			}
 		}
 	}
-	
+
 	public MainFrame getView(){
 		return controller.getView();
 	}

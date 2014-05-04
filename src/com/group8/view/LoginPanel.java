@@ -44,9 +44,23 @@ public class LoginPanel extends JPanel {
 		setLayout(new MigLayout("", "[]", "[160px][][][][35][][][][76.00][][][][][][][][][][][][][][][41.00][169.00][220]"));
 		setSize(450, 560);
 		
-		
-				
-		
+		/*
+		BufferedImage wPic = null;
+		try {
+			wPic = ImageIO.read(this.getClass().getResource("/logo.jpg"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		BufferedImage Pic2 = null;
+		try {
+			Pic2 = ImageIO.read(this.getClass().getResource("/Musica.jpg"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		*/
 		label = new Label("Inventory System ");
 		label.setFont(new Font("Cambria", Font.BOLD, 25));
 		add(label, "cell 0 8,alignx center");
@@ -73,16 +87,16 @@ public class LoginPanel extends JPanel {
 		add(usrPassPF, "cell 0 13,alignx center");
 		
 		
-	//	JLabel labelMusica = new JLabel(new ImageIcon(Pic2));
-	//	add(labelMusica, "cell 0 0,alignx center,aligny center");
+		//JLabel labelMusica = new JLabel(new ImageIcon(Pic2));
+		//add(labelMusica, "cell 0 0,alignx center,aligny center");
 		
 		label_2 = new Label("Powered by");
 		label_2.setFont(new Font("Monotype Corsiva", Font.BOLD, 15));
 		add(label_2, "cell 0 23,alignx center");
 		label_2.setFont(new Font("Monotype Corsiva", Font.BOLD, 18));
 		add(label_2, "cell 2 24");
-	//	JLabel labelGroup8 = new JLabel(new ImageIcon(wPic));
-	//	add(labelGroup8, "cell 0 24,alignx center,aligny center");
+		//JLabel labelGroup8 = new JLabel(new ImageIcon(wPic));
+		//add(labelGroup8, "cell 0 24,alignx center,aligny center");
 		
 		
 	}
