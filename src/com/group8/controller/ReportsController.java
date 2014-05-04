@@ -4,6 +4,8 @@ import java.awt.event.ActionListener;
 import java.awt.print.PrinterException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable.PrintMode;
 import com.group8.model.Item;
@@ -35,7 +37,10 @@ public class ReportsController {
 	class PopulateTable2Listener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 
-			getView().getTabsPane().getReportPanel().getCheckReport().setEnabled(true);	        		    
+			getView().getTabsPane().getReportPanel().getCheckReport().setEnabled(true);	 
+			getView().getTabsPane().getReportPanel().getsaveButton().setEnabled(true);	
+			getView().getTabsPane().getReportPanel().getprintButton().setEnabled(true);
+			
 			System.out.println("Updating the table...");
 			 date1=  getView().getTabsPane().getReportPanel().getDate1();//get first date from the ReportPanel
 			 date2=	getView().getTabsPane().getReportPanel().getDate2();	//get the second date			

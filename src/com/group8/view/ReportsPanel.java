@@ -94,14 +94,10 @@ public class ReportsPanel extends JPanel {
 		
 	
 		printButton = new JButton("Print report");
-		printButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		printButton.setFont(new Font("Cambria", Font.BOLD, 13));
 		add(printButton, "cell 3 11");
-		
-		CheckSelected = new JButton("Check selected sale");
+		printButton.setEnabled(false)		;
+		CheckSelected = new JButton("View sale items");
 		CheckSelected.setFont(new Font("Cambria", Font.BOLD, 13));
 		add(CheckSelected, "cell 7 11");
 		CheckSelected.setEnabled(false);
@@ -109,6 +105,7 @@ public class ReportsPanel extends JPanel {
 		saveButton = new JButton("Save report");
 		saveButton.setFont(new Font("Cambria", Font.BOLD, 13));
 		add(saveButton, "cell 19 11 2 1");
+		saveButton.setEnabled(false);
 
 		logoutButton = new JButton("Logout");
 		logoutButton.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
@@ -217,6 +214,12 @@ public class ReportsPanel extends JPanel {
 	}
 	public JButton getCheckReport() {
 		return CheckSelected;
+	}
+	public JButton getprintButton() {
+		return printButton;
+	}
+	public JButton getsaveButton() {
+		return saveButton;
 	}
 	public PopupReports getPopup() {
 		return popup;
