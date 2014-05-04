@@ -56,7 +56,7 @@ class SaleListener implements ActionListener{
 
 
 boolean contains=false;
-int addingIndex=-1;
+int addingIndex=0;
 Item added = new Item();
 
 
@@ -155,6 +155,8 @@ if (row!=-1)
 						addingIndex=i;
 						break;
 				}
+				else
+					addingIndex=0;
 			
 			}
 
@@ -241,6 +243,7 @@ if(option==0)
 {
 saleItems = new ArrayList<Item>();
 quantities = new ArrayList<Integer>();
+addingIndex=0;
 JOptionPane.showMessageDialog(theView.getTabsPane().getMakeSalePanel().getpSale(), "Basket has been successfully cleared!", "Success!", 1);
 }
 }
