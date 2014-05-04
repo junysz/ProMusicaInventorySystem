@@ -117,46 +117,62 @@ public class ReportsPanel extends JPanel {
 		add(logoutButton, "cell 25 11,aligny bottom");
         
        
-
+       
+		
 	}
+	    /* ************************************************
+	     *     ADD LISTENERS
+	     **************************************************/
+	public void logoutButtonListener(ActionListener listenFor)
+	{
+		logoutButton.addActionListener(listenFor); //logout button listener
+	}
+	 
 	public void addTableListener(ActionListener listenForBtnReport)
 	{
-		btnReport.addActionListener(listenForBtnReport);
+		btnReport.addActionListener(listenForBtnReport); //Report buton listener
 	}
 	public void printListener(ActionListener listen)
 	{
-		printButton.addActionListener(listen);
+		printButton.addActionListener(listen);  //print button listener
 	}
 	public void saveListener(ActionListener listen)
 	{
-		saveButton.addActionListener(listen);
+		saveButton.addActionListener(listen);  //save button listener
 	}
 	public void CheckSelectedListener	(ActionListener listenForBtnReport)
 	{
-		CheckSelected.addActionListener(listenForBtnReport);
+		CheckSelected.addActionListener(listenForBtnReport);  //check selected sale button listener
 	}
 
+	
+	/*********************
+	 *    GETTERS
+	 *********************/
+	public JButton getLogoutButton() {
+		return logoutButton;
+	}
+	public JButton getCheckReport() {
+		return CheckSelected;
+	}
+	public JButton getprintButton() {
+		return printButton;
+	}
+	public JButton getsaveButton() {
+		return saveButton;
+	}
+	public PopupReports getPopup() {
+		return popup;
+	}
+	public void setPopup(PopupReports popup) {
+		this.popup = popup;
+	}
+	
 	 public JTable getRableReport()
 	 {
 		 return tableReport;
-	 }
-	/*
-	 * I want to set Table Model
-	 * This will come from Model
-	 * Model doesn't know about view
-	 * So the controller will set this. 
-	 */
-		
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public void setTableModel(List listFormController)
-	{
-		ReportTableModel.fireTableDataChanged();
-		System.out.println("Setting table model...");
-		ReportTableModel.setTableModel(listFormController);
-		tableReport.setModel(ReportTableModel);
-		
-
-	}
+	 }			
+	
 	public int getIndexRow()
 	{
 		return tableReport.getSelectedRow();
@@ -165,8 +181,8 @@ public class ReportsPanel extends JPanel {
 	{
 		return logoutButton;
 	}
-
-	public Date getDate1()   //get first date from the JDateChooser
+	 //get first date from the JDateChooser
+	public Date getDate1()  
 	{
 		try 
 		{
@@ -194,19 +210,17 @@ public class ReportsPanel extends JPanel {
 		}  
 	}
 
-	public void logoutButtonListener(ActionListener listenFor)
+  //set table model 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public void setTableModel(List listFormController)
 	{
-		logoutButton.addActionListener(listenFor);
-	}
-	public void warnDateNull(){
-
-		JOptionPane.showMessageDialog(null,
-				"Please make a selection for the dates.",
-				"Warning",
-				JOptionPane.WARNING_MESSAGE);
+		ReportTableModel.fireTableDataChanged();
+		System.out.println("Setting table model...");
+		ReportTableModel.setTableModel(listFormController);
+		tableReport.setModel(ReportTableModel);
+		
 
 	}
-
 	//method to warn the user if first date is after the second date
 	public void warnDateAfter(){
 		JOptionPane.showMessageDialog(null,
@@ -214,26 +228,16 @@ public class ReportsPanel extends JPanel {
 				"Warning",
 				JOptionPane.WARNING_MESSAGE);
 	}
+	//warn if a date is not selected
+	public void warnDateNull(){
 
-	public JButton getLogoutButton() {
-		return logoutButton;
-	}
-	public JButton getCheckReport() {
-		return CheckSelected;
-	}
-	public JButton getprintButton() {
-		return printButton;
-	}
-	public JButton getsaveButton() {
-		return saveButton;
-	}
-	public PopupReports getPopup() {
-		return popup;
-	}
-	public void setPopup(PopupReports popup) {
-		this.popup = popup;
+		JOptionPane.showMessageDialog(null,
+				"Please make a selection for the dates.",
+				"Warning",
+				JOptionPane.WARNING_MESSAGE);
 	}
 	
+	//set dates to null after a report generated
 	public void clearDates()
 	{
 		

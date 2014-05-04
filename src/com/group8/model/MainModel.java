@@ -77,9 +77,9 @@ public class MainModel {
 		inserts.insertNewSale(s, a);
 		
 	}
-	public void addNewItemSold(Item i, Sale s, double itemSalePrice)
+	public void addNewItemSold(Item i, Sale s, double itemSalePrice,int quantity)
 	{
-		inserts.insertNewItemSold(i, s, itemSalePrice);
+		inserts.insertNewItemSold(i, s, itemSalePrice,quantity);
 	}
 	public void insertNewReservation(int accountID,String docketNo,Date reservationDate,double deposit,int itemID)
 	{
@@ -269,7 +269,7 @@ public class MainModel {
 			this.loggedName = loggedName;
 		}
 	 
-		public  ArrayList<Integer>getItemsSold(int saleID)
+		public  ArrayList<ArrayList<Integer>>  getItemsSold(int saleID)
 		 {
 			 return queries.getItemsSold(saleID);
 		 }

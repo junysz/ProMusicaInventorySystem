@@ -22,6 +22,7 @@ public class ReportsController {
 	private Controller controller;
 	ArrayList<Sale> saleList=new ArrayList <Sale>();	
 	private ArrayList<Item> itemsSold = new ArrayList<Item>();
+	
 	private ArrayList<Integer> listq = new ArrayList<Integer>();
 	int index=-1,index1; double total=0; String name="";
 	java.sql.Date date1,date2;
@@ -37,10 +38,18 @@ public class ReportsController {
 		getView().getTabsPane().getReportPanel().saveListener(new saveButtonListener1());
 	}
 
-
+    /*************************************
+     * 
+     * INNER CLASSES for LISTENERS
+     *
+     ************************************/
+	
+	
+	//listener class for generating the table in Reports tab
 	class PopulateTable2Listener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-
+			
+            //enable the buttons 
 			getView().getTabsPane().getReportPanel().getCheckReport().setEnabled(true);	 
 			getView().getTabsPane().getReportPanel().getsaveButton().setEnabled(true);	
 			getView().getTabsPane().getReportPanel().getprintButton().setEnabled(true);
@@ -66,11 +75,13 @@ public class ReportsController {
 		}
 	}
 
+	 //listener class for loggin out in Reports tab
 	class logoutButtonListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
 			try{
+				//method logout from the view
 				getView().logout();
 
 			}catch(Exception exception)
@@ -80,11 +91,13 @@ public class ReportsController {
 		}
 	}
 	
+	//listener class for closing the popup in Reports tab
 	class okButtonListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
 			try{
+				//dispose of the popup dialog
 				getView().getTabsPane().getReportPanel().getPopup().dispose();
 
 			}catch(Exception exception)
@@ -94,23 +107,21 @@ public class ReportsController {
 		}
 	}
 	
+	//listener class for viewing the items of a sale
 	class CheckSelectedListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-				
-					
+									
 					listq.clear();
 					calculateItems();
 					if (index>-1)
 					{
-						
-								
+													
 					getView().getTabsPane().getReportPanel().getPopup().setTableModel(itemsSold,listq);
 					getView().getTabsPane().getReportPanel().getPopup().setTotal(total);
 					getView().getTabsPane().getReportPanel().getPopup().setAlwaysOnTop(true);
 					getView().getTabsPane().getReportPanel().getPopup().setVisible(true);
-					
-					
+										
 					}		
 					else JOptionPane.showMessageDialog(null,
 							"Please select a row of table first",
@@ -127,35 +138,24 @@ public class ReportsController {
 	if (index>-1)   {
 		               total=saleList.get(index).getTotalPrice();
                        //a temporary list to hold all the Id-s of the sold items
-	                   ArrayList<Integer> tempList=new ArrayList<Integer>();
+		               ArrayList<ArrayList<Integer>> tempList2=new ArrayList<ArrayList<Integer>>();
+		               ArrayList<Integer> tempList=new ArrayList<Integer>();
+		               
 	                    index1=saleList.get(index).getSaleID();  //index1 holds the saleId of the sale selected in the table	
-                        tempList=getModel().getItemsSold(index1);//get the array of id-s from quering the Sale table
-    
-                         //a second temporary list to extract the unique Id-s of items
-	                    ArrayList<Integer> tempList2=new ArrayList<Integer>(); 
-	
-	                     for( int i=0;i<tempList.size();i++)
-					    {
-						 int counter=1;
-						 tempList2.add(tempList.get(i));
-						 for (int j=i+1;j<tempList.size();j++)
-							if (tempList.get(j)==tempList.get(i))				
-												{  
-													counter++;
-													 tempList.remove(j);				
-												}	 
-		                  listq.add(counter);
-					     }
-		
+	                    
+                        tempList2=getModel().getItemsSold(index1);//get the array of id-s from quering the Sale table
+                        tempList=tempList2.get(0);
+                        listq=tempList2.get(1);                                        												 
+		           					    	
 	
 						//Clear the list of items to be displayed before constructing another model 
 					     itemsSold.clear();
 					   
 						//Adding items to the list to be put in the table model
-						   for (int i=0;i<tempList2.size();i++)
+						   for (int i=0;i<tempList.size();i++)
 						    {
-								int ID=tempList2.get(i);
-								Item item=getModel().getItemByID(ID);
+								int ID=tempList.get(i);
+							    Item item=getModel().getItemByID(ID);
 								itemsSold.add(item);
 					    						   }
 	  	  	}

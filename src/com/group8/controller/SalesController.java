@@ -93,19 +93,11 @@ else if(e.getSource()==theView.getTabsPane().getMakeSalePanel().getpSale().getCo
 	//add sol items to itemsold table
 	for(int i = 0  ; i<saleItems.size();i++)
 	{
-		theModel.addNewItemSold(saleItems.get(i), thisSale, (double) theView.getTabsPane().getMakeSalePanel().getpSale().getCheckoutTable().getValueAt(i, 2));
+		theModel.addNewItemSold(saleItems.get(i), thisSale, (double) theView.getTabsPane().getMakeSalePanel().getpSale().getCheckoutTable().getValueAt(i, 2),quantities.get(i));
 		Item updatingItem = saleItems.get(i);
 		theModel.updateItemLevels(updatingItem, quantities.get(i));
 		theModel.updateItem(updatingItem	, theModel.getItemSubCatID(updatingItem.getItemID()));
-		if (quantities.get(i)>1)
-		{
-			for(int j = 0 ; j<quantities.get(i);)
-			{
-				theModel.addNewItemSold(saleItems.get(i), thisSale, Double.parseDouble((String) theView.getTabsPane().getMakeSalePanel().getpSale().getCheckoutTable().getValueAt(i, 2)));
-			}
-		i++;
-		}
-		
+			
 	}
 
 	theView.getTabsPane().getMakeSalePanel().getpSale().dispose();
@@ -195,7 +187,7 @@ if (row!=-1)
 				JOptionPane.showMessageDialog(theView.getTabsPane().getMakeSalePanel().getpSale(), "Item added to the basket!", "Success", 1);
 				theView.getTabsPane().getMakeSalePanel().getpSale().getCheckoutTable().setModel(new CheckoutTableModel(saleItems, quantities));
 			}
-			System.out.println(saleItems.get(0).getModel());
+		if (saleItems.size()>0)	System.out.println(saleItems.get(0).getModel());
 				
 		}
 

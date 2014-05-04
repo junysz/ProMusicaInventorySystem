@@ -443,9 +443,16 @@ public class DataQueries {
 		}
 	}
 
-
-		protected ArrayList<Integer>  getItemsSold(int saleID){
-			ArrayList<Integer> list = new ArrayList<Integer>(); //create a new arraylist type int
+	
+	     
+	      
+	   	
+		protected  ArrayList<ArrayList<Integer>>  getItemsSold(int saleID){
+					
+			 ArrayList<Integer> itemID=new ArrayList<Integer>();
+		      ArrayList<Integer> itemquantity=new ArrayList<Integer>();
+		      ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
+		      
 			try{
 				String query = "Select * From ItemSold where saleID = ? ";
 				pstmt = con.prepareStatement(query);
@@ -454,11 +461,15 @@ public class DataQueries {
 				
 				while( rs.next()) { 
 					int ID = rs.getInt("itemID");
-					list.add(ID);
-				}
+					int quantity=rs.getInt("quantity");
+					itemID.add(ID);
+					itemquantity.add(quantity);
+					}
 				rs.close(); //close result set
 				pstmt.close(); //close prepared statement
-				return list;
+				result.add(itemID);
+				result.add(itemquantity);
+				return result;
 			}
 			catch(Exception e)
 			{

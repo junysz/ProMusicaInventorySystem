@@ -62,42 +62,6 @@ public class Controller implements CategoryListener{
 		
 	}
 		
-			
-		
-
-
-	/*//Inner Class that listens for the Create Account Button
-	class RemoveItemBtn implements ActionListener{
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			String itemSelection=null;
-			//read the values (itemSelection) from the view
-			try{
-				itemSelection=theView.getTabsPane().getMaintainPanel().getItemToEditComboBox().getSelectedItem().toString();
-			}catch(Exception ex){
-
-			}
-			//Now validate the data and add errors to errorMessages
-			ArrayList<String> errorMessages = new ArrayList<String>();
-			if(itemSelection==null){
-				errorMessages.add("Select Item");
-			}
-
-			if(errorMessages.isEmpty()){
-
-				System.out.println("Remove Item successful");
-				//Now that data processing is complete, clear the GUI form
-				theView.getTabsPane().getMaintainPanel().clearEditItemForm();
-			}
-			else{
-				theView.getTabsPane().getMaintainPanel().warnEditItemFormErrors(errorMessages);
-			}
-		}
-	}*/
-
-
-
-
 
 	public void categoryAddedPerformed(CategoryFormEvent catFormEvent) 
 	{	

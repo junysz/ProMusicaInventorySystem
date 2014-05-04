@@ -92,16 +92,17 @@ public class DataInserts {
             e.printStackTrace();
         }
 	}
-	protected void insertNewItemSold(Item i, Sale s, double itemSalePrice)
+	protected void insertNewItemSold(Item i, Sale s, double itemSalePrice,int quantity)
 	{
 		try
 		{
 			statement = con.createStatement();
 			//Structure for inserting a new tuple in the Item Sold table
-			String insert = "Insert into ItemSold (itemID, saleID, itemSalePrice) values (" + i.getItemID() + "," + s.getSaleID() + ", " + itemSalePrice + ")";
+			String insert = "Insert into ItemSold (itemID, saleID, itemSalePrice,quantity) values (" + i.getItemID() + "," + s.getSaleID() + ", " + itemSalePrice +"," + quantity + ")";
 			int res = statement.executeUpdate(insert); //writes to Item Sold table
 	
 			statement.close();
+			System.out.println("Added item sold");
 		}
 		catch(Exception e)
         {
