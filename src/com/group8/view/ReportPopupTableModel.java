@@ -21,9 +21,9 @@ public class ReportPopupTableModel extends AbstractTableModel {
 		db=new ArrayList<>();
 		db2=new ArrayList<>();		
 	}
-	//method used by ItemTableModel in the ReservationPanel class
+	//method used by ItemTableModel in the ReportPanel class
 	public void setTableModel(List<Item>db,List<Integer> db2){
-	//	fireTableDataChanged();
+	
 		this.db=db;
 		this.db2=db2;
 	}
@@ -33,7 +33,7 @@ public class ReportPopupTableModel extends AbstractTableModel {
 	public String getColumnName(int column) {
 		return columnNames[column];
 	}
-	
+	//getting the values from two lists
 	public Object getValueAt(int row, int column) {
 		
 		Item item =db.get(row);

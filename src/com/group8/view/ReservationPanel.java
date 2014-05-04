@@ -94,17 +94,14 @@ public class ReservationPanel extends JPanel
 
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		add(tabbedPane, BorderLayout.CENTER);
-
-
-		model = new DefaultListModel<String>();	
-
+		model = new DefaultListModel<String>();
 
 		/*
 		 * MakeNewReservationPanel STUFF
 		 */
 		makeNewReservationPanel = new JPanel();
 		tabbedPane.addTab("Make New", null, makeNewReservationPanel, null);
-		makeNewReservationPanel.setLayout(new MigLayout("", "[164.00,grow][][200.00,grow][103.00][106.00][][grow][]", "[][][][][][][][][47.00][39.00][530.00,grow][][][][][530.00][][][][]"));
+		makeNewReservationPanel.setLayout(new MigLayout("", "[164.00,grow][][200.00,grow][103.00][106.00][][grow][]", "[][][][][][][][][47.00][39.00][530.00,grow][][][][47.00][530.00,grow][530.00,grow][-53.00][][][]"));
 
 		scrollPaneReservTable = new JScrollPane();
 		scrollPaneReservTable.setFont(new Font("Cambria", Font.BOLD, 14));
@@ -145,47 +142,47 @@ public class ReservationPanel extends JPanel
 		//btnFindItems.addTableActionEvetn(TableModelListener tableModelListener); 
 		searchKeywordTF.setColumns(10);
 		makeNewReservationPanel.add(searchKeywordTF, "cell 4 2,growx");
-		makeNewReservationPanel.add(scrollPaneReservTable, "cell 0 10 5 1,grow");
+		makeNewReservationPanel.add(scrollPaneReservTable, "cell 0 10 5 6,grow");
 		/*
 		 * SOUTH PANEL
 		 */
-		btnFindItems = new JButton("Find Items");
-		btnFindItems.setFont(new Font("Cambria", Font.BOLD, 13));
-		makeNewReservationPanel.add(btnFindItems, "cell 6 10");
 		southPanelReservation = new JPanel();
-		southPanelReservation.setLayout(new MigLayout("", "[][grow][grow][][grow][][][grow][grow]", "[][][][][][][][][15.00][][][][][]"));
-		makeNewReservationPanel.add(southPanelReservation, "cell 0 15 7 1,grow");
+		southPanelReservation.setLayout(new MigLayout("", "[][grow][grow][][grow][][][][][grow][grow]", "[][][][][][][][][][][][][15.00][][][][][][]"));
+		makeNewReservationPanel.add(southPanelReservation, "cell 0 16 7 1,growx,aligny center");
+		btnFindItems = new JButton("Find items");
+		southPanelReservation.add(btnFindItems, "cell 2 4,alignx right");
+		btnFindItems.setFont(new Font("Cambria", Font.BOLD, 13));
 		makeNewErrorLabel = new JLabel("");
 		makeNewErrorLabel.setForeground(Color.RED);
-		southPanelReservation.add(makeNewErrorLabel, "cell 0 3");
-
-		lblEnterDocketNo = new JLabel("Enter Docket ");
-		lblEnterDocketNo.setFont(new Font("Cambria", Font.BOLD, 13));
-
-
-		southPanelReservation.add(lblEnterDocketNo, "flowx,cell 1 3,alignx right");
-		euroLabel = new JLabel("\u20AC");
-		euroLabel.setForeground(Color.GRAY);
-		southPanelReservation.add(euroLabel, "cell 5 3");
+		southPanelReservation.add(makeNewErrorLabel, "cell 0 5");
+		
+				lblEnterDocketNo = new JLabel("New docket");
+				lblEnterDocketNo.setFont(new Font("Cambria", Font.BOLD, 13));
+				
+				
+						southPanelReservation.add(lblEnterDocketNo, "flowx,cell 1 15,alignx right");
 		enterDocketNoTF = new JTextField();
 		enterDocketNoTF.setColumns(10);
-		southPanelReservation.add(enterDocketNoTF, "cell 1 3,alignx center");
-		lblDeposit = new JLabel("Deposit");
-		lblDeposit.setFont(new Font("Cambria", Font.BOLD, 13));
-		southPanelReservation.add(lblDeposit, "flowx,cell 4 3,alignx trailing");
-		depositTF = new JTextField();					
-		depositTF.setColumns(10);
-		southPanelReservation.add(depositTF, "cell 4 3,alignx center");
-		btnReserveItem = new JButton("Reserve Item");	
+		southPanelReservation.add(enterDocketNoTF, "cell 1 15,alignx center");
+		btnReserveItem = new JButton("Reserve item");	
 		btnReserveItem.setFont(new Font("Cambria", Font.BOLD, 13));
 		btnReserveItem.setEnabled(false);
-		southPanelReservation.add(btnReserveItem, "cell 2 7,alignx right");
+		southPanelReservation.add(btnReserveItem, "cell 2 15,alignx right");
+		lblDeposit = new JLabel("Deposit");
+		lblDeposit.setFont(new Font("Cambria", Font.BOLD, 13));
+		southPanelReservation.add(lblDeposit, "flowx,cell 4 15,alignx trailing");
+		depositTF = new JTextField();					
+		depositTF.setColumns(10);
+		southPanelReservation.add(depositTF, "cell 4 15,alignx center");
+		euroLabel = new JLabel("\u20AC");
+		euroLabel.setForeground(Color.GRAY);
+		southPanelReservation.add(euroLabel, "cell 5 15");
 		selectSubcategoryCBox = new JComboBox<String>();
 		selectSubcategoryCBox.setModel(subCatComboBoxModel);
 		makeNewReservationPanel.add(selectSubcategoryCBox, "cell 2 2,growx");
 
 		logoutButton = new JButton("Logout");
-		makeNewReservationPanel.add(logoutButton, "cell 6 18,alignx right");
+		makeNewReservationPanel.add(logoutButton, "cell 6 19,alignx right");
 		logoutButton.setForeground(Color.BLACK);
 		logoutButton.setFont(new Font("Cambria", Font.BOLD, 13));
 
@@ -316,7 +313,6 @@ public class ReservationPanel extends JPanel
 		int row=getTableIndex();
 		return  (double) tableItemsRevervation.getValueAt(row,5);		
 	}
-
 
 	public JComboBox<String> getSelectCategoryCBox() {
 		return selectCategoryCBox;
@@ -486,6 +482,11 @@ public class ReservationPanel extends JPanel
   { 
 	  return model;
   }
+  
+  
+  /*********************************************
+   ******** Messages for controller*************
+   ********************************************/
 	public void warnUpdateNull(){
 
 		JOptionPane.showMessageDialog(null,

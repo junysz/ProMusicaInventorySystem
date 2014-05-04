@@ -71,15 +71,14 @@ public class PopupReports extends JDialog {
 		PopupTableModel= new ReportPopupTableModel();
 		// TODO Auto-generated constructor stub
 	}
-	
-	public void setTableModel(List list1,List list2)
-	{   
-		
-		
+	//set the model for table in popup
+	 public void setTableModel(List list1,List list2)
+	   {   		
 		PopupTableModel.setTableModel(list1,list2);
 		saleItemsTable.setModel(PopupTableModel);
 		PopupTableModel.fireTableDataChanged();
-	}
+		}
+	
 	public void okButtonListener(ActionListener listenFor)
 	{
 		okButton.addActionListener(listenFor);

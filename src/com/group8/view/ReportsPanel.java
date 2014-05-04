@@ -98,7 +98,7 @@ public class ReportsPanel extends JPanel {
 		printButton.setEnabled(false);
 		add(printButton, "cell 3 11");
 		
-		CheckSelected = new JButton("Check selected sale");
+		CheckSelected = new JButton("View sale items");
 		CheckSelected.setFont(new Font("Cambria", Font.BOLD, 13));
 		add(CheckSelected, "cell 7 11");
 		CheckSelected.setEnabled(false);

@@ -9,7 +9,7 @@ import com.group8.model.Sale;
 public class ReportTableModel extends AbstractTableModel{
 
 	private List<Sale> db;
-	private String[] titles= {"Sale  Date","Total Price","Account name"}; //set column headers
+	private String[] titles= {"Sale  date","Sale total","Sale made by"}; //set column headers
 
 
 	public ReportTableModel()
