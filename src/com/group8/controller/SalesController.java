@@ -232,6 +232,7 @@ else if(e.getSource()==theView.getTabsPane().getMakeSalePanel().getBtnCheckout()
 	System.out.println("Checkout pressed!!");
 	theView.getTabsPane().getMakeSalePanel().getpSale().setAlwaysOnTop(true);
 	theView.getTabsPane().getMakeSalePanel().getpSale().setVisible(true);
+	theView.getTabsPane().getMakeSalePanel().getpSale().repaint();
 }
 else if(e.getSource()==theView.getTabsPane().getMakeSalePanel().getBtnClearCart())
 {
@@ -239,6 +240,7 @@ int option = JOptionPane.showConfirmDialog(theView.getTabsPane().getMakeSalePane
 if(option==0)
 {
 saleItems = new ArrayList<Item>();
+quantities = new ArrayList<Integer>();
 JOptionPane.showMessageDialog(theView.getTabsPane().getMakeSalePanel().getpSale(), "Basket has been successfully cleared!", "Success!", 1);
 }
 }
