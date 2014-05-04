@@ -40,19 +40,20 @@ public class ReservationController {
 		getView().getTabsPane().getReservationPanel().addComboBoxCatListener(new ComboBoxListener());
 		getView().getTabsPane().getReservationPanel().addComboBoxSubCatListener(new ComboBoxSubCatListener());
 		getView().getTabsPane().getReservationPanel().logoutButtonListener(new logoutButtonListener());
-		getView().getTabsPane().getReservationPanel().logoutButtonListener2(new logoutButtonListener2());
+		getView().getTabsPane().getReservationPanel().logoutButtonListener2(new logoutButtonListener());
 
 
 	}
 
-
+     //listener class for populating table in reservation tab
 	class PopulateTableListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			populateTable();
 		}
 	}
 
-
+    //Listener class for the list in the reservation tab 
+	
 	class myListListener implements ListSelectionListener{
 		private String item;
 		private double totalPrice,deposit;
@@ -62,37 +63,41 @@ public class ReservationController {
 		public void valueChanged(ListSelectionEvent e) {
 
 			if (getView().getTabsPane().getReservationPanel().getList().getSelectedValue()!=null)	
+				//get docket selected from the GUI
 				docketSelected = getView().getTabsPane().getReservationPanel().getList().getSelectedValue().toString();
 
 			ArrayList<Reservation> myList=new ArrayList<Reservation>();
-			myList=getModel().getReservedItems();
+			//get all the items reserved from database
+ 			myList=getModel().getReservedItems();
 			int size=myList.size();
 			for (int i=0;i<size;i++)
 				if (myList.get(i).getDocketNo().equals(docketSelected) )			
-				{
+                 	{
+						//retrieve reserved item from database
 					int itemID=myList.get(i).getItemID();
 
-
+                   //get all attributes from the reserved item
 					item=getModel().getItemByID(itemID).getBrand()+" "+getModel().getItemByID(itemID).getModel();
 					totalPrice=getModel().getItemByID(itemID).getPrice();
 					deposit=myList.get(i).getDeposit();
 					date = myList.get(i).getDate();
 
 				}
-
+              //set all textfields accordingly
 			getView().getTabsPane().getReservationPanel().getDocketNoTF().setText(docketSelected);
 			getView().getTabsPane().getReservationPanel().getBrandModelTF().setText(item);
 			getView().getTabsPane().getReservationPanel().getCurrentDepositTF().setText(deposit+"");
 			getView().getTabsPane().getReservationPanel().getTotalPriceTF().setText(totalPrice+"");
 			getView().getTabsPane().getReservationPanel().getDateTF().setText(""+ date);
-
+          //enable the two buttons
 			getView().getTabsPane().getReservationPanel().getEndReservation().setEnabled(true);
 			getView().getTabsPane().getReservationPanel().getNewButton().setEnabled(true);
 		}	
 	}
 
+	
+	
 	//Class for listening the button to Update a Reservation
-
 	class UpdateBtn implements ActionListener
 	{
 		@Override
@@ -103,21 +108,28 @@ public class ReservationController {
 
 			reserved=new Reservation();
 			String docket=getView().getTabsPane().getReservationPanel().getDocketNoTF().getText();			
+			//get the amount newly entered
 			String newDepositString=getView().getTabsPane().getReservationPanel().getupdateDepositTF().getText();
+			//get the current deposit
 			String oldDepositString=getView().getTabsPane().getReservationPanel().getCurrentDepositTF().getText();
 			try
 			{
 				newDeposit = Double.parseDouble(newDepositString);	
 				oldDeposit= Double.parseDouble(oldDepositString);
 				reserved.setDeposit(newDeposit+oldDeposit);
+				//get price of item reserved
 				double price=Double.parseDouble(getView().getTabsPane().getReservationPanel().getTotalPriceTF().getText());
-
+               //if the new deposit is too big
 				if (newDeposit+oldDeposit>price-1)  getView().getTabsPane().getReservationPanel().warnUpdate();
 				else 	
 				{
+					//update the deposit for the item reserved in database
 					getModel().updateReservedItem(docket,newDeposit+oldDeposit);
+					//update the deposit in the GUI
 					getView().getTabsPane().getReservationPanel().getCurrentDepositTF().setText((newDeposit+oldDeposit)+"");	
+					//display message 
 					getView().getTabsPane().getReservationPanel().successful();
+					//clear the textfield for updating deposit
 					getView().getTabsPane().getReservationPanel().getupdateDepositTF().setText("");				
 				}
 			}
@@ -137,6 +149,7 @@ public class ReservationController {
 			String docket=getView().getTabsPane().getReservationPanel().getDocketNoTF().getText();
 			getModel().removeReservedItem(docket);
 			populateList();
+			// clear all fields
 			getView().getTabsPane().getReservationPanel().getDocketNoTF().setText("");
 			getView().getTabsPane().getReservationPanel().getBrandModelTF().setText("");
 			getView().getTabsPane().getReservationPanel().getCurrentDepositTF().setText("");
@@ -299,7 +312,7 @@ public class ReservationController {
 		}
 	}
 
-
+    //set list model
 	public void setListModel(List<Reservation> list)
 	{
 
@@ -307,16 +320,17 @@ public class ReservationController {
 		for (int i=0;i<size;i++)
 		{
 			DefaultListModel<String>model=getView().getTabsPane().getReservationPanel().getModel();
-			list=getModel().getReservedItems();  		
+			list=getModel().getReservedItems();
+			//Put reservation dockets in the list
 			model.addElement(list.get(i).getDocketNo());
 		}
 
 	}
+	//refresh the list 
 	public void  populateList()
 	{
 		getView().getTabsPane().getReservationPanel().removeList();
 		ArrayList<Reservation> List=new ArrayList <Reservation>();    
-
 		List=getModel().getReservedItems(); 		
 		setListModel(List);
 	}
@@ -343,7 +357,8 @@ public class ReservationController {
 				newList=getModel().getItemsInSubcategory(subCat); //get all items in subcategory
 				size=newList.size();
 			}
-
+      
+			//if subcategory was not selected
 			else 
 			{
 				getView().getTabsPane().getReservationPanel().warnSubCategoryNull();
@@ -357,6 +372,7 @@ public class ReservationController {
 		getView().getTabsPane().getReservationPanel().getBtnReserveItem().setEnabled(true);	//enable the reserve button 
 	}
 
+	  //Class listener for logging out
 	class logoutButtonListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -370,6 +386,7 @@ public class ReservationController {
 			}
 		}
 	}
+	
 	class logoutButtonListener2 implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {

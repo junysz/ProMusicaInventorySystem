@@ -94,11 +94,8 @@ public class ReportsPanel extends JPanel {
 		
 	
 		printButton = new JButton("Print report");
-		printButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		printButton.setFont(new Font("Cambria", Font.BOLD, 13));
+		printButton.setEnabled(false);
 		add(printButton, "cell 3 11");
 		
 		CheckSelected = new JButton("Check selected sale");
@@ -108,6 +105,7 @@ public class ReportsPanel extends JPanel {
 		
 		saveButton = new JButton("Save report");
 		saveButton.setFont(new Font("Cambria", Font.BOLD, 13));
+		saveButton.setEnabled(false);
 		add(saveButton, "cell 19 11 2 1");
 
 		logoutButton = new JButton("Logout");
