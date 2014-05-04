@@ -4,6 +4,8 @@ import java.awt.event.ActionListener;
 import java.awt.print.PrinterException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable.PrintMode;
 import com.group8.model.Item;
@@ -27,7 +29,7 @@ public class ReportsController {
 		getView().getTabsPane().getReportPanel().logoutButtonListener(new logoutButtonListener());
 		getView().getTabsPane().getReportPanel().CheckSelectedListener(new CheckSelectedListener());
 		getView().getTabsPane().getReportPanel().printListener(new buttonPrinter());
-		getView().getTabsPane().getReportPanel().printListener2(new buttonItemsPrinter());
+		getView().getTabsPane().getReportPanel().getPopup().printListener2(new buttonItemsPrinter());
 		getView().getTabsPane().getReportPanel().getPopup().okButtonListener(new okButtonListener());
 	}
 
@@ -35,7 +37,10 @@ public class ReportsController {
 	class PopulateTable2Listener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 
-			getView().getTabsPane().getReportPanel().getCheckReport().setEnabled(true);	        		    
+			getView().getTabsPane().getReportPanel().getCheckReport().setEnabled(true);	 
+			getView().getTabsPane().getReportPanel().getsaveButton().setEnabled(true);	
+			getView().getTabsPane().getReportPanel().getprintButton().setEnabled(true);
+			
 			System.out.println("Updating the table...");
 			 date1=  getView().getTabsPane().getReportPanel().getDate1();//get first date from the ReportPanel
 			 date2=	getView().getTabsPane().getReportPanel().getDate2();	//get the second date			
@@ -195,26 +200,16 @@ public class ReportsController {
 			 
 		    public void actionPerformed(ActionEvent e) {
 		    	
-		    	
-		    	
+		    		    	
 		    	int row=getView().getTabsPane().getReportPanel().getRableReport().getSelectedRow();
 		    	 total=saleList.get(row).getTotalPrice();
-		    	 getView().getTabsPane().getReportPanel().getPopup().setTotal(total);		    	 
-		    	 MessageFormat header = new MessageFormat("Sale made by: "+saleList.get(row).getName()+"   Date: "+saleList.get(row).getDate().toString());   	 
+		    	 getView().getTabsPane().getReportPanel().getPopup().setTotal(total);	
 		    	
+		    	 getView().getTabsPane().getReportPanel().getPopup().dispose();
+		    	 MessageFormat header = new MessageFormat("Sale made by: "+saleList.get(row).getName()+"   Date: "+saleList.get(row).getDate().toString());   	 
 		    	 MessageFormat footer = new MessageFormat("Page - {0}");
 		    	try {
-		    		 
-		    		listq.clear();
-					calculateItems();
-					if (index>-1)	
-					                  {
-						               getView().getTabsPane().getReportPanel().getPopup().setTableModel(itemsSold,listq);
-						             //  getView().getTabsPane().getReportPanel().getPopup().setAlwaysOnTop(true);
-									   getView().getTabsPane().getReportPanel().getPopup().setVisible(true);
-					                  }     
-					
-		    		MessageFormat footerFormat = new MessageFormat("Page - {0}");
+		    	   	
 		    	    boolean complete = getView().getTabsPane().getReportPanel().getPopup().getTable().print(PrintMode.FIT_WIDTH,header,footer);
 		    	    if (complete) {
 		    	       
