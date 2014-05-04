@@ -39,7 +39,6 @@ public class ReportsPanel extends JPanel {
 	private JDateChooser date2;
 	private JLabel date1Label,date2Label;
 	private JButton logoutButton;
-	private JButton printItemsButton;
 	private JButton printButton;
 	private JButton CheckSelected;;  
 	private PopupReports popup;
@@ -93,21 +92,21 @@ public class ReportsPanel extends JPanel {
 
 		scrollPane.setViewportView(tableReport);
 		
+	
+		printButton = new JButton("Print report");
+		printButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		printButton.setFont(new Font("Cambria", Font.BOLD, 13));
+		add(printButton, "cell 3 11");
+		
 		CheckSelected = new JButton("Check selected sale");
 		CheckSelected.setFont(new Font("Cambria", Font.BOLD, 13));
-		add(CheckSelected, "cell 23 10 4 1");
+		add(CheckSelected, "cell 7 11");
 		CheckSelected.setEnabled(false);
 		
-		printItemsButton = new JButton("Print selected sale's items");
-		
-	
-		printButton = new JButton("Print all sales");
-		printButton.setFont(new Font("Cambria", Font.BOLD, 13));
-		add(printButton, "cell 4 11");
-		printItemsButton.setFont(new Font("Cambria", Font.BOLD, 13));
-		add(printItemsButton, "cell 7 11");
-		
-		saveButton = new JButton("Save");
+		saveButton = new JButton("Save report");
 		saveButton.setFont(new Font("Cambria", Font.BOLD, 13));
 		add(saveButton, "cell 19 11 2 1");
 
@@ -128,10 +127,7 @@ public class ReportsPanel extends JPanel {
 	{
 		printButton.addActionListener(listen);
 	}
-	public void printListener2(ActionListener listen)
-	{
-		printItemsButton.addActionListener(listen);
-	}
+	
 	public void CheckSelectedListener	(ActionListener listenForBtnReport)
 	{
 		CheckSelected.addActionListener(listenForBtnReport);
