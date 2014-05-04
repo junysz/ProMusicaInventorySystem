@@ -501,11 +501,17 @@ public class ReservationPanel extends JPanel
 				"Warning",
 				JOptionPane.WARNING_MESSAGE);
 	}
-	public void warnDocketNull(){
+	public void warnNewReservationInput(ArrayList<String> errors){
 
+		String message = "Fix:\n"; //errors message for JOptionPane
+		//For each error in the list add the error to the message
+		for(String e: errors)
+		{
+			message+=e + "\n";
+		}
 		JOptionPane.showMessageDialog(null,
-				"Please enter the Docket Number",
-				"Warning",
+				message,
+				"Go away warning",
 				JOptionPane.WARNING_MESSAGE);
 	}
 
@@ -513,14 +519,6 @@ public class ReservationPanel extends JPanel
 
 		JOptionPane.showMessageDialog(null,
 				"Please make a selection for the subcategory",
-				"Warning",
-				JOptionPane.WARNING_MESSAGE);
-
-	}
-	public void warnItemNull(){
-
-		JOptionPane.showMessageDialog(null,
-				"Please make a selection for an item",
 				"Warning",
 				JOptionPane.WARNING_MESSAGE);
 
@@ -533,4 +531,21 @@ public class ReservationPanel extends JPanel
 				JOptionPane.INFORMATION_MESSAGE);
 
 	}
+	public void successful(){
+
+		JOptionPane.showMessageDialog(null,
+				"Reservation updated",
+				"Warning",
+				JOptionPane.INFORMATION_MESSAGE);
+
+	}
+	public void successfuly(){
+
+		JOptionPane.showMessageDialog(null,
+				"Reservation terminated",
+				" ",
+				JOptionPane.INFORMATION_MESSAGE);
+
+	}
 }
+
