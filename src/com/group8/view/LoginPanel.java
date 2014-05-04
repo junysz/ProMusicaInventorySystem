@@ -38,8 +38,8 @@ public class LoginPanel extends JPanel {
 		
 		//set panel properties and add objects
 		
-		setLayout(new MigLayout("", "[190.00][][]", "[140.00px][21.00][][][35][][][][76.00][][][][][][][][][][][][][][][][41.00][]"));
-		setSize(250, 320);
+		setLayout(new MigLayout("", "[190.00][][]", "[170.00px][20.00][][][35][][][][76.00][][][][][][][][][][][][][][][][41.00][]"));
+		setSize(250, 370);
 		
 		
 		label = new Label("Inventory System ");
@@ -68,7 +68,7 @@ public class LoginPanel extends JPanel {
 		add(usrPassPF, "cell 0 13,alignx right");
 		
 		
-		ImagePanel proMusicaLogo = new ImagePanel("/com/group8/images/musica.jpg");
+		ImagePanel proMusicaLogo = new ImagePanel("/com/group8/images/logo.png");
 		add(proMusicaLogo, "cell 0 0 1 2,grow");
 		
 		lblPoweredBy = new JLabel("Powered by:");
