@@ -128,16 +128,9 @@ public class ReportsPanel extends JPanel {
 	{
 		printButton.addActionListener(listen);
 	}
-
-	public void saveListener(ActionListener listen)
-	{
-		saveButton.addActionListener(listen);
-	}
-
 	public void printListener2(ActionListener listen)
 	{
 		printItemsButton.addActionListener(listen);
-
 	}
 	public void CheckSelectedListener	(ActionListener listenForBtnReport)
 	{
@@ -228,12 +221,6 @@ public class ReportsPanel extends JPanel {
 	}
 	public JButton getCheckReport() {
 		return CheckSelected;
-	}
-	public JButton getsaveButton() {
-		return saveButton;
-	}
-	public JButton getprintButton() {
-		return printButton;
 	}
 	public PopupReports getPopup() {
 		return popup;

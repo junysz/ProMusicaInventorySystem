@@ -31,15 +31,14 @@ public class PopupReports extends JDialog {
 	private JTextField totalTF;
 	ReportPopupTableModel	PopupTableModel;
 	private JButton okButton;
-	private JButton printItemsButton;
 	public PopupReports() {
 
-		getContentPane().setLayout(new MigLayout("", "[][grow][]", "[grow][][grow]"));
-		setSize(500,400);
+		getContentPane().setLayout(new MigLayout("", "[][grow]", "[grow][grow]"));
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.scrollRectToVisible(getBounds());
-		getContentPane().add(scrollPane, "cell 1 1,grow");
+		getContentPane().add(scrollPane, "cell 1 0,grow");
+		setSize(500,400);
 		
 		saleItemsTable = new JTable();
 		saleItemsTable.getTableHeader().setFont( new Font( "Cambria" , Font.BOLD, 14 ));
@@ -48,26 +47,23 @@ public class PopupReports extends JDialog {
 		saleItemsTable.setColumnSelectionAllowed(true);
 		scrollPane.setViewportView(saleItemsTable);
 		
-		lblTotalSaleCost = new JLabel("Total \u20AC");
-		getContentPane().add(lblTotalSaleCost, "flowx,cell 1 2");
+		panel = new JPanel();
+		getContentPane().add(panel, "cell 1 1,grow");
+		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		lblTotalSaleCost = new JLabel("Total  Sale: \u20AC");
+		panel.add(lblTotalSaleCost);
 		lblTotalSaleCost.setFont(new Font("Cambria", Font.BOLD, 13));
 		
 		totalTF = new JTextField();
-		getContentPane().add(totalTF, "cell 1 2");
+		panel.add(totalTF);
 		totalTF.setText("00.00");
 		totalTF.setEditable(false);
-		totalTF.setColumns(5);
-		
-		panel = new JPanel();
-		getContentPane().add(panel, "cell 1 2,growx,aligny center");
-		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
-		printItemsButton = new JButton("Print items");
-		panel.add(printItemsButton);
+		totalTF.setColumns(8);
 		
 		okButton = new JButton("OK");
-		getContentPane().add(okButton, "cell 1 2");
 		okButton.setFont(new Font("Cambria", Font.BOLD, 13));
+		panel.add(okButton);
 		PopupTableModel= new ReportPopupTableModel();
 		// TODO Auto-generated constructor stub
 	}
@@ -83,10 +79,6 @@ public class PopupReports extends JDialog {
 	public void okButtonListener(ActionListener listenFor)
 	{
 		okButton.addActionListener(listenFor);
-	}
-	public void printListener2(ActionListener listen)
-	{
-		printItemsButton.addActionListener(listen);
 	}
 	
 	public void setTotal(double total)
