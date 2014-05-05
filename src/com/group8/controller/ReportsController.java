@@ -67,7 +67,7 @@ public class ReportsController {
 				
 				getView().getTabsPane().getReportPanel().setTableModel(saleList);	//set the table if dates are not null
 				
-				if (date1.after(date2))
+				if (date1.getTime()>=date2.getTime()-86000000)
 				{
 					getView().getTabsPane().getReportPanel().warnDateAfter();//if first date after second warn user
 				}
