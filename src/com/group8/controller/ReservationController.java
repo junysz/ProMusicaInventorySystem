@@ -320,14 +320,20 @@ public class ReservationController {
 
 
 	class ComboBoxListener implements ActionListener{
-		private List<String> test;
+		private List<String> test=new ArrayList<>();
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String selectedCategory=getView().getTabsPane().getReservationPanel().getSelectCategoryCBox().getSelectedItem().toString();
 			System.out.println("ComboBox Category changed to: "+selectedCategory);
 			//now populate all sub-categories ....
-			test=getModel().getSubCategories(selectedCategory);
-			getView().getTabsPane().getReservationPanel().setComboBoxSubCategoryModel(test);
+			//test=getModel().getSubCategories(selectedCategory);
+			//getView().getTabsPane().getReservationPanel().setComboBoxSubCategoryModel(test);
+			
+			System.out.println("I am herer");
+			controller.getReservationPanel().setComboBoxSubCategoryModel(new CategoryComboBoxModel(),getModel().getSubCategories(selectedCategory));
+			
+			
+			
 		}
 	}
 

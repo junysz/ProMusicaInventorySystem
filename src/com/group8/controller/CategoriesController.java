@@ -7,7 +7,10 @@ import java.util.List;
 
 import com.group8.model.Category;
 import com.group8.model.SubCategory;
+import com.group8.view.CategoryComboBoxModel;
 import com.group8.view.MaintainPanel;
+import com.group8.view.ReservationPanel;
+import com.group8.view.SalesPanel;
 
 public class CategoriesController {
 
@@ -279,10 +282,18 @@ public class CategoriesController {
 		//sets the model for all the category combo boxes in maintain panel
 		getMaintainPanel().setCategoryModels(controller.getModel().getCategoryNames());	
 		getMaintainPanel().clearNewSubCatForm();
+		getSalesPanel().setSelectCategoryCBModel(new CategoryComboBoxModel(), controller.getModel().getCategoryNames());
+		getReservationPanel().setSelectCategoryCBModel(new CategoryComboBoxModel(), controller.getModel().getCategoryNames());
 	}
 
 	public MaintainPanel getMaintainPanel(){
 		return controller.getView().getTabsPane().getMaintainPanel();
+	}
+	public SalesPanel getSalesPanel(){
+		return controller.getView().getTabsPane().getMakeSalePanel();
+	}
+	public ReservationPanel getReservationPanel(){
+		return controller.getView().getTabsPane().getReservationPanel();
 	}
 
 
