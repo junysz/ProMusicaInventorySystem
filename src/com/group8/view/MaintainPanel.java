@@ -109,6 +109,8 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	private CategoryComboBoxModel categoryComboBoxModel;
 	private JComboBox<String> changeSubCatComboBox;
 	private Label label;
+	private JLabel lblEditStockLevel;
+	private JTextField editStockLevelTF;
 	
 
 	//all components
@@ -378,6 +380,14 @@ public class MaintainPanel extends JPanel implements ActionListener {
 		editPriceTF = new JTextField();
 		editItemPanel.add(editPriceTF, "flowx,cell 3 6,alignx left");
 		editPriceTF.setColumns(10);
+		
+		lblEditStockLevel = new JLabel("Edit Stock Level");
+		lblEditStockLevel.setFont(new Font("Cambria", Font.BOLD, 13));
+		editItemPanel.add(lblEditStockLevel, "cell 1 7");
+		
+		editStockLevelTF = new JTextField();
+		editItemPanel.add(editStockLevelTF, "cell 3 7,alignx left");
+		editStockLevelTF.setColumns(10);
 
 		errorLabel8 = new JLabel("");
 		errorLabel8.setForeground(Color.RED);
@@ -943,7 +953,7 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	public String getEnterStockLevelTF() {
 		return enterStockLevelTF.getText().toString();
 	}
-	//EDIT EXISTING ITEM PANEL GETTER METHODS
+	//EDIT EXISTING ITEM PANEL GETTER AND SETTER METHODS
 	public JComboBox<String> getItemToEditSubCatComboBox() {
 		return editSubCatComboBox;
 	}
@@ -963,6 +973,9 @@ public class MaintainPanel extends JPanel implements ActionListener {
 
 		editPriceTF.setText(price);
 	}
+	public void setEditStockLevelTF(String t){
+		editStockLevelTF.setText(t);
+	}
 
 	public String getEditModelTF() {
 		return editModelTF.getText();
@@ -970,6 +983,10 @@ public class MaintainPanel extends JPanel implements ActionListener {
 	public String getEditPriceTF() {
 		return editPriceTF.getText();
 	}
+	public String getEditStockLevelTF(){
+		return editStockLevelTF.getText();
+	}
+	
 	public JComboBox<String> getItemMoveSubCatComboBox() {
 		return changeSubCatComboBox;
 	}

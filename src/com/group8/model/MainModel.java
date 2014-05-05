@@ -122,7 +122,10 @@ public class MainModel {
 	{
 		updates.updateItem(ItemID, Stock);
 	}
-	
+	public  void updateItemStock(int ItemID,int Stock)
+	{
+		updates.updateItem1(ItemID, Stock);
+	}
 	public void updateAccount(int ID,String name,String pass,String type,int flag)
 	{
 		updates.updateAccount(ID, name, pass, type, flag);
