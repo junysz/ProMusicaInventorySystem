@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import com.group8.controller.LoginController;
+import javax.swing.ListSelectionModel;
 
 
 
@@ -27,6 +28,7 @@ public class MainFrame extends JFrame
 		setVisible(false);
 		loginPanel = new LoginPanel();
 		tabbedPane = new TabsPane();
+		tabbedPane.getMakeSalePanel().getTable().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		setBounds(100, 100, 650, 460);
 		
 		contentPane = new JPanel();
@@ -34,7 +36,7 @@ public class MainFrame extends JFrame
 		contentPane.setLayout(new CardLayout());
 		setContentPane(contentPane);
 		
-		add(tabbedPane);
+		getContentPane().add(tabbedPane);
 		contentPane.add(tabbedPane);
 		tabbedPane.setVisible(false);
 		contentPane.add(loginPanel);

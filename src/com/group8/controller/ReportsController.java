@@ -146,6 +146,7 @@ public class ReportsController {
 	public void calculateItems()
 	{//getting the index of the selected row in the table of sales
 	index=getView().getTabsPane().getReportPanel().getIndexRow();
+	System.out.println("Selected index is: " + index);
 	//Getting the total for the specified sale
 	if (index>-1)   {
 		               // get total to be displayed
