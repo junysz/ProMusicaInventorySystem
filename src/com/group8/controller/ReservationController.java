@@ -15,6 +15,8 @@ import com.group8.model.Account;
 import com.group8.model.Item;
 import com.group8.model.MainModel;
 import com.group8.model.Reservation;
+import com.group8.model.Sale;
+import com.group8.view.CategoryComboBoxModel;
 import com.group8.view.MainFrame;
 
 
@@ -142,13 +144,58 @@ public class ReservationController {
 
 	//Class to remove a Reservation  
 	class RemoveBtn implements ActionListener
-	{
+	{ int accountID;int itemID;
 		@Override
 		public void actionPerformed(ActionEvent e) {				
 
-			String docket=getView().getTabsPane().getReservationPanel().getDocketNoTF().getText();
-			getModel().removeReservedItem(docket);
-			populateList();
+			Sale sale=new Sale();
+			Calendar now = Calendar.getInstance();
+			java.sql.Date date = new java.sql.Date(now.getTime().getTime());
+			//get account name and password using the LoginPanel 
+			String username=getView().getUsernameLoginString();
+			String pass=getView().getPasswordLoginString();
+
+			//getting the AccountID
+			ArrayList<Account> myList=getModel().getAllAccounts();//getting the list of all acounts
+			for (int i=0;i<myList.size();i++)
+			{
+				if (myList.get(i).getAccountName().equals(username)) //if account name and pass are similar
+					if(		 myList.get(i).getPassword().equals(pass) )  
+						accountID=myList.get(i).getAccountID();
+				        
+			}
+			
+			sale.setDate(date);
+			double price=Double.parseDouble(getView().getTabsPane().getReservationPanel().getTotalPriceTF().getText());
+			sale.setTotalPrice(price);
+			sale.setName(username);
+			Account a=new Account();
+			a.setAccountID(accountID);
+			getModel().addNewSale( sale,  a);//adding a new sale in the database
+			
+			String docketSelected = getView().getTabsPane().getReservationPanel().getList().getSelectedValue().toString();
+			ArrayList<Reservation> myList1=new ArrayList<Reservation>();
+			//get all the items reserved from database
+ 			myList1=getModel().getReservedItems();
+			int size=myList1.size();
+			for (int i=0;i<size;i++)
+				if (myList1.get(i).getDocketNo().equals(docketSelected) )			
+                 	{
+						//retrieve reserved item from database
+					 itemID=myList1.get(i).getItemID();
+					 getModel().removeReservedItem(docketSelected);
+
+			     	}
+			
+			 int saleID=getModel().getLastSaleID();
+			 Item item= getModel().getItemByID(itemID);
+			 int stock=item.getStockLevel();
+			 
+			 getModel().updateItemStock(itemID, stock-1);
+			 sale.setSaleID(saleID);
+			 getModel().addNewItemSold(item, sale, price, 1);
+			 
+			 populateList();
 			// clear all fields
 			getView().getTabsPane().getReservationPanel().getDocketNoTF().setText("");
 			getView().getTabsPane().getReservationPanel().getBrandModelTF().setText("");
@@ -156,7 +203,8 @@ public class ReservationController {
 			getView().getTabsPane().getReservationPanel().getTotalPriceTF().setText("");
 			getView().getTabsPane().getReservationPanel().getDateTF().setText("");
 			getView().getTabsPane().getReservationPanel().successfuly();
-
+			
+			
 		}
 
 	}

@@ -156,6 +156,7 @@ public class ItemsController {
 					getMaintainPanel().setEditBrandTF(itemsInSubCat.get(i).getBrand());
 					getMaintainPanel().setEditModelTF(itemsInSubCat.get(i).getModel());
 					getMaintainPanel().setEditPriceTF(String.valueOf(itemsInSubCat.get(i).getPrice()));
+					getMaintainPanel().setEditStockLevelTF(String.valueOf((itemsInSubCat.get(i).getStockLevel())));
 				}
 			}	
 		}
@@ -172,6 +173,7 @@ public class ItemsController {
 
 				String brand=null;
 				String model=null;
+				int stockLevel=0;
 				double price=0;
 				String[] getItem;
 				String brandsplit = null;
@@ -189,6 +191,7 @@ public class ItemsController {
 					brand= getMaintainPanel().getEditBrandTF();
 					model= getMaintainPanel().getEditModelTF();
 					price= Double.parseDouble(getMaintainPanel().getEditPriceTF());
+					stockLevel= Integer.parseInt(getMaintainPanel().getEditStockLevelTF());
 				}catch(Exception ex){
 					System.out.println("Problem reading input fron Edit Existing Item Form");
 				}
@@ -211,6 +214,9 @@ public class ItemsController {
 				if(!(price>0)){
 					errorMessages.add("Price");
 				}
+				if(getMaintainPanel().getEditStockLevelTF().isEmpty()){
+					errorMessages.add("Stock Level");
+				}
 				//If there is no errors then we can go ahead and edit the item accordingly
 				if(errorMessages.isEmpty()){
 					//First we get the Item based on the string that was selected (contains "Brand Model")
@@ -218,6 +224,10 @@ public class ItemsController {
 					item.setBrand(brand);
 					item.setModel(model);
 					item.setPrice(price);
+					
+					int numReserved = item.getStockLevel() - item.getAvailableStockLevel();
+					item.setStockLevel(stockLevel);
+					item.setAvailableStockLevel(stockLevel-numReserved);
 					//if move sub-cat is not selected use sub-category selected 
 					if(getMaintainPanel().getItemMoveSubCatComboBox().getSelectedIndex()!=-1){
 						selectedSubCategory=getMaintainPanel().getItemMoveSubCatComboBox().getSelectedItem().toString();

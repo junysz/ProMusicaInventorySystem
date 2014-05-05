@@ -108,7 +108,26 @@ public class DataUpdates {
 			e.printStackTrace();
 		}
 	}
-	
+	protected void updateItem1(int ItemID,int Stock)
+	{
+		try
+		{
+
+			PreparedStatement preparedStatement = con.prepareStatement("UPDATE Item SET stockLevel=? where itemID = ?");
+
+			//Set the variables in the prepared statement
+			preparedStatement.setInt(1,Stock);
+			preparedStatement.setInt(2,ItemID);			
+			int    res = preparedStatement.executeUpdate(); 
+			preparedStatement.close();
+			
+
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
 	
 	
 	
@@ -118,14 +137,18 @@ public class DataUpdates {
 		try
 		{
 
-			PreparedStatement preparedStatement = con.prepareStatement("UPDATE Item SET itemBrand=?,itemModel=?,itemPrice=?,subCatID=? WHERE itemID = ?");
+			PreparedStatement preparedStatement = con.prepareStatement("UPDATE Item SET itemBrand=?,itemModel=?,itemPrice=?,subCatID=?,stockLevel=?,availableStockLevel=? WHERE itemID = ?");
 
 			//Set the variables in the prepared statement
 			preparedStatement.setString(1,i.getBrand());
 			preparedStatement.setString(2,i.getModel());
 			preparedStatement.setDouble(3,i.getPrice());
 			preparedStatement.setInt(4,subCatID);
-			preparedStatement.setInt(5,i.getItemID());
+			preparedStatement.setInt(5,i.getStockLevel());
+			preparedStatement.setInt(6,i.getAvailableStockLevel());
+			preparedStatement.setInt(7,i.getItemID());
+			
+			
 
 			int    res = preparedStatement.executeUpdate(); //updates name for category
 			preparedStatement.close();
