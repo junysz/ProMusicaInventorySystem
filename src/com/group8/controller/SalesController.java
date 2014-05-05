@@ -136,6 +136,7 @@ if (row!=-1)
 			
 			if(testingQuantity<validQuantity)
 			{
+				System.out.println("Testing quantity is:" + testingQuantity);
 				JOptionPane.showMessageDialog(theView.getTabsPane().getMakeSalePanel().getpSale(), "Available Stock Level insufficient!.", "Correct required quantity!", 2);
 			}
 		else
@@ -165,6 +166,8 @@ if (row!=-1)
 			{
 				if(testingQuantity<validQuantity+quantities.get(addingIndex))
 				{
+					System.out.println("Entered quantity is: " + validQuantity);
+					System.out.println("At the moment you have: "+quantities.get(addingIndex)+" units of the item added.");
 						JOptionPane.showMessageDialog(theView.getTabsPane().getMakeSalePanel().getpSale(), "Quantity exceeded availible stock level.", "Correct required quantity!", 2);
 				}
 				else{
