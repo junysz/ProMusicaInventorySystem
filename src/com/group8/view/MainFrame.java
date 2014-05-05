@@ -28,6 +28,7 @@ public class MainFrame extends JFrame
 		setVisible(false);
 		loginPanel = new LoginPanel();
 		tabbedPane = new TabsPane();
+		tabbedPane.getReportPanel().getRableReport().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tabbedPane.getMakeSalePanel().getTable().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		setBounds(100, 100, 650, 460);
 		

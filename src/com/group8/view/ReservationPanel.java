@@ -108,6 +108,7 @@ public class ReservationPanel extends JPanel
 		//instantiate ItemTableModel
 		itemTableModel= new ItemTableModel();
 		tableItemsRevervation = new JTable();
+		tableItemsRevervation.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tableItemsRevervation.setModel(itemTableModel);
 
 		tableItemsRevervation.getColumnModel().getColumn(0).setMinWidth(0);
