@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
+import javax.swing.table.TableModel;
 
 import com.group8.model.*;
 import com.group8.view.CategoryComboBoxModel;
@@ -110,6 +111,8 @@ public class Controller implements CategoryListener{
 		theView.getTabsPane().getMaintainPanel().setCategoryModels(theModel.getCategoryNames());	
 		getMaintainPanel().clearNewSubCatForm();
 		getSalesPanel().setSelectCategoryCBModel(new CategoryComboBoxModel(),getModel().getCategoryNames());
+		getSalesPanel().getSelectCategoryCB().setSelectedIndex(-1);
+		getSalesPanel().getTable().setModel(new ItemTableModel());
 		getReservationPanel().setSelectCategoryCBModel(new CategoryComboBoxModel(), getModel().getCategoryNames());
 	}
 
