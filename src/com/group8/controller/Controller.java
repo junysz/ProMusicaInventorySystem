@@ -96,9 +96,6 @@ public class Controller implements CategoryListener{
 			update();
 		}
 		theView.getTabsPane().getMaintainPanel().clearNewCategoryForm();
-		theView.getTabsPane().getMakeSalePanel().setTableModel(new ItemTableModel(), theModel.getItemsByKeyword(""));
-		theView.getTabsPane().getMakeSalePanel().setSelectCategoryCBModel(new CategoryComboBoxModel(), theModel.getCategoryNames());
-		theView.getTabsPane().getMakeSalePanel().getSelectCategoryCB().setSelectedIndex(-1);
 	}
 
 

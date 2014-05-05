@@ -7,8 +7,6 @@ import java.util.List;
 
 import com.group8.model.Category;
 import com.group8.model.SubCategory;
-import com.group8.view.CategoryComboBoxModel;
-import com.group8.view.ItemTableModel;
 import com.group8.view.MaintainPanel;
 
 public class CategoriesController {
@@ -55,7 +53,6 @@ public class CategoriesController {
 				}
 			}
 			getMaintainPanel().setEditCategoryNameTF(getToTextField);
-			update();
 		}
 	}
 
@@ -92,9 +89,6 @@ public class CategoriesController {
 			else{
 				getMaintainPanel().warnCreateSubCatFormErrors(errorMessages);
 			}
-			controller.getView().getTabsPane().getMakeSalePanel().setTableModel(new ItemTableModel(), controller.getModel().getItemsByKeyword(""));
-			controller.getView().getTabsPane().getMakeSalePanel().setSelectCategoryCBModel(new CategoryComboBoxModel(), controller.getModel().getCategoryNames());
-			controller.getView().getTabsPane().getMakeSalePanel().getSelectCategoryCB().setSelectedIndex(-1);
 		}
 
 
@@ -107,7 +101,6 @@ public class CategoriesController {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			controller.getView().getTabsPane().getMakeSalePanel().getSelectCategoryCB().setSelectedIndex(-1);
 			String categorySelection=null;
 			String subCatTF=null;
 			ArrayList<String> errorMessages;
@@ -161,9 +154,6 @@ public class CategoriesController {
 			else{
 				getMaintainPanel().warnCreateSubCatFormErrors(errorMessages);
 			}
-			controller.getView().getTabsPane().getMakeSalePanel().setTableModel(new ItemTableModel(), controller.getModel().getItemsByKeyword(""));
-			controller.getView().getTabsPane().getMakeSalePanel().setSelectCategoryCBModel(new CategoryComboBoxModel(), controller.getModel().getCategoryNames());
-			controller.getView().getTabsPane().getMakeSalePanel().getSelectCategoryCB().setSelectedIndex(-1);
 		}
 
 
@@ -185,9 +175,7 @@ public class CategoriesController {
 		//Class Responsible for listening to the Select Category Combo Box on the Create SubCategory Panel
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
 			getMaintainPanel().getSelectCategorycomboBox().getSelectedItem().toString();
-			update();
 		}
 
 
@@ -234,7 +222,6 @@ public class CategoriesController {
 			else{
 				getMaintainPanel().warnCreateSubCatFormErrors(errorMessages);
 			}
-			update();
 		}
 
 
@@ -247,9 +234,6 @@ public class CategoriesController {
 			//sets the model for all the category combo boxes in maintain panel
 			getMaintainPanel().setCategoryModels(controller.getModel().getCategoryNames());	
 			getMaintainPanel().clearNewSubCatForm();
-			controller.getView().getTabsPane().getMakeSalePanel().setTableModel(new ItemTableModel(), controller.getModel().getItemsByKeyword(""));
-			controller.getView().getTabsPane().getMakeSalePanel().setSelectCategoryCBModel(new CategoryComboBoxModel(), controller.getModel().getCategoryNames());
-			controller.getView().getTabsPane().getMakeSalePanel().getSelectCategoryCB().setSelectedIndex(-1);
 		}
 		public MaintainPanel getMaintainPanel(){
 			return controller.getView().getTabsPane().getMaintainPanel();
@@ -266,7 +250,6 @@ public class CategoriesController {
 		public void actionPerformed(ActionEvent e) {
 			String comboBox3= getMaintainPanel().getFindCategoryComboBox().getSelectedItem().toString();
 			getMaintainPanel().setSubCategoryModels(controller.getModel().getSubCategories(comboBox3));
-			update();
 		}
 	}
 
@@ -287,15 +270,13 @@ public class CategoriesController {
 				}
 			}
 			getMaintainPanel().setSelectSubCatToEditComboBox(subCategoryEdit);
-			update();
 		}
 	}
 
 
 	public void update() {
-		controller.getView().getTabsPane().getMakeSalePanel().setTableModel(new ItemTableModel(), controller.getModel().getItemsByKeyword(""));
-		controller.getView().getTabsPane().getMakeSalePanel().setSelectCategoryCBModel(new CategoryComboBoxModel(), controller.getModel().getCategoryNames());
-		controller.getView().getTabsPane().getMakeSalePanel().getSelectCategoryCB().setSelectedIndex(-1);
+
+		//sets the model for all the category combo boxes in maintain panel
 		getMaintainPanel().setCategoryModels(controller.getModel().getCategoryNames());	
 		getMaintainPanel().clearNewSubCatForm();
 	}
