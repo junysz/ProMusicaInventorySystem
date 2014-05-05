@@ -20,6 +20,8 @@ import com.group8.view.ItemTableModel;
 import com.group8.view.MainFrame;
 import com.group8.view.MaintainPanel;
 import com.group8.view.PopupSaleDialog;
+import com.group8.view.ReservationPanel;
+import com.group8.view.SalesPanel;
 import com.group8.view.TabsPane;
 
 public class Controller implements CategoryListener{
@@ -107,6 +109,8 @@ public class Controller implements CategoryListener{
 		//sets the model for all the category combo boxes in maintain panel
 		theView.getTabsPane().getMaintainPanel().setCategoryModels(theModel.getCategoryNames());	
 		getMaintainPanel().clearNewSubCatForm();
+		getSalesPanel().setSelectCategoryCBModel(new CategoryComboBoxModel(),getModel().getCategoryNames());
+		getReservationPanel().setSelectCategoryCBModel(new CategoryComboBoxModel(), getModel().getCategoryNames());
 	}
 
 	public MainFrame getView(){
@@ -119,7 +123,12 @@ public class Controller implements CategoryListener{
 	public MaintainPanel getMaintainPanel(){
 		return theView.getTabsPane().getMaintainPanel();
 	}
-
+	public SalesPanel getSalesPanel(){
+		return theView.getTabsPane().getMakeSalePanel();
+	}
+	public ReservationPanel getReservationPanel(){
+		return getView().getTabsPane().getReservationPanel();
+	}
 	public void updteAccounts(){
 		ArrayList<String>accountNames= new ArrayList<String>();
 
