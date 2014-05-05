@@ -61,10 +61,10 @@ public class LoginPanel extends JPanel {
 		
 		usrNameTF = new JTextField();
 		add(usrNameTF, "cell 0 9,alignx right");
-		usrNameTF.setColumns(15);
+		usrNameTF.setColumns(20);
 		
 		usrPassPF = new JPasswordField();
-		usrPassPF.setColumns(15);
+		usrPassPF.setColumns(20);
 		add(usrPassPF, "cell 0 13,alignx right");
 		
 		
