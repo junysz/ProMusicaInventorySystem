@@ -127,7 +127,8 @@ if (row!=-1)
 		if (testQuantity.matches("^[\\d+$]"))
 		{
 			validQuantity = Integer.parseInt(testQuantity);
-			int testingQuantity=theModel.getItemByName(theView.getTabsPane().getMakeSalePanel().getTable().getValueAt(row, 1)+" "+theView.getTabsPane().getMakeSalePanel().getTable().getValueAt(row, 2)).getAvailableStockLevel();
+			int testingQuantity=theModel.getItemByName(theView.getTabsPane().getMakeSalePanel().getTable().getValueAt(row, 1)
+					+" "+theView.getTabsPane().getMakeSalePanel().getTable().getValueAt(row, 2)).getAvailableStockLevel();
 			if(testingQuantity<0)
 			{
 				testingQuantity=0;
@@ -162,9 +163,7 @@ if (row!=-1)
 
 			if(contains)
 			{
-				if(theModel.getItemByName(theView.getTabsPane().getMakeSalePanel().getTable().getValueAt(row, 1)
-						+" "+theView.getTabsPane().getMakeSalePanel().getTable().getValueAt(row, 2)).getAvailableStockLevel()
-						<validQuantity+quantities.get(addingIndex))
+				if(testingQuantity<validQuantity+quantities.get(addingIndex))
 				{
 						JOptionPane.showMessageDialog(theView.getTabsPane().getMakeSalePanel().getpSale(), "Quantity exceeded availible stock level.", "Correct required quantity!", 2);
 				}
