@@ -247,6 +247,7 @@ public class DataQueries {
 	}
 
 
+	@SuppressWarnings("deprecation")
 	public ArrayList<Sale>  getSalesByDate(Date date1,Date date2)
 	{
 		Sale sale;
@@ -273,11 +274,9 @@ public class DataQueries {
 				
 				
 				sale=new Sale(SaleID,saleDate,price,accountID," "); //create new object sale
-
-
 				sale=new Sale(SaleID,saleDate,price,accountID,"GoPlanet"); //create new object sale
-
-				if (sale.getDate().after(date1) && sale.getDate().before(date2))
+				//System .out.println("SELECTED DATES ARE: "+date1.getHours()+":"+date1.getMinutes()+"||"+date1.getDay()+"/"+date1.getMonth()+"/"+date1.getYear()+" and "+date2.getHours()+":"+date2.getMinutes()+"||"+date2.getDay()+"/"+date2.getMonth()+"/"+date2.getYear());
+				if ((sale.getDate().after(date1)&& sale.getDate().before(date2)))
 				{
 					for (int i=0;i<size;i++)
 					{
