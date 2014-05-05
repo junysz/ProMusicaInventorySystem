@@ -7,10 +7,12 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable.PrintMode;
+
 import com.group8.model.Item;
 import com.group8.model.MainModel;
 import com.group8.model.Sale;
@@ -70,6 +72,10 @@ public class ReportsController {
 				if (date1.getTime()>=date2.getTime()-86000000)
 				{
 					getView().getTabsPane().getReportPanel().warnDateAfter();//if first date after second warn user
+				}
+				else if(date1.getTime()+86400000>Calendar.getInstance().getTimeInMillis())
+				{
+					JOptionPane.showMessageDialog(getView().getTabsPane().getReportPanel(), "You can't select dates from the future!", "Wrong dates selected!", 2);
 				}
 			}
 			else 

@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 import javax.swing.event.TableModelEvent;
@@ -113,6 +114,9 @@ public class Controller implements CategoryListener{
 		getSalesPanel().setSelectCategoryCBModel(new CategoryComboBoxModel(),getModel().getCategoryNames());
 		getSalesPanel().getSelectCategoryCB().setSelectedIndex(-1);
 		getSalesPanel().getTable().setModel(new ItemTableModel());
+		getReservationPanel().setSelectCategoryCBModel(new CategoryComboBoxModel(),getModel().getCategoryNames());
+		getReservationPanel().getSelectCategoryCBox().setSelectedIndex(-1);
+		getReservationPanel().setTableModel(new ArrayList<>());;
 		getReservationPanel().setSelectCategoryCBModel(new CategoryComboBoxModel(), getModel().getCategoryNames());
 	}
 
