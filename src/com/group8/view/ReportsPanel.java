@@ -186,7 +186,7 @@ public class ReportsPanel extends JPanel {
 		{
 			java.util.Date tempDate= date1.getDate();  
 			//need to convert from java.util to java.sql	
-			java.sql.Date sqlDate = new java.sql.Date(tempDate.getTime()); 	
+			java.sql.Date sqlDate = new java.sql.Date(tempDate.getTime()-86400000); 	
 			return  sqlDate;	
 		}
 		catch (Exception io) {
