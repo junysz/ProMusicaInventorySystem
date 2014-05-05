@@ -118,9 +118,11 @@ public class ReservationPanel extends JPanel
 		 * Creating models for comboBoxes
 		 * Model classes are passed as parameters to combo-boxes
 		 */
-		categoryComboBoxModel=new CategoryComboBoxModel(); 
+		//categoryComboBoxModel=new CategoryComboBoxModel(); 
 		selectCategoryCBox = new JComboBox<String>();
-		selectCategoryCBox.setModel(categoryComboBoxModel);
+		
+		
+		//selectCategoryCBox.setModel(categoryComboBoxModel);
 
 		subCatComboBoxModel= new CategoryComboBoxModel();
 		lblSelectCategory = new JLabel("Select Category");
@@ -178,9 +180,15 @@ public class ReservationPanel extends JPanel
 		btnReserveItem.setEnabled(false);
 		southPanelReservation.add(btnReserveItem, "cell 7 15,alignx right");
 		selectSubcategoryCBox = new JComboBox<String>();
-		selectSubcategoryCBox.setModel(subCatComboBoxModel);
+		
+		
+		//selectSubcategoryCBox.setModel(subCatComboBoxModel);
 		makeNewReservationPanel.add(selectSubcategoryCBox, "cell 1 2,growx");
 
+		
+		
+		
+		
 		logoutButton = new JButton("Logout");
 		makeNewReservationPanel.add(logoutButton, "cell 5 19,alignx right");
 		logoutButton.setForeground(Color.BLACK);
@@ -549,5 +557,18 @@ public class ReservationPanel extends JPanel
 				JOptionPane.INFORMATION_MESSAGE);
 
 	}
+	public void setSelectCategoryCBModel(CategoryComboBoxModel c, ArrayList<String> a)
+	{
+		c.setComboBoxList(a);
+		selectCategoryCBox.setModel(c);
+	}
+	
+	public void setComboBoxSubCategoryModel(CategoryComboBoxModel c, ArrayList<String> a)
+	{
+		c.setComboBoxList(a);
+		selectSubcategoryCBox.setModel(c);
+		
+	}
+	
 }
 
