@@ -51,7 +51,7 @@ public class SalesPanel extends JPanel {
 	private JButton logoutButton;
 	private PopupSaleDialog pSale;
 	/**
-	 * Create the panel.
+	 * Create the panel and initialize the panel.
 	 */
 	public SalesPanel() {
 		setLayout(new MigLayout("", "[grow][]", "[][51.00][grow][grow]"));
@@ -125,6 +125,11 @@ public class SalesPanel extends JPanel {
 		add(logoutButton, "cell 1 3,alignx right");
 
 	}
+	
+	
+	/*
+	 * Methods for adding listeners to the objets
+	 */
 	public void addLogoutButtonListener(ActionListener checkoutButtonListener)
 	{
 		logoutButton.addActionListener(checkoutButtonListener);
@@ -151,18 +156,30 @@ public class SalesPanel extends JPanel {
 	{
 		selectSubCategoryCB.addActionListener(subCatListener);
 	}
+	/*
+	 * THe method below returns string from searchTF text box
+	 */
 	public JTextField getSearchTF() {
 		return searchTF;
 	}
+	/*
+	 * This method sets the text in the search text box
+	 */
 	public void setSearchTF(JTextField searchTF) {
 		this.searchTF = searchTF;
 	}
+	/*
+	 * Setter and getter for the table
+	 */
 	public JTable getTable() {
 		return table;
 	}
 	public void setTable(JTable table) {
 		this.table = table;
 	}
+	/*
+	 * setter and getter for sales panel combo boxes
+	 */
 	public JComboBox<String> getSelectCategoryCB() {
 		return selectCategoryCB;
 	}
@@ -175,6 +192,9 @@ public class SalesPanel extends JPanel {
 	public void setSelectSubCategoryCB(JComboBox<String> selectSubCategoryCB) {
 		this.selectSubCategoryCB = selectSubCategoryCB;
 	}
+	/*
+	 * Getters and setters for the buttons
+	 */
 	public JButton getBtnCheckout() {
 		return btnCheckout;
 	}
@@ -196,6 +216,9 @@ public class SalesPanel extends JPanel {
 	public void setBtnClearCart(JButton btnClearCart) {
 		this.btnClearCart = btnClearCart;
 	}
+	/*
+	 * Methods for setting models on table and combo boxes
+	 */
 	public void setSelectCategoryCBModel(CategoryComboBoxModel c, ArrayList<String> a)
 	{
 		c.setComboBoxList(a);

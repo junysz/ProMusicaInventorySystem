@@ -18,20 +18,41 @@ public class SaleItemsTableModel extends AbstractTableModel {
 	{	
 		db=new ArrayList<>();
 	}
-	//method used by ItemTableModel in the ReservationPanel class
+	/*
+	 * method used by ItemTableModel in the ReservationPanel class
+	 */
 	public void setTableModel(List<Item>db){
 		this.db=db;
 	}
+	/*
+	 * (non-Javadoc)
+	 * @see javax.swing.table.TableModel#getRowCount()
+	 * returns number of rows in the table excluding headers
+	 */
 	public int getRowCount() {
 		return db.size();
 	}
+	/*
+	 * (non-Javadoc)
+	 * @see javax.swing.table.TableModel#getColumnCount()
+	 * returns number of columns
+	 */
 	public int getColumnCount() {
 		return 4;
 	}
+	/*
+	 * (non-Javadoc)
+	 * @see javax.swing.table.AbstractTableModel#getColumnName(int)
+	 * returns column name at index "column"
+	 */
 	public String getColumnName(int column) {
 		return columnNames[column];
 	}
-	
+	/*
+	 * (non-Javadoc)
+	 * @see javax.swing.table.TableModel#getValueAt(int, int)
+	 * returns value of specific cell at location (row, column)
+	 */
 	public Object getValueAt(int row, int column) {
 		
 		Item item =db.get(row);
