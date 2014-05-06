@@ -3,18 +3,14 @@ package com.group8.view;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JPanel;
-
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeListener;
 import java.text.DecimalFormat;
-
 import javax.swing.JButton;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;

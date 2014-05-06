@@ -1,9 +1,6 @@
 package com.group8.model;
 
-
 import java.sql.Connection;
-import java.sql.Statement;
-
 import java.sql.PreparedStatement;
 
 
@@ -44,7 +41,7 @@ public class DataUpdates {
 			PreparedStatement preparedStatement = con.prepareStatement("UPDATE Category SET categoryName=? WHERE categoryName = ?");
 			preparedStatement.setString(1,newName);
 			preparedStatement.setString(2,name);			   		
-			int    res = preparedStatement.executeUpdate(); //updates name for category
+			preparedStatement.executeUpdate(); //updates name for category
 			preparedStatement.close();
 		}
 		catch(Exception e)
@@ -60,7 +57,7 @@ public class DataUpdates {
 			PreparedStatement preparedStatement = con.prepareStatement("UPDATE SubCategory SET subCatName=? WHERE subCatName = ?");
 			preparedStatement.setString(1,newName);
 			preparedStatement.setString(2,name);			   		
-			int    res = preparedStatement.executeUpdate(); //updates name for category
+			preparedStatement.executeUpdate(); //updates name for category
 			preparedStatement.close();
 		}
 		catch(Exception e)
@@ -78,7 +75,7 @@ public class DataUpdates {
 			//Set the variables in the prepared statement
 			preparedStatement.setInt(1,Stock);
 			preparedStatement.setInt(2,ItemID);			
-			int    res = preparedStatement.executeUpdate(); 
+			preparedStatement.executeUpdate(); 
 			preparedStatement.close();
 		}
 		catch(Exception e)
@@ -90,16 +87,12 @@ public class DataUpdates {
 	{
 		try
 		{
-
 			PreparedStatement preparedStatement = con.prepareStatement("UPDATE Item SET stockLevel=? where itemID = ?");
-
 			//Set the variables in the prepared statement
 			preparedStatement.setInt(1,Stock);
 			preparedStatement.setInt(2,ItemID);			
-			int    res = preparedStatement.executeUpdate(); 
+			preparedStatement.executeUpdate(); 
 			preparedStatement.close();
-
-
 		}
 		catch(Exception e)
 		{
@@ -108,15 +101,12 @@ public class DataUpdates {
 	}
 
 
-
 	//This method updates item after Edit Item button is triggered
 	protected void updateItem(Item i, int subCatID)
 	{
 		try
 		{
-
 			PreparedStatement preparedStatement = con.prepareStatement("UPDATE Item SET itemBrand=?,itemModel=?,itemPrice=?,subCatID=?,stockLevel=?,availableStockLevel=? WHERE itemID = ?");
-
 			//Set the variables in the prepared statement
 			preparedStatement.setString(1,i.getBrand());
 			preparedStatement.setString(2,i.getModel());
@@ -125,13 +115,8 @@ public class DataUpdates {
 			preparedStatement.setInt(5,i.getStockLevel());
 			preparedStatement.setInt(6,i.getAvailableStockLevel());
 			preparedStatement.setInt(7,i.getItemID());
-
-
-
-			int    res = preparedStatement.executeUpdate(); //updates name for category
+			preparedStatement.executeUpdate(); //updates name for category
 			preparedStatement.close();
-
-
 		}
 		catch(Exception e)
 		{
@@ -143,21 +128,16 @@ public class DataUpdates {
 	{
 		try
 		{
-
 			PreparedStatement preparedStatement = con.prepareStatement("UPDATE Item SET flag=0 WHERE itemID = ?");
-
 			//Set the variables in the prepared statement
 			preparedStatement.setInt(1,i.getItemID());
-
-			int res = preparedStatement.executeUpdate(); //Sets the boolean flag to false so that the item will no longer appear
+			preparedStatement.executeUpdate(); //Sets the boolean flag to false so that the item will no longer appear
 			preparedStatement.close();
-
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
 		}
-
 	}
 
 
@@ -170,13 +150,9 @@ public class DataUpdates {
 
 			//Set the variables in the prepared statement
 			preparedStatement.setDouble(1,deposit);
-
 			preparedStatement.setString(2,docket );
-
-			int    res = preparedStatement.executeUpdate(); 
+			preparedStatement.executeUpdate(); 
 			preparedStatement.close();
-
-
 		}
 		catch(Exception e)
 		{
@@ -188,15 +164,10 @@ public class DataUpdates {
 	{
 		try
 		{
-
 			PreparedStatement preparedStatement = con.prepareStatement("UPDATE ReservedItem SET flag=0  WHERE docketNo = ?");
-
-
 			preparedStatement.setString(1,docket);
-			int    res = preparedStatement.executeUpdate(); 
+			preparedStatement.executeUpdate(); 
 			preparedStatement.close();
-
-
 		}
 		catch(Exception e)
 		{
@@ -209,28 +180,21 @@ public class DataUpdates {
 	{
 		try
 		{
-
 			PreparedStatement preparedStatement = con.prepareStatement("UPDATE Account SET accountName=?,password=?,accountType=?,flag=? WHERE accountID = ?");
-
 			//Set the variables in the prepared statement
 			preparedStatement.setString(1,name);
 			preparedStatement.setString(2,pass);
 			preparedStatement.setString(3,type);
 			preparedStatement.setInt(4,flag);
 			preparedStatement.setInt(5,ID);
-
-			int    res = preparedStatement.executeUpdate(); //updates name for category
+			preparedStatement.executeUpdate(); //updates name for category
 			preparedStatement.close();
-
-
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
 		}
 	}
-
-
 }
 
 

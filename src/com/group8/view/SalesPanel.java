@@ -12,8 +12,6 @@ import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.border.TitledBorder;
 import javax.swing.JTable;
-
-import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
@@ -127,7 +125,21 @@ public class SalesPanel extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-
+		scrollPane = new JScrollPane();
+		add(scrollPane, "cell 0 2,grow");
+		
+		table = new JTable();
+		scrollPane.setViewportView(table);
+		
+		panel = new JPanel();
+		add(panel, "flowx,cell 0 3,alignx right,growy");
+		
+		logoutButton = new JButton("");
+		logoutButton.setIcon(new ImageIcon(SalesPanel.class.getResource("/com/group8/images/logout.png")));
+		logoutButton.setToolTipText("Logout");
+		logoutButton.setFont(new Font("Cambria", Font.BOLD, 13));
+		add(logoutButton, "cell 1 3,alignx right");
+		disableCartButtons();
 	}
 	
 	
@@ -248,5 +260,15 @@ public class SalesPanel extends JPanel {
 	}
 	public void setpSale(PopupSaleDialog pSale) {
 		this.pSale = pSale;
+	}
+	public void disableCartButtons()
+	{
+		btnCheckout.setEnabled(false);
+		btnClearCart.setEnabled(false);
+	}
+	public void enableCartButtons()
+	{
+		btnCheckout.setEnabled(true);
+		btnClearCart.setEnabled(true);
 	}
 }

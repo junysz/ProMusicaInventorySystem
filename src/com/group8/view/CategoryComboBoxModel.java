@@ -3,11 +3,9 @@ package com.group8.view;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.ComboBoxModel;
 import javax.swing.event.ListDataListener;
 
-import com.sun.org.apache.bcel.internal.generic.NEW;
 
 public class CategoryComboBoxModel  implements ComboBoxModel<String> {
 

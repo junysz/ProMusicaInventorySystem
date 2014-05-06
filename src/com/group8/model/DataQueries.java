@@ -15,10 +15,6 @@ public class DataQueries {
 	{
 		con = connection;
 	}
-
-
-
-
 	//This method is getting a LIST  of  the NAMES of all the Categories
 	public ArrayList<String>  getCategoryNames()
 	{
@@ -38,9 +34,7 @@ public class DataQueries {
 
 			rs.close(); //close result set
 			pstmt.close(); //close prepared statement
-
 			Collections.sort (catNames);
-
 			return catNames;
 		}
 		catch (Exception io) {
@@ -52,10 +46,8 @@ public class DataQueries {
 	{
 
 		try {
-
 			String query = "Select * from SubCategory";  //create a new query ,getting all fields
 			pstmt = con.prepareStatement(query);
-
 			ResultSet rs =  pstmt.executeQuery(query); //create a new result set
 			ArrayList<String> subCatNames = new ArrayList<String>();  //declaring an array list of type String
 			while (rs.next()) 
@@ -63,7 +55,6 @@ public class DataQueries {
 				String name = rs.getString("subCatName");   //get name from result set for the category
 				subCatNames.add(name);                           //add name to the list     
 			}      
-
 			rs.close(); //close result set
 			pstmt.close(); //close prepared statement
 			Collections.sort(subCatNames);
@@ -160,7 +151,7 @@ public class DataQueries {
 				item=new Item(brand,model,level,price,level2);//creating a new object with some of the attributes
 				item.setItemID(id);
 				item.setFlag(flag);   //set flag for the item
-			if (flag==true) 	listItems.add(item);   //add newly created object item to the list to be returned
+				if (flag==true) 	listItems.add(item);   //add newly created object item to the list to be returned
 
 			}      
 
@@ -195,7 +186,6 @@ public class DataQueries {
 				int level    = rs.getInt("stockLevel");
 				int level2   = rs.getInt("availableStockLevel");
 				boolean flag=rs.getBoolean("flag");
-
 				item=new Item(id,price,brand,model,level,level2, flag); //create new object item
 
 				if (flag==true) listItems.add(item);       //add the item to a list
@@ -208,7 +198,6 @@ public class DataQueries {
 			return null;
 		}  
 	}
-
 
 	//Method to get ALL objects  ACCOUNTS in the Database
 	public ArrayList<Account>  getAllAccounts()
@@ -240,14 +229,14 @@ public class DataQueries {
 			return listAccounts;
 		}
 		catch (Exception io) {
-			
+
 			return null;
 		}  
-	
+
 	}
 
 
-	@SuppressWarnings("deprecation")
+
 	public ArrayList<Sale>  getSalesByDate(Date date1,Date date2)
 	{
 		Sale sale;
@@ -262,7 +251,6 @@ public class DataQueries {
 			Accounts=getAllAccounts();
 			int size=Accounts.size();
 
-
 			while (rs.next()) 
 			{
 				//getting attributes from  the Sale Table 
@@ -270,9 +258,6 @@ public class DataQueries {
 				Date saleDate  =rs.getDate("saleDate");	
 				double price = rs.getDouble("totalSalePrice");                    
 				int accountID =rs.getInt("accountID");
-
-				
-				
 				sale=new Sale(SaleID,saleDate,price,accountID," "); //create new object sale
 				sale=new Sale(SaleID,saleDate,price,accountID,"GoPlanet"); //create new object sale
 				//System .out.println("SELECTED DATES ARE: "+date1.getHours()+":"+date1.getMinutes()+"||"+date1.getDay()+"/"+date1.getMonth()+"/"+date1.getYear()+" and "+date2.getHours()+":"+date2.getMinutes()+"||"+date2.getDay()+"/"+date2.getMonth()+"/"+date2.getYear());
@@ -386,7 +371,7 @@ public class DataQueries {
 				boolean flag   =rs.getBoolean("flag"); 
 
 				Reservation reservedItem=new Reservation(date,deposit,docketNo,itemID,accountID,flag);//create a new object reservedItem
-			if (flag==true)	list.add(reservedItem);  //add object to the list
+				if (flag==true)	list.add(reservedItem);  //add object to the list
 
 			}  
 
@@ -442,42 +427,38 @@ public class DataQueries {
 		}
 	}
 
-	
-	     
-	      
-	   	
-		protected  ArrayList<ArrayList<Integer>>  getItemsSold(int saleID){
-					
-			 ArrayList<Integer> itemID=new ArrayList<Integer>();
-		      ArrayList<Integer> itemquantity=new ArrayList<Integer>();
-		      ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
-		      
-			try{
-				String query = "Select * From ItemSold where saleID = ? ";
-				pstmt = con.prepareStatement(query);
-				pstmt.setInt(1,saleID); //sets the subCategoryName for the statement query
-				ResultSet rs = pstmt.executeQuery(); //executes query and puts the SubCategory ID into rs
-				
-				while( rs.next()) { 
-					int ID = rs.getInt("itemID");
-					int quantity=rs.getInt("quantity");
-					itemID.add(ID);
-					itemquantity.add(quantity);
-					}
-				rs.close(); //close result set
-				pstmt.close(); //close prepared statement
-				result.add(itemID);
-				result.add(itemquantity);
-				return result;
+	protected  ArrayList<ArrayList<Integer>>  getItemsSold(int saleID){
+
+		ArrayList<Integer> itemID=new ArrayList<Integer>();
+		ArrayList<Integer> itemquantity=new ArrayList<Integer>();
+		ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
+
+		try{
+			String query = "Select * From ItemSold where saleID = ? ";
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1,saleID); //sets the subCategoryName for the statement query
+			ResultSet rs = pstmt.executeQuery(); //executes query and puts the SubCategory ID into rs
+
+			while( rs.next()) { 
+				int ID = rs.getInt("itemID");
+				int quantity=rs.getInt("quantity");
+				itemID.add(ID);
+				itemquantity.add(quantity);
 			}
-			catch(Exception e)
-			{
-				
-				System.out.println("Muie din nou");
-				return  null;
+			rs.close(); //close result set
+			pstmt.close(); //close prepared statement
+			result.add(itemID);
+			result.add(itemquantity);
+			return result;
 		}
+		catch(Exception e)
+		{
+
+			System.out.println("Muie din nou");
+			return  null;
 		}
 	}
+}
 
 
 

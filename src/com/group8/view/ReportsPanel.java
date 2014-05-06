@@ -2,31 +2,22 @@ package com.group8.view;
 import javax.swing.JPanel;
 
 import net.miginfocom.swing.MigLayout;
-
 import javax.swing.JLabel;
-
 import com.toedter.calendar.JDateChooser;
-
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-
 import java.awt.event.ActionListener;
 import java.sql.Date;
 import java.util.List;
-
 import javax.swing.JButton;
-
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.SystemColor;
 import java.awt.Toolkit;
-
 import javax.swing.border.LineBorder;
-
 import java.awt.Cursor;
-import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 
 
@@ -93,10 +84,6 @@ public class ReportsPanel extends JPanel {
 		scrollPane.setViewportView(tableReport);
 		
 		saveButton = new JButton("");
-		saveButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		saveButton.setIcon(new ImageIcon(ReportsPanel.class.getResource("/com/group8/images/save.png")));
 		saveButton.setToolTipText("Save Report");
 		saveButton.setFont(new Font("Cambria", Font.BOLD, 13));
@@ -105,10 +92,6 @@ public class ReportsPanel extends JPanel {
 		
 	
 		printButton = new JButton("");
-		printButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		printButton.setToolTipText("Print");
 		printButton.setIcon(new ImageIcon(ReportsPanel.class.getResource("/com/group8/images/printer.png")));
 		printButton.setFont(new Font("Cambria", Font.BOLD, 13));
