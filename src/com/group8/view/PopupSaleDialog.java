@@ -40,7 +40,7 @@ public class PopupSaleDialog extends JDialog {
         saleItemsTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         scrollPane.setViewportView(saleItemsTable);
 		getContentPane().add(scrollPane, "cell 0 0,grow");
-		setSize(400, 400);
+		setSize(440, 440);
 		
 		saleItemsTable = new JTable();
 		saleItemsTable.setCellSelectionEnabled(true);
@@ -60,12 +60,12 @@ public class PopupSaleDialog extends JDialog {
 		getContentPane().add(panel, "cell 0 1,alignx right,growy");
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		btnGoBack = new JButton("");
+		btnGoBack = new JButton("Go Back");
 		btnGoBack.setIcon(new ImageIcon(PopupSaleDialog.class.getResource("/com/group8/images/goBack.png")));
 		btnGoBack.setToolTipText("Go Back");
 		panel.add(btnGoBack);
 		
-		btnCompleteSale = new JButton("");
+		btnCompleteSale = new JButton("Complete Sale");
 		btnCompleteSale.setIcon(new ImageIcon(PopupSaleDialog.class.getResource("/com/group8/images/ok.png")));
 		btnCompleteSale.setToolTipText("Complete Sale");
 		getContentPane().add(btnCompleteSale, "cell 0 1");

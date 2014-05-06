@@ -1,0 +1,13 @@
+
+
+Sale  date   		Sale total   		Sale made by   		
+
+2014-05-06			36.0			pawel			
+2014-05-06			330.0			pawel			
+2014-05-06			72.0			pawel			
+2014-05-06			198.0			pawel			
+2014-05-06			198.0			pawel			
+2014-05-06			4000.0			pawel			
+2014-05-06			18.0			pawel			
+2014-05-06			66.0			pawel			
+2014-05-06			20.0			pawel			

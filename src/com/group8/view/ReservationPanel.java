@@ -128,7 +128,7 @@ public class ReservationPanel extends JPanel
 		makeNewErrorLabel.setForeground(Color.RED);
 		southPanelReservation.add(makeNewErrorLabel, "cell 1 5");
 		
-				lblEnterDocketNo = new JLabel("New docket");
+				lblEnterDocketNo = new JLabel("Docket No.");
 				lblEnterDocketNo.setFont(new Font("Cambria", Font.BOLD, 13));
 				
 				

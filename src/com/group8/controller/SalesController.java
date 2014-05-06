@@ -88,7 +88,7 @@ public class SalesController {
 				}
 				theView.getTabsPane().getMakeSalePanel().getpSale().dispose();
 				JOptionPane.showMessageDialog(theView, "Sale Completed.", "Success!", 1);
-				theView.getTabsPane().getMakeSalePanel().setTableModel(new ItemTableModel(), theModel.getItemsByKeyword(""));
+				theView.getTabsPane().getMakeSalePanel().setTableModel(new ItemTableModel(), new ArrayList<Item>());
 
 				theView.getTabsPane().getMakeSalePanel().disableCartButtons();
 				saleItems = new ArrayList<>();

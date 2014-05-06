@@ -1,4 +1,5 @@
 package com.group8.controller;
+import java.awt.FileDialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.PrinterException;
@@ -14,6 +15,7 @@ import com.group8.model.Item;
 import com.group8.model.MainModel;
 import com.group8.model.Sale;
 import com.group8.view.MainFrame;
+import com.group8.view.ReportTableModel;
 
 
 public class ReportsController {
@@ -122,6 +124,7 @@ public class ReportsController {
 				// make pop-up visible
 				getView().getTabsPane().getReportPanel().getPopup().setVisible(true);
 
+				controller.getView().getTabsPane().getReportPanel().getRableReport().setModel(new ReportTableModel());
 			}		
 			else JOptionPane.showMessageDialog(null,
 					"Please select a row of table first",
@@ -168,9 +171,11 @@ public class ReportsController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
+			FileDialog fDialog = new FileDialog(getView(), "Save", FileDialog.SAVE);
+	        fDialog.setVisible(true);
+	        String path = fDialog.getDirectory() + fDialog.getFile();
 			try {
-				//declare new file to write to
-				File file = new File("Report from "+date1.toString()+" to "+date2.toString());
+				File file = new File(path);
 				//declaring printer to file
 				PrintWriter os = new PrintWriter(file);
 				os.println("");
@@ -191,16 +196,19 @@ public class ReportsController {
 					os.println("");
 				}
 				os.close();
+				controller.getView().getTabsPane().getReportPanel();
 				JOptionPane.showMessageDialog(null,
 						"Report  saved to file ",
 						"Done",
 						JOptionPane.WARNING_MESSAGE);
+				controller.getView().getTabsPane().getReportPanel().getRableReport().setModel(new ReportTableModel());
 			} catch (IOException f) {
 				JOptionPane.showMessageDialog(null,
 						"Failed to save to  file ",
 						"Warning",
 						JOptionPane.WARNING_MESSAGE);   			           
 			}
+			
 		}
 	}
 
@@ -238,6 +246,8 @@ public class ReportsController {
 						"Warning",
 						JOptionPane.WARNING_MESSAGE);
 			}
+
+			controller.getView().getTabsPane().getReportPanel().getRableReport().setModel(new ReportTableModel());
 		}
 	} 
 	//listener class for printer button inside the pop-up in report tab	
@@ -252,6 +262,7 @@ public class ReportsController {
 			//dispose of the pop-up
 			getView().getTabsPane().getReportPanel().getPopup().dispose();
 			//declare the header
+
 			MessageFormat header = new MessageFormat("Sale made by: "+saleList.get(row).getName()+"   Date: "+saleList.get(row).getDate().toString());   	 
 			MessageFormat footer = new MessageFormat("Page - {0}");
 			try {
@@ -270,6 +281,8 @@ public class ReportsController {
 						"Warning",
 						JOptionPane.WARNING_MESSAGE);
 			}
+
+			controller.getView().getTabsPane().getReportPanel().getRableReport().setModel(new ReportTableModel());
 		}
 	}
 }
