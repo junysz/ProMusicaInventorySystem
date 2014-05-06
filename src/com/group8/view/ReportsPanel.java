@@ -2,31 +2,22 @@ package com.group8.view;
 import javax.swing.JPanel;
 
 import net.miginfocom.swing.MigLayout;
-
 import javax.swing.JLabel;
-
 import com.toedter.calendar.JDateChooser;
-
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-
 import java.awt.event.ActionListener;
 import java.sql.Date;
 import java.util.List;
-
 import javax.swing.JButton;
-
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.SystemColor;
 import java.awt.Toolkit;
-
 import javax.swing.border.LineBorder;
-
 import java.awt.Cursor;
-import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 
 

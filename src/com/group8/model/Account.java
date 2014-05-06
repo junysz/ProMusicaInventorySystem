@@ -11,10 +11,10 @@ package com.group8.model;
 public class Account {
 
 	//Attributes of an Account
-	private int accountID,flag2;
+	private int accountID;
 	private boolean flag;
 	private String accountType, accountName, password;
-	
+
 	//Blank Constructor
 	public Account()
 	{ 
@@ -23,7 +23,6 @@ public class Account {
 	//Constructor that accepts Type, User name, and Password as arguments
 	public Account(String t, String u, String p)
 	{
-		
 		setType(t);
 		setAccountName(u);
 		setPassword(p);
@@ -34,7 +33,7 @@ public class Account {
 		accountName=name;
 		password=passwd;
 		accountType=type;
-		flag2=flag;
+
 	}
 	//Sets and Gets for Account Attributes
 	//setUserID will set the userID for the Account
@@ -66,7 +65,7 @@ public class Account {
 	{
 		this.flag = flag;
 	}
-	
+
 	//returns userID
 	public int getAccountID()
 	{

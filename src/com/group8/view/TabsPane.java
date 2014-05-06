@@ -1,6 +1,5 @@
 package com.group8.view;
 
-import javax.swing.JComboBox;
 import javax.swing.JTabbedPane;
 import java.awt.Font;
 /*
@@ -15,24 +14,23 @@ public class TabsPane extends JTabbedPane {
 	private MaintainPanel maintainPanel;
 	private SalesPanel makeSalePanel;
 	private ReportsPanel reportsPanel;
-	
+
 
 	public TabsPane() {
 		setFont(new Font("Cambria", Font.BOLD, 15));
 		setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
-		
+
 		makeSalePanel = new SalesPanel();
 		reservationPanel=new ReservationPanel();
 		maintainPanel= new MaintainPanel();
 		reportsPanel=new ReportsPanel();
-		
+
 		add("Sale",makeSalePanel);
 		add("Reservation",reservationPanel);
-	    add("Maintenance",maintainPanel);
-	    add("Reports",reportsPanel);
-		              
+		add("Maintenance",maintainPanel);
+		add("Reports",reportsPanel);
+
 	}
-	
 	//pass ReservationPanel to main
 	public ReservationPanel getReservationPanel()
 	{	
@@ -41,21 +39,15 @@ public class TabsPane extends JTabbedPane {
 	public MaintainPanel getMaintainPanel(){
 		return maintainPanel;
 	}
-
-
 	public void setCategoryListenr(CategoryListener categoryListenr) {
 		maintainPanel.setCategoryListenr(categoryListenr);
-		
+
 	}
-		
-	
 	//Reference for the Reports Panel
 	public ReportsPanel getReportPanel(){
-		
+
 		return reportsPanel;
 	}
-		
-	
 	public SalesPanel getMakeSalePanel()
 	{
 		return makeSalePanel;
@@ -65,7 +57,6 @@ public class TabsPane extends JTabbedPane {
 		makeSalePanel.getSearchTF().setText("");
 		makeSalePanel.getSelectCategoryCB().setSelectedIndex(-1);
 	}
-	
 }
-	
+
 

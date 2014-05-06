@@ -1,27 +1,21 @@
 package com.group8.view;
 
 import net.miginfocom.swing.MigLayout;
-
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JPanel;
-
 import java.awt.FlowLayout;
 import java.util.List;
-
 import javax.swing.JButton;
-import javax.swing.event.TableModelListener;
-import javax.swing.table.TableModel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
-
 import java.awt.Font;
 import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
+
+import com.group8.model.Item;
 
 public class PopupReports extends JDialog {
 
@@ -71,10 +65,10 @@ public class PopupReports extends JDialog {
 		getContentPane().add(okButton, "cell 1 2,growy");
 		okButton.setFont(new Font("Cambria", Font.BOLD, 13));
 		PopupTableModel= new ReportPopupTableModel();
-		// TODO Auto-generated constructor stub
+
 	}
-	//set the model for table in popup
-	 public void setTableModel(List list1,List list2)
+	//set the model for table in pop-up
+	 public void setTableModel(List<Item> list1,List<Integer> list2)
 	   {   		
 		PopupTableModel.setTableModel(list1,list2);
 		saleItemsTable.setModel(PopupTableModel);

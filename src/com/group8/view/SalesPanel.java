@@ -12,8 +12,6 @@ import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.border.TitledBorder;
 import javax.swing.JTable;
-
-import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
