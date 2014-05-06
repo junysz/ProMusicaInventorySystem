@@ -121,6 +121,7 @@ public class SalesPanel extends JPanel {
 		logoutButton.setToolTipText("Logout");
 		logoutButton.setFont(new Font("Cambria", Font.BOLD, 13));
 		add(logoutButton, "cell 1 3,alignx right");
+		disableCartButtons();
 
 	}
 	
@@ -242,5 +243,15 @@ public class SalesPanel extends JPanel {
 	}
 	public void setpSale(PopupSaleDialog pSale) {
 		this.pSale = pSale;
+	}
+	public void disableCartButtons()
+	{
+		btnCheckout.setEnabled(false);
+		btnClearCart.setEnabled(false);
+	}
+	public void enableCartButtons()
+	{
+		btnCheckout.setEnabled(true);
+		btnClearCart.setEnabled(true);
 	}
 }

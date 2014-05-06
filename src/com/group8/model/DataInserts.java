@@ -93,6 +93,7 @@ public class DataInserts {
 		{
 			statement = con.createStatement();
 			//Structure for inserting a new tuple in the Item Sold table
+			System.out.println(""+s.getSaleID());
 			String insert = "Insert into ItemSold (itemID, saleID, itemSalePrice,quantity) values (" + i.getItemID() + "," + s.getSaleID() + ", " + itemSalePrice +"," + quantity + ")";
 			statement.executeUpdate(insert); //writes to Item Sold table
 

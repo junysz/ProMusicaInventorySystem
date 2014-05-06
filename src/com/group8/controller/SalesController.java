@@ -53,6 +53,10 @@ public class SalesController {
 			if(e.getSource()==theView.getTabsPane().getMakeSalePanel().getpSale().getGoBckButton())
 			{
 				theView.getTabsPane().getMakeSalePanel().getpSale().dispose();
+				if(!(total>0))
+				{
+					theView.getTabsPane().getMakeSalePanel().disableCartButtons();
+				}
 			}
 			else if(e.getSource()==theView.getTabsPane().getMakeSalePanel().getpSale().getCompleteSaleButton())
 			{
@@ -75,13 +79,18 @@ public class SalesController {
 				//add sold items to item-sold table
 				for(int i = 0  ; i<saleItems.size();i++)
 				{
+					System.out.println("Got here");
 					theModel.addNewItemSold(saleItems.get(i), thisSale, (double) theView.getTabsPane().getMakeSalePanel().getpSale().getCheckoutTable().getValueAt(i, 2),quantities.get(i));
 					Item updatingItem = saleItems.get(i);
-					theModel.updateItemLevels(updatingItem, quantities.get(i));
-					theModel.updateItem(updatingItem	, theModel.getItemSubCatID(updatingItem.getItemID()));		
+					theModel.updateItemStock(updatingItem.getItemID(), updatingItem.getStockLevel()-quantities.get(i));
+					theModel.updateItemAvailableStock(updatingItem.getItemID(), updatingItem.getAvailableStockLevel()-quantities.get(i));
+					
 				}
 				theView.getTabsPane().getMakeSalePanel().getpSale().dispose();
 				JOptionPane.showMessageDialog(theView, "Sale Completed.", "Success!", 1);
+				theView.getTabsPane().getMakeSalePanel().setTableModel(new ItemTableModel(), theModel.getItemsByKeyword(""));
+
+				theView.getTabsPane().getMakeSalePanel().disableCartButtons();
 				saleItems = new ArrayList<>();
 				quantities = new ArrayList<>();
 				total=0;
@@ -146,10 +155,15 @@ public class SalesController {
 										try
 										{
 											quantities.add(addingIndex, quantities.get(addingIndex)+validQuantity);
+											theView.getTabsPane().getMakeSalePanel().enableCartButtons();
 											JOptionPane.showMessageDialog(theView.getTabsPane().getMakeSalePanel().getpSale(), "Item added to the basket!", "Success", 1);
+											System.out.println("Enabling buttons!");
+											
 										}
 										catch (IndexOutOfBoundsException e1)
 										{}
+										theView.getTabsPane().getMakeSalePanel().enableCartButtons();
+										
 									}
 
 								}
@@ -159,6 +173,8 @@ public class SalesController {
 									quantities.add(saleItems.indexOf(added), validQuantity);
 									JOptionPane.showMessageDialog(theView.getTabsPane().getMakeSalePanel().getpSale(), "Item added to the basket!", "Success", 1);
 									theView.getTabsPane().getMakeSalePanel().getpSale().getCheckoutTable().setModel(new CheckoutTableModel(saleItems, quantities));
+
+									theView.getTabsPane().getMakeSalePanel().enableCartButtons();
 								}
 								if (saleItems.size()>0)	System.out.println(saleItems.get(0).getModel());
 
@@ -189,7 +205,7 @@ public class SalesController {
 				 */
 				theView.getTabsPane().getMakeSalePanel().getpSale().setTotal(total);
 				theView.getTabsPane().getMakeSalePanel().getpSale().getCheckoutTable().setModel(new CheckoutTableModel(saleItems, quantities));
-				double total=0;
+				
 
 				for(int i = 0 ; i<saleItems.size();i++)
 				{
@@ -219,6 +235,7 @@ public class SalesController {
 					quantities = new ArrayList<Integer>();
 					addingIndex=0;
 					JOptionPane.showMessageDialog(theView.getTabsPane().getMakeSalePanel().getpSale(), "Basket has been successfully cleared!", "Success!", 1);
+					theView.getTabsPane().getMakeSalePanel().disableCartButtons();
 				}
 			}
 			else if(e.getSource()==theView.getTabsPane().getMakeSalePanel().getSelectCategoryCB())
@@ -270,10 +287,17 @@ public class SalesController {
 
 		@Override
 		public void propertyChange(PropertyChangeEvent evt) {
+			
 			// TODO Auto-generated method stub
 
 			int curCol = theView.getTabsPane().getMakeSalePanel().getpSale().getCheckoutTable().getSelectedColumn();
 			int curRow = theView.getTabsPane().getMakeSalePanel().getpSale().getCheckoutTable().getSelectedRow();
+			if(curRow>=saleItems.size())
+			{
+				if(saleItems.size()<1)
+					theView.getTabsPane().getMakeSalePanel().disableCartButtons();
+				return;
+			}
 			if(curCol==2)
 			{
 				/*
@@ -295,7 +319,7 @@ public class SalesController {
 					theView.getTabsPane().getMakeSalePanel().getpSale().getCheckoutTable().setValueAt((newPrice*(double)quantities.get(curRow)), curRow, 4);
 					saleItems.get(curRow).setPrice(newPrice);
 					theView.getTabsPane().getMakeSalePanel().getpSale().getCheckoutTable().repaint();
-					double total=0;
+					total=0;
 					for(int i = 0 ; i<saleItems.size();i++)
 					{
 						total+=saleItems.get(i).getPrice()*(int)quantities.get(i);
@@ -310,7 +334,7 @@ public class SalesController {
 					theView.getTabsPane().getMakeSalePanel().getpSale().getCheckoutTable().setValueAt(quantities.get(curRow), curRow, curCol);
 					JOptionPane.showMessageDialog(theView, "Enter only whole positive numbers!");
 				}
-				else if((int)theView.getTabsPane().getMakeSalePanel().getpSale().getCheckoutTable().getValueAt(curRow, curCol)>saleItems.get(curRow).getAvailableStockLevel())
+				else if(saleItems.get(curRow)!=null&&(int)theView.getTabsPane().getMakeSalePanel().getpSale().getCheckoutTable().getValueAt(curRow, curCol)>saleItems.get(curRow).getAvailableStockLevel())
 				{
 					theView.getTabsPane().getMakeSalePanel().getpSale().getCheckoutTable().setValueAt(quantities.get(curRow), curRow, curCol);
 
@@ -324,15 +348,34 @@ public class SalesController {
 					theView.getTabsPane().getMakeSalePanel().getpSale().getCheckoutTable().setValueAt(newQuantity, curRow, curCol);
 					theView.getTabsPane().getMakeSalePanel().getpSale().getCheckoutTable().setValueAt((saleItems.get(curRow).getPrice()*newQuantity), curRow, 4);
 					quantities.set(curRow, newQuantity);
-					theView.getTabsPane().getMakeSalePanel().getpSale().getCheckoutTable().repaint();	
-					double total=0;
-					for(int i = 0 ; i<saleItems.size();i++)
+					total=0;
+					if(newQuantity<=0)
 					{
-						total+=saleItems.get(i).getPrice()*(int)quantities.get(i);
+						saleItems.remove(curRow);
+						quantities.remove(curRow);
 					}
-					theView.getTabsPane().getMakeSalePanel().getpSale().setTotal(total);
+						theView.getTabsPane().getMakeSalePanel().getpSale().getCheckoutTable().repaint();	
+						for(int i = 0 ; i<saleItems.size();i++)
+						{
+							if(saleItems.get(i)!=null)
+								total+=saleItems.get(i).getPrice()*(int)quantities.get(i);
+						}
+						theView.getTabsPane().getMakeSalePanel().getpSale().setTotal(total);
+					
 				}
 			}
+			
+			if(total>0.0)
+			{
+				System.out.println("Total is bigger than zero");
+				theView.getTabsPane().getMakeSalePanel().getpSale().getCompleteSaleButton().setEnabled(true);
+			}
+			else
+			{
+				System.out.println("Total is less than zero");
+				theView.getTabsPane().getMakeSalePanel().getpSale().getCompleteSaleButton().setEnabled(false);
+			}
+			System.out.println(total);
 		}
 
 	}
