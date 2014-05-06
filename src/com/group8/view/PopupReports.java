@@ -21,6 +21,7 @@ import javax.swing.ScrollPaneConstants;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
 
 public class PopupReports extends JDialog {
 
@@ -62,11 +63,12 @@ public class PopupReports extends JDialog {
 		getContentPane().add(panel, "cell 1 2,growx,aligny center");
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		printItemsButton = new JButton("Print items");
+		printItemsButton = new JButton("");
+		printItemsButton.setIcon(new ImageIcon(PopupReports.class.getResource("/com/group8/images/printer.png")));
 		panel.add(printItemsButton);
 		
 		okButton = new JButton("OK");
-		getContentPane().add(okButton, "cell 1 2");
+		getContentPane().add(okButton, "cell 1 2,growy");
 		okButton.setFont(new Font("Cambria", Font.BOLD, 13));
 		PopupTableModel= new ReportPopupTableModel();
 		// TODO Auto-generated constructor stub

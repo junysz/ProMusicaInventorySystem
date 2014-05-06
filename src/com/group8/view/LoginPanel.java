@@ -1,22 +1,17 @@
 package com.group8.view;
 
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 
-import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-
 import javax.swing.JLabel;
 
 import net.miginfocom.swing.MigLayout;
 import java.awt.Label;
 import java.awt.Font;
-import java.io.IOException;
 
 public class LoginPanel extends JPanel {
 	/**

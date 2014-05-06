@@ -25,6 +25,7 @@ import java.awt.Label;
 import javax.swing.border.LineBorder;
 import javax.swing.ListSelectionModel;
 import java.awt.SystemColor;
+import javax.swing.ImageIcon;
 
 @SuppressWarnings("serial")
 public class ReservationPanel extends JPanel 
@@ -190,7 +191,9 @@ public class ReservationPanel extends JPanel
 		
 		
 		
-		logoutButton = new JButton("Logout");
+		logoutButton = new JButton("");
+		logoutButton.setIcon(new ImageIcon(ReservationPanel.class.getResource("/com/group8/images/logout.png")));
+		logoutButton.setToolTipText("Logout");
 		makeNewReservationPanel.add(logoutButton, "cell 5 19,alignx right");
 		logoutButton.setForeground(Color.BLACK);
 		logoutButton.setFont(new Font("Cambria", Font.BOLD, 13));
