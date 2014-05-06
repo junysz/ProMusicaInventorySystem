@@ -31,6 +31,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.border.LineBorder;
 
 import java.awt.Color;
+import javax.swing.ImageIcon;
 
 public class SalesPanel extends JPanel {
 	private static final long serialVersionUID = -4601644025125134230L;
@@ -86,9 +87,27 @@ public class SalesPanel extends JPanel {
 		searchTF.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		searchTF.setColumns(15);
 		
-		btnCheckout = new JButton("Checkout");
+		btnCheckout = new JButton("");
+		btnCheckout.setIcon(new ImageIcon(SalesPanel.class.getResource("/com/group8/images/checkout.png")));
+		btnCheckout.setToolTipText("Checkout");
 		btnCheckout.setFont(new Font("Cambria", Font.BOLD, 13));
-		filterByPanel.add(btnCheckout, "cell 3 0,grow");
+		filterByPanel.add(btnCheckout, "flowx,cell 3 0,grow");
+		
+		btnAddToCart = new JButton("");
+		filterByPanel.add(btnAddToCart, "cell 3 0,grow");
+		btnAddToCart.setIcon(new ImageIcon(SalesPanel.class.getResource("/com/group8/images/addToCart.png")));
+		btnAddToCart.setToolTipText("Add to Cart");
+		btnAddToCart.setFont(new Font("Cambria", Font.BOLD, 13));
+		
+		btnClearCart = new JButton("");
+		filterByPanel.add(btnClearCart, "cell 3 0,grow");
+		btnClearCart.setIcon(new ImageIcon(SalesPanel.class.getResource("/com/group8/images/clearCart.png")));
+		btnClearCart.setToolTipText("Clear Cart");
+		btnClearCart.setFont(new Font("Cambria", Font.BOLD, 13));
+		btnClearCart.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		
 		scrollPane = new JScrollPane();
 		add(scrollPane, "cell 0 2,grow");
@@ -96,24 +115,14 @@ public class SalesPanel extends JPanel {
 		table = new JTable();
 		scrollPane.setViewportView(table);
 		
-		btnAddToCart = new JButton("Add to Cart");
-		btnAddToCart.setFont(new Font("Cambria", Font.BOLD, 13));
-		add(btnAddToCart, "flowx,cell 0 3,alignx center");
-		
 		panel = new JPanel();
-		add(panel, "cell 0 3,alignx right,growy");
+		add(panel, "flowx,cell 0 3,alignx right,growy");
 		
-		logoutButton = new JButton("Logout");
+		logoutButton = new JButton("");
+		logoutButton.setIcon(new ImageIcon(SalesPanel.class.getResource("/com/group8/images/logout.png")));
+		logoutButton.setToolTipText("Logout");
 		logoutButton.setFont(new Font("Cambria", Font.BOLD, 13));
 		add(logoutButton, "cell 1 3,alignx right");
-		
-		btnClearCart = new JButton("Clear Cart");
-		btnClearCart.setFont(new Font("Cambria", Font.BOLD, 13));
-		add(btnClearCart, "cell 0 3");
-		btnClearCart.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
 
 	}
 	public void addLogoutButtonListener(ActionListener checkoutButtonListener)

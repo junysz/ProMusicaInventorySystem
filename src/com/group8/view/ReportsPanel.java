@@ -93,22 +93,30 @@ public class ReportsPanel extends JPanel {
 		scrollPane.setViewportView(tableReport);
 		
 	
-		printButton = new JButton("Print report");
+		printButton = new JButton("");
+		printButton.setToolTipText("Print");
+		printButton.setIcon(new ImageIcon(ReportsPanel.class.getResource("/com/group8/images/printer.png")));
 		printButton.setFont(new Font("Cambria", Font.BOLD, 13));
 		printButton.setEnabled(false);
-		add(printButton, "cell 3 11");
+		add(printButton, "flowx,cell 19 11");
 		
-		CheckSelected = new JButton("View sale items");
+		CheckSelected = new JButton("");
+		CheckSelected.setToolTipText("Get Sale Items");
+		CheckSelected.setIcon(new ImageIcon(ReportsPanel.class.getResource("/com/group8/images/MagnifyingGlass.png")));
 		CheckSelected.setFont(new Font("Cambria", Font.BOLD, 13));
-		add(CheckSelected, "cell 7 11");
+		add(CheckSelected, "cell 19 11");
 		CheckSelected.setEnabled(false);
 		
-		saveButton = new JButton("Save report");
+		saveButton = new JButton("");
+		saveButton.setIcon(new ImageIcon(ReportsPanel.class.getResource("/com/group8/images/save.png")));
+		saveButton.setToolTipText("Save Report");
 		saveButton.setFont(new Font("Cambria", Font.BOLD, 13));
 		saveButton.setEnabled(false);
 		add(saveButton, "cell 19 11 2 1");
 
-		logoutButton = new JButton("Logout");
+		logoutButton = new JButton("");
+		logoutButton.setIcon(new ImageIcon(ReportsPanel.class.getResource("/com/group8/images/logout.png")));
+		logoutButton.setToolTipText("Logout");
 		logoutButton.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
 		logoutButton.setForeground(Color.BLACK);
 		logoutButton.setFont(new Font("Cambria", Font.BOLD, 13));

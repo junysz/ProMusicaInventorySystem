@@ -19,6 +19,7 @@ import javax.swing.table.TableModel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.ImageIcon;
 
 public class PopupSaleDialog extends JDialog {
 
@@ -38,7 +39,7 @@ public class PopupSaleDialog extends JDialog {
 		scrollPane.scrollRectToVisible(getBounds());
 		scrollPane.setBounds(10, 119, 975, 300);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        add(scrollPane);
+        getContentPane().add(scrollPane);
         
         saleItemsTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         scrollPane.setViewportView(saleItemsTable);
@@ -63,10 +64,14 @@ public class PopupSaleDialog extends JDialog {
 		getContentPane().add(panel, "cell 0 1,alignx right,growy");
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		btnGoBack = new JButton("Go Back");
+		btnGoBack = new JButton("");
+		btnGoBack.setIcon(new ImageIcon(PopupSaleDialog.class.getResource("/com/group8/images/goback.png")));
+		btnGoBack.setToolTipText("Go Back");
 		panel.add(btnGoBack);
 		
-		btnCompleteSale = new JButton("Complete Sale");
+		btnCompleteSale = new JButton("");
+		btnCompleteSale.setIcon(new ImageIcon(PopupSaleDialog.class.getResource("/com/group8/images/ok.png")));
+		btnCompleteSale.setToolTipText("Complete Sale");
 		getContentPane().add(btnCompleteSale, "cell 0 1");
 		// TODO Auto-generated constructor stub
 	}
