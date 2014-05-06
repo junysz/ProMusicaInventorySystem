@@ -95,6 +95,7 @@ public class ReservationPanel extends JPanel
 		tableItemsRevervation.setModel(itemTableModel);
 		tableItemsRevervation.getColumnModel().getColumn(0).setMinWidth(0);
 		tableItemsRevervation.getColumnModel().getColumn(0).setMaxWidth(0);
+		scrollPaneReservTable.setViewportView(tableItemsRevervation);
 		scrollPaneReservTable.setViewportView(tableItemsRevervation); 
 		selectCategoryCBox = new JComboBox<String>();
 		subCatComboBoxModel= new CategoryComboBoxModel();
