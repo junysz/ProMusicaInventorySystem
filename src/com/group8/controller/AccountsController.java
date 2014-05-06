@@ -11,17 +11,13 @@ import com.group8.view.MaintainPanel;
 public class AccountsController {
 
 	private Controller controller; 	
-	
-
 
 	public AccountsController(Controller controller){
 		this.controller=controller;
-	
 		getMaintainPanel().addCreateAccountBtn(new MAcreateBTN1());
 		getMaintainPanel().addConfirmChangesAccount(new MAconfirmChangeBTN2());
 		getMaintainPanel().addSelectAccountToEditComboBox(new MAselectAccCB());
 	}
-
 
 	//Inner Class that listens for the Create Account Button
 	class MAcreateBTN1 implements ActionListener{
@@ -31,7 +27,6 @@ public class AccountsController {
 		String password2=null;
 		String accountTypeSelection=null;
 		ArrayList<String> errorMessages;
-
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
@@ -70,7 +65,6 @@ public class AccountsController {
 				getMaintainPanel().clearNewAccountForm();
 			}
 		}
-
 		void checkIfAccountExitst(){
 			for(int i=0;i<getModel().getAllAccounts().size();i++){
 
@@ -154,11 +148,9 @@ public class AccountsController {
 			boolean accEnabled = a.getFlag();
 			if(accEnabled) getMaintainPanel().setRdbtnEnableAccount(accEnabled);
 			else getMaintainPanel().setRdbtnDisableAccount(true);
-			
+
 		}
 	}
-
-
 
 	public void updteAccounts(){
 		ArrayList<String>accountNames= new ArrayList<String>();
@@ -169,7 +161,6 @@ public class AccountsController {
 			accountNames.add(accN);
 			System.out.println(accN);
 		}
-
 		getMaintainPanel().setAccountModel(accountNames);
 	}
 	public MaintainPanel getMaintainPanel(){

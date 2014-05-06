@@ -7,7 +7,6 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
 import javax.swing.DefaultListModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -20,8 +19,6 @@ import com.group8.view.CategoryComboBoxModel;
 import com.group8.view.MainFrame;
 
 
-
-
 public class ReservationController {
 
 	private Controller controller;  	
@@ -29,10 +26,7 @@ public class ReservationController {
 
 	public ReservationController(Controller controller){
 		this.controller= controller;
-
 		getView().getTabsPane().getReservationPanel().addTableListener(new PopulateTableListener());
-
-
 		populateCategoryReservPanel();	
 		getView().getTabsPane().getReservationPanel().addListListener(new myListListener());		
 		populateList();   
@@ -43,19 +37,17 @@ public class ReservationController {
 		getView().getTabsPane().getReservationPanel().addComboBoxSubCatListener(new ComboBoxSubCatListener());
 		getView().getTabsPane().getReservationPanel().logoutButtonListener(new logoutButtonListener());
 		getView().getTabsPane().getReservationPanel().logoutButtonListener2(new logoutButtonListener());
-
-
 	}
 
-     //listener class for populating table in reservation tab
+	//listener class for populating table in reservation tab
 	class PopulateTableListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			populateTable();
 		}
 	}
 
-    //Listener class for the list in the reservation tab 
-	
+	//Listener class for the list in the reservation tab 
+
 	class myListListener implements ListSelectionListener{
 		private String item;
 		private double totalPrice,deposit;
@@ -70,35 +62,32 @@ public class ReservationController {
 
 			ArrayList<Reservation> myList=new ArrayList<Reservation>();
 			//get all the items reserved from database
- 			myList=getModel().getReservedItems();
+			myList=getModel().getReservedItems();
 			int size=myList.size();
 			for (int i=0;i<size;i++)
 				if (myList.get(i).getDocketNo().equals(docketSelected) )			
-                 	{
-						//retrieve reserved item from database
+				{
+					//retrieve reserved item from database
 					int itemID=myList.get(i).getItemID();
 
-                   //get all attributes from the reserved item
+					//get all attributes from the reserved item
 					item=getModel().getItemByID(itemID).getBrand()+" "+getModel().getItemByID(itemID).getModel();
 					totalPrice=getModel().getItemByID(itemID).getPrice();
 					deposit=myList.get(i).getDeposit();
 					date = myList.get(i).getDate();
-
 				}
-              //set all textfields accordingly
+			//set all textfields accordingly
 			getView().getTabsPane().getReservationPanel().getDocketNoTF().setText(docketSelected);
 			getView().getTabsPane().getReservationPanel().getBrandModelTF().setText(item);
 			getView().getTabsPane().getReservationPanel().getCurrentDepositTF().setText(deposit+"");
 			getView().getTabsPane().getReservationPanel().getTotalPriceTF().setText(totalPrice+"");
 			getView().getTabsPane().getReservationPanel().getDateTF().setText(""+ date);
-          //enable the two buttons
+			//enable the two buttons
 			getView().getTabsPane().getReservationPanel().getEndReservation().setEnabled(true);
 			getView().getTabsPane().getReservationPanel().getNewButton().setEnabled(true);
 		}	
 	}
 
-	
-	
 	//Class for listening the button to Update a Reservation
 	class UpdateBtn implements ActionListener
 	{
@@ -107,7 +96,6 @@ public class ReservationController {
 
 			double newDeposit,oldDeposit;
 			Reservation reserved;
-
 			reserved=new Reservation();
 			String docket=getView().getTabsPane().getReservationPanel().getDocketNoTF().getText();			
 			//get the amount newly entered
@@ -121,7 +109,7 @@ public class ReservationController {
 				reserved.setDeposit(newDeposit+oldDeposit);
 				//get price of item reserved
 				double price=Double.parseDouble(getView().getTabsPane().getReservationPanel().getTotalPriceTF().getText());
-               //if the new deposit is too big
+				//if the new deposit is too big
 				if (newDeposit+oldDeposit>price-1)  getView().getTabsPane().getReservationPanel().warnUpdate();
 				else 	
 				{
@@ -140,76 +128,66 @@ public class ReservationController {
 			}
 		}
 	}
-
-
+	
 	//Class to remove a Reservation  
 	class RemoveBtn implements ActionListener
 	{ int accountID;int itemID;
-		@Override
-		public void actionPerformed(ActionEvent e) {				
+	@Override
+	public void actionPerformed(ActionEvent e) {				
 
-			Sale sale=new Sale();
-			Calendar now = Calendar.getInstance();
-			java.sql.Date date = new java.sql.Date(now.getTime().getTime());
-			//get account name and password using the LoginPanel 
-			String username=getView().getUsernameLoginString();
-			String pass=getView().getPasswordLoginString();
+		Sale sale=new Sale();
+		Calendar now = Calendar.getInstance();
+		java.sql.Date date = new java.sql.Date(now.getTime().getTime());
+		//get account name and password using the LoginPanel 
+		String username=getView().getUsernameLoginString();
+		String pass=getView().getPasswordLoginString();
 
-			//getting the AccountID
-			ArrayList<Account> myList=getModel().getAllAccounts();//getting the list of all acounts
-			for (int i=0;i<myList.size();i++)
-			{
-				if (myList.get(i).getAccountName().equals(username)) //if account name and pass are similar
-					if(		 myList.get(i).getPassword().equals(pass) )  
-						accountID=myList.get(i).getAccountID();
-				        
-			}
-			
-			sale.setDate(date);
-			double price=Double.parseDouble(getView().getTabsPane().getReservationPanel().getTotalPriceTF().getText());
-			sale.setTotalPrice(price);
-			sale.setName(username);
-			Account a=new Account();
-			a.setAccountID(accountID);
-			getModel().addNewSale( sale,  a);//adding a new sale in the database
-			
-			String docketSelected = getView().getTabsPane().getReservationPanel().getList().getSelectedValue().toString();
-			ArrayList<Reservation> myList1=new ArrayList<Reservation>();
-			//get all the items reserved from database
- 			myList1=getModel().getReservedItems();
-			int size=myList1.size();
-			for (int i=0;i<size;i++)
-				if (myList1.get(i).getDocketNo().equals(docketSelected) )			
-                 	{
-						//retrieve reserved item from database
-					 itemID=myList1.get(i).getItemID();
-					 getModel().removeReservedItem(docketSelected);
-
-			     	}
-			
-			 int saleID=getModel().getLastSaleID();
-			 Item item= getModel().getItemByID(itemID);
-			 int stock=item.getStockLevel();
-			 
-			 getModel().updateItemStock(itemID, stock-1);
-			 sale.setSaleID(saleID);
-			 getModel().addNewItemSold(item, sale, price, 1);
-			 
-			 populateList();
-			// clear all fields
-			getView().getTabsPane().getReservationPanel().getDocketNoTF().setText("");
-			getView().getTabsPane().getReservationPanel().getBrandModelTF().setText("");
-			getView().getTabsPane().getReservationPanel().getCurrentDepositTF().setText("");
-			getView().getTabsPane().getReservationPanel().getTotalPriceTF().setText("");
-			getView().getTabsPane().getReservationPanel().getDateTF().setText("");
-			getView().getTabsPane().getReservationPanel().successfuly();
-			
-			
+		//getting the AccountID
+		ArrayList<Account> myList=getModel().getAllAccounts();//getting the list of all acounts
+		for (int i=0;i<myList.size();i++)
+		{
+			if (myList.get(i).getAccountName().equals(username)) //if account name and pass are similar
+				if(		 myList.get(i).getPassword().equals(pass) )  
+					accountID=myList.get(i).getAccountID();
 		}
+		sale.setDate(date);
+		double price=Double.parseDouble(getView().getTabsPane().getReservationPanel().getTotalPriceTF().getText());
+		sale.setTotalPrice(price);
+		sale.setName(username);
+		Account a=new Account();
+		a.setAccountID(accountID);
+		getModel().addNewSale( sale,  a);//adding a new sale in the database
+		String docketSelected = getView().getTabsPane().getReservationPanel().getList().getSelectedValue().toString();
+		ArrayList<Reservation> myList1=new ArrayList<Reservation>();
+		//get all the items reserved from database
+		myList1=getModel().getReservedItems();
+		int size=myList1.size();
+		for (int i=0;i<size;i++)
+			if (myList1.get(i).getDocketNo().equals(docketSelected) )			
+			{
+				//retrieve reserved item from database
+				itemID=myList1.get(i).getItemID();
+				getModel().removeReservedItem(docketSelected);
+			}
+		int saleID=getModel().getLastSaleID();
+		Item item= getModel().getItemByID(itemID);
+		int stock=item.getStockLevel();
+
+		getModel().updateItemStock(itemID, stock-1);
+		sale.setSaleID(saleID);
+		getModel().addNewItemSold(item, sale, price, 1);
+
+		populateList();
+		// clear all fields
+		getView().getTabsPane().getReservationPanel().getDocketNoTF().setText("");
+		getView().getTabsPane().getReservationPanel().getBrandModelTF().setText("");
+		getView().getTabsPane().getReservationPanel().getCurrentDepositTF().setText("");
+		getView().getTabsPane().getReservationPanel().getTotalPriceTF().setText("");
+		getView().getTabsPane().getReservationPanel().getDateTF().setText("");
+		getView().getTabsPane().getReservationPanel().successfuly();
 
 	}
-
-
+	}
 	//the scope of this class is to create a new ReservationItem in the database.
 	// For this I need five parameters ,to use the method InsertNewReservation
 	class ReserveBtn implements ActionListener
@@ -305,45 +283,26 @@ public class ReservationController {
 				populateTable();
 				//re-populate the List in the FindReservation Panel
 				populateList();
-
 			}
 			else{
 				getView().getTabsPane().getReservationPanel().warnNewReservationInput(errorMessages);
 			}
-
-
-
-
-
 		}	
 	}                                                               
-
-
 	class ComboBoxListener implements ActionListener{
-		private List<String> test=new ArrayList<>();
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String selectedCategory=getView().getTabsPane().getReservationPanel().getSelectCategoryCBox().getSelectedItem().toString();
 			System.out.println("ComboBox Category changed to: "+selectedCategory);
-			//now populate all sub-categories ....
-			//test=getModel().getSubCategories(selectedCategory);
-			//getView().getTabsPane().getReservationPanel().setComboBoxSubCategoryModel(test);
-			
-			System.out.println("I am herer");
 			controller.getReservationPanel().setComboBoxSubCategoryModel(new CategoryComboBoxModel(),getModel().getSubCategories(selectedCategory));
-			
-			
-			
 		}
 	}
-
-
 	class ComboBoxSubCatListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
 			try{
-				String subCat=	getView().getTabsPane().getReservationPanel().getSelectSubcategoryCBox().getSelectedItem().toString();
+				getView().getTabsPane().getReservationPanel().getSelectSubcategoryCBox().getSelectedItem().toString();
 
 			}catch(Exception exception)
 			{
@@ -351,9 +310,6 @@ public class ReservationController {
 			}
 		}
 	}
-
-
-
 
 	//when program starts categories are loaded into the combo-boxes
 	public void populateCategoryReservPanel(){
@@ -365,20 +321,17 @@ public class ReservationController {
 			System.out.println("data base is empty");
 		}
 	}
-
-    //set list model
+	//set list model
 	public void setListModel(List<Reservation> list)
 	{
-
 		int size=list.size();
 		for (int i=0;i<size;i++)
 		{
 			DefaultListModel<String>model=getView().getTabsPane().getReservationPanel().getModel();
 			list=getModel().getReservedItems();
-			//Put reservation dockets in the list
+			//Put reservation docked in the list
 			model.addElement(list.get(i).getDocketNo());
 		}
-
 	}
 	//refresh the list 
 	public void  populateList()
@@ -402,17 +355,17 @@ public class ReservationController {
 			newList=getModel().getItemsByKeyword(keyword); //get all the items with keyword
 			size=newList.size();
 		}
-		else //if selection is made using Subcategories and categories
+		else //if selection is made using Sub-categories and categories
 		{
 			String subCat = null;
-			if ( getView().getTabsPane().getReservationPanel().getSelectSubcategoryCBox().getSelectedItem()!=null)//if subcategory is selected
+			if ( getView().getTabsPane().getReservationPanel().getSelectSubcategoryCBox().getSelectedItem()!=null)//if sub-category is selected
 			{ 
 				subCat=	getView().getTabsPane().getReservationPanel().getSelectSubcategoryCBox().getSelectedItem().toString();
-				newList=getModel().getItemsInSubcategory(subCat); //get all items in subcategory
+				newList=getModel().getItemsInSubcategory(subCat); //get all items in sub-category
 				size=newList.size();
 			}
-      
-			//if subcategory was not selected
+
+			//if sub-category was not selected
 			else 
 			{
 				getView().getTabsPane().getReservationPanel().warnSubCategoryNull();
@@ -427,7 +380,7 @@ public class ReservationController {
 		getView().getTabsPane().getReservationPanel().getBtnReserveItem().setEnabled(true);	//enable the reserve button 
 	}
 
-	  //Class listener for logging out
+	//Class listener for logging out
 	class logoutButtonListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -441,15 +394,13 @@ public class ReservationController {
 			}
 		}
 	}
-	
+
 	public MainFrame getView(){
 		return controller.getView();
 	}
 	public MainModel getModel(){
 		return controller.getModel();
 	}
-
-
 }
 
 

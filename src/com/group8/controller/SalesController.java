@@ -8,7 +8,6 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Calendar;
-
 import javax.swing.JOptionPane;
 import com.group8.model.Account;
 import com.group8.model.Item;
@@ -20,7 +19,6 @@ import com.group8.view.ItemTableModel;
 import com.group8.view.MainFrame;
 
 
-
 public class SalesController {
 	private ArrayList<Item> saleItems = new ArrayList<Item>();
 	private ArrayList<Integer> quantities = new ArrayList<Integer>();
@@ -30,7 +28,6 @@ public class SalesController {
 	public SalesController(Controller controller)
 	{
 		//ACTIVATE MAKE SALE PANEL LISTENERS
-		
 		theView=controller.getView();
 		theModel=controller.getModel();
 		theView.getTabsPane().getMakeSalePanel().addCheckoutButtonListener(new SaleListener());
@@ -43,274 +40,234 @@ public class SalesController {
 		theView.getTabsPane().getMakeSalePanel().getpSale().addPopupButtonsListener(new SaleListener());
 		theView.getTabsPane().getMakeSalePanel().getpSale().addTableModelListener(new QuantityChangeListener());
 		theView.getTabsPane().getMakeSalePanel().setSelectCategoryCBModel(new CategoryComboBoxModel(), theModel.getCategoryNames());
-
 	}
-	
-		//**************************Sale panel and popup buttons*******************
 
-class SaleListener implements ActionListener{
+	//**************************Sale panel and pop-up buttons*******************
+	class SaleListener implements ActionListener{
 
+		boolean contains=false;
+		int addingIndex=0;
+		Item added = new Item();
+		public void actionPerformed(ActionEvent e) {
 
-	boolean contains=false;
-	int addingIndex=0;
-	Item added = new Item();
-
-
-	
-
-
-
-	public void actionPerformed(ActionEvent e) {
-	
-		if(e.getSource()==theView.getTabsPane().getMakeSalePanel().getpSale().getGoBckButton())
-		{
-			theView.getTabsPane().getMakeSalePanel().getpSale().dispose();
-		}
-		
-		else if(e.getSource()==theView.getTabsPane().getMakeSalePanel().getpSale().getCompleteSaleButton())
-		{
-			//calculate total
-			for(int i = 0 ; saleItems.size()>i ; i++)
+			if(e.getSource()==theView.getTabsPane().getMakeSalePanel().getpSale().getGoBckButton())
 			{
-				total+=saleItems.get(i).getPrice()*quantities.get(i);
+				theView.getTabsPane().getMakeSalePanel().getpSale().dispose();
 			}
-			
-			//stoer account that makes sale
-			Account addingAccount = new Account();
-			addingAccount.setAccountID(theModel.getLoggedID());
-			addingAccount.setAccountName(theModel.getLoggedName());
-			
-			//get current date
-			Calendar now = Calendar.getInstance();
-			java.sql.Date date = new java.sql.Date(now.getTime().getTime());
-			Sale thisSale = new Sale(0, date , total, theModel.getLoggedID(), theModel.getLoggedName());
-			theModel.addNewSale(thisSale, addingAccount);
-			int saleID = theModel.getLastSaleID();
-			thisSale.setSaleID(saleID);
-			//add sol items to itemsold table
-			for(int i = 0  ; i<saleItems.size();i++)
+			else if(e.getSource()==theView.getTabsPane().getMakeSalePanel().getpSale().getCompleteSaleButton())
 			{
-				theModel.addNewItemSold(saleItems.get(i), thisSale, (double) theView.getTabsPane().getMakeSalePanel().getpSale().getCheckoutTable().getValueAt(i, 2),quantities.get(i));
-				Item updatingItem = saleItems.get(i);
-				theModel.updateItemLevels(updatingItem, quantities.get(i));
-				theModel.updateItem(updatingItem	, theModel.getItemSubCatID(updatingItem.getItemID()));
-					
+				//calculate total
+				for(int i = 0 ; saleItems.size()>i ; i++)
+				{
+					total+=saleItems.get(i).getPrice()*quantities.get(i);
+				}
+				//Stores account that makes sale
+				Account addingAccount = new Account();
+				addingAccount.setAccountID(theModel.getLoggedID());
+				addingAccount.setAccountName(theModel.getLoggedName());
+				//get current date
+				Calendar now = Calendar.getInstance();
+				java.sql.Date date = new java.sql.Date(now.getTime().getTime());
+				Sale thisSale = new Sale(0, date , total, theModel.getLoggedID(), theModel.getLoggedName());
+				theModel.addNewSale(thisSale, addingAccount);
+				int saleID = theModel.getLastSaleID();
+				thisSale.setSaleID(saleID);
+				//add sold items to item-sold table
+				for(int i = 0  ; i<saleItems.size();i++)
+				{
+					theModel.addNewItemSold(saleItems.get(i), thisSale, (double) theView.getTabsPane().getMakeSalePanel().getpSale().getCheckoutTable().getValueAt(i, 2),quantities.get(i));
+					Item updatingItem = saleItems.get(i);
+					theModel.updateItemLevels(updatingItem, quantities.get(i));
+					theModel.updateItem(updatingItem	, theModel.getItemSubCatID(updatingItem.getItemID()));		
+				}
+				theView.getTabsPane().getMakeSalePanel().getpSale().dispose();
+				JOptionPane.showMessageDialog(theView, "Sale Completed.", "Success!", 1);
+				saleItems = new ArrayList<>();
+				quantities = new ArrayList<>();
+				total=0;
 			}
-		
-			theView.getTabsPane().getMakeSalePanel().getpSale().dispose();
-			JOptionPane.showMessageDialog(theView, "Sale Completed.", "Success!", 1);
-			saleItems = new ArrayList<>();
-			quantities = new ArrayList<>();
-			total=0;
-		}
-		
-		else if(e.getSource()==theView.getTabsPane().getMakeSalePanel().getBtnAddToCart())
-		{
-			int row =theView.getTabsPane().getMakeSalePanel().getTable().getSelectedRow();
-			if (row!=-1)
+			else if(e.getSource()==theView.getTabsPane().getMakeSalePanel().getBtnAddToCart())
 			{
-				String testQuantity="0";
-				int validQuantity=0;
-				
-				boolean validNumber = false;
-				
-				/*
-				 * Enter quantity required
-				 */
-				
-				while(!validNumber){
-					testQuantity = (String) JOptionPane.showInputDialog(theView.getTabsPane().getMakeSalePanel().getpSale(), "Quantity Required:", "Please Enter Quantity", 1, null, null, "1");
-			
-					//Check if entered number is positive an int
-					if (testQuantity.matches("^[\\d+$]"))
-					{
-						validQuantity = Integer.parseInt(testQuantity);
-						int testingQuantity=theModel.getItemByName(theView.getTabsPane().getMakeSalePanel().getTable().getValueAt(row, 1)
-								+" "+theView.getTabsPane().getMakeSalePanel().getTable().getValueAt(row, 2)).getAvailableStockLevel();
-						if(testingQuantity<0)
+				int row =theView.getTabsPane().getMakeSalePanel().getTable().getSelectedRow();
+				if (row!=-1)
+				{
+					String testQuantity="0";
+					int validQuantity=0;
+					boolean validNumber = false;
+					/*
+					 * Enter quantity required
+					 */
+					while(!validNumber){
+						testQuantity = (String) JOptionPane.showInputDialog(theView.getTabsPane().getMakeSalePanel().getpSale(), "Quantity Required:", "Please Enter Quantity", 1, null, null, "1");
+						//Check if entered number is positive an integer
+						if (testQuantity.matches("^[\\d+$]"))
 						{
-							testingQuantity=0;
-						}
-						
-						if(testingQuantity<validQuantity)
-						{
-							System.out.println("Testing quantity is:" + testingQuantity);
-							JOptionPane.showMessageDialog(theView.getTabsPane().getMakeSalePanel().getpSale(), "Available Stock Level insufficient!.", "Correct required quantity!", 2);
-						}
-					else
-					{
-			
-						added=theModel.getItemByName((String) theView.getTabsPane().getMakeSalePanel().getTable().getValueAt(row, 1)+" "+(String) theView.getTabsPane().getMakeSalePanel().getTable().getValueAt(row, 2));
-						
-						
-						/*
-						 * Check if item is in the basket already
-						 */
-						
-						for (int i = 0 ; i < saleItems.size() ; i++)
-						{
-							if(added.getItemID()==(saleItems.get(i).getItemID()))
+							validQuantity = Integer.parseInt(testQuantity);
+							int testingQuantity=theModel.getItemByName(theView.getTabsPane().getMakeSalePanel().getTable().getValueAt(row, 1)
+									+" "+theView.getTabsPane().getMakeSalePanel().getTable().getValueAt(row, 2)).getAvailableStockLevel();
+							if(testingQuantity<0)
 							{
-								contains = true;
-								addingIndex=i;
-								break;
+								testingQuantity=0;
+							}
+
+							if(testingQuantity<validQuantity)
+							{
+								System.out.println("Testing quantity is:" + testingQuantity);
+								JOptionPane.showMessageDialog(theView.getTabsPane().getMakeSalePanel().getpSale(), "Available Stock Level insufficient!.", "Correct required quantity!", 2);
 							}
 							else
-								addingIndex=0;
-						
-						}
-			
-						if(contains)
-						{
-							if(testingQuantity<validQuantity+quantities.get(addingIndex))
 							{
-								System.out.println("Entered quantity is: " + validQuantity);
-								System.out.println("At the moment you have: "+quantities.get(addingIndex)+" units of the item added.");
-								JOptionPane.showMessageDialog(theView.getTabsPane().getMakeSalePanel().getpSale(), "Quantity exceeded availible stock level.", "Correct required quantity!", 2);
-							}
-							else{
-								
-								try
+								added=theModel.getItemByName((String) theView.getTabsPane().getMakeSalePanel().getTable().getValueAt(row, 1)+" "+(String) theView.getTabsPane().getMakeSalePanel().getTable().getValueAt(row, 2));
+								/*
+								 * Check if item is in the basket already
+								 */
+								for (int i = 0 ; i < saleItems.size() ; i++)
 								{
-									quantities.add(addingIndex, quantities.get(addingIndex)+validQuantity);
-									JOptionPane.showMessageDialog(theView.getTabsPane().getMakeSalePanel().getpSale(), "Item added to the basket!", "Success", 1);
+									if(added.getItemID()==(saleItems.get(i).getItemID()))
+									{
+										contains = true;
+										addingIndex=i;
+										break;
+									}
+									else
+										addingIndex=0;
 								}
-								catch (IndexOutOfBoundsException e1)
-								{}
+
+								if(contains)
+								{
+									if(testingQuantity<validQuantity+quantities.get(addingIndex))
+									{
+										System.out.println("Entered quantity is: " + validQuantity);
+										System.out.println("At the moment you have: "+quantities.get(addingIndex)+" units of the item added.");
+										JOptionPane.showMessageDialog(theView.getTabsPane().getMakeSalePanel().getpSale(), "Quantity exceeded availible stock level.", "Correct required quantity!", 2);
+									}
+									else{
+
+										try
+										{
+											quantities.add(addingIndex, quantities.get(addingIndex)+validQuantity);
+											JOptionPane.showMessageDialog(theView.getTabsPane().getMakeSalePanel().getpSale(), "Item added to the basket!", "Success", 1);
+										}
+										catch (IndexOutOfBoundsException e1)
+										{}
+									}
+
+								}
+								else
+								{
+									saleItems.add(added);
+									quantities.add(saleItems.indexOf(added), validQuantity);
+									JOptionPane.showMessageDialog(theView.getTabsPane().getMakeSalePanel().getpSale(), "Item added to the basket!", "Success", 1);
+									theView.getTabsPane().getMakeSalePanel().getpSale().getCheckoutTable().setModel(new CheckoutTableModel(saleItems, quantities));
+								}
+								if (saleItems.size()>0)	System.out.println(saleItems.get(0).getModel());
+
 							}
-								
+
+							validNumber=true;
 						}
 						else
 						{
-							
-							saleItems.add(added);
-							quantities.add(saleItems.indexOf(added), validQuantity);
-							JOptionPane.showMessageDialog(theView.getTabsPane().getMakeSalePanel().getpSale(), "Item added to the basket!", "Success", 1);
-							theView.getTabsPane().getMakeSalePanel().getpSale().getCheckoutTable().setModel(new CheckoutTableModel(saleItems, quantities));
+							JOptionPane.showMessageDialog(theView.getTabsPane().getMakeSalePanel().getpSale(), "Enter Valid Quantity", "Invalid entry!", 2);
 						}
-					if (saleItems.size()>0)	System.out.println(saleItems.get(0).getModel());
-							
+
 					}
-			
-						validNumber=true;
+
+					/*
+					 * End entering quantity
+					 */				
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(theView.getTabsPane().getMakeSalePanel().getpSale(), "Enter Valid Quantity", "Invalid entry!", 2);
+					JOptionPane.showMessageDialog(theView.getTabsPane().getMakeSalePanel().getpSale(), "Please make sure one item is selected!", "No Selection Made!", 2);
 				}
-				
-				}
-				
+			}
+			else if(e.getSource()==theView.getTabsPane().getMakeSalePanel().getBtnCheckout())
+			{
 				/*
-				 * End entering quantity
-				 */				
+				 * Make pop-up visible if it's not, and refresh table with the items
+				 */
+				theView.getTabsPane().getMakeSalePanel().getpSale().setTotal(total);
+				theView.getTabsPane().getMakeSalePanel().getpSale().getCheckoutTable().setModel(new CheckoutTableModel(saleItems, quantities));
+				double total=0;
+
+				for(int i = 0 ; i<saleItems.size();i++)
+				{
+					total+=saleItems.get(i).getPrice()*(int)quantities.get(i);
+				}
+
+				theView.getTabsPane().getMakeSalePanel().getpSale().setTotal(total);//sets total to be displayed in the checkout pop-up
+				//resets data in pop-up table
+				theView.getTabsPane().getMakeSalePanel().getpSale().setSaleTableModel(new CheckoutTableModel(saleItems, quantities));
+				//sets checkout dialog visible
+				theView.getTabsPane().getMakeSalePanel().getpSale().setAlwaysOnTop(true);
+				theView.getTabsPane().getMakeSalePanel().getpSale().setVisible(true);
+				theView.getTabsPane().getMakeSalePanel().getpSale().repaint();
 			}
-			else
+			else if(e.getSource()==theView.getTabsPane().getMakeSalePanel().getBtnClearCart())
 			{
-				JOptionPane.showMessageDialog(theView.getTabsPane().getMakeSalePanel().getpSale(), "Please make sure one item is selected!", "No Selection Made!", 2);
+				/*
+				 * Integer option indicates if checkout will be cleared or not after prompting the user
+				 */
+				int option = JOptionPane.showConfirmDialog(theView.getTabsPane().getMakeSalePanel().getpSale(), "Are you sure you want to delete all items in the basket?", "Please Confirm", 0);
+				/*
+				 * if option selected is yes (zero) then clear the checkout
+				 */
+				if(option==0)
+				{
+					saleItems = new ArrayList<Item>();
+					quantities = new ArrayList<Integer>();
+					addingIndex=0;
+					JOptionPane.showMessageDialog(theView.getTabsPane().getMakeSalePanel().getpSale(), "Basket has been successfully cleared!", "Success!", 1);
+				}
 			}
-		}
-		else if(e.getSource()==theView.getTabsPane().getMakeSalePanel().getBtnCheckout())
-		{
-			/*
-			 * Make popup visible if it's not, and refresh table with the items
-			 */
-			theView.getTabsPane().getMakeSalePanel().getpSale().setTotal(total);
-			theView.getTabsPane().getMakeSalePanel().getpSale().getCheckoutTable().setModel(new CheckoutTableModel(saleItems, quantities));
-			double total=0;
-				
-			for(int i = 0 ; i<saleItems.size();i++)
+			else if(e.getSource()==theView.getTabsPane().getMakeSalePanel().getSelectCategoryCB())
 			{
-				total+=saleItems.get(i).getPrice()*(int)quantities.get(i);
+				System.out.println("Category box clicked!");
+				theView.getTabsPane().getMakeSalePanel().
+				setSelectSubCategoryCBModel(new CategoryComboBoxModel(), theModel.
+						getSubCategories(theView.getTabsPane().getMakeSalePanel().getSelectCategoryCB().getSelectedItem().toString()));
+				theView.getTabsPane().getMakeSalePanel().getSearchTF().setText("");
 			}
-			
-			theView.getTabsPane().getMakeSalePanel().getpSale().setTotal(total);//sets total to be displayed in the checkout popup
-			//resets data in popup table
-			theView.getTabsPane().getMakeSalePanel().getpSale().setSaleTableModel(new CheckoutTableModel(saleItems, quantities));
-			//sets checkout dialog visible
-			theView.getTabsPane().getMakeSalePanel().getpSale().setAlwaysOnTop(true);
-			theView.getTabsPane().getMakeSalePanel().getpSale().setVisible(true);
-			theView.getTabsPane().getMakeSalePanel().getpSale().repaint();
-		}
-		else if(e.getSource()==theView.getTabsPane().getMakeSalePanel().getBtnClearCart())
-		{
-			/*
-			 * Integer option indicates if checkout will be cleared or not after prompting the user
-			 */
-			int option = JOptionPane.showConfirmDialog(theView.getTabsPane().getMakeSalePanel().getpSale(), "Are you sure you want to delete all items in the basket?", "Please Confirm", 0);
-			/*
-			 * if option selected is yes (zero) then clear the checkout
-			 */
-			if(option==0)
+			else if(e.getSource()==theView.getTabsPane().getMakeSalePanel().getSelectSubCategoryCB())
 			{
-				saleItems = new ArrayList<Item>();
-				quantities = new ArrayList<Integer>();
-				addingIndex=0;
-				JOptionPane.showMessageDialog(theView.getTabsPane().getMakeSalePanel().getpSale(), "Basket has been successfully cleared!", "Success!", 1);
+				String subCatName = theView.getTabsPane().getMakeSalePanel().getSelectSubCategoryCB().getSelectedItem().toString();
+				theView.getTabsPane().getMakeSalePanel().setTableModel(new ItemTableModel(), theModel.getItemsInSubcategory(subCatName));
+				theView.getTabsPane().getMakeSalePanel().getSearchTF().setText("");
+			}
+
+			else if(e.getSource()==theView.getTabsPane().getMakeSalePanel().getLogoutButton())
+			{
+				theView.logout();
 			}
 		}
-		else if(e.getSource()==theView.getTabsPane().getMakeSalePanel().getSelectCategoryCB())
-		{
-			System.out.println("Category box clicked!");
-			theView.getTabsPane().getMakeSalePanel().
-			setSelectSubCategoryCBModel(new CategoryComboBoxModel(), theModel.
-			getSubCategories(theView.getTabsPane().getMakeSalePanel().getSelectCategoryCB().getSelectedItem().toString()));
-			theView.getTabsPane().getMakeSalePanel().getSearchTF().setText("");
+	}
+
+	class SearchListener implements KeyListener	{
+		@Override
+		public void keyTyped(KeyEvent e) {
 		}
-		else if(e.getSource()==theView.getTabsPane().getMakeSalePanel().getSelectSubCategoryCB())
-		{
-			String subCatName = theView.getTabsPane().getMakeSalePanel().getSelectSubCategoryCB().getSelectedItem().toString();
-			theView.getTabsPane().getMakeSalePanel().setTableModel(new ItemTableModel(), theModel.getItemsInSubcategory(subCatName));
-			theView.getTabsPane().getMakeSalePanel().getSearchTF().setText("");
+		@Override
+		public void keyPressed(KeyEvent e) {
 		}
-		
-		else if(e.getSource()==theView.getTabsPane().getMakeSalePanel().getLogoutButton())
-		{
-			theView.logout();
+		@Override
+		public void keyReleased(KeyEvent e) {
+			/*
+			 * Every time key is released in the search text field the table is refreshed
+			 * and combo boxes selection is set to none
+			 */
+			String searchterm = theView.getTabsPane().getMakeSalePanel().getSearchTF().getText();
+			theView.getTabsPane().getMakeSalePanel().setTableModel(new ItemTableModel(), theModel.getItemsByKeyword(searchterm));
+			theView.getTabsPane().getMakeSalePanel().getSelectCategoryCB().setSelectedIndex(-1);
+			theView.getTabsPane().getMakeSalePanel().getSearchTF().setText(searchterm);
 		}
-		
-		
-		
 	}
-}
+	/*
+	 * Following class is responsible for updating checkout dialog and sale items list and quantities
+	 * after any changes are made in the table
+	 */
+	class QuantityChangeListener implements PropertyChangeListener{
 
-
-class SearchListener implements KeyListener	{
-	@Override
-	public void keyTyped(KeyEvent e) {
-	// TODO Auto-generated method stub
-	
-	}
-	
-	@Override
-	public void keyPressed(KeyEvent e) {
-	// TODO Auto-generated method stub
-	
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		/*
-		 * Everytime key is released in the search text field the table is refreshed
-		 * and combo boxes selection is set to none
-		 */
-		String searchterm = theView.getTabsPane().getMakeSalePanel().getSearchTF().getText();
-		
-		
-		theView.getTabsPane().getMakeSalePanel().setTableModel(new ItemTableModel(), theModel.getItemsByKeyword(searchterm));
-		theView.getTabsPane().getMakeSalePanel().getSelectCategoryCB().setSelectedIndex(-1);
-		theView.getTabsPane().getMakeSalePanel().getSearchTF().setText(searchterm);
-	}
-
-}
-	
-
-/*
- * Following class is responsible for updating checkout dialog and sale items list and quantities
- * after any changes are made in the table
- */
-class QuantityChangeListener implements PropertyChangeListener{
-		
 		@Override
 		public void propertyChange(PropertyChangeEvent evt) {
 			// TODO Auto-generated method stub
@@ -325,7 +282,7 @@ class QuantityChangeListener implements PropertyChangeListener{
 				String regexDecimal = "^-?\\d*\\.\\d+$";
 				String regexInteger = "^-?\\d+$";
 				String regexDouble = regexDecimal + "|" + regexInteger;
-				
+
 				if(!theView.getTabsPane().getMakeSalePanel().getpSale().getCheckoutTable().getValueAt(curRow, curCol).toString().matches(regexDouble))
 				{
 					theView.getTabsPane().getMakeSalePanel().getpSale().getCheckoutTable().setValueAt(saleItems.get(curRow).getPrice(), curRow, curCol);
@@ -333,9 +290,7 @@ class QuantityChangeListener implements PropertyChangeListener{
 				}
 				else
 				{
-					
 					double newPrice = (double) theView.getTabsPane().getMakeSalePanel().getpSale().getCheckoutTable().getValueAt(curRow, curCol);
-
 					theView.getTabsPane().getMakeSalePanel().getpSale().getCheckoutTable().setValueAt(newPrice, curRow, curCol);
 					theView.getTabsPane().getMakeSalePanel().getpSale().getCheckoutTable().setValueAt((newPrice*(double)quantities.get(curRow)), curRow, 4);
 					saleItems.get(curRow).setPrice(newPrice);
@@ -360,12 +315,12 @@ class QuantityChangeListener implements PropertyChangeListener{
 					theView.getTabsPane().getMakeSalePanel().getpSale().getCheckoutTable().setValueAt(quantities.get(curRow), curRow, curCol);
 
 					JOptionPane.showMessageDialog(theView, "Exeeded availible stock!");
-					
+
 				}
 				else
 				{
 					int newQuantity = (int) theView.getTabsPane().getMakeSalePanel().getpSale().getCheckoutTable().getValueAt(curRow, curCol);
-	
+
 					theView.getTabsPane().getMakeSalePanel().getpSale().getCheckoutTable().setValueAt(newQuantity, curRow, curCol);
 					theView.getTabsPane().getMakeSalePanel().getpSale().getCheckoutTable().setValueAt((saleItems.get(curRow).getPrice()*newQuantity), curRow, 4);
 					quantities.set(curRow, newQuantity);
@@ -379,17 +334,6 @@ class QuantityChangeListener implements PropertyChangeListener{
 				}
 			}
 		}
-	
-	
-	
 
-	
 	}
-	
-
-}
-
-//**************************End Sale panel and popup buttons****************
-
-
-
+}//**************************End Sale panel and pop-up buttons****************

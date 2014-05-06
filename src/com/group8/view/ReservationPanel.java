@@ -1,7 +1,6 @@
 package com.group8.view;
 
 import javax.swing.JPanel;
-
 import java.awt.BorderLayout;
 import javax.swing.JTabbedPane;
 import net.miginfocom.swing.MigLayout;
@@ -24,7 +23,6 @@ import java.awt.Font;
 import java.awt.Label;
 import javax.swing.border.LineBorder;
 import javax.swing.ListSelectionModel;
-import java.awt.SystemColor;
 import javax.swing.ImageIcon;
 
 @SuppressWarnings("serial")
@@ -32,8 +30,6 @@ public class ReservationPanel extends JPanel
 {
 	@SuppressWarnings("rawtypes")
 	List dbItem= new ArrayList<>();
-
-
 	private JTextField searchKeywordTF;
 	private JTextField docketNoTF;
 	private JTextField brandModelTF;
@@ -53,22 +49,15 @@ public class ReservationPanel extends JPanel
 	private JTable 					tableItemsRevervation;
 	private CategoryComboBoxModel 	categoryComboBoxModel,subCatComboBoxModel;
 	private JComboBox<String> 		selectCategoryCBox;
-
 	private JComboBox<String> 		selectSubcategoryCBox;
-
 	private  JList<String> list;
 	private DefaultListModel<String> model;
-
-
 	private JPanel makeNewReservationPanel;
 	private JLabel lblSelectCategory;
-
-
 	private JLabel lblSlecetSubcategory;
 	private JLabel lblSearch;
 	private JButton btnFindItems;
 	private JScrollPane scrollPaneReservTable;
-
 	private JPanel southPanelReservation;
 	private JLabel lblEnterDocketNo;
 	private JTextField enterDocketNoTF;
@@ -79,31 +68,24 @@ public class ReservationPanel extends JPanel
 	private JButton btnEndReservation;
 	private JButton btnNewButton;
 	private JLabel makeNewErrorLabel;
-	private JButton Logout2;
 	private Label label;
 	private Label label_2;
 	private JTextField DateTF;
 	private JButton logoutButton;
 	private JButton logoutButton2;
 
-
-
 	public ReservationPanel() {
 		setFont(new Font("Cambria", Font.BOLD, 14));
-
 		setLayout(new BorderLayout(0, 0));
-
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		add(tabbedPane, BorderLayout.CENTER);
 		model = new DefaultListModel<String>();
-
 		/*
 		 * MakeNewReservationPanel STUFF
 		 */
 		makeNewReservationPanel = new JPanel();
 		tabbedPane.addTab("Make New", null, makeNewReservationPanel, null);
 		makeNewReservationPanel.setLayout(new MigLayout("", "[186.00,grow][219.00,grow][103.00][106.00][][grow][]", "[][][][][][][][][47.00][39.00][530.00,grow][][][][47.00][530.00,grow][530.00,grow][-53.00][][][]"));
-
 		scrollPaneReservTable = new JScrollPane();
 		scrollPaneReservTable.setFont(new Font("Cambria", Font.BOLD, 14));
 		//instantiate ItemTableModel
@@ -111,34 +93,18 @@ public class ReservationPanel extends JPanel
 		tableItemsRevervation = new JTable();
 		tableItemsRevervation.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tableItemsRevervation.setModel(itemTableModel);
-
 		tableItemsRevervation.getColumnModel().getColumn(0).setMinWidth(0);
 		tableItemsRevervation.getColumnModel().getColumn(0).setMaxWidth(0);
-		scrollPaneReservTable.setViewportView(tableItemsRevervation);
-
-		/* 
-		 * Creating models for comboBoxes
-		 * Model classes are passed as parameters to combo-boxes
-		 */
-		//categoryComboBoxModel=new CategoryComboBoxModel(); 
+		scrollPaneReservTable.setViewportView(tableItemsRevervation); 
 		selectCategoryCBox = new JComboBox<String>();
-		
-		
-		//selectCategoryCBox.setModel(categoryComboBoxModel);
-
 		subCatComboBoxModel= new CategoryComboBoxModel();
 		lblSelectCategory = new JLabel("Select Category");
 		lblSelectCategory.setFont(new Font("Cambria", Font.BOLD, 13));
 		makeNewReservationPanel.add(lblSelectCategory, "flowx,cell 0 2,alignx left");	
-
-
-
 		makeNewReservationPanel.add(selectCategoryCBox, "cell 0 2,growx");
 		lblSlecetSubcategory = new JLabel("Select SubCategory");
 		lblSlecetSubcategory.setFont(new Font("Cambria", Font.BOLD, 13));
 		makeNewReservationPanel.add(lblSlecetSubcategory, "flowx,cell 1 2,alignx center");
-
-
 		lblSearch = new JLabel(" Keyword ");
 		lblSearch.setFont(new Font("Cambria", Font.BOLD, 13));
 		makeNewReservationPanel.add(lblSearch, "cell 2 2,alignx right");
@@ -182,15 +148,7 @@ public class ReservationPanel extends JPanel
 		btnReserveItem.setEnabled(false);
 		southPanelReservation.add(btnReserveItem, "cell 7 15,alignx right");
 		selectSubcategoryCBox = new JComboBox<String>();
-		
-		
-		//selectSubcategoryCBox.setModel(subCatComboBoxModel);
 		makeNewReservationPanel.add(selectSubcategoryCBox, "cell 1 2,growx");
-
-		
-		
-		
-		
 		logoutButton = new JButton("");
 		logoutButton.setIcon(new ImageIcon(ReservationPanel.class.getResource("/com/group8/images/logout.png")));
 		logoutButton.setToolTipText("Logout");
@@ -208,14 +166,10 @@ public class ReservationPanel extends JPanel
 		list.setFont(new Font("Cambria", Font.PLAIN, 13));
 		JScrollPane scrollPane = new JScrollPane(list);
 		scrollPane.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 2, true), "Docket Number", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-
-
 		findReservationPanel.add(scrollPane, "cell 0 1 2 5,grow");
-
 		JPanel reservationDetailsPanel = new JPanel();
 		findReservationPanel.add(reservationDetailsPanel, "cell 2 1 3 1,alignx right,growy");
 		reservationDetailsPanel.setLayout(new MigLayout("", "[][][][grow][][][][][][][][][grow][][][][][][][][][][][][][][][][][grow][][][][][][][][][][][][][][][][][][][][][][][][][][][grow]", "[][][][][][][][][][][][][][][][][][][][][][][][][][][]"));
-
 		reservationDetailsPanel.setBorder(new TitledBorder(new LineBorder(new Color(128, 128, 128), 1, true), "Reservation Details", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		JLabel lblDocketNo = new JLabel("Docket No:");
 		lblDocketNo.setFont(new Font("Cambria", Font.BOLD, 13));
@@ -308,13 +262,10 @@ public class ReservationPanel extends JPanel
 	{
 		return tableItemsRevervation.getSelectedRow();
 	}
-
 	public int getItemID()
 	{
-
 		int row=getTableIndex();
 		return  (int) tableItemsRevervation.getValueAt(row,0);
-
 	}
 	public int getAvailableStock()
 	{		
@@ -326,7 +277,6 @@ public class ReservationPanel extends JPanel
 		int row=getTableIndex();
 		return  (double) tableItemsRevervation.getValueAt(row,5);		
 	}
-
 	public JComboBox<String> getSelectCategoryCBox() {
 		return selectCategoryCBox;
 	}
@@ -417,51 +367,36 @@ public class ReservationPanel extends JPanel
 	public void addComboBoxSubCatListener(ActionListener listenComboSubCategory){
 		selectSubcategoryCBox.addActionListener(listenComboSubCategory);
 	}
-
-
-
 	public void setComboBoxCategoryModel(List<String>comboBoxList){
 		categoryComboBoxModel.setComboBoxList(comboBoxList);
 	}
 	public void setComboBoxSubCategoryModel(List<String>comboBoxList){
 		subCatComboBoxModel.setComboBoxList(comboBoxList);
 	}
-
-
-
-
 	public void addListListener(ListSelectionListener liste ){
 		list.addListSelectionListener(liste);
 	}
-
 	public void removeList()
 	{
 		model.removeAllElements();
 	}
-
-  
 	/*
 	 * Provide the way to notify The Controller 
 	 * whenever button is clicked
 	 * This will be handled by The Controller
 	 */
-
-
 	public void addUpdateListener(ActionListener listenFor)
 	{
 		btnNewButton.addActionListener(listenFor);
 	}
-
 	public void addRemoveListener(ActionListener listenFor)
 	{
 		btnEndReservation.addActionListener(listenFor);
 	}
-
 	public void addReserveListener(ActionListener listenFor)
 	{
 		btnReserveItem.addActionListener(listenFor);
 	}
-
 	public void addTableListener(ActionListener listenForFindButton)
 	{
 		btnFindItems.addActionListener(listenForFindButton);
@@ -484,19 +419,15 @@ public class ReservationPanel extends JPanel
 	public void setTableModel(List listFormController)
 	{
 		System.out.println("I want to set table model");
-
 		itemTableModel.setTableModel(listFormController);
 		tableItemsRevervation.setModel(itemTableModel);
 		itemTableModel.fireTableDataChanged();
-
 	}
 	
   public DefaultListModel<String> getModel()
   { 
 	  return model;
   }
-  
-  
   /*********************************************
    ******** Messages for controller*************
    ********************************************/
@@ -507,7 +438,6 @@ public class ReservationPanel extends JPanel
 				"Warning",
 				JOptionPane.WARNING_MESSAGE);
 	}
-
 	public void warnUpdate(){
 
 		JOptionPane.showMessageDialog(null,

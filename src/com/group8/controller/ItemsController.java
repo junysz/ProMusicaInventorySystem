@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.group8.model.Item;
 import com.group8.model.MainModel;
 import com.group8.model.SubCategory;
@@ -13,12 +12,10 @@ import com.group8.view.MaintainPanel;
 
 public class ItemsController {
 
-	
 	private Controller controller;	
 
 	public ItemsController(Controller controller){
 		this.controller=controller;
-		
 		getMaintainPanel().addCategoryListnerCreateItem(new MICategoryCB1());
 		getMaintainPanel().addCreateItemBtn(new MICreateBTN1());
 		getMaintainPanel().addEditCategoryComboBoxItem(new MICategoryCB2());
@@ -26,7 +23,6 @@ public class ItemsController {
 		getMaintainPanel().addSelectItemToEditComboBox(new MImoveSubCatCB2());
 		getMaintainPanel().addConfirmItemChangesBtn(new MIconfirmBTN2());
 	}
-
 
 	class MICategoryCB1 implements ActionListener{
 		@Override
@@ -47,7 +43,6 @@ public class ItemsController {
 			int stockLevel=0;//optional parameter from the view
 			//read the values (subCat, brand, model, price, stockLevel) from the view
 			try{
-
 				subCatSelection=getMaintainPanel().getNewItemSubCatComboBox().getSelectedItem().toString();
 				itemBrand= getMaintainPanel().getEnterBrandTF();
 				itemModel= getMaintainPanel().getEnterModelTF();
@@ -109,7 +104,6 @@ public class ItemsController {
 			getMaintainPanel().setSubCategoryModelItems2(getModel().getSubCategories(catSelected));
 		}
 	}
-
 
 	class MIsubCategoryCB2 implements ActionListener{
 		@Override
@@ -224,7 +218,7 @@ public class ItemsController {
 					item.setBrand(brand);
 					item.setModel(model);
 					item.setPrice(price);
-					
+
 					int numReserved = item.getStockLevel() - item.getAvailableStockLevel();
 					item.setStockLevel(stockLevel);
 					item.setAvailableStockLevel(stockLevel-numReserved);
@@ -249,23 +243,18 @@ public class ItemsController {
 		}
 	}
 
-
-
 	public void updteAccounts(){
 		ArrayList<String>accountNames= new ArrayList<String>();
 
 		for(int i=0;i<getModel().getAllAccounts().size();i++){
-
 			String accN=getModel().getAllAccounts().get(i).getAccountName();
 			accountNames.add(accN);
 			System.out.println(accN);
 		}
-
 		getMaintainPanel().setAccountModel(accountNames);
 	}
 
 	public void update() {
-
 		//sets the model for all the category combo boxes in maintain panel
 		getMaintainPanel().setCategoryModels(getModel().getCategoryNames());	
 		getMaintainPanel().clearNewSubCatForm();
@@ -277,6 +266,4 @@ public class ItemsController {
 	public MainModel getModel(){
 		return controller.getModel();
 	}
-	
-
 }
