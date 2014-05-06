@@ -65,7 +65,7 @@ public class PopupSaleDialog extends JDialog {
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		btnGoBack = new JButton("");
-		btnGoBack.setIcon(new ImageIcon(PopupSaleDialog.class.getResource("/com/group8/images/goback.png")));
+		btnGoBack.setIcon(new ImageIcon(PopupSaleDialog.class.getResource("/com/group8/images/goBack.png")));
 		btnGoBack.setToolTipText("Go Back");
 		panel.add(btnGoBack);
 		

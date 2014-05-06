@@ -53,7 +53,7 @@ public class ReportsPanel extends JPanel {
 		popup.setModal(true);
 		setAlignmentX(23.0f);
 		setFont(new Font("Tahoma", Font.BOLD, 12));
-		setLayout(new MigLayout("", "[95.00][24.00][][][][grow][][][][grow][][][][][][][][][][][47.00][grow][][][grow][][]", "[][][][][][][][34.00][][][100px:250:400px,grow][90][1.00]"));
+		setLayout(new MigLayout("", "[95.00][24.00][][][][grow][][][][grow][][][][][][][][][][][][47.00][grow][][][grow][][]", "[][][][][][][][34.00][][][100px:250:400px,grow][90][1.00]"));
 
 		date1Label = new JLabel("Start Date");
 		date1Label.setFont(new Font("Cambria", Font.BOLD, 13));
@@ -72,7 +72,7 @@ public class ReportsPanel extends JPanel {
 		btnReport = new JButton("Get sales");  //Button to generate the reports
 		btnReport.setIcon(new ImageIcon("/Users/pawel/Copy/iMacProjectEclipse/ProMusicaInventorySystem/resources/Search.png"));
 		btnReport.setFont(new Font("Cambria", Font.BOLD, 13));
-		add(btnReport, "cell 20 6 2 1,growx");
+		add(btnReport, "cell 21 6 2 1,growx");
 		
 
 
@@ -80,7 +80,7 @@ public class ReportsPanel extends JPanel {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setForeground(SystemColor.text);
 		scrollPane.setBorder(new LineBorder(new Color(130, 135, 144), 2, true));
-		add(scrollPane, "cell 1 10 22 1,grow");
+		add(scrollPane, "cell 1 10 23 1,grow");
 
 		ReportTableModel= new ReportTableModel();
 		tableReport = new JTable();
@@ -92,35 +92,43 @@ public class ReportsPanel extends JPanel {
 
 		scrollPane.setViewportView(tableReport);
 		
-	
-		printButton = new JButton("");
-		printButton.setToolTipText("Print");
-		printButton.setIcon(new ImageIcon(ReportsPanel.class.getResource("/com/group8/images/printer.png")));
-		printButton.setFont(new Font("Cambria", Font.BOLD, 13));
-		printButton.setEnabled(false);
-		add(printButton, "flowx,cell 19 11");
-		
-		CheckSelected = new JButton("");
-		CheckSelected.setToolTipText("Get Sale Items");
-		CheckSelected.setIcon(new ImageIcon(ReportsPanel.class.getResource("/com/group8/images/MagnifyingGlass.png")));
-		CheckSelected.setFont(new Font("Cambria", Font.BOLD, 13));
-		add(CheckSelected, "cell 19 11");
-		CheckSelected.setEnabled(false);
-		
 		saveButton = new JButton("");
+		saveButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		saveButton.setIcon(new ImageIcon(ReportsPanel.class.getResource("/com/group8/images/save.png")));
 		saveButton.setToolTipText("Save Report");
 		saveButton.setFont(new Font("Cambria", Font.BOLD, 13));
 		saveButton.setEnabled(false);
-		add(saveButton, "cell 19 11 2 1");
+		add(saveButton, "cell 2 11");
+		
+	
+		printButton = new JButton("");
+		printButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		printButton.setToolTipText("Print");
+		printButton.setIcon(new ImageIcon(ReportsPanel.class.getResource("/com/group8/images/printer.png")));
+		printButton.setFont(new Font("Cambria", Font.BOLD, 13));
+		printButton.setEnabled(false);
+		add(printButton, "cell 3 11");
+		
+		CheckSelected = new JButton("View sale items");
+		CheckSelected.setToolTipText("Get Sale Items");
+		CheckSelected.setIcon(new ImageIcon(ReportsPanel.class.getResource("/com/group8/images/MagnifyingGlass.png")));
+		CheckSelected.setFont(new Font("Cambria", Font.BOLD, 13));
+		add(CheckSelected, "cell 20 11");
+		CheckSelected.setEnabled(false);
 
-		logoutButton = new JButton("");
+		logoutButton = new JButton("Logout");
 		logoutButton.setIcon(new ImageIcon(ReportsPanel.class.getResource("/com/group8/images/logout.png")));
 		logoutButton.setToolTipText("Logout");
 		logoutButton.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
 		logoutButton.setForeground(Color.BLACK);
 		logoutButton.setFont(new Font("Cambria", Font.BOLD, 13));
-		add(logoutButton, "cell 25 11,aligny bottom");
+		add(logoutButton, "cell 26 11,aligny bottom");
         
        
        

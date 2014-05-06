@@ -145,12 +145,13 @@ public class ReservationPanel extends JPanel
 		euroLabel.setForeground(Color.GRAY);
 		southPanelReservation.add(euroLabel, "cell 5 15");
 		btnReserveItem = new JButton("Reserve item");	
+		btnReserveItem.setIcon(new ImageIcon(ReservationPanel.class.getResource("/com/group8/images/reservation.png")));
 		btnReserveItem.setFont(new Font("Cambria", Font.BOLD, 13));
 		btnReserveItem.setEnabled(false);
 		southPanelReservation.add(btnReserveItem, "cell 7 15,alignx right");
 		selectSubcategoryCBox = new JComboBox<String>();
 		makeNewReservationPanel.add(selectSubcategoryCBox, "cell 1 2,growx");
-		logoutButton = new JButton("");
+		logoutButton = new JButton("Logout");
 		logoutButton.setIcon(new ImageIcon(ReservationPanel.class.getResource("/com/group8/images/logout.png")));
 		logoutButton.setToolTipText("Logout");
 		makeNewReservationPanel.add(logoutButton, "cell 5 19,alignx right");
