@@ -52,7 +52,7 @@ public class SalesPanel extends JPanel {
 	 * Create the panel and initialize the panel.
 	 */
 	public SalesPanel() {
-		setLayout(new MigLayout("", "[grow][grow][]", "[][51.00][grow][grow]"));
+		setLayout(new MigLayout("", "[549.00,grow][grow][][]", "[][51.00][grow][grow]"));
 		setpSale(new PopupSaleDialog());
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		pSale.setLocation(dim.width/2-pSale.getSize().width/2, dim.height/2-pSale.getSize().height/2);
@@ -91,12 +91,6 @@ public class SalesPanel extends JPanel {
 		btnCheckout.setFont(new Font("Cambria", Font.BOLD, 13));
 		filterByPanel.add(btnCheckout, "flowx,cell 3 0,grow");
 		
-		scrollPane = new JScrollPane();
-		add(scrollPane, "cell 0 2 2 1,grow");
-		
-		table = new JTable();
-		scrollPane.setViewportView(table);
-		
 		btnAddToCart = new JButton("Add to Cart");
 		add(btnAddToCart, "flowx,cell 0 3");
 		btnAddToCart.addActionListener(new ActionListener() {
@@ -108,13 +102,7 @@ public class SalesPanel extends JPanel {
 		btnAddToCart.setFont(new Font("Cambria", Font.BOLD, 13));
 		
 		panel = new JPanel();
-		add(panel, "cell 0 3 2 1,alignx right,growy");
-		
-		logoutButton = new JButton("Logout");
-		logoutButton.setIcon(new ImageIcon(SalesPanel.class.getResource("/com/group8/images/logout.png")));
-		logoutButton.setToolTipText("Logout");
-		logoutButton.setFont(new Font("Cambria", Font.BOLD, 13));
-		add(logoutButton, "cell 2 3,alignx right");
+		add(panel, "cell 0 3,alignx right,growy");
 		
 		btnClearCart = new JButton("Empty Cart");
 		add(btnClearCart, "cell 0 3");
@@ -126,7 +114,7 @@ public class SalesPanel extends JPanel {
 			}
 		});
 		scrollPane = new JScrollPane();
-		add(scrollPane, "cell 0 2,grow");
+		add(scrollPane, "cell 0 2 2 1,growx");
 		
 		table = new JTable();
 		scrollPane.setViewportView(table);
@@ -134,11 +122,11 @@ public class SalesPanel extends JPanel {
 		panel = new JPanel();
 		add(panel, "flowx,cell 0 3,alignx right,growy");
 		
-		logoutButton = new JButton("");
+		logoutButton = new JButton("Logout");
 		logoutButton.setIcon(new ImageIcon(SalesPanel.class.getResource("/com/group8/images/logout.png")));
 		logoutButton.setToolTipText("Logout");
 		logoutButton.setFont(new Font("Cambria", Font.BOLD, 13));
-		add(logoutButton, "cell 1 3,alignx right");
+		add(logoutButton, "cell 2 3,alignx right");
 		disableCartButtons();
 	}
 	

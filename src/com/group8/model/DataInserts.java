@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.text.DecimalFormat;
 /*
  * This class will receive an already established Database Connection from another class
  * This class is then responsible for inserting new tables to the Database
@@ -77,7 +78,8 @@ public class DataInserts {
 		{
 			statement = con.createStatement();
 			//Structure for inserting a new tuple in Sale table
-			String insert = "Insert into Sale (saleDate, totalSalePrice, accountID) values ( '" + s.getDate() + "', " + s.getTotalPrice() + "," + a.getAccountID() + ")";
+			DecimalFormat df = new DecimalFormat("#.##");
+			String insert = "Insert into Sale (saleDate, totalSalePrice, accountID) values ( '" + s.getDate() + "', " + df.format(s.getTotalPrice()) + "," + a.getAccountID() + ")";
 			statement.executeUpdate(insert); //writes to Sale table
 			statement.close();
 		}

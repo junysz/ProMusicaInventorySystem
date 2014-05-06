@@ -42,7 +42,7 @@ public class SalesController {
 		theView.getTabsPane().getMakeSalePanel().setSelectCategoryCBModel(new CategoryComboBoxModel(), theModel.getCategoryNames());
 	}
 
-	//**************************Sale panel and pop-up buttons*******************
+	//**************************Sala and cart pop-up buttons listener*******************
 	class SaleListener implements ActionListener{
 
 		boolean contains=false;
@@ -259,6 +259,10 @@ public class SalesController {
 			}
 		}
 	}
+	/*
+	 * Following class updates the table model in sales panel
+	 * when key is pressed
+	 */
 
 	class SearchListener implements KeyListener	{
 		@Override

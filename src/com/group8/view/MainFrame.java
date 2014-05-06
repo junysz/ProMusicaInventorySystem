@@ -92,12 +92,14 @@ public class MainFrame extends JFrame
 			loginPanel.setPassField("");
 			loginPanel.getUsernameField().grabFocus();
 			loginPanel.getUsernameField().selectAll();
+			setSize(255, 370);
 		}
 		 public void logout()
 		 {
 						
 			displayLoginView();
-			setSize(450, 560);
+
+			setSize(255, 370);
     		setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 			
 		 }
@@ -118,7 +120,6 @@ public class MainFrame extends JFrame
 			loginPanel.getRootPane().setDefaultButton(loginPanel.getLoginBtn());
 		}
 		public void initPanels()
-		
 		{
 			tabbedPane.emptyInputs();
 		}

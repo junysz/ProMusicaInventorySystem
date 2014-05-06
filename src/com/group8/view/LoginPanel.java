@@ -44,9 +44,9 @@ public class LoginPanel extends JPanel {
 		add(btnLogin, "cell 0 18,alignx center");
 		usrNameTF = new JTextField();
 		add(usrNameTF, "cell 0 9,alignx right");
-		usrNameTF.setColumns(20);
+		usrNameTF.setColumns(15);
 		usrPassPF = new JPasswordField();
-		usrPassPF.setColumns(20);
+		usrPassPF.setColumns(15);
 		add(usrPassPF, "cell 0 13,alignx right");
 		ImagePanel proMusicaLogo = new ImagePanel("/com/group8/images/logo.png");
 		add(proMusicaLogo, "cell 0 0 1 2,grow");
