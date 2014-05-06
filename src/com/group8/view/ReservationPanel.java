@@ -114,6 +114,7 @@ public class ReservationPanel extends JPanel
 		searchKeywordTF.setColumns(10);
 		makeNewReservationPanel.add(searchKeywordTF, "cell 3 2,growx");
 		btnFindItems = new JButton("Find items");
+		btnFindItems.setIcon(new ImageIcon(ReservationPanel.class.getResource("/com/group8/images/Search.png")));
 		makeNewReservationPanel.add(btnFindItems, "cell 5 2");
 		btnFindItems.setFont(new Font("Cambria", Font.BOLD, 13));
 		makeNewReservationPanel.add(scrollPaneReservTable, "cell 0 10 4 6,grow");
@@ -254,6 +255,7 @@ public class ReservationPanel extends JPanel
 				btnEndReservation.setEnabled(false);
 		
 				logoutButton2 = new JButton("Logout");
+				logoutButton2.setIcon(new ImageIcon(ReservationPanel.class.getResource("/com/group8/images/logout.png")));
 				logoutButton2.setFont(new Font("Cambria", Font.BOLD, 13));
 				
 						logoutButton2.setForeground(Color.BLACK);

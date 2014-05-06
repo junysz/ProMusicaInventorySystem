@@ -44,7 +44,7 @@ public class ReportsPanel extends JPanel {
 		popup.setModal(true);
 		setAlignmentX(23.0f);
 		setFont(new Font("Tahoma", Font.BOLD, 12));
-		setLayout(new MigLayout("", "[95.00][24.00][][][][grow][][][][grow][][][][][][][][][][][][47.00][grow][][][grow][][]", "[][][][][][][][34.00][][][100px:250:400px,grow][90][1.00]"));
+		setLayout(new MigLayout("", "[95.00][24.00][][][][grow][][][][grow][][][][][][][][][][][][100.00][100.00][grow][][][grow][][]", "[][][][][][][][34.00][][][100px:250:400px,grow][90][1.00]"));
 
 		date1Label = new JLabel("Start Date");
 		date1Label.setFont(new Font("Cambria", Font.BOLD, 13));
@@ -61,9 +61,9 @@ public class ReportsPanel extends JPanel {
 		add(date2, "cell 7 6,grow");
 
 		btnReport = new JButton("Get sales");  //Button to generate the reports
-		btnReport.setIcon(new ImageIcon("/Users/pawel/Copy/iMacProjectEclipse/ProMusicaInventorySystem/resources/Search.png"));
+		btnReport.setIcon(new ImageIcon(ReportsPanel.class.getResource("/com/group8/images/Search.png")));
 		btnReport.setFont(new Font("Cambria", Font.BOLD, 13));
-		add(btnReport, "cell 21 6 2 1,growx");
+		add(btnReport, "cell 21 6 2 1,alignx center");
 		
 
 
@@ -71,7 +71,7 @@ public class ReportsPanel extends JPanel {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setForeground(SystemColor.text);
 		scrollPane.setBorder(new LineBorder(new Color(130, 135, 144), 2, true));
-		add(scrollPane, "cell 1 10 23 1,grow");
+		add(scrollPane, "cell 1 10 24 1,grow");
 
 		ReportTableModel= new ReportTableModel();
 		tableReport = new JTable();
@@ -111,7 +111,7 @@ public class ReportsPanel extends JPanel {
 		logoutButton.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
 		logoutButton.setForeground(Color.BLACK);
 		logoutButton.setFont(new Font("Cambria", Font.BOLD, 13));
-		add(logoutButton, "cell 26 11,aligny bottom");
+		add(logoutButton, "cell 27 11,aligny bottom");
         
        
        
